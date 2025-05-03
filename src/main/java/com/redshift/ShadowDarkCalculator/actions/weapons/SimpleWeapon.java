@@ -1,0 +1,55 @@
+package com.redshift.ShadowDarkCalculator.actions.weapons;
+
+import com.redshift.ShadowDarkCalculator.dice.RollModifier;
+import com.redshift.ShadowDarkCalculator.dice.Dice;
+
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
+
+/**
+ * All simple weapons in the game available to characters and monsters.
+ */
+
+public enum SimpleWeapon {
+    BASTARD_SWORD_1H("Bastard Sword 1h", D8, RollModifier.STRENGTH),
+    BASTARD_SWORD_2H("Bastard Sword 2h", D10, RollModifier.STRENGTH),
+    CLUB("Club", D4, RollModifier.STRENGTH),
+    CROSSBOW("Crossbow", D6, RollModifier.DEXTERITY),
+    DAGGER_DEX("Dagger (DEX)", D4, RollModifier.DEXTERITY),
+    DAGGER_STR("Dagger (STR)", D4, RollModifier.STRENGTH),
+    GREATAXE_1H("Greataxe 1h", D8, RollModifier.STRENGTH),
+    GREATAXE_2H("Greataxe 2h", D10, RollModifier.STRENGTH),
+    GREATSWORD("Greatsword 2h", D12, RollModifier.STRENGTH),
+    JAVELIN_STR("Javelin", D4, RollModifier.STRENGTH),
+    JAVELIN_DEX("Javelin", D4, RollModifier.DEXTERITY),
+    LONGBOW("Longbow", D8, RollModifier.DEXTERITY),
+    LONGSWORD("Longsword", D8, RollModifier.STRENGTH),
+    MACE("Mace", D6, RollModifier.STRENGTH),
+    SHORTBOW("Short Bow", D4, RollModifier.DEXTERITY),
+    SHORTSWORD("Shortsword", D6, RollModifier.STRENGTH),
+    SPEAR_STR("Spear (STR)", D6, RollModifier.STRENGTH),
+    SPEAR_DEX("Spear (DEX)", D6, RollModifier.DEXTERITY),
+    STAFF("Staff", D4, RollModifier.STRENGTH),
+    WARHAMMER("Warhammer", D10, RollModifier.STRENGTH);
+
+    private final String name;
+    private final Dice dice;
+    private final RollModifier rollModifier;
+
+    SimpleWeapon(String name, Dice dice, RollModifier rollModifier) {
+        this.name = name;
+        this.dice = dice;
+        this.rollModifier = rollModifier;
+    }
+
+    public CustomWeapon build() {
+        return new CustomWeapon(name, dice, rollModifier, 0, 0);
+    }
+
+    public CustomWeapon build(int attackModifier) {
+        return new CustomWeapon(name, dice, rollModifier, attackModifier);
+    }
+
+    public CustomWeapon build(int attackModifier, int damageModifier) {
+        return new CustomWeapon(name, dice, rollModifier, attackModifier, damageModifier);
+    }
+}

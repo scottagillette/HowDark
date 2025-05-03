@@ -1,0 +1,216 @@
+package com.redshift.ShadowDarkCalculator.creatures;
+
+import com.redshift.ShadowDarkCalculator.actions.Action;
+import com.redshift.ShadowDarkCalculator.conditions.*;
+import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
+
+public abstract class BaseCreature implements Creature {
+
+    private final Action action;
+    private final int armorClass;
+    private final Map<String, Condition> conditions = new HashMap<>();
+    private int currentHitPoints;
+    private boolean dead = false;
+    private final int hitPoints;
+    private final int level;
+    private final boolean monster;
+    private final String name;
+    private final Stats stats;
+    private final SingleTargetSelector targetSelector;
+    private final boolean undead;
+
+    /**
+     * Simplified constructor.
+     */
+
+    public BaseCreature(String name, int level, Stats stats, int armorClass, int hitPoints, Action action) {
+        this(name, level, false, true, stats, armorClass, hitPoints, action, new RandomTargetSelector());
+    }
+
+    /**
+     * All argument constructor.
+     */
+
+    public BaseCreature(String name, int level, boolean undead, boolean monster, Stats stats, int armorClass, int hitPoints, Action action, SingleTargetSelector targetSelector) {
+        this.name = name;
+        this.level = level;
+        this.undead = undead;
+        this.monster = monster;
+        this.stats = stats;
+        this.armorClass = armorClass;
+        this.hitPoints = hitPoints;
+        this.currentHitPoints = hitPoints;
+        this.action = action;
+        this.targetSelector = targetSelector;
+    }
+
+    @Override
+    public void addCondition(Condition condition) {
+        // Adding the same condition will replace the prior one.
+        conditions.put(condition.getClass().getName(), condition);
+    }
+
+    @Override
+    public boolean canAct() {
+        final List<Condition> cantActConditions = conditions.values()
+                .stream()
+                .filter(condition -> !condition.canAct())
+                .toList();
+
+        return cantActConditions.isEmpty() && !dead;
+    }
+
+    @Override
+    public int getAC() {
+        final List<Condition> cantActConditions = conditions.values().stream()
+                .filter(condition -> !condition.canAct())
+                .toList();
+
+        if (cantActConditions.isEmpty()) {
+            final ShieldOfFaithCondition condition = (ShieldOfFaithCondition) conditions.get(ShieldOfFaithCondition.class.getName());
+
+            if (condition != null) {
+                return armorClass + condition.getAcBonus();
+            } else {
+                return armorClass;
+            }
+        } else {
+            return 0; // No AC for creatures that can't act.
+        }
+    }
+
+    @Override
+    public Action getAction() {
+        return action;
+    }
+
+    @Override
+    public int getCurrentHitPoints() {
+        return currentHitPoints;
+    }
+
+    @Override
+    public SingleTargetSelector getEnemyTargetSelector() {
+        return targetSelector;
+    }
+
+    @Override
+    public int getInitiative() {
+        return D20.roll() + stats.getDexterityModifier();
+    }
+
+    @Override
+    public int getLevel() {
+        return level;
+    }
+
+    @Override
+    public int getMaxHitPoints() {
+        return hitPoints;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public Stats getStats() {
+        return stats;
+    }
+
+    @Override
+    public String getStatus() {
+        if (dead) return "Dead";
+        if (isUnconscious()) return "Unconscious";
+        return "Alive";
+    }
+
+    @Override
+    public int getWoundedAmount() {
+        return hitPoints - currentHitPoints;
+    }
+
+    @Override
+    public void healDamage(int amount) {
+        if (!dead) {
+            currentHitPoints = Math.min(hitPoints, currentHitPoints + amount);
+            conditions.remove(UnconciousCondition.class.getName()); // Healing removes this condition!
+            conditions.remove(DyingCondition.class.getName()); // Healing removes this condition!
+        }
+    }
+
+    @Override
+    public boolean isDead() {
+        return dead;
+    }
+
+    @Override
+    public boolean isUnconscious() {
+        return conditions.containsKey(UnconciousCondition.class.getName());
+    }
+
+    @Override
+    public boolean isUndead() {
+        return undead;
+    }
+
+    @Override
+    public boolean isWounded() {
+        return currentHitPoints < hitPoints;
+    }
+
+    @Override
+    public void setDead(boolean dead) {
+        this.dead = dead;
+    }
+
+    @Override
+    public void takeDamage(int amount) {
+        // Damage awakens any creature!
+        conditions.remove(SleepingCondition.class.getName());
+
+        currentHitPoints = Math.max(0, currentHitPoints - amount);
+
+        if (currentHitPoints == 0) {
+            if (monster) {
+                // Zero hp give them the unconscious condition!
+                System.out.println(name + " is dead!");
+                conditions.put(UnconciousCondition.class.getName(), new UnconciousCondition());
+                dead = true;
+            } else {
+                // Zero hp give them the unconscious and dying condition!
+                int deathRounds = D4.roll();
+                System.out.println(name + " is unconscious and dying in " + deathRounds +" rounds!");
+                conditions.put(UnconciousCondition.class.getName(), new UnconciousCondition());
+                conditions.put(DyingCondition.class.getName(), new DyingCondition(deathRounds));
+            }
+        }
+    }
+
+    @Override
+    public void takeTurn(List<Creature> enemies, List<Creature> allies) {
+        // Check conditions and remove the ones that have ended.
+        final List<Condition> remainingConditions = conditions.values().stream().
+                filter(condition -> !condition.hasEnded(this)).toList();
+
+        conditions.clear();
+
+        remainingConditions.forEach(condition -> conditions.put(condition.getClass().getName(), condition));
+
+        // Have each condition perform its effect.
+        conditions.values().forEach(condition -> condition.perform(this));
+
+        if (canAct()) {
+            getAction().perform(this, enemies, allies);
+        }
+    }
+}
