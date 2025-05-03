@@ -1,6 +1,6 @@
 # Summary
 
-I'm working on a programming project for Shadow Dark. It's a combat simulator aptly named "How Dark?".
+I'm working on a programming project (non-commercial use) for Shadow Dark. It's a combat simulator aptly named "How Dark?".
 
 # Assumptions & Key Points
 
