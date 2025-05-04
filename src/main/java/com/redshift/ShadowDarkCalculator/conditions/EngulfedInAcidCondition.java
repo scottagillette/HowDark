@@ -29,7 +29,7 @@ public class EngulfedInAcidCondition implements Condition {
     @Override
     public void perform(Creature creature) {
         final int damage = damageDice.roll();
-        creature.takeDamage(damage, false, false);
         System.out.println(creature.getName() + " has been burned by ACID for " + damage);
+        creature.takeDamage(damage, false, false);
     }
 }

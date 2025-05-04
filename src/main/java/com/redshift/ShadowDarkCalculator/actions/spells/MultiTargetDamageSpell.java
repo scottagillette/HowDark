@@ -68,14 +68,14 @@ public abstract class MultiTargetDamageSpell extends Spell {
         } else if (criticalSuccess) {
             int damage = damageDice.roll() + damageDice.roll();
             targets.forEach(target -> {
-                target.takeDamage(damage, false, true);
                 System.out.println(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + spell.getName() + ": damage=" + damage);
+                target.takeDamage(damage, false, true);
             });
         } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             int damage = damageDice.roll();
             targets.forEach(target -> {
-                target.takeDamage(damage, false, true);
                 System.out.println(actor.getName() + " hits a spell on " + target.getName() + " with a " + spell.getName() + ": damage=" + damage);
+                target.takeDamage(damage, false, true);
             });
         } else {
             lost = true; // Failed spell check!
