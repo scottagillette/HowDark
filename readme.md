@@ -1,6 +1,9 @@
 # Legal Notice
 
-This is a non-commercial use software project. Shadowdark® RPG copyright The Arcane Library copyright owner Kelsey Dionne.
+This project How Dark is an independent product published under the Shadowdark RPG Third-Party License and is not affiliated with 
+The Arcane Library, LLC. Shadowdark RPG © 2023 The Arcane Library, LLC. For more information see here:
+
+https://www.thearcanelibrary.com/blogs/shadowdark-blog/faq-on-the-shadowdark-rpg-third-party-license
 
 # Summary
 
