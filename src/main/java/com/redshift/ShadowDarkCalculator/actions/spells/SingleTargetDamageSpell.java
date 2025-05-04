@@ -62,8 +62,8 @@ public abstract class SingleTargetDamageSpell extends Spell {
             target.takeDamage(damage, false, true);
         } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
             int damage = damageDice.roll();
-            target.takeDamage(damage, false, true);
             System.out.println(actor.getName() + " hits a spell on " + target.getName() + " with a " + spell.getName() + ": damage=" + damage);
+            target.takeDamage(damage, false, true);
         } else {
             lost = true; // Failed spell check!
             System.out.println(actor.getName() + " MISSES the spell check with a " + spell.getName());
