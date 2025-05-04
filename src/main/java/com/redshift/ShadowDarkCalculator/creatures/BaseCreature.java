@@ -5,9 +5,9 @@ import com.redshift.ShadowDarkCalculator.conditions.*;
 import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
@@ -16,7 +16,7 @@ public abstract class BaseCreature implements Creature {
 
     private final Action action;
     private final int armorClass;
-    private final Map<String, Condition> conditions = new HashMap<>();
+    private final Map<String, Condition> conditions = new ConcurrentHashMap<>();
     private int currentHitPoints;
     private boolean dead = false;
     private final int hitPoints;
@@ -28,7 +28,7 @@ public abstract class BaseCreature implements Creature {
     private final boolean undead;
 
     /**
-     * Simplified constructor.
+     * Simplified constructor; not undead, but a monster.
      */
 
     public BaseCreature(String name, int level, Stats stats, int armorClass, int hitPoints, Action action) {
@@ -60,8 +60,7 @@ public abstract class BaseCreature implements Creature {
 
     @Override
     public boolean canAct() {
-        final List<Condition> cantActConditions = conditions.values()
-                .stream()
+        final List<Condition> cantActConditions = conditions.values().stream()
                 .filter(condition -> !condition.canAct())
                 .toList();
 
@@ -98,7 +97,7 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
-    public SingleTargetSelector getEnemyTargetSelector() {
+    public SingleTargetSelector getTargetSelector() {
         return targetSelector;
     }
 
@@ -141,6 +140,7 @@ public abstract class BaseCreature implements Creature {
 
     @Override
     public void healDamage(int amount) {
+        // No sense in healing the dead!
         if (!dead) {
             currentHitPoints = Math.min(hitPoints, currentHitPoints + amount);
             conditions.remove(UnconciousCondition.class.getName()); // Healing removes this condition!
@@ -165,16 +165,21 @@ public abstract class BaseCreature implements Creature {
 
     @Override
     public boolean isWounded() {
-        return currentHitPoints < hitPoints;
+        // Dead people are not wounded!
+        return currentHitPoints != 0 && currentHitPoints < hitPoints;
     }
 
     @Override
     public void setDead(boolean dead) {
-        this.dead = dead;
+        this.dead = dead; // Maybe res later?
+        if (dead) {
+            currentHitPoints = 0;
+            conditions.clear(); // Your dead! ... not unconscious!
+        }
     }
 
     @Override
-    public void takeDamage(int amount) {
+    public void takeDamage(int amount, boolean silvered, boolean magical) {
         // Damage awakens any creature!
         conditions.remove(SleepingCondition.class.getName());
 

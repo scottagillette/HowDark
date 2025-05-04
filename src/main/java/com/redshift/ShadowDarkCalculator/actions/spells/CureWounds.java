@@ -8,7 +8,6 @@ import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 
 import java.util.List;
 
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
 
 public class CureWounds extends SingleTargetBenificialSpell {
@@ -22,13 +21,13 @@ public class CureWounds extends SingleTargetBenificialSpell {
         if (lost) return false;
 
         final SingleTargetSelector selector = new HealTargetSelector();
-        return selector.getTarget(allies) != null;
+        return selector.get(allies) != null;
     }
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         final SingleTargetSelector selector = new HealTargetSelector();
-        final Creature target = selector.getTarget(allies); // Shouldn't get null since Spell.canPerform() returned true
+        final Creature target = selector.get(allies); // Shouldn't get null since Spell.canPerform() returned true
 
         // See if they pass the spell check!
         final int spellCheckRoll = getSpellCheckRoll();

@@ -12,15 +12,21 @@ import java.util.List;
 public class HealTargetSelector implements SingleTargetSelector {
 
     @Override
-    public Creature getTarget(List<Creature> targetOptions) {
-        final List<Creature> unconscious = targetOptions.stream().filter(Creature::isUnconscious).toList();
+    public Creature get(List<Creature> targetOptions) {
+        final List<Creature> unconscious = targetOptions.stream()
+                .filter(Creature::isUnconscious)
+                .toList();
 
         if (unconscious.isEmpty()) {
-            final List<Creature> wounded = targetOptions.stream().filter(Creature::isWounded).toList();
-            if (wounded.isEmpty()) return null;
+            final List<Creature> woundedAndNotDead = targetOptions.stream()
+                    .filter(Creature::isWounded)
+                    .filter(creature -> !creature.isDead())
+                    .toList();
 
-            int selectionIndex = new SingleDie(wounded.size()).roll();
-            return wounded.get(selectionIndex - 1); // Randomly choose a wounded creature
+            if (woundedAndNotDead.isEmpty()) return null;
+
+            int selectionIndex = new SingleDie(woundedAndNotDead.size()).roll();
+            return woundedAndNotDead.get(selectionIndex - 1); // Randomly choose a wounded creature
         } else {
             int selectionIndex = new SingleDie(unconscious.size()).roll();
             return unconscious.get(selectionIndex - 1); // Randomly choose an unconscious creature

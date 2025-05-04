@@ -43,7 +43,9 @@ public class HowDark {
 //                            new Skeleton("Skeleton 4")
 //                    )
 
-                    List.of(new Bugbear("Bugbear 1"), new Bugbear("Bugbear 2"))
+//                    List.of(new Bugbear("Bugbear 1"), new Bugbear("Bugbear 2"))
+
+                    List.of(new Wraith("Wraith"))
 			);
 
             simulator.simulateFight();

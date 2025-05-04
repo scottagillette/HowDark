@@ -21,7 +21,7 @@ public class ShieldOfFaith extends SingleTargetBenificialSpell {
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         // Note you can always cast this on yourself if everyone else is unconscious!
         final SingleTargetSelector selector = new RandomTargetSelector();
-        final Creature target = selector.getTarget(allies); // Randomly choose an ally
+        final Creature target = selector.get(allies); // Randomly choose an ally TODO: What about dead or unconscious?
 
         // See if they pass the spell check!
         final int spellCheckRoll = getSpellCheckRoll();

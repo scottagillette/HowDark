@@ -1,5 +1,7 @@
 package com.redshift.ShadowDarkCalculator.creatures;
 
+import com.redshift.ShadowDarkCalculator.dice.SingleDie;
+
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
 
 public class Stats {
@@ -107,6 +109,12 @@ public class Stats {
 
     public int constitutionSave() {
         return D20.roll() + getModifier(currentConstitution);
+    }
+
+    public int constitutionDrain(SingleDie die) {
+        // Reduce the targets constitution by the rolled amount.
+        currentConstitution = currentConstitution - die.roll();
+        return currentConstitution;
     }
 
 

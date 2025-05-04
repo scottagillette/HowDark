@@ -106,12 +106,14 @@ public class CombatSimulator {
 
     private boolean shouldStopBattle() {
         int group1Remaining = group1.stream()
-                .filter(Creature::canAct)
+                .filter(creature -> !creature.isUnconscious())
+                .filter(creature -> !creature.isDead())
                 .toList()
                 .size();
 
         int group2Remaining = group2.stream()
-                .filter(Creature::canAct)
+                .filter(creature -> !creature.isUnconscious())
+                .filter(creature -> !creature.isDead())
                 .toList()
                 .size();
 

@@ -38,7 +38,7 @@ public class CaveCreeper extends BaseCreature {
 
         @Override
         public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-            final Creature target = actor.getEnemyTargetSelector().getTarget(enemies);
+            final Creature target = actor.getTargetSelector().get(enemies);
 
             if (target == null) {
                 System.out.println(actor.getName() + " is skipping their turn... no target!");

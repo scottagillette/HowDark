@@ -42,7 +42,7 @@ public interface Creature {
      * Returns the target selector strategy for enemies.
      */
 
-    SingleTargetSelector getEnemyTargetSelector();
+    SingleTargetSelector getTargetSelector();
 
     /**
      * Returns the creatures name.
@@ -123,10 +123,10 @@ public interface Creature {
     void setDead(boolean dead);
 
     /**
-     * Instructs the creature to take an amount of damage.
+     * Instructs the creature to take an amount of damage silvered or magical.
      */
 
-    void takeDamage(int amount);
+    void takeDamage(int amount, boolean silvered, boolean magical);
 
     /**
      * Triggers any begin of turn triggers... count down timers, etc.

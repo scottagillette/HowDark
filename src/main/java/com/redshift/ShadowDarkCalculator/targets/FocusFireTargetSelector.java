@@ -13,21 +13,24 @@ import java.util.List;
 public class FocusFireTargetSelector implements SingleTargetSelector {
 
     @Override
-    public Creature getTarget(List<Creature> targetOptions) {
+    public Creature get(List<Creature> targetOptions) {
         Creature target = null;
 
-        final List<Creature> consciousTargets = targetOptions.stream()
+        final List<Creature> consciousNotDeadTargets = targetOptions.stream()
                 .filter(creature -> !creature.isUnconscious())
+                .filter(creature -> !creature.isDead())
                 .toList();
 
-        if (!consciousTargets.isEmpty()) {
-            final List<Creature> woundedCreatures = consciousTargets.stream()
+        if (consciousNotDeadTargets.isEmpty()) {
+
+        } else {
+            final List<Creature> woundedCreatures = consciousNotDeadTargets.stream()
                     .filter(Creature::isWounded)
                     .toList();
 
             if (woundedCreatures.isEmpty()) {
-                final SingleDie dice = new SingleDie(consciousTargets.size());
-                target = consciousTargets.get(dice.roll() - 1);
+                final SingleDie dice = new SingleDie(consciousNotDeadTargets.size());
+                target = consciousNotDeadTargets.get(dice.roll() - 1);
             } else {
                 target = woundedCreatures.get(0);
             }

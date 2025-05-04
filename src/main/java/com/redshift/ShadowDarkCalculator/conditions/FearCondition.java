@@ -17,7 +17,7 @@ public class FearCondition implements Condition {
 
     @Override
     public boolean hasEnded(Creature creature) {
-        rounds = Math.max(0, rounds -1);
+        rounds = Math.max(0, rounds - 1);
         return (rounds == 0);
     }
 

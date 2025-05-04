@@ -6,22 +6,32 @@ import com.redshift.ShadowDarkCalculator.dice.SingleDie;
 import java.util.List;
 
 /**
- * Random target selector of a conscious target, if any.
+ * Random target selector of a conscious non-dead targets, if any otherwise random.
  */
 
 public class RandomTargetSelector implements SingleTargetSelector {
 
     @Override
-    public Creature getTarget(List<Creature> targetOptions) {
+    public Creature get(List<Creature> targetOptions) {
         Creature target = null;
 
-        final List<Creature> consciousTargets = targetOptions.stream()
+        final List<Creature> consciousNotDeadTargets = targetOptions.stream()
                 .filter(creature -> !creature.isUnconscious())
+                .filter(creature -> !creature.isDead())
                 .toList();
 
-        if (!consciousTargets.isEmpty()) {
-            final SingleDie dice = new SingleDie(consciousTargets.size());
-            target = consciousTargets.get(dice.roll() - 1);
+        if (consciousNotDeadTargets.isEmpty()) {
+            final List<Creature> notDeadTargets = targetOptions.stream()
+                    .filter(creature -> !creature.isDead())
+                    .toList();
+
+            if (!notDeadTargets.isEmpty()) {
+                final SingleDie dice = new SingleDie(notDeadTargets.size());
+                target = notDeadTargets.get(dice.roll() - 1);
+            }
+        } else {
+            final SingleDie dice = new SingleDie(consciousNotDeadTargets.size());
+            target = consciousNotDeadTargets.get(dice.roll() - 1);
         }
 
         return target;

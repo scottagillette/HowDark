@@ -80,7 +80,7 @@ public class Weapon implements Action {
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        final Creature target = actor.getEnemyTargetSelector().getTarget(enemies);
+        final Creature target = actor.getTargetSelector().get(enemies);
 
         if (target == null) {
             System.out.println(actor.getName() + " is skipping their turn... no target!");
@@ -109,13 +109,13 @@ public class Weapon implements Action {
             return false;
         } else if (criticalSuccess) {
             int damage = damageDice.roll() + damageDice.roll() + damageRollBonus;
-            target.takeDamage(damage);
+            target.takeDamage(damage, silvered, magical);
             System.out.println(actor.getName() + " critically hits an attack on " + target.getName() + " with a " + weaponName + ": damage=" + damage);
             return true;
         } else if (attackRoll + attackRollModifier + attackRollBonus >= target.getAC()) {
             int damage = damageDice.roll() + damageRollBonus;
             System.out.println(actor.getName() + " hits an attack on " + target.getName() + " with a " + weaponName + ": damage=" + damage);
-            target.takeDamage(damage);
+            target.takeDamage(damage, silvered, magical);
             return true;
         } else {
             // Miss

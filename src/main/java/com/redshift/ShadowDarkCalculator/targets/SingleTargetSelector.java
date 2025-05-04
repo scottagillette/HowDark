@@ -10,6 +10,6 @@ public interface SingleTargetSelector {
      * Given a set of options for a target select one.
      */
 
-    Creature getTarget(List<Creature> targetOptions);
+    Creature get(List<Creature> targetOptions);
 
 }

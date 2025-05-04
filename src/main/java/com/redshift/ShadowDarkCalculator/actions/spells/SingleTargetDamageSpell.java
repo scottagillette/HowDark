@@ -7,8 +7,6 @@ import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 
 import java.util.List;
 
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
-
 /**
  * A spell that can affect a single targets and does damage to it... i.e. magic missile, acid arrow, etc.
  */
@@ -25,7 +23,7 @@ public abstract class SingleTargetDamageSpell extends Spell {
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        final Creature target = actor.getEnemyTargetSelector().getTarget(enemies);
+        final Creature target = actor.getTargetSelector().get(enemies);
 
         if (target == null) {
             System.out.println(actor.getName() + " is skipping their turn... no target!");
@@ -60,12 +58,12 @@ public abstract class SingleTargetDamageSpell extends Spell {
             System.out.println(actor.getName() + " critically MISSES the spell check with a " + spell.getName());
         } else if (criticalSuccess) {
             int damage = damageDice.roll() + damageDice.roll();
-            target.takeDamage(damage);
+            target.takeDamage(damage, false, true);
             System.out.println(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + spell.getName() + ": damage=" + damage);
         } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
             int damage = damageDice.roll();
             System.out.println(actor.getName() + " hits a spell on " + target.getName() + " with a " + spell.getName() + ": damage=" + damage);
-            target.takeDamage(damage);
+            target.takeDamage(damage, false, true);
         } else {
             lost = true; // Failed spell check!
             System.out.println(actor.getName() + " MISSES the spell check with a " + spell.getName());
