@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.*;
+import com.redshift.ShadowDarkCalculator.creatures.undead.Zombie;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilder;
@@ -45,10 +45,17 @@ public class HowDark {
 //                            new Skeleton("Skeleton 4")
 //                    )
 
+                    List.of(
+                            new Zombie("Zombie 1"),
+                            new Zombie("Zombie 2"),
+                            new Zombie("Zombie 3"),
+                            new Zombie("Zombie 4")
+                    )
+
 //                    List.of(new Bugbear("Bugbear 1"), new Bugbear("Bugbear 2"))
 
-                    List.of(new Wraith("Wraith"))
-			);
+//                    List.of(new Wraith("Wraith"))
+            );
 
             simulator.simulateFight();
 
