@@ -191,7 +191,7 @@ public abstract class BaseCreature implements Creature {
             if (monster) {
                 // Zero hp give them the unconscious condition!
                 log.info(name + " is dead!");
-                conditions.put(UnconciousCondition.class.getName(), new UnconciousCondition());
+                conditions.clear();
                 dead = true;
             } else {
                 // Zero hp give them the unconscious and dying condition!
