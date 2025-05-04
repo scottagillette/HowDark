@@ -1,6 +1,10 @@
+# Legal Notice
+
+This is a non-commercial use software project. Shadowdark® RPG copyright The Arcane Library copyright owner Kelsey Dionne.
+
 # Summary
 
-I'm working on a programming project (non-commercial use) for Shadow Dark. It's a combat simulator aptly named "How Dark?".
+I'm working on a programming project based on Shadow Dark rules. It's a combat simulator aptly named "How Dark?".
 
 # Assumptions & Key Points
 
