@@ -41,6 +41,12 @@ public class PerformAllAction implements Action {
     }
 
     @Override
+    public boolean isMagical() {
+        // TODO: Does this need to check?
+        return false;
+    }
+
+    @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         // Choose all actions; but can't be lost and can be performed.
 

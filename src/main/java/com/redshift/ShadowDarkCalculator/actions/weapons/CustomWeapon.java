@@ -19,4 +19,10 @@ public class CustomWeapon extends Weapon {
         addDamageBonus(damageBonus);
     }
 
+    public CustomWeapon(String name, Dice dice, RollModifier rollModifier, int attackModifier, int damageBonus, boolean magical) {
+        super(name, dice, rollModifier);
+        addAttackBonus(attackModifier);
+        addDamageBonus(damageBonus);
+    }
+
 }

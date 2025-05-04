@@ -21,11 +21,17 @@ public abstract class Weapon implements Action {
     protected final RollModifier rollModifier;
     protected int attackRollBonus = 0;
     protected int damageRollBonus = 0;
+    protected boolean magical;
 
     public Weapon(String name, Dice dice, RollModifier rollModifier) {
+        this(name, dice, rollModifier, false);
+    }
+
+    public Weapon(String name, Dice dice, RollModifier rollModifier, boolean magical) {
         this.name = name;
         this.dice = dice;
         this.rollModifier = rollModifier;
+        this.magical = magical;
     }
 
     public void addAttackBonus(int bonus) {
@@ -49,6 +55,11 @@ public abstract class Weapon implements Action {
     @Override
     public boolean isLost() {
         return false; // Melee and ranged attacks by default cannot be lost like spells.
+    }
+
+    @Override
+    public boolean isMagical() {
+        return magical;
     }
 
     @Override

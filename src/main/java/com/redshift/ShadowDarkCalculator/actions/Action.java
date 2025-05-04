@@ -29,6 +29,12 @@ public interface Action {
     boolean isLost();
 
     /**
+     * Returns true if the action is magical.
+     */
+
+    boolean isMagical();
+
+    /**
      * Performs the specific action.
      */
 

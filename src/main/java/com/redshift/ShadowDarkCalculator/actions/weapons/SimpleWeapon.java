@@ -10,6 +10,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
  */
 
 public enum SimpleWeapon {
+
     BASTARD_SWORD_1H("Bastard Sword 1h", D8, RollModifier.STRENGTH),
     BASTARD_SWORD_2H("Bastard Sword 2h", D10, RollModifier.STRENGTH),
     CLUB("Club", D4, RollModifier.STRENGTH),
@@ -45,11 +46,23 @@ public enum SimpleWeapon {
         return new CustomWeapon(name, dice, rollModifier, 0, 0);
     }
 
-    public CustomWeapon build(int attackModifier) {
-        return new CustomWeapon(name, dice, rollModifier, attackModifier);
+    public CustomWeapon build(int attackModifierBonus) {
+        return new CustomWeapon(name, dice, rollModifier, attackModifierBonus);
     }
 
-    public CustomWeapon build(int attackModifier, int damageModifier) {
-        return new CustomWeapon(name, dice, rollModifier, attackModifier, damageModifier);
+    public CustomWeapon build(int attackModifierBonus, int damageModifierBonus) {
+        return new CustomWeapon(name, dice, rollModifier, attackModifierBonus, damageModifierBonus);
+    }
+
+    public CustomWeapon buildMagicPlus1() {
+        return new CustomWeapon(name, dice, rollModifier, 1, 1, true);
+    }
+
+    public CustomWeapon buildMagicPlus2() {
+        return new CustomWeapon(name, dice, rollModifier, 2, 2, true);
+    }
+
+    public CustomWeapon buildMagicPlus3() {
+        return new CustomWeapon(name, dice, rollModifier, 2, 2, true);
     }
 }

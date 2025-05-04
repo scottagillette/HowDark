@@ -60,4 +60,9 @@ public abstract class Spell implements Action {
         return lost;
     }
 
+    @Override
+    public boolean isMagical() {
+        return true;
+    }
+
 }
