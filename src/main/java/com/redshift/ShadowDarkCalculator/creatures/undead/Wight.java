@@ -2,10 +2,12 @@ package com.redshift.ShadowDarkCalculator.creatures.undead;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
+import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.BaseCreature;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
+import com.redshift.ShadowDarkCalculator.dice.ZeroDice;
 import com.redshift.ShadowDarkCalculator.resistance.SimpleDamageResistance;
 import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
 import lombok.extern.slf4j.Slf4j;
@@ -15,18 +17,18 @@ import java.util.List;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 @Slf4j
-public class Wraith extends BaseCreature {
+public class Wight extends BaseCreature {
 
-    public Wraith(String name) {
+    public Wight(String name) {
         super(
                 name,
-                8,
+                3,
                 true,
                 true,
-                new Stats(3,18,10,10,10,16),
+                new Stats(17,12,14,12,10,17),
                 14,
-                D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll(),
-                new PerformAllAction(new Wraith.DeathTouch(), new Wraith.DeathTouch(), new Wraith.DeathTouch()),
+                D8.roll() + D8.roll() + D8.roll() + 2,
+                new PerformAllAction(WeaponBuilder.BASTARD_SWORD_2H.build(), new Wight.LifeDrain()),
                 new RandomTargetSelector()
         );
     }
@@ -43,10 +45,11 @@ public class Wraith extends BaseCreature {
         }
     }
 
-    public static class DeathTouch extends Weapon {
+    public static class LifeDrain extends Weapon {
 
-        public DeathTouch() {
-            super("Death Touch", D10, RollModifier.DEXTERITY, 2);
+        public LifeDrain() {
+            // Life drain does no damage but only drains life!
+            super("Life Drain", new ZeroDice(), RollModifier.STRENGTH);
         }
 
         @Override

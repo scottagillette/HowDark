@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator;
 
 import com.redshift.ShadowDarkCalculator.creatures.undead.Ghoul;
+import com.redshift.ShadowDarkCalculator.creatures.undead.Wight;
 import com.redshift.ShadowDarkCalculator.creatures.undead.Zombie;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 
@@ -53,13 +54,14 @@ public class HowDark {
 //                            new Zombie("Zombie 4")
 //                    )
 
-                    List.of(
-                            new Ghoul("Blood drenched Ghoul"),
-                            new Ghoul("Single limb Ghoul"),
-                            new Ghoul("Foul smell Ghoul"),
-                            new Ghoul("Faceless Ghoul")
-                    )
+//                    List.of(
+//                            new Ghoul("Blood drenched Ghoul"),
+//                            new Ghoul("Single limb Ghoul"),
+//                            new Ghoul("Foul smell Ghoul"),
+//                            new Ghoul("Faceless Ghoul")
+//                    )
 
+                    List.of(new Wight("Armored Wight"))
 
 //                    List.of(new Bugbear("Bugbear 1"), new Bugbear("Bugbear 2"))
 
