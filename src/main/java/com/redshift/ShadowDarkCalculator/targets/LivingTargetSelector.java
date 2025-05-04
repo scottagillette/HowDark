@@ -25,7 +25,6 @@ public class LivingTargetSelector implements MultiTargetSelector {
         } else {
             return livingCreatures.subList(0, Math.min(livingCreatures.size(), maxTargets));
         }
-
     }
 
 }

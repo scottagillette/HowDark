@@ -6,15 +6,16 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.targets.LivingTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.MultiTargetSelector;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 import static java.lang.Math.min;
 
+@Slf4j
 public class Sleep extends MultiTargetSpell {
 
     public Sleep() {
@@ -52,28 +53,28 @@ public class Sleep extends MultiTargetSpell {
 
         if (criticalFailure) {
             lost = true; // Failed spell check!
-            System.out.println(actor.getName() + " critically MISSES the spell check on " + getName());
+            log.info(actor.getName() + " critically MISSES the spell check on " + getName());
         } else if (criticalSuccess) {
             targets.forEach(target -> {
                 if (target.getLevel() <= 2) {
                     target.addCondition(new SleepingCondition());
-                    System.out.println(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + getName());
+                    log.info(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + getName());
                 } else {
-                    System.out.println(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + getName() + " but doesn't affect the creature.");
+                    log.info(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + getName() + " but doesn't affect the creature.");
                 }
             });
         } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
             targets.forEach(target -> {
                 if (target.getLevel() <= 2) {
                     target.addCondition(new SleepingCondition());
-                    System.out.println(actor.getName() + " hits a spell on " + target.getName() + " with a " + getName());
+                    log.info(actor.getName() + " hits a spell on " + target.getName() + " with a " + getName());
                 } else {
-                    System.out.println(actor.getName() + " hits a spell on " + target.getName() + " with a " + getName() + " but doesn't affect the creature.");
+                    log.info(actor.getName() + " hits a spell on " + target.getName() + " with a " + getName() + " but doesn't affect the creature.");
                 }
             });
         } else {
             lost = true; // Failed spell check!
-            System.out.println(actor.getName() + " MISSES the spell check with a " + getName());
+            log.info(actor.getName() + " MISSES the spell check with a " + getName());
         }
     }
 }

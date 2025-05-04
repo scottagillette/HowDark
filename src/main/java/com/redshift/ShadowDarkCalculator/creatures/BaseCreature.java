@@ -4,6 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.conditions.*;
 import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 
+@Slf4j
 public abstract class BaseCreature implements Creature {
 
     private final Action action;
@@ -188,13 +190,13 @@ public abstract class BaseCreature implements Creature {
         if (currentHitPoints == 0) {
             if (monster) {
                 // Zero hp give them the unconscious condition!
-                System.out.println(name + " is dead!");
+                log.info(name + " is dead!");
                 conditions.put(UnconciousCondition.class.getName(), new UnconciousCondition());
                 dead = true;
             } else {
                 // Zero hp give them the unconscious and dying condition!
                 int deathRounds = D4.roll();
-                System.out.println(name + " is unconscious and dying in " + deathRounds +" rounds!");
+                log.info(name + " is unconscious and dying in " + deathRounds +" rounds!");
                 conditions.put(UnconciousCondition.class.getName(), new UnconciousCondition());
                 conditions.put(DyingCondition.class.getName(), new DyingCondition(deathRounds));
             }

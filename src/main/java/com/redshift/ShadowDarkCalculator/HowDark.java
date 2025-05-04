@@ -4,9 +4,11 @@ import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilder;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+@Slf4j
 public class HowDark {
 
     public static void main(String[] args) {
@@ -18,7 +20,7 @@ public class HowDark {
 
         for (int i = 0; i < 1000; i++) {
 
-            System.out.println("[ Fight: " + (i + 1) + " ]");
+            log.info("[ Fight: " + (i + 1) + " ]");
 
             final CombatSimulator simulator = new CombatSimulator(
                     //new TheWolfPackBuilder().build(),
@@ -57,8 +59,8 @@ public class HowDark {
             group2WinsWithDeath = group2WinsWithDeath + simulator.getGroup2WinsWithDeath();
         }
 
-        System.out.println("Group 1: wins=" + group1Wins + ", winsWithDeath=" + group1WinsWithDeath);
-        System.out.println("Group 2: wins=" + group2Wins + ", winsWithDeath=" + group2WinsWithDeath);
+        log.info("Group 1: wins=" + group1Wins + ", winsWithDeath=" + group1WinsWithDeath);
+        log.info("Group 2: wins=" + group2Wins + ", winsWithDeath=" + group2WinsWithDeath);
     }
 
 }

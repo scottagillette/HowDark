@@ -4,11 +4,13 @@ import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
+@Slf4j
 public class CaveCreeper extends BaseCreature {
 
     public CaveCreeper(String name) {
@@ -41,17 +43,17 @@ public class CaveCreeper extends BaseCreature {
             final Creature target = actor.getTargetSelector().get(enemies);
 
             if (target == null) {
-                System.out.println(actor.getName() + " is skipping their turn... no target!");
+                log.info(actor.getName() + " is skipping their turn... no target!");
             } else {
                 boolean attackHits = performSingleTargetAttack(actor, target, name, dice, rollModifier);
 
                 if (attackHits) {
                     if (!target.getStats().constitutionSave(12)) {
                         int rounds = D4.roll();
-                        System.out.println(target.getName() + " is paralyzed for " + rounds + " rounds!");
+                        log.info(target.getName() + " is paralyzed for " + rounds + " rounds!");
                         target.addCondition(new ParalyzedCondition(rounds));
                     } else {
-                        System.out.println(target.getName() + " SAVES and is NOT paralyzed!");
+                        log.info(target.getName() + " SAVES and is NOT paralyzed!");
                     }
                 }
             }

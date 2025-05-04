@@ -6,11 +6,13 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
+@Slf4j
 public class ShieldOfFaith extends SingleTargetBenificialSpell {
 
     public ShieldOfFaith() {
@@ -32,15 +34,15 @@ public class ShieldOfFaith extends SingleTargetBenificialSpell {
         final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom!
 
         if (criticalFailure) {
-            System.out.println(actor.getName() + " critically MISSES the spell check on " + name);
+            log.info(actor.getName() + " critically MISSES the spell check on " + name);
         } else if (criticalSuccess) {
             target.addCondition(new ShieldOfFaithCondition(D5.roll(), 4)); // Double AC for critical success
-            System.out.println(actor.getName() + " critically adds 4 AC on " + target.getName() + " with a " + name);
+            log.info(actor.getName() + " critically adds 4 AC on " + target.getName() + " with a " + name);
         } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
             target.addCondition(new ShieldOfFaithCondition(D5.roll()));
-            System.out.println(actor.getName() + " adds 2 AC on " + target.getName() + " with a " + name);
+            log.info(actor.getName() + " adds 2 AC on " + target.getName() + " with a " + name);
         } else {
-            System.out.println(actor.getName() + " MISSES the spell check with a " + name);
+            log.info(actor.getName() + " MISSES the spell check with a " + name);
         }
 
         lost = true; // Always lost... cast only one per battle per character...

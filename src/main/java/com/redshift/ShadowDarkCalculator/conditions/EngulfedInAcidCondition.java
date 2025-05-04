@@ -2,7 +2,9 @@ package com.redshift.ShadowDarkCalculator.conditions;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class EngulfedInAcidCondition implements Condition {
 
     private final Dice damageDice;
@@ -29,7 +31,7 @@ public class EngulfedInAcidCondition implements Condition {
     @Override
     public void perform(Creature creature) {
         final int damage = damageDice.roll();
-        System.out.println(creature.getName() + " has been burned by ACID for " + damage);
+        log.info(creature.getName() + " has been burned by ACID for " + damage);
         creature.takeDamage(damage, false, false);
     }
 }

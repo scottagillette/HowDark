@@ -1,7 +1,9 @@
 package com.redshift.ShadowDarkCalculator.conditions;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class ParalyzedCondition implements Condition {
 
     private int rounds;
@@ -23,7 +25,7 @@ public class ParalyzedCondition implements Condition {
 
     @Override
     public void perform(Creature creature) {
-        System.out.println(creature.getName() + " is paralyzed and skipping their turn.");
+        log.info(creature.getName() + " is paralyzed and skipping their turn.");
         // No adverse effect... other than you cant act!
     }
 

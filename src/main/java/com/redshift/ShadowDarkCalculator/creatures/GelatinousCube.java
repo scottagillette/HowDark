@@ -4,11 +4,13 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.EngulfedInAcidCondition;
 import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
+@Slf4j
 public class GelatinousCube extends BaseCreature {
 
     public GelatinousCube(String name) {
@@ -33,7 +35,7 @@ public class GelatinousCube extends BaseCreature {
             final Creature target = actor.getTargetSelector().get(enemies);
 
             if (target == null) {
-                System.out.println(actor.getName() + " is skipping their turn... no target!");
+                log.info(actor.getName() + " is skipping their turn... no target!");
             } else {
                 boolean attackHits = performSingleTargetAttack(actor, target, name, dice, rollModifier);
 
@@ -41,19 +43,19 @@ public class GelatinousCube extends BaseCreature {
                     // Toxin
                     if (!target.getStats().constitutionSave(15)) {
                         int rounds = D4.roll();
-                        System.out.println(target.getName() + " is paralyzed for " + rounds + " rounds!");
+                        log.info(target.getName() + " is paralyzed for " + rounds + " rounds!");
                         target.addCondition(new ParalyzedCondition(rounds));
 
                         // Engulf... does no check if paralyzed...
-                        System.out.println(target.getName() + " is engulfed by the Gelatinous Cube!");
+                        log.info(target.getName() + " is engulfed by the Gelatinous Cube!");
                         target.addCondition(new EngulfedInAcidCondition(D8));
 
                     } else {
-                        System.out.println(target.getName() + " SAVES and is NOT paralyzed!");
+                        log.info(target.getName() + " SAVES and is NOT paralyzed!");
 
                         // Engulf.. STR DC 12 check
                         if (!target.getStats().strengthSave(12)) {
-                            System.out.println(target.getName() + " is engulfed by the Gelatinous Cube!");
+                            log.info(target.getName() + " is engulfed by the Gelatinous Cube!");
                             target.addCondition(new EngulfedInAcidCondition(D8));
                         }
                     }

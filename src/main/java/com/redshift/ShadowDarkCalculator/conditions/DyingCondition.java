@@ -1,7 +1,9 @@
 package com.redshift.ShadowDarkCalculator.conditions;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class DyingCondition implements Condition {
 
     private int rounds;
@@ -24,10 +26,10 @@ public class DyingCondition implements Condition {
     @Override
     public void perform(Creature creature) {
         if (rounds == 0) {
-            System.out.println(creature.getName() + " has died!");
+            log.info(creature.getName() + " has died!");
             creature.setDead(true);
         } else {
-            System.out.println(creature.getName() + " has their death timer tick down: roundsRemaining=" + rounds);
+            log.info(creature.getName() + " has their death timer tick down: roundsRemaining=" + rounds);
         }
     }
 }

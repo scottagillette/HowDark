@@ -4,11 +4,13 @@ import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
+@Slf4j
 public class Wraith extends BaseCreature {
 
     public Wraith(String name) {
@@ -31,7 +33,7 @@ public class Wraith extends BaseCreature {
         if (silvered || magical) {
             super.takeDamage(amount, silvered, magical);
         } else {
-            System.out.println(getName() + " takes no damage from non-silvered, non-magical damage!");
+            log.info(getName() + " takes no damage from non-silvered, non-magical damage!");
         }
     }
 
@@ -46,17 +48,17 @@ public class Wraith extends BaseCreature {
             final Creature target = actor.getTargetSelector().get(enemies);
 
             if (target == null) {
-                System.out.println(actor.getName() + " is skipping their turn... no target!");
+                log.info(actor.getName() + " is skipping their turn... no target!");
             } else {
                 boolean attackHits = performSingleTargetAttack(actor, target, name, dice, rollModifier);
 
                 if (attackHits) {
                     int constitutionRemaining = target.getStats().constitutionDrain(D4);
                     if ( constitutionRemaining == 0) {
-                        System.out.println(target.getName() + " is drained of constitution to " + constitutionRemaining + " and DIES!");
+                        log.info(target.getName() + " is drained of constitution to " + constitutionRemaining + " and DIES!");
                         target.setDead(true);
                     } else {
-                        System.out.println(target.getName() + " is drained of constitution to " + constitutionRemaining);
+                        log.info(target.getName() + " is drained of constitution to " + constitutionRemaining);
                     }
                 }
             }

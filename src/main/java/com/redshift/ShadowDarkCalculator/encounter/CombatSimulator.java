@@ -2,6 +2,7 @@ package com.redshift.ShadowDarkCalculator.encounter;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
+@Slf4j
 public class CombatSimulator {
 
     private final List<Creature> group1;
@@ -67,7 +69,7 @@ public class CombatSimulator {
 
         while (!stopBattle) {
 
-            System.out.println("[ Round: " + i + " ]");
+            log.info("[ Round: " + i + " ]");
 
             for (Integer initiative : sortedCreaturesInitiative) {
                 final Creature creature = initiativeMap.get(initiative);
@@ -143,15 +145,15 @@ public class CombatSimulator {
     }
 
     private void reportFightSummary() {
-        System.out.println("---------------------");
+        log.info("---------------------");
         group1.forEach(creature -> {
-            System.out.println(creature.getName() + " hit points " + creature.getCurrentHitPoints() + "/" + creature.getMaxHitPoints() + " status=" + creature.getStatus());
+            log.info(creature.getName() + " hit points " + creature.getCurrentHitPoints() + "/" + creature.getMaxHitPoints() + " status=" + creature.getStatus());
         });
 
         group2.forEach(creature -> {
-            System.out.println(creature.getName() + " hit points " + creature.getCurrentHitPoints() + "/" + creature.getMaxHitPoints() + " status=" + creature.getStatus());
+            log.info(creature.getName() + " hit points " + creature.getCurrentHitPoints() + "/" + creature.getMaxHitPoints() + " status=" + creature.getStatus());
         });
-        System.out.println("---------------------");
+        log.info("---------------------");
     }
 
 }

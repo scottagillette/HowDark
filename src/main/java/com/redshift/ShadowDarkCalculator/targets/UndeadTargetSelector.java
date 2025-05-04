@@ -25,7 +25,6 @@ public class UndeadTargetSelector implements MultiTargetSelector {
         } else {
             return undead.subList(0, Math.min(undead.size(), maxTargets));
         }
-
     }
 
 }

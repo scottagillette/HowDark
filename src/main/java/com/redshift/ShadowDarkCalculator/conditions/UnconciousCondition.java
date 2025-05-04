@@ -1,7 +1,9 @@
 package com.redshift.ShadowDarkCalculator.conditions;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class UnconciousCondition implements Condition {
 
     @Override
@@ -16,7 +18,7 @@ public class UnconciousCondition implements Condition {
 
     @Override
     public void perform(Creature creature) {
-        System.out.println(creature.getName() + " is unconscious and skipping their turn.");
+        log.info(creature.getName() + " is unconscious and skipping their turn.");
         // Has no effect... other than you most likely will be dead...
     }
 

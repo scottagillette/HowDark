@@ -6,11 +6,13 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.targets.MultiTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.UndeadTargetSelector;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
+@Slf4j
 public class TurnUndead extends MultiTargetSpell {
 
     public TurnUndead() {
@@ -40,7 +42,7 @@ public class TurnUndead extends MultiTargetSpell {
 
         if (criticalFailure) {
             lost = true; // Failed spell check!
-            System.out.println(actor.getName() + " critically MISSES the spell check on " + getName());
+            log.info(actor.getName() + " critically MISSES the spell check on " + getName());
         } else if (criticalSuccess) {
             targets.forEach(target -> {
                 int save = target.getStats().charismaSave();
@@ -48,18 +50,18 @@ public class TurnUndead extends MultiTargetSpell {
                 if (save < spellCheckRoll + spellCheckModifier) {
                     if ((spellCheckRoll + spellCheckModifier) - save >= 10) {
                         if (actor.getLevel() >= target.getLevel()) {
-                            System.out.println(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + getName() + " and is destroyed!");
+                            log.info(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + getName() + " and is destroyed!");
                             target.takeDamage(999, false, true); // Destroyed!
                         } else {
                             target.addCondition(new FearCondition(D5.roll())); // Just feared
-                            System.out.println(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + getName() + " and feared!");
+                            log.info(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + getName() + " and feared!");
                         }
                     } else {
                         target.addCondition(new FearCondition(D5.roll())); // Just feared
-                        System.out.println(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + getName() + " and feared!");
+                        log.info(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + getName() + " and feared!");
                     }
                 } else {
-                    System.out.println(actor.getName() + " has their spell resisted by " + target.getName() + " with a " + getName());
+                    log.info(actor.getName() + " has their spell resisted by " + target.getName() + " with a " + getName());
                 }
             });
         } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
@@ -69,23 +71,23 @@ public class TurnUndead extends MultiTargetSpell {
                 if (save < spellCheckRoll + spellCheckModifier) {
                     if ((spellCheckRoll + spellCheckModifier) - save >= 10) {
                         if (actor.getLevel() >= target.getLevel()) {
-                            System.out.println(actor.getName() + " hits a spell on " + target.getName() + " with a " + getName() + " and is destroyed!");
+                            log.info(actor.getName() + " hits a spell on " + target.getName() + " with a " + getName() + " and is destroyed!");
                             target.takeDamage(999, false, true); // Destroyed!
                         } else {
                             target.addCondition(new FearCondition(D5.roll())); // Just feared
-                            System.out.println(actor.getName() + " hits a spell on " + target.getName() + " with a " + getName() + " and feared!");
+                            log.info(actor.getName() + " hits a spell on " + target.getName() + " with a " + getName() + " and feared!");
                         }
                     } else {
                         target.addCondition(new FearCondition(D5.roll())); // Just feared
-                        System.out.println(actor.getName() + " hits a spell on " + target.getName() + " with a " + getName() + " and feared!");
+                        log.info(actor.getName() + " hits a spell on " + target.getName() + " with a " + getName() + " and feared!");
                     }
                 } else {
-                    System.out.println(actor.getName() + " has their spell resisted by " + target.getName() + " with a " + getName());
+                    log.info(actor.getName() + " has their spell resisted by " + target.getName() + " with a " + getName());
                 }
             });
         } else {
             lost = true; // Failed spell check!
-            System.out.println(actor.getName() + " MISSES the spell check with a " + getName());
+            log.info(actor.getName() + " MISSES the spell check with a " + getName());
         }
     }
 }

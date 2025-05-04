@@ -5,11 +5,13 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.targets.HealTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
 
+@Slf4j
 public class CureWounds extends SingleTargetBenificialSpell {
 
     public CureWounds() {
@@ -39,18 +41,18 @@ public class CureWounds extends SingleTargetBenificialSpell {
 
         if (criticalFailure) {
             lost = true; // Failed spell check!
-            System.out.println(actor.getName() + " critically MISSES the spell check on " + name);
+            log.info(actor.getName() + " critically MISSES the spell check on " + name);
         } else if (criticalSuccess) {
             int hitPoints = D6.roll() + D6.roll();
+            log.info(actor.getName() + " critically heals on " + target.getName() + " for " + hitPoints + " with a " + name);
             target.healDamage(hitPoints);
-            System.out.println(actor.getName() + " critically heals on " + target.getName() + " for " + hitPoints + " with a " + name);
         } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
             int hitPoints = D6.roll();
+            log.info(actor.getName() + " heals on " + target.getName() + " for " + hitPoints + " with a " + name);
             target.healDamage(hitPoints);
-            System.out.println(actor.getName() + " heals on " + target.getName() + " for " + hitPoints + " with a " + name);
         } else {
             lost = true; // Failed spell check!
-            System.out.println(actor.getName() + " MISSES the spell check with a " + name);
+            log.info(actor.getName() + " MISSES the spell check with a " + name);
         }
 
     }

@@ -5,6 +5,7 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
  * An action that attempts to attack with a melee or ranged weapon.
  */
 
+@Slf4j
 public class Weapon implements Action {
 
     protected final String name;
@@ -83,7 +85,7 @@ public class Weapon implements Action {
         final Creature target = actor.getTargetSelector().get(enemies);
 
         if (target == null) {
-            System.out.println(actor.getName() + " is skipping their turn... no target!");
+            log.info(actor.getName() + " is skipping their turn... no target!");
         } else {
             performSingleTargetAttack(actor, target, name, dice, rollModifier);
         }
@@ -105,21 +107,21 @@ public class Weapon implements Action {
 
         if (criticalFailure) {
             // Do nothing
-            System.out.println(actor.getName() + " critically MISSES an attack on " + target.getName() + " with a " + weaponName);
+            log.info(actor.getName() + " critically MISSES an attack on " + target.getName() + " with a " + weaponName);
             return false;
         } else if (criticalSuccess) {
             int damage = damageDice.roll() + damageDice.roll() + damageRollBonus;
-            System.out.println(actor.getName() + " critically hits an attack on " + target.getName() + " with a " + weaponName + ": damage=" + damage);
+            log.info(actor.getName() + " critically hits an attack on " + target.getName() + " with a " + weaponName + ": damage=" + damage);
             target.takeDamage(damage, silvered, magical);
             return true;
         } else if (attackRoll + attackRollModifier + attackRollBonus >= target.getAC()) {
             int damage = damageDice.roll() + damageRollBonus;
-            System.out.println(actor.getName() + " hits an attack on " + target.getName() + " with a " + weaponName + ": damage=" + damage);
+            log.info(actor.getName() + " hits an attack on " + target.getName() + " with a " + weaponName + ": damage=" + damage);
             target.takeDamage(damage, silvered, magical);
             return true;
         } else {
             // Miss
-            System.out.println(actor.getName() + " MISSES the attack on " + target.getName() + " with a " + weaponName);
+            log.info(actor.getName() + " MISSES the attack on " + target.getName() + " with a " + weaponName);
             return false;
         }
     }

@@ -4,18 +4,19 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
 import static java.lang.Math.min;
 
 /**
  * A spell that can affect multiple targets and does damage to all... i.e. burning hands, fireball, lightening, etc.
  */
 
+@Slf4j
 public abstract class MultiTargetDamageSpell extends Spell {
 
     protected final Dice totalTargets;
@@ -64,22 +65,22 @@ public abstract class MultiTargetDamageSpell extends Spell {
 
         if (criticalFailure) {
             lost = true; // Failed spell check!
-            System.out.println(actor.getName() + " critically MISSES the spell check with a " + spell.getName());
+            log.info(actor.getName() + " critically MISSES the spell check with a " + spell.getName());
         } else if (criticalSuccess) {
             int damage = damageDice.roll() + damageDice.roll();
             targets.forEach(target -> {
-                System.out.println(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + spell.getName() + ": damage=" + damage);
+                log.info(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + spell.getName() + ": damage=" + damage);
                 target.takeDamage(damage, false, true);
             });
         } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             int damage = damageDice.roll();
             targets.forEach(target -> {
-                System.out.println(actor.getName() + " hits a spell on " + target.getName() + " with a " + spell.getName() + ": damage=" + damage);
+                log.info(actor.getName() + " hits a spell on " + target.getName() + " with a " + spell.getName() + ": damage=" + damage);
                 target.takeDamage(damage, false, true);
             });
         } else {
             lost = true; // Failed spell check!
-            System.out.println(actor.getName() + " MISSES the spell check with a " + spell.getName());
+            log.info(actor.getName() + " MISSES the spell check with a " + spell.getName());
         }
     }
 }
