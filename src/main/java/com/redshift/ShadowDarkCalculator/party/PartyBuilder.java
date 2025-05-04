@@ -14,7 +14,7 @@ public interface PartyBuilder {
      * Fluent method to add a creature and return the builder.
      */
 
-    PartyBuilder addMember(Creature creature);
+    PartyBuilder add(Creature creature);
 
     /**
      * Build the party!

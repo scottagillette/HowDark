@@ -9,9 +9,9 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
 public class Bugbear extends BaseCreature {
 
-    public Bugbear() {
+    public Bugbear(String name) {
         super(
-                "Bugbear",
+                name,
                 3,
                 new Stats(17, 10, 12, 9, 10, 7),
                 13,

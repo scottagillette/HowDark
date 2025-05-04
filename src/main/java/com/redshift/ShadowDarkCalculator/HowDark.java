@@ -3,9 +3,8 @@ package com.redshift.ShadowDarkCalculator;
 import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 
+import com.redshift.ShadowDarkCalculator.party.MonsterPartyBuilder;
 import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilder;
-
-import java.util.List;
 
 public class HowDark {
 
@@ -23,15 +22,42 @@ public class HowDark {
 			final CombatSimulator simulator = new CombatSimulator(
 					//new TheWolfPackBuilder().build(),
 					new TheCrabCrushersBuilder().build(),
-					List.of(new Ogre("'Ulak The Crusher' Ogre"))
-					//List.of(new CaveCreeper("Cave Creeper"))
-					//List.of(new CaveCreeper("Cave Creeper 1"), new CaveCreeper("Cave Creeper 2"))
-					//List.of(new GelatinousCube("'Gelatinous Cube'"))
-					//List.of(new HillGiant("Brundo the Crusher"), new HillGiant("Gunda the Smasher"))
-					//List.of(new HillGiant("Brundo the Crusher"))
-					//List.of(new Goblin("Grek"), new Goblin("Pek"), new Goblin("Mek"), new Goblin("Rek"))
-					//List.of(new Skeleton("Skeleton 1"), new Skeleton("Skeleton 2"), new Skeleton("Skeleton 3"), new Skeleton("Skeleton 4"))
-					//List.of(new Bugbear(), new Bugbear())
+
+//					new MonsterPartyBuilder()
+//							.add(new Ogre("'Ulak The Crusher' Ogre")).build()
+
+//					new MonsterPartyBuilder()
+//							.add(new CaveCreeper("Cave Creeper")).build()
+
+//					new MonsterPartyBuilder()
+//							.add(new CaveCreeper("Cave Creeper 1"))
+//							.add(new CaveCreeper("Cave Creeper 2")).build()
+
+//					new MonsterPartyBuilder()
+//							.add(new GelatinousCube("'Gelatinous Cube'")).build()
+
+					new MonsterPartyBuilder()
+							.add(new HillGiant("Brundo the Crusher"))
+							.add(new HillGiant("Gunda the Smasher")).build()
+
+//					new MonsterPartyBuilder()
+//							.add(new HillGiant("Brundo the Crusher")).build()
+
+//					new MonsterPartyBuilder()
+//							.add(new Goblin("Grek"))
+//							.add(new Goblin("Pek"))
+//							.add(new Goblin("Mek"))
+//							.add(new Goblin("Rek")).build()
+
+//					new MonsterPartyBuilder()
+//							.add(new Skeleton("Skeleton 1"))
+//							.add(new Skeleton("Skeleton 2"))
+//							.add(new Skeleton("Skeleton 3"))
+//							.add(new Skeleton("Skeleton 4")).build()
+
+//					new MonsterPartyBuilder()
+//							.add(new Bugbear("Bugbear 1"))
+//							.add(new Bugbear("Bugbear 2")).build()
 			);
 
 			simulator.simulateFight();

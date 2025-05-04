@@ -68,7 +68,7 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
     }
 
     @Override
-    public PartyBuilder addMember(Creature creature) {
+    public PartyBuilder add(Creature creature) {
         creatures.add(creature);
         return this;
     }
