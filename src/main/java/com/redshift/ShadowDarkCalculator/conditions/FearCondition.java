@@ -23,6 +23,7 @@ public class FearCondition implements Condition {
 
     @Override
     public void perform(Creature creature) {
+        System.out.println(creature.getName() + " is feared and skipping their turn.");
         // No ill effects... other than you are just running away!
     }
 

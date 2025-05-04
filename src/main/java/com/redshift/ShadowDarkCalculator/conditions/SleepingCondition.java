@@ -16,6 +16,7 @@ public class SleepingCondition implements Condition {
 
     @Override
     public void perform(Creature creature) {
+        System.out.println(creature.getName() + " is sleeping and skipping their turn.");
         // No ill effects... other than you are just snoring!
     }
 

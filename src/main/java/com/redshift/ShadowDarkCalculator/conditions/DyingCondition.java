@@ -18,7 +18,6 @@ public class DyingCondition implements Condition {
     @Override
     public boolean hasEnded(Creature creature) {
         rounds = Math.max(0, rounds - 1);
-        System.out.println(creature.getName() + " death timer tick down: roundsRemaining=" + rounds);
         return false; // Only healing stops dying.
     }
 
@@ -27,6 +26,8 @@ public class DyingCondition implements Condition {
         if (rounds == 0) {
             System.out.println(creature.getName() + " has died!");
             creature.setDead(true);
+        } else {
+            System.out.println(creature.getName() + " has their death timer tick down: roundsRemaining=" + rounds);
         }
     }
 }
