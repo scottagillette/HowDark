@@ -14,7 +14,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
  * An action that attempts to attack with a melee or ranged weapon.
  */
 
-public abstract class Weapon implements Action {
+public class Weapon implements Action {
 
     protected final String name;
     protected final Dice dice;
@@ -22,16 +22,32 @@ public abstract class Weapon implements Action {
     protected int attackRollBonus = 0;
     protected int damageRollBonus = 0;
     protected boolean magical;
+    protected boolean silvered;
 
     public Weapon(String name, Dice dice, RollModifier rollModifier) {
-        this(name, dice, rollModifier, false);
+        this(name, dice, rollModifier, false, false, 0, 0);
     }
 
-    public Weapon(String name, Dice dice, RollModifier rollModifier, boolean magical) {
+    public Weapon(String name, Dice dice, RollModifier rollModifier, int attackRollBonus) {
+        this(name, dice, rollModifier, false, false, attackRollBonus, 0);
+    }
+
+    public Weapon(
+            String name,
+            Dice dice,
+            RollModifier rollModifier,
+            boolean magical,
+            boolean silvered,
+            int attackRollBonus,
+            int damageRollBonus) {
+
         this.name = name;
         this.dice = dice;
         this.rollModifier = rollModifier;
+        this.attackRollBonus = attackRollBonus;
+        this.damageRollBonus = damageRollBonus;
         this.magical = magical;
+        this.silvered =silvered;
     }
 
     public void addAttackBonus(int bonus) {

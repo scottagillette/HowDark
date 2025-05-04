@@ -2,7 +2,7 @@ package com.redshift.ShadowDarkCalculator.party;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.*;
-import com.redshift.ShadowDarkCalculator.actions.weapons.SimpleWeapon;
+import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Character;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
@@ -22,7 +22,7 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
                 new Stats(15, 14, 14, 14, 11, 14),
                 15,
                 7,
-                SimpleWeapon.BASTARD_SWORD_1H.build(3,2),
+                WeaponBuilder.BASTARD_SWORD_1H.build(3,2),
                 new FocusFireTargetSelector()
         ));
 
@@ -33,7 +33,7 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
                 12,
                 7,
                 new PerformOneAction(List.of(
-                        SimpleWeapon.LONGSWORD.build(1),
+                        WeaponBuilder.LONGSWORD.build(1),
                         new TurnUndead().addBonus(1),
                         new CureWounds().addBonus(1),
                         new ShieldOfFaith().addBonus(1)
@@ -48,7 +48,7 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
                 11,
                 2,
                 new PerformOneAction(List.of(
-                        SimpleWeapon.STAFF.build(),
+                        WeaponBuilder.STAFF.build(),
                         new Sleep().addBonus(1),
                         new MagicMissile().addBonus(1).addAdvantage(),
                         new BurningHands().addBonus(1).addAdvantage()
@@ -62,7 +62,7 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
                 new Stats(10, 10, 14, 8, 10, 8),
                 14,
                 6,
-                new PerformOneAction(List.of(SimpleWeapon.CROSSBOW.build())),
+                new PerformOneAction(List.of(WeaponBuilder.CROSSBOW.build())),
                 new FocusFireTargetSelector()
         ));
     }

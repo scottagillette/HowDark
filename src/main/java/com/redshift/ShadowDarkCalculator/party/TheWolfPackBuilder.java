@@ -2,7 +2,7 @@ package com.redshift.ShadowDarkCalculator.party;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.*;
-import com.redshift.ShadowDarkCalculator.actions.weapons.SimpleWeapon;
+import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Character;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
@@ -21,7 +21,7 @@ public class TheWolfPackBuilder implements PartyBuilder {
                 new Stats(15, 9, 12, 9, 6, 10),
                 12,
                 9,
-                SimpleWeapon.LONGSWORD.build()
+                WeaponBuilder.LONGSWORD.build()
         ));
 
         creatures.add(new Character(
@@ -30,7 +30,7 @@ public class TheWolfPackBuilder implements PartyBuilder {
                 new Stats(7, 14, 9, 18, 10, 9),
                 12,
                 1,
-                new PerformOneAction(List.of(SimpleWeapon.STAFF.build(), new MagicMissile(), new BurningHands(), new Sleep()))
+                new PerformOneAction(List.of(WeaponBuilder.STAFF.build(), new MagicMissile(), new BurningHands(), new Sleep()))
         ));
 
         creatures.add(new Character(
@@ -39,7 +39,7 @@ public class TheWolfPackBuilder implements PartyBuilder {
                 new Stats(9, 18, 10, 9, 10, 10),
                 15,
                 4,
-                new PerformOneAction(List.of(SimpleWeapon.SHORTBOW.build(), SimpleWeapon.DAGGER_DEX.build()))
+                new PerformOneAction(List.of(WeaponBuilder.SHORTBOW.build(), WeaponBuilder.DAGGER_DEX.build()))
         ));
 
         creatures.add(new Character(
@@ -48,7 +48,7 @@ public class TheWolfPackBuilder implements PartyBuilder {
                 new Stats(10, 10, 14, 8, 10, 8),
                 12,
                 8,
-                new PerformOneAction(List.of(SimpleWeapon.LONGSWORD.build(), new CureWounds(), new ShieldOfFaith(), new TurnUndead()))
+                new PerformOneAction(List.of(WeaponBuilder.LONGSWORD.build(), new CureWounds(), new ShieldOfFaith(), new TurnUndead()))
         ));
     }
 

@@ -1,11 +1,12 @@
 package com.redshift.ShadowDarkCalculator.creatures;
 
-import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
-import com.redshift.ShadowDarkCalculator.actions.weapons.MonsterWeapons;
+import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
+import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
+import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 public class HillGiant extends BaseCreature {
 
@@ -17,11 +18,11 @@ public class HillGiant extends BaseCreature {
                 11,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 3,
                 new PerformOneAction(
-                        new PerformOneAction(
-                                MonsterWeapons.GREAT_CLUB_D8.build(2),
-                                MonsterWeapons.GREAT_CLUB_D8.build(2)
+                        new PerformAllAction(
+                                new Weapon("Great Club", new MultipleDice(D8, D8), RollModifier.STRENGTH, 2),
+                                new Weapon("Great Club", new MultipleDice(D8, D8), RollModifier.STRENGTH, 2)
                         ),
-                        MonsterWeapons.BOULDER.build()
+                        new Weapon("Boulder", D10, RollModifier.STRENGTH, 2)
                 )
         );
     }

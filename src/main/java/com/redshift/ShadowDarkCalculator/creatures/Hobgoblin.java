@@ -1,9 +1,6 @@
 package com.redshift.ShadowDarkCalculator.creatures;
 
-import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
-import com.redshift.ShadowDarkCalculator.actions.weapons.SimpleWeapon;
-
-import java.util.List;
+import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
@@ -16,7 +13,7 @@ public class Hobgoblin extends BaseCreature {
                 new Stats(16,10,12,14,12,12),
                 15,
                 D8.roll() + D8.roll() + 1,
-                SimpleWeapon.LONGSWORD.build()
+                WeaponBuilder.LONGSWORD.build()
                 // Skip longbow
         );
     }

@@ -9,7 +9,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
  * All simple weapons in the game available to characters and monsters.
  */
 
-public enum SimpleWeapon {
+public enum WeaponBuilder {
 
     BASTARD_SWORD_1H("Bastard Sword 1h", D8, RollModifier.STRENGTH),
     BASTARD_SWORD_2H("Bastard Sword 2h", D10, RollModifier.STRENGTH),
@@ -36,33 +36,40 @@ public enum SimpleWeapon {
     private final Dice dice;
     private final RollModifier rollModifier;
 
-    SimpleWeapon(String name, Dice dice, RollModifier rollModifier) {
+    WeaponBuilder(String name, Dice dice, RollModifier rollModifier) {
         this.name = name;
         this.dice = dice;
         this.rollModifier = rollModifier;
     }
 
-    public CustomWeapon build() {
-        return new CustomWeapon(name, dice, rollModifier, 0, 0);
+    public Weapon build() {
+        return new Weapon(name, dice, rollModifier);
     }
 
-    public CustomWeapon build(int attackModifierBonus) {
-        return new CustomWeapon(name, dice, rollModifier, attackModifierBonus);
+    public Weapon build(int attackModifierBonus) {
+        return new Weapon(name, dice, rollModifier, false, false, attackModifierBonus, 0);
     }
 
-    public CustomWeapon build(int attackModifierBonus, int damageModifierBonus) {
-        return new CustomWeapon(name, dice, rollModifier, attackModifierBonus, damageModifierBonus);
+    public Weapon build(int attackModifierBonus, int damageModifierBonus) {
+        return new Weapon(name, dice, rollModifier, false, false, attackModifierBonus, damageModifierBonus);
     }
 
-    public CustomWeapon buildMagicPlus1() {
-        return new CustomWeapon(name, dice, rollModifier, 1, 1, true);
+    public Weapon build(int attackModifierBonus, int damageModifierBonus, boolean magical, boolean silvered) {
+        return new Weapon(name, dice, rollModifier, magical, silvered, attackModifierBonus, damageModifierBonus);
     }
 
-    public CustomWeapon buildMagicPlus2() {
-        return new CustomWeapon(name, dice, rollModifier, 2, 2, true);
+    public Weapon buildSilvered() {
+        return new Weapon(name, dice, rollModifier, false, true, 0, 0);
+    }
+    public Weapon buildMagicPlus1() {
+        return new Weapon(name, dice, rollModifier, true, false, 1, 1);
     }
 
-    public CustomWeapon buildMagicPlus3() {
-        return new CustomWeapon(name, dice, rollModifier, 2, 2, true);
+    public Weapon buildMagicPlus2() {
+        return new Weapon(name, dice, rollModifier, true, false, 2, 2);
+    }
+
+    public Weapon buildMagicPlus3() {
+        return new Weapon(name, dice, rollModifier, true, false, 3, 3);
     }
 }
