@@ -87,6 +87,12 @@ public interface Creature {
     int getWoundedAmount();
 
     /**
+     * Returns true if teh creature already has the specified condition.
+     */
+
+    boolean hasCondition(String conditionName);
+
+    /**
      * Heals the target for the specified amount.
      */
 

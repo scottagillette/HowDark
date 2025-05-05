@@ -38,6 +38,7 @@ public class Zombie extends BaseCreature {
         if (isDead() && !magical && !returned) {
             if (this.getStats().constitutionSave(15)) {
                 log.info(getName() + " seems to be killed ... but slowly stands back up!");
+                setDead(false);
                 healDamage(1);
                 returned = true;
             }

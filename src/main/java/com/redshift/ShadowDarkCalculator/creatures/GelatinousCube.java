@@ -47,7 +47,7 @@ public class GelatinousCube extends BaseCreature {
                         target.addCondition(new ParalyzedCondition(rounds));
 
                         // Engulf... does no check if paralyzed...
-                        log.info(target.getName() + " is engulfed by the Gelatinous Cube!");
+                        log.info(target.getName() + " is paralyzed and is automatically engulfed by the Gelatinous Cube!");
                         target.addCondition(new EngulfedInAcidCondition(D8));
 
                     } else {
@@ -55,7 +55,7 @@ public class GelatinousCube extends BaseCreature {
 
                         // Engulf.. STR DC 12 check
                         if (!target.getStats().strengthSave(12)) {
-                            log.info(target.getName() + " is engulfed by the Gelatinous Cube!");
+                            log.info(target.getName() + " fails a STR save and is engulfed by the Gelatinous Cube!");
                             target.addCondition(new EngulfedInAcidCondition(D8));
                         }
                     }

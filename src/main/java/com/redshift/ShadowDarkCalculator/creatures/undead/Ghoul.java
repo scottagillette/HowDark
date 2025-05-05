@@ -47,12 +47,14 @@ public class Ghoul extends BaseCreature {
                 boolean attackHits = performSingleTargetAttack(actor, target, name, dice, rollModifier);
 
                 if (attackHits) {
-                    if (!target.getStats().constitutionSave(12)) {
-                        int rounds = D4.roll();
-                        log.info(target.getName() + " is paralyzed for " + rounds + " rounds!");
-                        target.addCondition(new ParalyzedCondition(rounds));
-                    } else {
-                        log.info(target.getName() + " SAVES and is NOT paralyzed!");
+                    if (!target.hasCondition(ParalyzedCondition.class.getName())) {
+                        if (!target.getStats().constitutionSave(12)) {
+                            int rounds = D4.roll();
+                            log.info(target.getName() + " is paralyzed for " + rounds + " rounds!");
+                            target.addCondition(new ParalyzedCondition(rounds));
+                        } else {
+                            log.info(target.getName() + " SAVES and is NOT paralyzed!");
+                        }
                     }
                 }
             }

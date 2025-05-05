@@ -26,7 +26,7 @@ public class Wraith extends BaseCreature {
                 new Stats(3,18,10,10,10,16),
                 14,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll(),
-                new PerformAllAction(new Wraith.DeathTouch(), new Wraith.DeathTouch(), new Wraith.DeathTouch()),
+                new PerformAllAction(new DeathTouch(), new DeathTouch(), new DeathTouch()),
                 new RandomTargetSelector()
         );
     }

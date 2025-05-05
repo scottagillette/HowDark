@@ -1,8 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.undead.Ghoul;
-import com.redshift.ShadowDarkCalculator.creatures.undead.Wight;
-import com.redshift.ShadowDarkCalculator.creatures.undead.Zombie;
+import com.redshift.ShadowDarkCalculator.creatures.undead.Ghast;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilder;
@@ -61,7 +59,9 @@ public class HowDark {
 //                            new Ghoul("Faceless Ghoul")
 //                    )
 
-                    List.of(new Wight("Armored Wight"))
+//                    List.of(new Wight("Armored Wight"))
+
+                    List.of(new Ghast("Ghast"))
 
 //                    List.of(new Bugbear("Bugbear 1"), new Bugbear("Bugbear 2"))
 

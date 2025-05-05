@@ -28,7 +28,7 @@ public class Wight extends BaseCreature {
                 new Stats(17,12,14,12,10,17),
                 14,
                 D8.roll() + D8.roll() + D8.roll() + 2,
-                new PerformAllAction(WeaponBuilder.BASTARD_SWORD_2H.build(), new Wight.LifeDrain()),
+                new PerformAllAction(WeaponBuilder.BASTARD_SWORD_2H.build(), new LifeDrain()),
                 new RandomTargetSelector()
         );
     }

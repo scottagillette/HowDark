@@ -1,9 +1,13 @@
-package com.redshift.ShadowDarkCalculator.creatures;
+package com.redshift.ShadowDarkCalculator.creatures.undead;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
-import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
+import com.redshift.ShadowDarkCalculator.creatures.BaseCreature;
+import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.creatures.Stats;
+import com.redshift.ShadowDarkCalculator.dice.RollModifier;
+import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -11,31 +15,26 @@ import java.util.List;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 @Slf4j
-public class CaveCreeper extends BaseCreature {
+public class Ghast extends BaseCreature {
 
-    public CaveCreeper(String name) {
+    public Ghast(String name) {
         super(
                 name,
                 4,
-                new Stats(14,14,10,4,12,4),
-                12,
-                D8.roll() + D8.roll() + D8.roll() + D8.roll(),
-                new PerformAllAction(new Bite(), new Tentacles())
+                true,
+                true,
+                new Stats(17,12,14,10,10,14),
+                11,
+                D8.roll() + D8.roll() + D8.roll() + D8.roll() + 2,
+                new PerformAllAction(new ParalyzingClaw(), new ParalyzingClaw()),
+                new RandomTargetSelector()
         );
     }
 
-    public static class Bite extends Weapon {
+    public static class ParalyzingClaw extends Weapon {
 
-        public Bite() {
-            super("Bite", D6, RollModifier.STRENGTH);
-        }
-
-    }
-
-    public static class Tentacles extends Weapon {
-
-        public Tentacles() {
-            super("Tentacles", D8, RollModifier.STRENGTH);
+        public ParalyzingClaw() {
+            super("Paralyzing Claw", D8, RollModifier.STRENGTH);
         }
 
         @Override
@@ -45,6 +44,9 @@ public class CaveCreeper extends BaseCreature {
             if (target == null) {
                 log.info(actor.getName() + " is skipping their turn... no target!");
             } else {
+
+                // TODO: Note - The Carrion Stench ability is not implemented...
+
                 boolean attackHits = performSingleTargetAttack(actor, target, name, dice, rollModifier);
 
                 if (attackHits) {

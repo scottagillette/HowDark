@@ -141,6 +141,11 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
+    public boolean hasCondition(String conditionName) {
+        return (conditions.get(conditionName) != null);
+    }
+
+    @Override
     public void healDamage(int amount) {
         // No sense in healing the dead!
         if (!dead) {
@@ -173,10 +178,12 @@ public abstract class BaseCreature implements Creature {
 
     @Override
     public void setDead(boolean dead) {
-        this.dead = dead; // Maybe res later?
+        this.dead = dead; // Some undead can come back!
         if (dead) {
             currentHitPoints = 0;
             conditions.clear(); // Your dead! ... not unconscious!
+        } else {
+            conditions.clear();
         }
     }
 
