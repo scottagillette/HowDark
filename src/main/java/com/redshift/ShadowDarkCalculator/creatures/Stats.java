@@ -69,6 +69,12 @@ public class Stats {
         return D20.roll() + getModifier(currentStrength);
     }
 
+    public int strengthDrain(SingleDie die) {
+        // Reduce the targets constitution by the rolled amount.
+        currentStrength = Math.max(0, currentStrength - die.roll());
+        return currentStrength;
+    }
+
 
     public int getDexterity() {
         return dexterity;
@@ -113,7 +119,7 @@ public class Stats {
 
     public int constitutionDrain(SingleDie die) {
         // Reduce the targets constitution by the rolled amount.
-        currentConstitution = currentConstitution - die.roll();
+        currentConstitution = Math.max(0, currentConstitution - die.roll());
         return currentConstitution;
     }
 

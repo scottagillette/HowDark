@@ -56,7 +56,8 @@ public abstract class BaseCreature implements Creature {
 
     @Override
     public void addCondition(Condition condition) {
-        // Adding the same condition will replace the prior one.
+        // Adding the same condition will replace the prior one... so check prior to adding and default to not add
+        // if that makes sense... for example the undead that paralyze don't add it if the target already has it.
         conditions.put(condition.getClass().getName(), condition);
     }
 

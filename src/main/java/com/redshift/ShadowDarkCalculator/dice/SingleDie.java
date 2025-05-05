@@ -8,6 +8,7 @@ import java.util.Random;
 
 public class SingleDie implements Dice {
 
+    public static final SingleDie D1  = new SingleDie(1);
     public static final SingleDie D4  = new SingleDie(4);
     public static final SingleDie D5  = new SingleDie(5);
     public static final SingleDie D6  = new SingleDie(6);

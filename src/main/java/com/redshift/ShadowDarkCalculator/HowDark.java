@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.undead.Ghast;
+import com.redshift.ShadowDarkCalculator.creatures.undead.Shadow;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilder;
@@ -61,8 +61,9 @@ public class HowDark {
 
 //                    List.of(new Wight("Armored Wight"))
 
-                    List.of(new Ghast("Ghast"))
+//                    List.of(new Ghast("Ghast"))
 
+                    List.of(new Shadow("Shadow"))
 //                    List.of(new Bugbear("Bugbear 1"), new Bugbear("Bugbear 2"))
 
 //                    List.of(new Wraith("Wraith"))
