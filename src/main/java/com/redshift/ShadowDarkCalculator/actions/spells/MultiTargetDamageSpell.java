@@ -21,11 +21,23 @@ public abstract class MultiTargetDamageSpell extends Spell {
 
     protected final Dice totalTargets;
     protected final Dice damageDice;
+    private final boolean fireDamage;
+    private final boolean coldDamage;
 
-    public MultiTargetDamageSpell(String name, int difficultyClass, RollModifier rollModifier, Dice damageDice, Dice totalTargets) {
+    public MultiTargetDamageSpell(
+            String name,
+            int difficultyClass,
+            RollModifier rollModifier,
+            Dice damageDice,
+            Dice totalTargets,
+            boolean fireDamage,
+            boolean coldDamage) {
+
         super(name, difficultyClass, rollModifier);
         this.damageDice = damageDice;
         this.totalTargets = totalTargets;
+        this.fireDamage = fireDamage;
+        this.coldDamage = coldDamage;
     }
 
     @Override
@@ -70,13 +82,13 @@ public abstract class MultiTargetDamageSpell extends Spell {
             int damage = damageDice.roll() + damageDice.roll();
             targets.forEach(target -> {
                 log.info(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + spell.getName() + ": damage=" + damage);
-                target.takeDamage(damage, false, true);
+                target.takeDamage(damage, false, true, fireDamage, coldDamage);
             });
         } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             int damage = damageDice.roll();
             targets.forEach(target -> {
                 log.info(actor.getName() + " hits a spell on " + target.getName() + " with a " + spell.getName() + ": damage=" + damage);
-                target.takeDamage(damage, false, true);
+                target.takeDamage(damage, false, true, fireDamage, coldDamage);
             });
         } else {
             lost = true; // Failed spell check!

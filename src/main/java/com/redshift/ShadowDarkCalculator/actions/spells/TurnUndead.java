@@ -51,7 +51,7 @@ public class TurnUndead extends MultiTargetSpell {
                     if ((spellCheckRoll + spellCheckModifier) - save >= 10) {
                         if (actor.getLevel() >= target.getLevel()) {
                             log.info(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + getName() + " and is destroyed!");
-                            target.takeDamage(999, false, true); // Destroyed!
+                            target.takeDamage(999, false, true, false, false); // Destroyed!
                         } else {
                             target.addCondition(new FearCondition(D5.roll())); // Just feared
                             log.info(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + getName() + " and feared!");
@@ -72,7 +72,7 @@ public class TurnUndead extends MultiTargetSpell {
                     if ((spellCheckRoll + spellCheckModifier) - save >= 10) {
                         if (actor.getLevel() >= target.getLevel()) {
                             log.info(actor.getName() + " hits a spell on " + target.getName() + " with a " + getName() + " and is destroyed!");
-                            target.takeDamage(999, false, true); // Destroyed!
+                            target.takeDamage(999, false, true, false, false); // Destroyed!
                         } else {
                             target.addCondition(new FearCondition(D5.roll())); // Just feared
                             log.info(actor.getName() + " hits a spell on " + target.getName() + " with a " + getName() + " and feared!");

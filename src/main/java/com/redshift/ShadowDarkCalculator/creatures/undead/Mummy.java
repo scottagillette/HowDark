@@ -2,12 +2,10 @@ package com.redshift.ShadowDarkCalculator.creatures.undead;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
-import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.BaseCreature;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.dice.ZeroDice;
 import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,39 +14,43 @@ import java.util.List;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 @Slf4j
-public class Wight extends BaseCreature {
+public class Mummy extends BaseCreature {
 
-    public Wight(String name) {
+    public Mummy(String name) {
         super(
                 name,
-                3,
+                10,
                 true,
                 true,
-                new Stats(17,12,14,12,10,17),
-                14,
-                D8.roll() + D8.roll() + D8.roll() + 2,
-                new PerformAllAction(WeaponBuilder.BASTARD_SWORD_2H.build(), new LifeDrain()),
+                new Stats(17,10,15,17,15,17),
+                13,
+                D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 2,
+                new PerformAllAction(new RotTouch(), new RotTouch(), new RotTouch()),
                 new RandomTargetSelector()
         );
     }
 
     @Override
     public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold) {
-        // Take only silvered or magical damage!
-        final boolean takeDamage = silvered || magical;
-
-        if (takeDamage) {
-            super.takeDamage(amount, silvered, magical, fire, cold);
+        // Damage for fire or magical only.
+        if (fire) {
+            // Double damage for fire!
+            log.info(getName() + " takes DOUBLE damage from fire!");
+            super.takeDamage(amount + amount, silvered, magical, fire, cold);
         } else {
-            log.info(getName() + " takes no damage from non-silvered, non-magical damage!");
+            if (magical) {
+                super.takeDamage(amount, silvered, magical, fire, cold);
+            } else {
+                log.info(getName() + " takes no damage from non-magical, non-fire damage!");
+            }
         }
+
     }
 
-    private static class LifeDrain extends Weapon {
+    private static class RotTouch extends Weapon {
 
-        public LifeDrain() {
-            // Life drain does no damage but only drains life!
-            super("Life Drain", new ZeroDice(), RollModifier.STRENGTH);
+        public RotTouch() {
+            super("Rot Touch", D10, RollModifier.STRENGTH, 5);
         }
 
         @Override
@@ -60,13 +62,13 @@ public class Wight extends BaseCreature {
             } else {
                 boolean attackHits = performSingleTargetAttack(actor, target, name, dice, rollModifier);
 
-                if (attackHits) {
-                    int constitutionRemaining = target.getStats().constitutionDrain(D4);
-                    if ( constitutionRemaining == 0) {
-                        log.info(target.getName() + " is drained of constitution to " + constitutionRemaining + " and DIES!");
-                        target.setDead(true);
+                if (attackHits & target.getCurrentHitPoints() != 0) {
+                    if (target.getStats().constitutionSave(15)) {
+                        log.info(target.getName() + " SAVES and is NOT drained of health.");
                     } else {
-                        log.info(target.getName() + " is drained of constitution to " + constitutionRemaining);
+                        // HP 0
+                        log.info(target.getName() + " is drained of health and drops to 0 hit points!");
+                        target.takeDamage(999, false, false, false, false);
                     }
                 }
             }

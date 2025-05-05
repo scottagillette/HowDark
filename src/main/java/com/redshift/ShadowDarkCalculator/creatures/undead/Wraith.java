@@ -6,7 +6,6 @@ import com.redshift.ShadowDarkCalculator.creatures.BaseCreature;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.resistance.SimpleDamageResistance;
 import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,14 +31,14 @@ public class Wraith extends BaseCreature {
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical) {
+    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold) {
         // Take only silvered or magical damage!
-        int newAmount = new SimpleDamageResistance().takeDamage(amount, silvered, magical);
+        final boolean takeDamage = silvered || magical;
 
-        if (newAmount == 0) {
-            log.info(getName() + " takes no damage from non-silvered, non-magical damage!");
+        if (takeDamage) {
+            super.takeDamage(amount, silvered, magical, fire, cold);
         } else {
-            super.takeDamage(amount, silvered, magical);
+            log.info(getName() + " takes no damage from non-silvered, non-magical damage!");
         }
     }
 

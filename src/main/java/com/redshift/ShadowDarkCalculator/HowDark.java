@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
+import com.redshift.ShadowDarkCalculator.creatures.undead.Mummy;
 import com.redshift.ShadowDarkCalculator.creatures.undead.Shadow;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 
@@ -63,10 +64,12 @@ public class HowDark {
 
 //                    List.of(new Ghast("Ghast"))
 
-                    List.of(new Shadow("Shadow 1"), new Shadow("Shadow 2"))
+//                    List.of(new Shadow("Shadow 1"), new Shadow("Shadow 2"))
+
 //                    List.of(new Bugbear("Bugbear 1"), new Bugbear("Bugbear 2"))
 
 //                    List.of(new Wraith("Wraith"))
+                    List.of(new Mummy("Mummy of Death"))
             );
 
             simulator.simulateFight();

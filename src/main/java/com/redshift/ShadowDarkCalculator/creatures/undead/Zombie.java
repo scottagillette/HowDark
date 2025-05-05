@@ -29,10 +29,10 @@ public class Zombie extends BaseCreature {
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical) {
+    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold) {
         // Does the Zombie get back up after taking damage!
 
-        super.takeDamage(amount, silvered, magical);
+        super.takeDamage(amount, silvered, magical, fire, cold);
 
         // If it is now dead from a non-magical source and has not already returned...
         if (isDead() && !magical && !returned) {

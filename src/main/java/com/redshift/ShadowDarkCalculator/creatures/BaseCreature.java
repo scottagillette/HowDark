@@ -189,7 +189,7 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical) {
+    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold) {
         // Damage awakens any creature!
         conditions.remove(SleepingCondition.class.getName());
 

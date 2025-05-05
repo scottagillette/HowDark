@@ -32,6 +32,6 @@ public class EngulfedInAcidCondition implements Condition {
     public void perform(Creature creature) {
         final int damage = damageDice.roll();
         log.info(creature.getName() + " has been burned by ACID for " + damage);
-        creature.takeDamage(damage, false, false);
+        creature.takeDamage(damage, false, false, false, false);
     }
 }

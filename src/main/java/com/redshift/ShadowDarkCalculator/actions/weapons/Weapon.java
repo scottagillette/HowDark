@@ -112,12 +112,12 @@ public class Weapon implements Action {
         } else if (criticalSuccess) {
             int damage = damageDice.roll() + damageDice.roll() + damageRollBonus;
             log.info(actor.getName() + " critically hits an attack on " + target.getName() + " with a " + weaponName + ": damage=" + damage);
-            target.takeDamage(damage, silvered, magical);
+            target.takeDamage(damage, silvered, magical, false, false);
             return true;
         } else if (attackRoll + attackRollModifier + attackRollBonus >= target.getAC()) {
             int damage = damageDice.roll() + damageRollBonus;
             log.info(actor.getName() + " hits an attack on " + target.getName() + " with a " + weaponName + ": damage=" + damage);
-            target.takeDamage(damage, silvered, magical);
+            target.takeDamage(damage, silvered, magical, false, false);
             return true;
         } else {
             // Miss
