@@ -1,6 +1,9 @@
-package com.redshift.ShadowDarkCalculator.creatures;
+package com.redshift.ShadowDarkCalculator.creatures.monstrosities;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
+import com.redshift.ShadowDarkCalculator.creatures.BaseCreature;
+import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;

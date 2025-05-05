@@ -145,15 +145,29 @@ public class CombatSimulator {
     }
 
     private void reportFightSummary() {
-        log.info("---------------------");
+        log.info("---------------------------------------------------------------");
+
         group1.forEach(creature -> {
-            log.info(creature.getName() + " hit points " + creature.getCurrentHitPoints() + "/" + creature.getMaxHitPoints() + " status=" + creature.getStatus());
+            log.info(
+                    "{}: status={}, hitPoints={}/{}",
+                    creature.getName(),
+                    creature.getStatus(),
+                    creature.getCurrentHitPoints(),
+                    creature.getMaxHitPoints()
+            );
         });
 
         group2.forEach(creature -> {
-            log.info(creature.getName() + " hit points " + creature.getCurrentHitPoints() + "/" + creature.getMaxHitPoints() + " status=" + creature.getStatus());
+            log.info(
+                    "{}: status={}, hitPoints={}/{}",
+                    creature.getName(),
+                    creature.getStatus(),
+                    creature.getCurrentHitPoints(),
+                    creature.getMaxHitPoints()
+            );
         });
-        log.info("---------------------");
+
+        log.info("---------------------------------------------------------------");
     }
 
 }

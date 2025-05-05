@@ -63,7 +63,7 @@ public class HowDark {
 
 //                    List.of(new Ghast("Ghast"))
 
-                    List.of(new Shadow("Shadow"))
+                    List.of(new Shadow("Shadow 1"), new Shadow("Shadow 2"))
 //                    List.of(new Bugbear("Bugbear 1"), new Bugbear("Bugbear 2"))
 
 //                    List.of(new Wraith("Wraith"))
@@ -77,6 +77,8 @@ public class HowDark {
             group2Wins = group2Wins + simulator.getGroup2Wins();
             group2WinsWithDeath = group2WinsWithDeath + simulator.getGroup2WinsWithDeath();
         }
+
+        log.info("[ Outcome ]");
 
         log.info("Group 1: wins=" + group1Wins + ", winsWithDeath=" + group1WinsWithDeath);
         log.info("Group 2: wins=" + group2Wins + ", winsWithDeath=" + group2WinsWithDeath);
