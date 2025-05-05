@@ -43,7 +43,7 @@ public class Wraith extends BaseCreature {
         }
     }
 
-    public static class DeathTouch extends Weapon {
+    private static class DeathTouch extends Weapon {
 
         public DeathTouch() {
             super("Death Touch", D10, RollModifier.DEXTERITY, 2);
@@ -60,7 +60,7 @@ public class Wraith extends BaseCreature {
 
                 if (attackHits) {
                     int constitutionRemaining = target.getStats().constitutionDrain(D4);
-                    if ( constitutionRemaining == 0) {
+                    if (constitutionRemaining == 0) {
                         log.info(target.getName() + " is drained of constitution to " + constitutionRemaining + " and DIES!");
                         target.setDead(true);
                     } else {

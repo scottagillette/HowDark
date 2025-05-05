@@ -45,7 +45,7 @@ public class Wight extends BaseCreature {
         }
     }
 
-    public static class LifeDrain extends Weapon {
+    private static class LifeDrain extends Weapon {
 
         public LifeDrain() {
             // Life drain does no damage but only drains life!

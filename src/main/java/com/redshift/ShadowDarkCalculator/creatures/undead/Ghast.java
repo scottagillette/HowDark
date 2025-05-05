@@ -31,7 +31,7 @@ public class Ghast extends BaseCreature {
         );
     }
 
-    public static class ParalyzingClaw extends Weapon {
+    private static class ParalyzingClaw extends Weapon {
 
         public ParalyzingClaw() {
             super("Paralyzing Claw", D8, RollModifier.STRENGTH);

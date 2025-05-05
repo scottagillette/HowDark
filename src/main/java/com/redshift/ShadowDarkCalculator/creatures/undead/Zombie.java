@@ -45,7 +45,7 @@ public class Zombie extends BaseCreature {
         }
     }
 
-    public static class Slam extends Weapon {
+    private static class Slam extends Weapon {
 
         public Slam() {
             super("Slam", D6, RollModifier.STRENGTH);
