@@ -43,28 +43,7 @@ public class TurnUndead extends MultiTargetSpell {
         if (criticalFailure) {
             lost = true; // Failed spell check!
             log.info(actor.getName() + " critically MISSES the spell check on " + getName());
-        } else if (criticalSuccess) {
-            targets.forEach(target -> {
-                int save = target.getStats().charismaSave();
-
-                if (save < spellCheckRoll + spellCheckModifier) {
-                    if ((spellCheckRoll + spellCheckModifier) - save >= 10) {
-                        if (actor.getLevel() >= target.getLevel()) {
-                            log.info(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + getName() + " and is destroyed!");
-                            target.takeDamage(999, false, true, false, false); // Destroyed!
-                        } else {
-                            target.addCondition(new FearCondition(D5.roll())); // Just feared
-                            log.info(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + getName() + " and feared!");
-                        }
-                    } else {
-                        target.addCondition(new FearCondition(D5.roll())); // Just feared
-                        log.info(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + getName() + " and feared!");
-                    }
-                } else {
-                    log.info(actor.getName() + " has their spell resisted by " + target.getName() + " with a " + getName());
-                }
-            });
-        } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
+        } else if (criticalSuccess || spellCheckRoll + spellCheckModifier >= difficultyClass) {
             targets.forEach(target -> {
                 int save = target.getStats().charismaSave();
 
