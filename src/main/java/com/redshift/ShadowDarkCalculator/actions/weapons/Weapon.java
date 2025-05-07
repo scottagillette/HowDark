@@ -52,14 +52,6 @@ public class Weapon implements Action {
         this.silvered =silvered;
     }
 
-    public void addAttackBonus(int bonus) {
-        attackRollBonus = bonus;
-    }
-
-    public void addDamageBonus(int bonus) {
-        damageRollBonus = bonus;
-    }
-
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         return true; // Melee and ranged attacks by default can always be performed.
@@ -101,7 +93,7 @@ public class Weapon implements Action {
 
         if (rollModifier.equals(RollModifier.STRENGTH)) {
             attackRollModifier = attackRollModifier + actor.getStats().getStrengthModifier();
-        } else {
+        } else if (rollModifier.equals(RollModifier.DEXTERITY)) {
             attackRollModifier = attackRollModifier + actor.getStats().getDexterityModifier();
         }
 

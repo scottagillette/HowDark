@@ -151,8 +151,8 @@ public abstract class BaseCreature implements Creature {
         // No sense in healing the dead!
         if (!dead) {
             currentHitPoints = Math.min(hitPoints, currentHitPoints + amount);
-            conditions.remove(UnconciousCondition.class.getName()); // Healing removes this condition!
-            conditions.remove(DyingCondition.class.getName()); // Healing removes this condition!
+            conditions.remove(DyingCondition.class.getName());
+            conditions.remove(UnconciousCondition.class.getName());
         }
     }
 
