@@ -6,8 +6,8 @@ import com.redshift.ShadowDarkCalculator.dice.SingleDie;
 import java.util.List;
 
 /**
- * Returns a single target that has been damaged for it to be focused on otherwise a randome target. Skips all
- * unconscious targets.
+ * Returns a single target that has been damaged for it to be focused on otherwise a random target. Skips all
+ * unconscious and dead targets.
  */
 
 public class FocusFireTargetSelector implements SingleTargetSelector {
@@ -21,9 +21,7 @@ public class FocusFireTargetSelector implements SingleTargetSelector {
                 .filter(creature -> !creature.isDead())
                 .toList();
 
-        if (consciousNotDeadTargets.isEmpty()) {
-
-        } else {
+        if (!consciousNotDeadTargets.isEmpty()) {
             final List<Creature> woundedCreatures = consciousNotDeadTargets.stream()
                     .filter(Creature::isWounded)
                     .toList();
