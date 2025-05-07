@@ -2,6 +2,7 @@ package com.redshift.ShadowDarkCalculator;
 
 import com.redshift.ShadowDarkCalculator.creatures.undead.Mummy;
 import com.redshift.ShadowDarkCalculator.creatures.undead.Shadow;
+import com.redshift.ShadowDarkCalculator.creatures.undead.VampireSpawn;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilder;
@@ -69,7 +70,10 @@ public class HowDark {
 //                    List.of(new Bugbear("Bugbear 1"), new Bugbear("Bugbear 2"))
 
 //                    List.of(new Wraith("Wraith"))
-                    List.of(new Mummy("Mummy of Death"))
+
+//                    List.of(new Mummy("Mummy of Death"))
+
+                    List.of(new VampireSpawn("Vampire Spawn"))
             );
 
             simulator.simulateFight();
