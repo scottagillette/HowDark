@@ -44,10 +44,7 @@ public class Ankheg extends BaseCreature {
 
         @Override
         public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-            //final Creature target = actor.getTargetSelector().get(enemies);
-
             log.info(actor.getName() + " sprays ACID!");
-
             performMultipleTargetAttack(actor, enemies, name, dice, rollModifier);
         }
     }
