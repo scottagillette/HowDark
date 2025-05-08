@@ -55,8 +55,11 @@ public class CombatSimulator {
                 initiativeMap.put(creature.getInitiative(), creature);
             });
             if (totalCreatures != initiativeMap.size()) {
+                // TODO: rework initiative so that duplicates don't matter.
+                log.info("... Re-rolling initiative");
                 initiativeMap.clear();
             } else {
+                // We have unique initiative!
                 break;
             }
         }
@@ -64,6 +67,12 @@ public class CombatSimulator {
         boolean stopBattle = false;
 
         final List<Integer> sortedCreaturesInitiative = initiativeMap.keySet().stream().sorted(Comparator.reverseOrder()).toList();
+
+        log.info("Initiative order: ");
+        for (Integer initiative : sortedCreaturesInitiative) {
+            final Creature creature = initiativeMap.get(initiative);
+            log.info(creature.getName() + " " + initiative);
+        }
 
         int i = 1;
 
