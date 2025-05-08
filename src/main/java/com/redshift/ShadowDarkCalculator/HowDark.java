@@ -1,7 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monstrosities.OwlBear;
-import com.redshift.ShadowDarkCalculator.creatures.undead.Skeleton;
+import com.redshift.ShadowDarkCalculator.creatures.monstrosities.Ankheg;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilder;
@@ -74,7 +73,8 @@ public class HowDark {
 
 //                    List.of(new VampireSpawn("Vampire Spawn"))
 
-                    List.of(new OwlBear("Rabid Owlbear"))
+//                    List.of(new OwlBear("Rabid Owlbear"))
+                    List.of(new Ankheg("Ankheg of Death"))
             );
 
             simulator.simulateFight();
