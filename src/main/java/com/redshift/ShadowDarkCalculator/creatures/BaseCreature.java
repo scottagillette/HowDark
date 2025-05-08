@@ -202,11 +202,15 @@ public abstract class BaseCreature implements Creature {
                 conditions.clear();
                 dead = true;
             } else {
-                // Zero hp give them the unconscious and dying condition!
-                int deathRounds = D4.roll();
-                log.info(name + " is unconscious and dying in " + deathRounds +" rounds!");
                 conditions.put(UnconciousCondition.class.getName(), new UnconciousCondition());
-                conditions.put(DyingCondition.class.getName(), new DyingCondition(deathRounds));
+
+                // Don't reset dying condition if they are already dying!
+                if (conditions.get(DyingCondition.class.getName()) == null) {
+                    // Zero hp give them the unconscious and dying condition!
+                    int deathRounds = D4.roll();
+                    log.info(name + " is unconscious and dying in " + deathRounds +" rounds!");
+                    conditions.put(DyingCondition.class.getName(), new DyingCondition(deathRounds));
+                }
             }
         }
     }
