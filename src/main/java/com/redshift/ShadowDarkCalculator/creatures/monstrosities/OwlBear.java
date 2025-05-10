@@ -2,9 +2,7 @@ package com.redshift.ShadowDarkCalculator.creatures.monstrosities;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
-import com.redshift.ShadowDarkCalculator.creatures.BaseCreature;
-import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.Stats;
+import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 @Slf4j
-public class OwlBear extends BaseCreature {
+public class OwlBear extends Monster {
 
     public OwlBear(String name) {
         super(
@@ -23,6 +21,7 @@ public class OwlBear extends BaseCreature {
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 3,
                 new PerformAllAction(new OwlBear.Claw(), new OwlBear.Claw())
         );
+        getLabels().add(Label.BRUTE);
     }
 
     public static class Claw extends Weapon {

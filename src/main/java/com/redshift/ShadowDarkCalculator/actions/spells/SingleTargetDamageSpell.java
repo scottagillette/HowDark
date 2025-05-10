@@ -25,7 +25,7 @@ public abstract class SingleTargetDamageSpell extends Spell {
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        final Creature target = actor.getTargetSelector().get(enemies);
+        final Creature target = actor.getSingleTargetSelector().get(enemies);
 
         if (target == null) {
             log.info(actor.getName() + " is skipping their turn... no target!");

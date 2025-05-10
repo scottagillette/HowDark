@@ -2,11 +2,13 @@ package com.redshift.ShadowDarkCalculator.creatures.goblinoid;
 
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.BaseCreature;
+import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
-public class Hobgoblin extends BaseCreature {
+public class Hobgoblin extends Monster {
 
     public Hobgoblin() {
         super(
@@ -18,5 +20,6 @@ public class Hobgoblin extends BaseCreature {
                 WeaponBuilder.LONGSWORD.build()
                 // Skip longbow
         );
+        getLabels().add(Label.BRUTE);
     }
 }

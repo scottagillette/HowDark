@@ -1,16 +1,16 @@
 package com.redshift.ShadowDarkCalculator.creatures;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
-import com.redshift.ShadowDarkCalculator.targets.FocusFireTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 
 /**
- * Useful constructors for characters, not undead, not a monster, focus fire target selector.
+ * Monsters extends form the BaseCreature class and add common labels for all monsters.
  */
 
-public class Character extends BaseCreature {
+public class Monster extends BaseCreature {
 
-    public Character(
+    public Monster(
             String name,
             int level,
             Stats stats,
@@ -18,11 +18,11 @@ public class Character extends BaseCreature {
             int hitPoints,
             Action action) {
 
-        super(name, level, stats, armorClass, hitPoints, action, new FocusFireTargetSelector());
-        getLabels().add(Label.PLAYER);
+        super(name, level, stats, armorClass, hitPoints, action, new RandomTargetSelector());
+        getLabels().add(Label.MONSTER);
     }
 
-    public Character(
+    public Monster(
             String name,
             int level,
             Stats stats,
@@ -32,7 +32,7 @@ public class Character extends BaseCreature {
             SingleTargetSelector singleTargetSelector) {
 
         super(name, level, stats, armorClass, hitPoints, action, singleTargetSelector);
-        getLabels().add(Label.PLAYER);
+        getLabels().add(Label.MONSTER);
     }
 
 }

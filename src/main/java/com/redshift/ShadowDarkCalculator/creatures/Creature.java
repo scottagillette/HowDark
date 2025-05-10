@@ -5,6 +5,7 @@ import com.redshift.ShadowDarkCalculator.conditions.Condition;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 
 import java.util.List;
+import java.util.Set;
 
 public interface Creature {
 
@@ -39,16 +40,22 @@ public interface Creature {
     int getCurrentHitPoints();
 
     /**
-     * Returns the target selector strategy for enemies.
-     */
-
-    SingleTargetSelector getTargetSelector();
-
-    /**
      * Returns the creatures name.
      */
 
     String getName();
+
+    /**
+     * Returns a list of labels for the creature.
+     */
+
+    Set<Label> getLabels();
+
+    /**
+     * Returns the target selector strategy for enemies.
+     */
+
+    SingleTargetSelector getSingleTargetSelector();
 
     /**
      * Returns the creatures initiative
@@ -109,12 +116,6 @@ public interface Creature {
      */
 
     boolean isUnconscious();
-
-    /**
-     * Returns ture if the creature is undead.
-     */
-
-    boolean isUndead();
 
     /**
      * Returns true if the creature is less then full hit points.

@@ -2,9 +2,7 @@ package com.redshift.ShadowDarkCalculator.creatures.monstrosities;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
-import com.redshift.ShadowDarkCalculator.creatures.BaseCreature;
-import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.Stats;
+import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +13,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
 @Slf4j
-public class Ankheg extends BaseCreature {
+public class Ankheg extends Monster {
 
     public Ankheg(String name) {
         super(
@@ -26,6 +24,7 @@ public class Ankheg extends BaseCreature {
                 D8.roll() + D8.roll() + D8.roll() + 1,
                 new PerformOneAction(new Bite(), new AcidSpray())
         );
+        getLabels().add(Label.BRUTE);
     }
 
     private static class Bite extends Weapon {

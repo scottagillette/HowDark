@@ -2,12 +2,10 @@ package com.redshift.ShadowDarkCalculator.creatures;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.conditions.*;
-import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
@@ -23,35 +21,32 @@ public abstract class BaseCreature implements Creature {
     private boolean dead = false;
     private final int hitPoints;
     private final int level;
-    private final boolean monster;
     private final String name;
+    private final SingleTargetSelector singleTargetSelector;
     private final Stats stats;
-    private final SingleTargetSelector targetSelector;
-    private final boolean undead;
-
-    /**
-     * Simplified constructor; not undead, but a monster.
-     */
-
-    public BaseCreature(String name, int level, Stats stats, int armorClass, int hitPoints, Action action) {
-        this(name, level, false, true, stats, armorClass, hitPoints, action, new RandomTargetSelector());
-    }
+    private final Set<Label> labels = new HashSet<>();
 
     /**
      * All argument constructor.
      */
 
-    public BaseCreature(String name, int level, boolean undead, boolean monster, Stats stats, int armorClass, int hitPoints, Action action, SingleTargetSelector targetSelector) {
+    public BaseCreature(
+            String name,
+            int level,
+            Stats stats,
+            int armorClass,
+            int hitPoints,
+            Action action,
+            SingleTargetSelector singleTargetSelector) {
+
         this.name = name;
         this.level = level;
-        this.undead = undead;
-        this.monster = monster;
         this.stats = stats;
         this.armorClass = armorClass;
         this.hitPoints = hitPoints;
         this.currentHitPoints = hitPoints;
         this.action = action;
-        this.targetSelector = targetSelector;
+        this.singleTargetSelector = singleTargetSelector;
     }
 
     @Override
@@ -100,8 +95,8 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
-    public SingleTargetSelector getTargetSelector() {
-        return targetSelector;
+    public SingleTargetSelector getSingleTargetSelector() {
+        return singleTargetSelector;
     }
 
     @Override
@@ -122,6 +117,11 @@ public abstract class BaseCreature implements Creature {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public Set<Label> getLabels() {
+        return labels;
     }
 
     @Override
@@ -167,11 +167,6 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
-    public boolean isUndead() {
-        return undead;
-    }
-
-    @Override
     public boolean isWounded() {
         // Dead people are not wounded!
         return currentHitPoints != 0 && currentHitPoints < hitPoints;
@@ -196,9 +191,9 @@ public abstract class BaseCreature implements Creature {
         currentHitPoints = Math.max(0, currentHitPoints - amount);
 
         if (currentHitPoints == 0) {
-            if (monster) {
+            if (labels.contains(Label.MONSTER)) {
                 // Zero hp give them the unconscious condition!
-                log.info(name + " is dead!");
+                log.info("{} is dead!", name);
                 conditions.clear();
                 dead = true;
             } else {
@@ -208,7 +203,7 @@ public abstract class BaseCreature implements Creature {
                 if (conditions.get(DyingCondition.class.getName()) == null) {
                     // Zero hp give them the unconscious and dying condition!
                     int deathRounds = D4.roll();
-                    log.info(name + " is unconscious and dying in " + deathRounds +" rounds!");
+                    log.info("{} is unconscious and dying in {} rounds!", name, deathRounds);
                     conditions.put(DyingCondition.class.getName(), new DyingCondition(deathRounds));
                 }
             }

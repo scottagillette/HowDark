@@ -75,7 +75,7 @@ public class Weapon implements Action {
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         // Normal weapons attack a single target... custom weapons can hit multiple (see performMultipleTargetAttack())
-        final Creature target = actor.getTargetSelector().get(enemies);
+        final Creature target = actor.getSingleTargetSelector().get(enemies);
 
         if (target == null) {
             log.info(actor.getName() + " is skipping their turn... no target!");

@@ -2,11 +2,8 @@ package com.redshift.ShadowDarkCalculator.creatures.undead;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
-import com.redshift.ShadowDarkCalculator.creatures.BaseCreature;
-import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.Stats;
+import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -14,20 +11,18 @@ import java.util.List;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 @Slf4j
-public class Mummy extends BaseCreature {
+public class Mummy extends UndeadMonster {
 
     public Mummy(String name) {
         super(
                 name,
                 10,
-                true,
-                true,
                 new Stats(17,10,15,17,15,17),
                 13,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 2,
-                new PerformAllAction(new RotTouch(), new RotTouch(), new RotTouch()),
-                new RandomTargetSelector()
+                new PerformAllAction(new RotTouch(), new RotTouch(), new RotTouch())
         );
+        getLabels().add(Label.BRUTE);
     }
 
     @Override
@@ -55,7 +50,7 @@ public class Mummy extends BaseCreature {
 
         @Override
         public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-            final Creature target = actor.getTargetSelector().get(enemies);
+            final Creature target = actor.getSingleTargetSelector().get(enemies);
 
             if (target == null) {
                 log.info(actor.getName() + " is skipping their turn... no target!");

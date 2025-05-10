@@ -1,9 +1,7 @@
 package com.redshift.ShadowDarkCalculator.creatures.monstrosities;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
-import com.redshift.ShadowDarkCalculator.creatures.BaseCreature;
-import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.Stats;
+import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
@@ -14,7 +12,7 @@ import java.util.List;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 @Slf4j
-public class CaveCreeper extends BaseCreature {
+public class CaveCreeper extends Monster {
 
     public CaveCreeper(String name) {
         super(
@@ -25,6 +23,7 @@ public class CaveCreeper extends BaseCreature {
                 D8.roll() + D8.roll() + D8.roll() + D8.roll(),
                 new PerformAllAction(new Bite(), new Tentacles())
         );
+        getLabels().add(Label.BRUTE);
     }
 
     public static class Bite extends Weapon {
@@ -43,7 +42,7 @@ public class CaveCreeper extends BaseCreature {
 
         @Override
         public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-            final Creature target = actor.getTargetSelector().get(enemies);
+            final Creature target = actor.getSingleTargetSelector().get(enemies);
 
             if (target == null) {
                 log.info(actor.getName() + " is skipping their turn... no target!");

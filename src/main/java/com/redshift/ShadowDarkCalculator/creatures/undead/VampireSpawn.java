@@ -2,9 +2,7 @@ package com.redshift.ShadowDarkCalculator.creatures.undead;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
-import com.redshift.ShadowDarkCalculator.creatures.BaseCreature;
-import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.Stats;
+import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
 import lombok.extern.slf4j.Slf4j;
@@ -14,20 +12,19 @@ import java.util.List;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 @Slf4j
-public class VampireSpawn extends BaseCreature {
+public class VampireSpawn extends UndeadMonster {
 
     public VampireSpawn(String name) {
         super(
                 name,
                 5,
-                true,
-                true,
                 new Stats(16,14,16,9,12,14),
                 13,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 3,
                 new PerformAllAction(new Bite(), new Bite()),
                 new RandomTargetSelector()
         );
+        getLabels().add(Label.BRUTE);
     }
 
     @Override
@@ -50,7 +47,7 @@ public class VampireSpawn extends BaseCreature {
 
         @Override
         public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-            final Creature target = actor.getTargetSelector().get(enemies);
+            final Creature target = actor.getSingleTargetSelector().get(enemies);
 
             if (target == null) {
                 log.info(actor.getName() + " is skipping their turn... no target!");

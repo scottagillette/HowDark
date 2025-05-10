@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monstrosities.Ankheg;
+import com.redshift.ShadowDarkCalculator.creatures.undead.Skeleton;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilder;
@@ -34,12 +34,12 @@ public class HowDark {
 //					List.of(new HillGiant("Brundo the Crusher"), new HillGiant("Gunda the Smasher"))
 //					List.of(new Goblin("Grek"), new Goblin("Pek"), new Goblin("Mek"), new Goblin("Rek")
 
-//                    List.of(
-//                            new Skeleton("Skeleton 1"),
-//                            new Skeleton("Skeleton 2"),
-//                            new Skeleton("Skeleton 3"),
-//                            new Skeleton("Skeleton 4")
-//                    )
+                    List.of(
+                            new Skeleton("Skeleton 1"),
+                            new Skeleton("Skeleton 2"),
+                            new Skeleton("Skeleton 3"),
+                            new Skeleton("Skeleton 4")
+                    )
 
 //                    List.of(
 //                            new Zombie("Zombie 1"),
@@ -63,8 +63,7 @@ public class HowDark {
 //                    List.of(new Mummy("Mummy of Death"))
 //                    List.of(new VampireSpawn("Vampire Spawn"))
 //                    List.of(new OwlBear("Rabid Owlbear"))
-
-                    List.of(new Ankheg("Ankheg of Death"))
+//                    List.of(new Ankheg("Ankheg of Death"))
             );
 
             simulator.simulateFight();

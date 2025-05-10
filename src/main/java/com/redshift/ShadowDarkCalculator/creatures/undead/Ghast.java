@@ -3,9 +3,10 @@ package com.redshift.ShadowDarkCalculator.creatures.undead;
 import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
-import com.redshift.ShadowDarkCalculator.creatures.BaseCreature;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.creatures.Label;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
+import com.redshift.ShadowDarkCalculator.creatures.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
 import lombok.extern.slf4j.Slf4j;
@@ -15,20 +16,19 @@ import java.util.List;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 @Slf4j
-public class Ghast extends BaseCreature {
+public class Ghast extends UndeadMonster {
 
     public Ghast(String name) {
         super(
                 name,
                 4,
-                true,
-                true,
                 new Stats(17,12,14,10,10,14),
                 11,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + 2,
                 new PerformAllAction(new ParalyzingClaw(), new ParalyzingClaw()),
                 new RandomTargetSelector()
         );
+        getLabels().add(Label.BRUTE);
     }
 
     private static class ParalyzingClaw extends Weapon {
@@ -39,7 +39,7 @@ public class Ghast extends BaseCreature {
 
         @Override
         public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-            final Creature target = actor.getTargetSelector().get(enemies);
+            final Creature target = actor.getSingleTargetSelector().get(enemies);
 
             if (target == null) {
                 log.info(actor.getName() + " is skipping their turn... no target!");
