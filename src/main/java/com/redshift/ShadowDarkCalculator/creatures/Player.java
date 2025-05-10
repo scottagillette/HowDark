@@ -8,9 +8,9 @@ import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
  * Useful constructors for characters, not undead, not a monster, focus fire target selector.
  */
 
-public class Character extends BaseCreature {
+public class Player extends BaseCreature {
 
-    public Character(
+    public Player(
             String name,
             int level,
             Stats stats,
@@ -22,7 +22,7 @@ public class Character extends BaseCreature {
         getLabels().add(Label.PLAYER);
     }
 
-    public Character(
+    public Player(
             String name,
             int level,
             Stats stats,

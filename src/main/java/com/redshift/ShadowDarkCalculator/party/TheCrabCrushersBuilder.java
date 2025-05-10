@@ -3,7 +3,8 @@ package com.redshift.ShadowDarkCalculator.party;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.*;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
-import com.redshift.ShadowDarkCalculator.creatures.Character;
+import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.Player;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.targets.FocusFireTargetSelector;
@@ -16,7 +17,8 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
     private final List<Creature> creatures = new ArrayList<>();
 
     public TheCrabCrushersBuilder() {
-        creatures.add(new Character(
+
+        final Creature karn = new Player(
                 "Karn Crabcrusher",
                 1,
                 new Stats(15, 14, 14, 14, 11, 14),
@@ -24,9 +26,11 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
                 7,
                 WeaponBuilder.BASTARD_SWORD_1H.build(3,2),
                 new FocusFireTargetSelector()
-        ));
+        );
+        karn.getLabels().add(Label.BRUTE);
+        creatures.add(karn);
 
-        creatures.add(new Character(
+        final Creature kabsal = new Player(
                 "Kabsal Argent",
                 1,
                 new Stats(15, 9, 13, 10, 17, 12),
@@ -39,9 +43,11 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
                         new ShieldOfFaith().addBonus(1)
                 )),
                 new FocusFireTargetSelector()
-        ));
+        );
+        kabsal.getLabels().add(Label.HEALER);
+        creatures.add(kabsal);
 
-        creatures.add(new Character(
+        final Creature alderon = new Player(
                 "Alderon",
                 1,
                 new Stats(8, 13, 12, 16, 10, 8),
@@ -54,9 +60,12 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
                         new BurningHands().addBonus(1).addAdvantage()
                 )),
                 new FocusFireTargetSelector()
-        ));
+        );
+        alderon.getLabels().add(Label.BACKLINE);
+        alderon.getLabels().add(Label.CASTER);
+        creatures.add(alderon);
 
-        creatures.add(new Character(
+        final Creature fennick = new Player(
                 "Fennick Quickfoot",
                 1,
                 new Stats(10, 10, 14, 8, 10, 8),
@@ -64,7 +73,9 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
                 6,
                 new PerformOneAction(List.of(WeaponBuilder.CROSSBOW.build())),
                 new FocusFireTargetSelector()
-        ));
+        );
+        fennick.getLabels().add(Label.BACKLINE);
+        creatures.add(fennick);
     }
 
     @Override
