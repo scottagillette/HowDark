@@ -54,7 +54,7 @@ public interface Creature {
      * Returns the creatures initiative
      */
 
-    int getInitiative();
+    int rollInitiative();
 
     /**
      * Returns the level of the creature.

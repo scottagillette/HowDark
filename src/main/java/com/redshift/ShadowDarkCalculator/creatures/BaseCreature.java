@@ -105,7 +105,7 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
-    public int getInitiative() {
+    public int rollInitiative() {
         return D20.roll() + stats.getDexterityModifier();
     }
 

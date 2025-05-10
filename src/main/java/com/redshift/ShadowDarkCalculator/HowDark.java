@@ -27,15 +27,11 @@ public class HowDark {
                     new TheCrabCrushersBuilder().build(),
 
 //					List.of(new Ogre("'Ulak The Crusher' Ogre")
-
 //					List.of(new CaveCreeper("Cave Creeper"))
 //					List.of(new CaveCreeper("Cave Creeper 1"), new CaveCreeper("Cave Creeper 2"))
-
 //					List.of(new GelatinousCube("'Gelatinous Cube'"))
-
 //					List.of(new HillGiant("Brundo the Crusher")
 //					List.of(new HillGiant("Brundo the Crusher"), new HillGiant("Gunda the Smasher"))
-
 //					List.of(new Goblin("Grek"), new Goblin("Pek"), new Goblin("Mek"), new Goblin("Rek")
 
 //                    List.of(
@@ -60,20 +56,14 @@ public class HowDark {
 //                    )
 
 //                    List.of(new Wight("Armored Wight"))
-
 //                    List.of(new Ghast("Ghast"))
-
 //                    List.of(new Shadow("Shadow 1"), new Shadow("Shadow 2"))
-
 //                    List.of(new Bugbear("Bugbear 1"), new Bugbear("Bugbear 2"))
-
 //                    List.of(new Wraith("Wraith"))
-
 //                    List.of(new Mummy("Mummy of Death"))
-
 //                    List.of(new VampireSpawn("Vampire Spawn"))
-
 //                    List.of(new OwlBear("Rabid Owlbear"))
+
                     List.of(new Ankheg("Ankheg of Death"))
             );
 
@@ -88,8 +78,8 @@ public class HowDark {
 
         log.info("[ Outcome ]");
 
-        log.info("Group 1: wins=" + group1Wins + ", winsWithDeath=" + group1WinsWithDeath);
-        log.info("Group 2: wins=" + group2Wins + ", winsWithDeath=" + group2WinsWithDeath);
+        log.info("Players:  wins=" + group1Wins + ", winsWithDeath=" + group1WinsWithDeath);
+        log.info("Monsters: wins=" + group2Wins + ", winsWithDeath=" + group2WinsWithDeath);
     }
 
 }
