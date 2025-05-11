@@ -42,7 +42,7 @@ public class Ghast extends UndeadMonster {
             final Creature target = actor.getSingleTargetSelector().get(enemies);
 
             if (target == null) {
-                log.info(actor.getName() + " is skipping their turn... no target!");
+                log.info("{} is skipping their turn... no target!", actor.getName());
             } else {
 
                 // TODO: Note - The Carrion Stench ability is not implemented...
@@ -53,10 +53,10 @@ public class Ghast extends UndeadMonster {
                     if (!target.hasCondition(ParalyzedCondition.class.getName())) {
                         if (!target.getStats().constitutionSave(12)) {
                             int rounds = D4.roll();
-                            log.info(target.getName() + " is paralyzed for " + rounds + " rounds!");
+                            log.info("{} is paralyzed for {} rounds!", target.getName(), rounds);
                             target.addCondition(new ParalyzedCondition(rounds));
                         } else {
-                            log.info(target.getName() + " SAVES and is NOT paralyzed!");
+                            log.info("{} SAVES and is NOT paralyzed!", target.getName());
                         }
                     }
                 }

@@ -50,7 +50,7 @@ public class VampireSpawn extends UndeadMonster {
             final Creature target = actor.getSingleTargetSelector().get(enemies);
 
             if (target == null) {
-                log.info(actor.getName() + " is skipping their turn... no target!");
+                log.info("{} is skipping their turn... no target!", actor.getName());
             } else {
                 boolean attackHits = performSingleTargetAttack(actor, target, name, dice, rollModifier);
 
@@ -61,10 +61,10 @@ public class VampireSpawn extends UndeadMonster {
                     // Loose 1d4 CON
                     int constitutionRemaining = target.getStats().constitutionDrain(D4);
                     if (constitutionRemaining == 0) {
-                        log.info(target.getName() + " is drained of constitution to " + constitutionRemaining + " and DIES!");
+                        log.info("{} is drained of constitution to {} and DIES!", target.getName(), constitutionRemaining);
                         target.setDead(true);
                     } else {
-                        log.info(target.getName() + " is drained of constitution to " + constitutionRemaining);
+                        log.info("{} is drained of constitution to {}", target.getName(), constitutionRemaining);
                     }
                 }
             }

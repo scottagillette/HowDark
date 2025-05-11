@@ -38,17 +38,17 @@ public class Shadow extends UndeadMonster {
             final Creature target = actor.getSingleTargetSelector().get(enemies);
 
             if (target == null) {
-                log.info(actor.getName() + " is skipping their turn... no target!");
+                log.info("{} is skipping their turn... no target!", actor.getName());
             } else {
                 boolean attackHits = performSingleTargetAttack(actor, target, name, dice, rollModifier);
 
                 if (attackHits) {
                     final int currentStrength = target.getStats().strengthDrain(D1);
                     if (currentStrength == 0) {
-                        log.info(target.getName() + " is drained of strength to " + currentStrength + " and DIES!");
+                        log.info("{} is drained of strength to {} and DIES!", target.getName(), currentStrength);
                         target.setDead(true);
                     } else {
-                        log.info(target.getName() + " is drained of strength to " + currentStrength);
+                        log.info("{} is drained of strength to {}", target.getName(), currentStrength);
                     }
                 }
             }

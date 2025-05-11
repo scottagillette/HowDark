@@ -43,7 +43,7 @@ public class Ankheg extends Monster {
 
         @Override
         public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-            log.info(actor.getName() + " sprays ACID!");
+            log.info("{} sprays ACID!", actor.getName());
             performMultipleTargetAttack(actor, enemies, name, dice, rollModifier);
         }
     }

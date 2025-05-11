@@ -37,7 +37,7 @@ public class GelatinousCube extends Monster {
             final Creature target = actor.getSingleTargetSelector().get(enemies);
 
             if (target == null) {
-                log.info(actor.getName() + " is skipping their turn... no target!");
+                log.info("{} is skipping their turn... no target!", actor.getName());
             } else {
                 boolean attackHits = performSingleTargetAttack(actor, target, name, dice, rollModifier);
 
@@ -45,19 +45,19 @@ public class GelatinousCube extends Monster {
                     // Toxin
                     if (!target.getStats().constitutionSave(15)) {
                         int rounds = D4.roll();
-                        log.info(target.getName() + " is paralyzed for " + rounds + " rounds!");
+                        log.info("{} is paralyzed for {} rounds!", target.getName(), rounds);
                         target.addCondition(new ParalyzedCondition(rounds));
 
                         // Engulf... does no check if paralyzed...
-                        log.info(target.getName() + " is paralyzed and is automatically engulfed by the Gelatinous Cube!");
+                        log.info("{} is paralyzed and is automatically engulfed by the Gelatinous Cube!", target.getName());
                         target.addCondition(new EngulfedInAcidCondition(D8));
 
                     } else {
-                        log.info(target.getName() + " SAVES and is NOT paralyzed!");
+                        log.info("{} SAVES and is NOT paralyzed!", target.getName());
 
                         // Engulf.. STR DC 12 check
                         if (!target.getStats().strengthSave(12)) {
-                            log.info(target.getName() + " fails a STR save and is engulfed by the Gelatinous Cube!");
+                            log.info("{} fails a STR save and is engulfed by the Gelatinous Cube!", target.getName());
                             target.addCondition(new EngulfedInAcidCondition(D8));
                         }
                     }
