@@ -1,10 +1,10 @@
 package com.redshift.ShadowDarkCalculator;
 
 import com.redshift.ShadowDarkCalculator.creatures.goblinoid.Goblin;
+import com.redshift.ShadowDarkCalculator.creatures.goblinoid.GoblinBoss;
 import com.redshift.ShadowDarkCalculator.creatures.goblinoid.GoblinShaman;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 
-import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilderv1;
 import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilderv2;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,7 +36,7 @@ public class HowDark {
 //					List.of(new HillGiant("Brundo the Crusher")
 //					List.of(new HillGiant("Brundo the Crusher"), new HillGiant("Gunda the Smasher"))
 //					List.of(new Goblin("Grek"), new Goblin("Pek"), new Goblin("Mek"), new Goblin("Rek")
-					List.of(new Goblin("Grek"), new Goblin("Pek"), new Goblin("Mek"), new GoblinShaman("Rek")
+					List.of(new GoblinBoss("Boss Grek"), new Goblin("Pek"), new Goblin("Mek"), new GoblinShaman("Rek")
 
 //                    List.of(
 //                            new Skeleton("Skeleton 1"),
