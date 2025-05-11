@@ -106,6 +106,12 @@ public interface Creature {
     void healDamage(int hitPoints);
 
     /**
+     * Returns true if the creature is bloodied (i.e. half health)
+     */
+
+    boolean isBloodied();
+
+    /**
      * Returns true if dead... can't be healed, can't take actions, etc.
      */
 
