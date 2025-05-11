@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
+import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
@@ -61,8 +62,11 @@ public abstract class MultiTargetDamageSpell extends Spell {
             Dice damageDice,
             RollModifier rollModifier) {
 
+        boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
+        actor.removeCondition(DisadvantagedCondition.class.getName());
+
         // See if they pass the spell check!
-        final int spellCheckRoll = getSpellCheckRoll();
+        final int spellCheckRoll = getSpellCheckRoll(disadvantage);
 
         final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
@@ -77,22 +81,22 @@ public abstract class MultiTargetDamageSpell extends Spell {
 
         if (criticalFailure) {
             lost = true; // Failed spell check!
-            log.info(actor.getName() + " critically MISSES the spell check with a " + spell.getName());
+            log.info("{} critically MISSES the spell check with a {}", actor.getName(), spell.getName());
         } else if (criticalSuccess) {
             int damage = damageDice.roll() + damageDice.roll();
             targets.forEach(target -> {
-                log.info(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + spell.getName() + ": damage=" + damage);
+                log.info("{} critically hits a spell on {} with a {}: damage={}", actor.getName(), target.getName(), spell.getName(), damage);
                 target.takeDamage(damage, false, true, fireDamage, coldDamage);
             });
         } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             int damage = damageDice.roll();
             targets.forEach(target -> {
-                log.info(actor.getName() + " hits a spell on " + target.getName() + " with a " + spell.getName() + ": damage=" + damage);
+                log.info("{} hits a spell on {} with a {}: damage={}", actor.getName(), target.getName(), spell.getName(), damage);
                 target.takeDamage(damage, false, true, fireDamage, coldDamage);
             });
         } else {
             lost = true; // Failed spell check!
-            log.info(actor.getName() + " MISSES the spell check with a " + spell.getName());
+            log.info("{} MISSES the spell check with a {}", actor.getName(), spell.getName());
         }
     }
 }

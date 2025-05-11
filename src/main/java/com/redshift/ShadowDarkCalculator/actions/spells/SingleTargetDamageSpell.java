@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
+import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
@@ -42,7 +43,10 @@ public abstract class SingleTargetDamageSpell extends Spell {
             Dice damageDice,
             RollModifier rollModifier) {
 
-        final int spellCheckRoll = getSpellCheckRoll();
+        boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
+        actor.removeCondition(DisadvantagedCondition.class.getName());
+
+        final int spellCheckRoll = getSpellCheckRoll(disadvantage);
 
         final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;

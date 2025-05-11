@@ -30,13 +30,13 @@ public class Mummy extends UndeadMonster {
         // Damage for fire or magical only.
         if (fire) {
             // Double damage for fire!
-            log.info(getName() + " takes DOUBLE damage from fire!");
+            log.info("{} takes DOUBLE damage from fire!", getName());
             super.takeDamage(amount + amount, silvered, magical, fire, cold);
         } else {
             if (magical) {
                 super.takeDamage(amount, silvered, magical, fire, cold);
             } else {
-                log.info(getName() + " takes no damage from non-magical, non-fire damage!");
+                log.info("{} takes no damage from non-magical, non-fire damage!", getName());
             }
         }
 
@@ -53,16 +53,16 @@ public class Mummy extends UndeadMonster {
             final Creature target = actor.getSingleTargetSelector().get(enemies);
 
             if (target == null) {
-                log.info(actor.getName() + " is skipping their turn... no target!");
+                log.info("{} is skipping their turn... no target!", actor.getName());
             } else {
                 boolean attackHits = performSingleTargetAttack(actor, target, name, dice, rollModifier);
 
                 if (attackHits & target.getCurrentHitPoints() != 0) {
                     if (target.getStats().constitutionSave(15)) {
-                        log.info(target.getName() + " SAVES and is NOT drained of health.");
+                        log.info("{} SAVES and is NOT drained of health.", target.getName());
                     } else {
                         // HP 0
-                        log.info(target.getName() + " is drained of health and drops to 0 hit points!");
+                        log.info("{} is drained of health and drops to 0 hit points!", target.getName());
                         target.takeDamage(999, false, false, false, false);
                     }
                 }

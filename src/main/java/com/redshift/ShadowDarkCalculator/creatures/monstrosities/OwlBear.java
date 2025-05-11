@@ -41,7 +41,7 @@ public class OwlBear extends Monster {
                 if (attackHits && priorAttackHits) {
                     // Take extra dice of damage
                     int extraDamage = D10.roll();
-                    log.info(target.getName() + " takes extra crushing damage of " + extraDamage);
+                    log.info("{} takes extra crushing damage of {}", target.getName(), extraDamage);
                     target.takeDamage(extraDamage, false, false, false, false);
                 }
                 priorAttack = false; // Reset

@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
+import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
@@ -31,8 +32,11 @@ public class CureWounds extends SingleTargetBenificialSpell {
         final SingleTargetSelector selector = new HealTargetSelector();
         final Creature target = selector.get(allies); // Shouldn't get null since Spell.canPerform() returned true
 
+        boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
+        actor.removeCondition(DisadvantagedCondition.class.getName());
+
         // See if they pass the spell check!
-        final int spellCheckRoll = getSpellCheckRoll();
+        final int spellCheckRoll = getSpellCheckRoll(disadvantage);
 
         final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
