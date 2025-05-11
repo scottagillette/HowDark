@@ -178,6 +178,11 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
+    public void removeCondition(String conditionName) {
+        conditions.remove(conditionName);
+    }
+
+    @Override
     public void setDead(boolean dead) {
         this.dead = dead; // Some undead can come back!
         if (dead) {

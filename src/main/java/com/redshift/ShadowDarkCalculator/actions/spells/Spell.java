@@ -52,8 +52,15 @@ public abstract class Spell implements Action {
      * Returns the spell check roll... which does not include the spell check bonus if any.
      */
 
-    protected int getSpellCheckRoll() {
-        return (spellCheckAdvantage) ? Math.max(D20.roll(), D20.roll()) : D20.roll();
+    protected int getSpellCheckRoll(boolean disadvantaged) {
+        boolean atkAdvantaged = spellCheckAdvantage && !disadvantaged;
+        boolean atkDisadvantaged = !spellCheckAdvantage && disadvantaged;
+
+        return (atkAdvantaged)
+                ? Math.max(D20.roll(), D20.roll())
+                : (atkDisadvantaged)
+                ? Math.min(D20.roll(), D20.roll())
+                : D20.roll();
     }
 
     @Override
