@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 @Slf4j
-public class Ettercap  extends Monster {
+public class Ettercap extends Monster {
 
     public Ettercap(String name) {
         super(
@@ -24,10 +24,10 @@ public class Ettercap  extends Monster {
                 3,
                 new Stats(10,14,12,10,10,8),
                 12,
-                D8.roll() + D8.roll() + D8.roll(),
+                D8.roll() + D8.roll() + D8.roll() + 1,
                 new PerformOneAction(
-                        new PerformAllAction(new Bite(),new Bite(),
-                        new PoisonWeb())
+                        new PerformAllAction(new Bite(),new Bite()),
+                        new PoisonWeb()
                 )
         );
         getLabels().add(Label.BRUTE);
