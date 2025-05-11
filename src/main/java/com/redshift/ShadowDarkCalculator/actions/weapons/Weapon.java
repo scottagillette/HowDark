@@ -25,13 +25,14 @@ public class Weapon implements Action {
     protected int damageRollBonus = 0;
     protected boolean magical;
     protected boolean silvered;
+    protected int priority = 1;
 
     public Weapon(String name, Dice dice, RollModifier rollModifier) {
-        this(name, dice, rollModifier, false, false, 0, 0);
+        this(name, dice, rollModifier, false, false, 0, 0,1);
     }
 
     public Weapon(String name, Dice dice, RollModifier rollModifier, int attackRollBonus) {
-        this(name, dice, rollModifier, false, false, attackRollBonus, 0);
+        this(name, dice, rollModifier, false, false, attackRollBonus, 0, 1);
     }
 
     public Weapon(
@@ -41,7 +42,8 @@ public class Weapon implements Action {
             boolean magical,
             boolean silvered,
             int attackRollBonus,
-            int damageRollBonus) {
+            int damageRollBonus,
+            int priority) {
 
         this.name = name;
         this.dice = dice;
@@ -50,6 +52,7 @@ public class Weapon implements Action {
         this.damageRollBonus = damageRollBonus;
         this.magical = magical;
         this.silvered =silvered;
+        this.priority = priority;
     }
 
     @Override
@@ -60,6 +63,11 @@ public class Weapon implements Action {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int getPriority() {
+        return priority;
     }
 
     @Override
@@ -150,5 +158,11 @@ public class Weapon implements Action {
                 log.info(actor.getName() + " MISSES the attack on " + target.getName() + " with a " + weaponName);
             }
         });
+    }
+
+    @Override
+    public Weapon setPriority(int priority) {
+        this.priority = priority;
+        return this;
     }
 }

@@ -3,7 +3,8 @@ package com.redshift.ShadowDarkCalculator;
 import com.redshift.ShadowDarkCalculator.creatures.undead.Skeleton;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 
-import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilder;
+import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilderv1;
+import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilderv2;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -24,7 +25,8 @@ public class HowDark {
 
             final CombatSimulator simulator = new CombatSimulator(
                     //new TheWolfPackBuilder().build(),
-                    new TheCrabCrushersBuilder().build(),
+//                    new TheCrabCrushersBuilderv1().build(),
+                    new TheCrabCrushersBuilderv2().build(),
 
 //					List.of(new Ogre("'Ulak The Crusher' Ogre")
 //					List.of(new CaveCreeper("Cave Creeper"))

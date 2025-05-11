@@ -2,9 +2,11 @@ package com.redshift.ShadowDarkCalculator.actions;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.SingleDie;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+@Slf4j
 public class PerformOneAction implements Action {
 
     private final List<Action> actions;
@@ -33,6 +35,11 @@ public class PerformOneAction implements Action {
     }
 
     @Override
+    public int getPriority() {
+        return 1; // TODO Implement
+    }
+
+    @Override
     public boolean isLost() {
         final List<Action> filteredActions = actions.stream()
                 .filter(action -> !action.isLost())
@@ -49,16 +56,39 @@ public class PerformOneAction implements Action {
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        // Choose 1 action at random; but can't be lost and can be performed.
+        // Choose 1 action based on priority; but can't be lost and can be performed.
 
-        final List<Action> filteredActions = actions.stream()
+        final List<Action> availableActions = actions.stream()
                 .filter(action -> action.canPerform(actor, enemies, allies))
                 .filter(action -> !action.isLost())
                 .toList();
 
-        if (!filteredActions.isEmpty()) {
-            final SingleDie singleDie = new SingleDie(filteredActions.size());
-            filteredActions.get(singleDie.roll() - 1).perform(actor, enemies, allies);
+        if (!availableActions.isEmpty()) {
+            int maxPriority = 0;
+
+            for (Action action : availableActions) {
+                maxPriority = maxPriority + action.getPriority();
+            }
+
+            final int priorityRoll = new SingleDie(maxPriority).roll();
+
+            int sum = 0;
+
+            for (Action action : availableActions) {
+                final int actionPriority = action.getPriority();
+                sum = sum + actionPriority;
+
+                if (priorityRoll >= sum - (actionPriority - 1) && priorityRoll <= sum) {
+                    action.perform(actor, enemies, allies);
+                    break;
+                }
+            }
         }
+    }
+
+    @Override
+    public Action setPriority(int priority) {
+        // mkay
+        return this;
     }
 }

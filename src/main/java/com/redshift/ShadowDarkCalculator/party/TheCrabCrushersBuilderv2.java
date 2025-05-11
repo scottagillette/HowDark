@@ -3,20 +3,20 @@ package com.redshift.ShadowDarkCalculator.party;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.*;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
+import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.Label;
 import com.redshift.ShadowDarkCalculator.creatures.Player;
-import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.targets.FocusFireTargetSelector;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TheCrabCrushersBuilder implements PartyBuilder {
+public class TheCrabCrushersBuilderv2 implements PartyBuilder {
 
     private final List<Creature> creatures = new ArrayList<>();
 
-    public TheCrabCrushersBuilder() {
+    public TheCrabCrushersBuilderv2() {
 
         final Creature karn = new Player(
                 "Karn Crabcrusher",
@@ -38,8 +38,8 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
                 7,
                 new PerformOneAction(List.of(
                         WeaponBuilder.LONGSWORD.build(1),
-                        new TurnUndead().addBonus(1),
-                        new CureWounds().addBonus(1),
+                        new TurnUndead().addBonus(1).setPriority(4),
+                        new CureWounds().addBonus(1).setPriority(2),
                         new ShieldOfFaith().addBonus(1)
                 )),
                 new FocusFireTargetSelector()
@@ -55,9 +55,9 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
                 2,
                 new PerformOneAction(List.of(
                         WeaponBuilder.STAFF.build(),
-                        new Sleep().addBonus(1),
-                        new MagicMissile().addBonus(1).addAdvantage(),
-                        new BurningHands().addBonus(1).addAdvantage()
+                        new Sleep().addBonus(1).setPriority(3),
+                        new MagicMissile().addBonus(1).addAdvantage().setPriority(2),
+                        new BurningHands().addBonus(1).addAdvantage().setPriority(4)
                 )),
                 new FocusFireTargetSelector()
         );

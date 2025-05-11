@@ -32,6 +32,11 @@ public class PerformAllAction implements Action {
     }
 
     @Override
+    public int getPriority() {
+        return 1;
+    }
+
+    @Override
     public boolean isLost() {
         final List<Action> filteredActions = actions.stream()
                 .filter(action -> !action.isLost())
@@ -58,5 +63,11 @@ public class PerformAllAction implements Action {
         if (!filteredActions.isEmpty()) {
             filteredActions.forEach(action -> action.perform(actor, enemies, allies));
         }
+    }
+
+    @Override
+    public Action setPriority(int priority) {
+        // hmm
+        return this;
     }
 }

@@ -47,29 +47,29 @@ public enum WeaponBuilder {
     }
 
     public Weapon build(int attackModifierBonus) {
-        return new Weapon(name, dice, rollModifier, false, false, attackModifierBonus, 0);
+        return new Weapon(name, dice, rollModifier, false, false, attackModifierBonus, 0,1);
     }
 
     public Weapon build(int attackModifierBonus, int damageModifierBonus) {
-        return new Weapon(name, dice, rollModifier, false, false, attackModifierBonus, damageModifierBonus);
+        return new Weapon(name, dice, rollModifier, false, false, attackModifierBonus, damageModifierBonus,1);
     }
 
-    public Weapon build(int attackModifierBonus, int damageModifierBonus, boolean magical, boolean silvered) {
-        return new Weapon(name, dice, rollModifier, magical, silvered, attackModifierBonus, damageModifierBonus);
+    public Weapon build(int attackModifierBonus, int damageModifierBonus, boolean magical, boolean silvered, int priority) {
+        return new Weapon(name, dice, rollModifier, magical, silvered, attackModifierBonus, damageModifierBonus, priority);
     }
 
     public Weapon buildSilvered() {
-        return new Weapon(name, dice, rollModifier, false, true, 0, 0);
+        return new Weapon(name, dice, rollModifier, false, true, 0, 0,1);
     }
     public Weapon buildMagicPlus1() {
-        return new Weapon(name, dice, rollModifier, true, false, 1, 1);
+        return new Weapon(name, dice, rollModifier, true, false, 1, 1,1);
     }
 
     public Weapon buildMagicPlus2() {
-        return new Weapon(name, dice, rollModifier, true, false, 2, 2);
+        return new Weapon(name, dice, rollModifier, true, false, 2, 2,1);
     }
 
     public Weapon buildMagicPlus3() {
-        return new Weapon(name, dice, rollModifier, true, false, 3, 3);
+        return new Weapon(name, dice, rollModifier, true, false, 3, 3,1);
     }
 }

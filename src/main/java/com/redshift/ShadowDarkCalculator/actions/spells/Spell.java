@@ -20,11 +20,17 @@ public abstract class Spell implements Action {
     protected boolean lost = false; // True if the spell failed to cast and is lost until a rest occurs.
     protected int spellCheckBonus = 0; // A bonus to the spell check roll... zero by default.
     protected boolean spellCheckAdvantage = false; // Some spells or wizards get advantage on spell check.
+    protected int priority;
 
     protected Spell(String name, int difficultyClass, RollModifier rollModifier) {
+        this(name, difficultyClass, rollModifier, 1);
+    }
+
+    public Spell(String name, int difficultyClass, RollModifier rollModifier, int priority) {
         this.name = name;
         this.difficultyClass = difficultyClass;
         this.rollModifier = rollModifier;
+        this.priority = priority;
     }
 
     public Spell addAdvantage() {
@@ -56,6 +62,11 @@ public abstract class Spell implements Action {
     }
 
     @Override
+    public int getPriority() {
+        return priority;
+    }
+
+    @Override
     public boolean isLost() {
         return lost;
     }
@@ -65,4 +76,9 @@ public abstract class Spell implements Action {
         return true;
     }
 
+    @Override
+    public Spell setPriority(int priority) {
+        this.priority = priority;
+        return this;
+    }
 }
