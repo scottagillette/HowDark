@@ -13,9 +13,6 @@ import com.redshift.ShadowDarkCalculator.creatures.goblinoid.Goblin;
 import com.redshift.ShadowDarkCalculator.creatures.undead.Skeleton;
 import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilderv2;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 class CombatSimulatorTest {
 
     @Test
@@ -118,7 +115,7 @@ class CombatSimulatorTest {
         int group2WinsWithDeath = 0;
             
         for (int i = 0; i < 100; i++) {
-            log.info("[ Fight: {} ]", i + 1);
+           //log.info("[ Fight: {} ]", i + 1);
             // Create the Crab Crushers party
             List<com.redshift.ShadowDarkCalculator.creatures.Creature> crabCrushers = new TheCrabCrushersBuilderv2().build();
 
@@ -167,8 +164,8 @@ class CombatSimulatorTest {
             group2WinsWithDeath = group2WinsWithDeath + simulator.getGroup2WinsWithDeath();
         }
 
-        log.info("[ Outcome ]");
-        log.info("Players:  wins={}, winsWithDeath={}", group1Wins, group1WinsWithDeath);
-        log.info("Monsters: wins={}, winsWithDeath={}", group2Wins, group2WinsWithDeath);
+       // log.info("[ Outcome ]");
+       // log.info("Players:  wins={}, winsWithDeath={}", group1Wins, group1WinsWithDeath);
+       // log.info("Monsters: wins={}, winsWithDeath={}", group2Wins, group2WinsWithDeath);
     }
 }
