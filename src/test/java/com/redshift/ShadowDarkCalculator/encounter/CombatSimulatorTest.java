@@ -1,5 +1,10 @@
 package com.redshift.ShadowDarkCalculator.encounter;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Label;
 import com.redshift.ShadowDarkCalculator.creatures.Player;
@@ -7,16 +12,16 @@ import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.goblinoid.Goblin;
 import com.redshift.ShadowDarkCalculator.creatures.undead.Skeleton;
 import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilderv2;
-import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+@Slf4j
 class CombatSimulatorTest {
 
     @Test
     void simulateFight_shouldEndWithWinner() {
+        log.info("hello");
+        
         // Create a simple fighter
         Player fighter = new Player(
             "Test Fighter",
@@ -108,45 +113,65 @@ class CombatSimulatorTest {
 
     @Test
     void simulateFight_crabCrushersVsSkeletons() {
-        // Create the Crab Crushers party
-        List<com.redshift.ShadowDarkCalculator.creatures.Creature> crabCrushers = new TheCrabCrushersBuilderv2().build();
+        int group1Wins = 0;
+        int group1WinsWithDeath = 0;
 
-        // Create four skeletons
-        List<com.redshift.ShadowDarkCalculator.creatures.Creature> skeletons = List.of(
-            new Skeleton("Skeleton 1"),
-            new Skeleton("Skeleton 2"),
-            new Skeleton("Skeleton 3"),
-            new Skeleton("Skeleton 4")
-        );
+        int group2Wins = 0;
+        int group2WinsWithDeath = 0;
+            
+        for (int i = 0; i < 100; i++) {
+            log.info("[ Fight: " + (i + 1) + " ]");
+            // Create the Crab Crushers party
+            List<com.redshift.ShadowDarkCalculator.creatures.Creature> crabCrushers = new TheCrabCrushersBuilderv2().build();
 
-        // Set up the combat
-        CombatSimulator simulator = new CombatSimulator(crabCrushers, skeletons);
+            // Create four skeletons
+            List<com.redshift.ShadowDarkCalculator.creatures.Creature> skeletons = List.of(
+                new Skeleton("Skeleton 1"),
+                new Skeleton("Skeleton 2"),
+                new Skeleton("Skeleton 3"),
+                new Skeleton("Skeleton 4")
+            );
 
-        // Run the simulation
-        simulator.simulateFight();
+            // Set up the combat
+            CombatSimulator simulator = new CombatSimulator(crabCrushers, skeletons);
 
-        // Verify that exactly one side won
-        assertTrue(
-            (simulator.getGroup1Wins() == 1 && simulator.getGroup2Wins() == 0) ||
-            (simulator.getGroup1Wins() == 0 && simulator.getGroup2Wins() == 1),
-            "Combat should end with exactly one winner"
-        );
+            // Run the simulation
+            simulator.simulateFight();
 
-        // Verify that one group is completely defeated
-        boolean crabCrushersAllDead = crabCrushers.stream().allMatch(com.redshift.ShadowDarkCalculator.creatures.Creature::isDead);
-        boolean skeletonsAllDead = skeletons.stream().allMatch(com.redshift.ShadowDarkCalculator.creatures.Creature::isDead);
-        assertTrue(
-            crabCrushersAllDead || skeletonsAllDead,
-            "One group should be completely defeated"
-        );
+            // Verify that exactly one side won
+            assertTrue(
+                (simulator.getGroup1Wins() == 1 && simulator.getGroup2Wins() == 0) ||
+                (simulator.getGroup1Wins() == 0 && simulator.getGroup2Wins() == 1),
+                "Combat should end with exactly one winner"
+            );
 
-        // Additional assertions specific to this encounter
-        if (simulator.getGroup1Wins() == 1) {
-            assertTrue(simulator.getGroup1WinsWithDeath() <= simulator.getGroup1Wins(),
-                "Wins with death should not exceed total wins for Crab Crushers");
-        } else {
-            assertTrue(simulator.getGroup2WinsWithDeath() <= simulator.getGroup2Wins(),
-                "Wins with death should not exceed total wins for Skeletons");
+            // Verify that one group is completely defeated
+            boolean crabCrushersAllDead = crabCrushers.stream().allMatch(com.redshift.ShadowDarkCalculator.creatures.Creature::isDead);
+            boolean skeletonsAllDead = skeletons.stream().allMatch(com.redshift.ShadowDarkCalculator.creatures.Creature::isDead);
+            assertTrue(
+                crabCrushersAllDead || skeletonsAllDead,
+                "One group should be completely defeated"
+            );
+
+            // Additional assertions specific to this encounter
+            if (simulator.getGroup1Wins() == 1) {
+                assertTrue(simulator.getGroup1WinsWithDeath() <= simulator.getGroup1Wins(),
+                    "Wins with death should not exceed total wins for Crab Crushers");
+            } else {
+                assertTrue(simulator.getGroup2WinsWithDeath() <= simulator.getGroup2Wins(),
+                    "Wins with death should not exceed total wins for Skeletons");
+            }
+            
+            group1Wins = group1Wins + simulator.getGroup1Wins();
+            group1WinsWithDeath = group1WinsWithDeath + simulator.getGroup1WinsWithDeath();
+
+            group2Wins = group2Wins + simulator.getGroup2Wins();
+            group2WinsWithDeath = group2WinsWithDeath + simulator.getGroup2WinsWithDeath();
         }
+
+        log.info("[ Outcome ]");
+
+        log.info("Players:  wins=" + group1Wins + ", winsWithDeath=" + group1WinsWithDeath);
+        log.info("Monsters: wins=" + group2Wins + ", winsWithDeath=" + group2WinsWithDeath);
     }
 }
