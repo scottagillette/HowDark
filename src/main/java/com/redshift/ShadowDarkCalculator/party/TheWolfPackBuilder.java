@@ -56,7 +56,7 @@ public class TheWolfPackBuilder implements PartyBuilder {
                 new Stats(10, 10, 14, 8, 10, 8),
                 12,
                 8,
-                new PerformOneAction(List.of(WeaponBuilder.LONGSWORD.build(), new CureWounds(), new ShieldOfFaith(), new TurnUndead()))
+                new PerformOneAction(WeaponBuilder.LONGSWORD.build(), new CureWounds(), new ShieldOfFaith(), new TurnUndead())
         );
         grimm.getLabels().add(Label.HEALER);
         creatures.add(grimm);

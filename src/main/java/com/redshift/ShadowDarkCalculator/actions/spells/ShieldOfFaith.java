@@ -14,7 +14,7 @@ import java.util.List;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 @Slf4j
-public class ShieldOfFaith extends SingleTargetBenificialSpell {
+public class ShieldOfFaith extends SingleTargetSpell {
 
     public ShieldOfFaith() {
         super("Shield Of Faith", 11, RollModifier.WISDOM);

@@ -13,7 +13,7 @@ import java.util.List;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
 
 @Slf4j
-public class CureWounds extends SingleTargetBenificialSpell {
+public class CureWounds extends SingleTargetSpell {
 
     public CureWounds() {
         super("Cure Wounds", 11, RollModifier.WISDOM);
