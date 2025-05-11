@@ -21,10 +21,10 @@ public class HowDark {
 
         for (int i = 0; i < 1000; i++) {
 
-            log.info("[ Fight: " + (i + 1) + " ]");
+            log.info("[ Fight: {} ]", i + 1);
 
             final CombatSimulator simulator = new CombatSimulator(
-                    //new TheWolfPackBuilder().build(),
+//                    new TheWolfPackBuilder().build(),
 //                    new TheCrabCrushersBuilderv1().build(),
                     new TheCrabCrushersBuilderv2().build(),
 
@@ -79,8 +79,8 @@ public class HowDark {
 
         log.info("[ Outcome ]");
 
-        log.info("Players:  wins=" + group1Wins + ", winsWithDeath=" + group1WinsWithDeath);
-        log.info("Monsters: wins=" + group2Wins + ", winsWithDeath=" + group2WinsWithDeath);
+        log.info("Players:  wins={}, winsWithDeath={}", group1Wins, group1WinsWithDeath);
+        log.info("Monsters: wins={}, winsWithDeath={}", group2Wins, group2WinsWithDeath);
     }
 
 }
