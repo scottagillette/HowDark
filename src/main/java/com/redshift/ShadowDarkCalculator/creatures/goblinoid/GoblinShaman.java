@@ -27,7 +27,7 @@ public class GoblinShaman extends Monster {
                 new Stats(10, 12, 12, 9, 14, 12),
                 12,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + 1,
-                new PerformOneAction(WeaponBuilder.STAFF.build(), new StinkBomb())
+                new PerformOneAction(WeaponBuilder.STAFF.build(), new StinkBomb().setPriority(4))
         );
         getLabels().add(Label.CASTER);
     }
