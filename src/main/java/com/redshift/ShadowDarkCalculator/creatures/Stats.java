@@ -144,6 +144,9 @@ public class Stats {
         return D20.roll() + getModifier(currentIntelligence);
     }
 
+    public void setIntelligence(int intelligence) {
+        this.currentIntelligence = intelligence;
+    }
 
     public int getWisdom() {
         return wisdom;
