@@ -20,8 +20,6 @@ class CombatSimulatorTest {
 
     @Test
     void simulateFight_shouldEndWithWinner() {
-        log.info("hello");
-        
         // Create a simple fighter
         Player fighter = new Player(
             "Test Fighter",
@@ -120,7 +118,7 @@ class CombatSimulatorTest {
         int group2WinsWithDeath = 0;
             
         for (int i = 0; i < 100; i++) {
-            log.info("[ Fight: " + (i + 1) + " ]");
+            log.info("[ Fight: {} ]", i + 1);
             // Create the Crab Crushers party
             List<com.redshift.ShadowDarkCalculator.creatures.Creature> crabCrushers = new TheCrabCrushersBuilderv2().build();
 
@@ -170,8 +168,7 @@ class CombatSimulatorTest {
         }
 
         log.info("[ Outcome ]");
-
-        log.info("Players:  wins=" + group1Wins + ", winsWithDeath=" + group1WinsWithDeath);
-        log.info("Monsters: wins=" + group2Wins + ", winsWithDeath=" + group2WinsWithDeath);
+        log.info("Players:  wins={}, winsWithDeath={}", group1Wins, group1WinsWithDeath);
+        log.info("Monsters: wins={}, winsWithDeath={}", group2Wins, group2WinsWithDeath);
     }
 }
