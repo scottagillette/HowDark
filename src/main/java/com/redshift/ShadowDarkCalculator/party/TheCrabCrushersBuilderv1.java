@@ -38,9 +38,9 @@ public class TheCrabCrushersBuilderv1 implements PartyBuilder {
                 7,
                 new PerformOneAction(List.of(
                         WeaponBuilder.LONGSWORD.build(1),
-                        new TurnUndead().addBonus(1),
-                        new CureWounds().addBonus(1),
-                        new ShieldOfFaith().addBonus(1)
+                        new TurnUndead().addSpellCheckBonus(1),
+                        new CureWounds().addSpellCheckBonus(1),
+                        new ShieldOfFaith().addSpellCheckBonus(1)
                 )),
                 new FocusFireTargetSelector()
         );
@@ -55,9 +55,9 @@ public class TheCrabCrushersBuilderv1 implements PartyBuilder {
                 2,
                 new PerformOneAction(List.of(
                         WeaponBuilder.STAFF.build(),
-                        new Sleep().addBonus(1),
-                        new MagicMissile().addBonus(1).addAdvantage(),
-                        new BurningHands().addBonus(1).addAdvantage()
+                        new Sleep().addSpellCheckBonus(1),
+                        new MagicMissile().addSpellCheckBonus(1).addAdvantage(),
+                        new BurningHands().addSpellCheckBonus(1).addAdvantage()
                 )),
                 new FocusFireTargetSelector()
         );

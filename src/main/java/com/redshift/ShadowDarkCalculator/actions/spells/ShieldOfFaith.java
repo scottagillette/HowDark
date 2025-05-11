@@ -38,15 +38,15 @@ public class ShieldOfFaith extends SingleTargetBenificialSpell {
         final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom!
 
         if (criticalFailure) {
-            log.info(actor.getName() + " critically MISSES the spell check on " + name);
+            log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
         } else if (criticalSuccess) {
             target.addCondition(new ShieldOfFaithCondition(D5.roll(), 4)); // Double AC for critical success
-            log.info(actor.getName() + " critically adds 4 AC on " + target.getName() + " with a " + name);
+            log.info("{} critically adds 4 AC on {} with a {}", actor.getName(), target.getName(), name);
         } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
             target.addCondition(new ShieldOfFaithCondition(D5.roll()));
-            log.info(actor.getName() + " adds 2 AC on " + target.getName() + " with a " + name);
+            log.info("{} adds 2 AC on {} with a {}", actor.getName(), target.getName(), name);
         } else {
-            log.info(actor.getName() + " MISSES the spell check with a " + name);
+            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
         }
 
         lost = true; // Always lost... cast only one per battle per character...

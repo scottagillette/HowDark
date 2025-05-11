@@ -36,6 +36,7 @@ public class GoblinShaman extends Monster {
 
         public StinkBomb() {
             super("Stink Bomb", 12, RollModifier.WISDOM, new MultipleDice(D4, D4), false);
+            addSpellCheckBonus(1); // Stink Bomb +3 check... 2 from WIS 1 bonus.
         }
 
         @Override
@@ -45,14 +46,7 @@ public class GoblinShaman extends Monster {
             if (target == null) {
                 log.info("{} is skipping their turn... no target!", actor.getName());
             } else {
-                performSingleTargetSpellAttack(
-                        actor,
-                        target,
-                        this,
-                        difficultyClass,
-                        damageDice,
-                        rollModifier
-                );
+                performSingleTargetSpellAttack(actor, target, this, difficultyClass, damageDice, rollModifier);
 
                 if (!target.getStats().constitutionSave(12)) {
                     log.info("{} is disadvantaged on their next attack/check!", target.getName());

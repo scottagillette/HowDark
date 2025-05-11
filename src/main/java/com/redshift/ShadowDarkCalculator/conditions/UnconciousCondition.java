@@ -18,7 +18,7 @@ public class UnconciousCondition implements Condition {
 
     @Override
     public void perform(Creature creature) {
-        log.info(creature.getName() + " is unconscious and skipping their turn.");
+        log.info("{} is unconscious and skipping their turn.", creature.getName());
         // Has no effect... other than you most likely will be dead...
     }
 

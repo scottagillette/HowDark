@@ -38,7 +38,7 @@ public abstract class Spell implements Action {
         return this;
     }
 
-    public Spell addBonus(int bonus) {
+    public Spell addSpellCheckBonus(int bonus) {
         this.spellCheckBonus = bonus;
         return this;
     }
@@ -56,11 +56,11 @@ public abstract class Spell implements Action {
         boolean atkAdvantaged = spellCheckAdvantage && !disadvantaged;
         boolean atkDisadvantaged = !spellCheckAdvantage && disadvantaged;
 
-        return (atkAdvantaged)
-                ? Math.max(D20.roll(), D20.roll())
-                : (atkDisadvantaged)
-                ? Math.min(D20.roll(), D20.roll())
-                : D20.roll();
+        return (atkAdvantaged) ?
+                Math.max(D20.roll(), D20.roll()) :
+                (atkDisadvantaged) ?
+                        Math.min(D20.roll(), D20.roll()) :
+                        D20.roll();
     }
 
     @Override

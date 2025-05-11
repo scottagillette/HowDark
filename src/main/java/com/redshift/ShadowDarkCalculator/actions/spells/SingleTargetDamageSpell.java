@@ -29,7 +29,7 @@ public abstract class SingleTargetDamageSpell extends Spell {
         final Creature target = actor.getSingleTargetSelector().get(enemies);
 
         if (target == null) {
-            log.info(actor.getName() + " is skipping their turn... no target!");
+            log.info("{} is skipping their turn... no target!", actor.getName());
         } else {
             performSingleTargetSpellAttack(actor, target, this, difficultyClass, damageDice, rollModifier);
         }
@@ -61,18 +61,18 @@ public abstract class SingleTargetDamageSpell extends Spell {
 
         if (criticalFailure) {
             lost = true; // Failed spell check!
-            log.info(actor.getName() + " critically MISSES the spell check with a " + spell.getName());
+            log.info("{} critically MISSES the spell check with a {}", actor.getName(), spell.getName());
         } else if (criticalSuccess) {
             int damage = damageDice.roll() + damageDice.roll();
-            log.info(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + spell.getName() + ": damage=" + damage);
+            log.info("{} critically hits a spell on {} with a {}: damage={}", actor.getName(), target.getName(), spell.getName(), damage);
             target.takeDamage(damage, false, true, false, false);
         } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
             int damage = damageDice.roll();
-            log.info(actor.getName() + " hits a spell on " + target.getName() + " with a " + spell.getName() + ": damage=" + damage);
+            log.info("{} hits a spell on {} with a {}: damage={}", actor.getName(), target.getName(), spell.getName(), damage);
             target.takeDamage(damage, false, true, false, false);
         } else {
             lost = true; // Failed spell check!
-            log.info(actor.getName() + " MISSES the spell check with a " + spell.getName());
+            log.info("{} MISSES the spell check with a {}", actor.getName(), spell.getName());
         }
     }
 }

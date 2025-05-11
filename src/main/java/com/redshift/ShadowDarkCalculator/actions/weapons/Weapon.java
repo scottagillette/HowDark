@@ -86,7 +86,7 @@ public class Weapon implements Action {
         final Creature target = actor.getSingleTargetSelector().get(enemies);
 
         if (target == null) {
-            log.info(actor.getName() + " is skipping their turn... no target!");
+            log.info("{} is skipping their turn... no target!", actor.getName());
         } else {
             performSingleTargetAttack(actor, target, name, dice, rollModifier);
         }
@@ -108,21 +108,21 @@ public class Weapon implements Action {
 
         if (criticalFailure) {
             // Do nothing
-            log.info(actor.getName() + " critically MISSES an attack on " + target.getName() + " with a " + weaponName);
+            log.info("{} critically MISSES an attack on {} with a {}", actor.getName(), target.getName(), weaponName);
             return false;
         } else if (criticalSuccess) {
             int damage = damageDice.roll() + damageDice.roll() + damageRollBonus;
-            log.info(actor.getName() + " critically hits an attack on " + target.getName() + " with a " + weaponName + ": damage=" + damage);
+            log.info("{} critically hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), weaponName, damage);
             target.takeDamage(damage, silvered, magical, false, false);
             return true;
         } else if (attackRoll + attackRollModifier + attackRollBonus >= target.getAC()) {
             int damage = damageDice.roll() + damageRollBonus;
-            log.info(actor.getName() + " hits an attack on " + target.getName() + " with a " + weaponName + ": damage=" + damage);
+            log.info("{} hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), weaponName, damage);
             target.takeDamage(damage, silvered, magical, false, false);
             return true;
         } else {
             // Miss
-            log.info(actor.getName() + " MISSES the attack on " + target.getName() + " with a " + weaponName);
+            log.info("{} MISSES the attack on {} with a {}", actor.getName(), target.getName(), weaponName);
             return false;
         }
     }
@@ -144,18 +144,18 @@ public class Weapon implements Action {
 
             if (criticalFailure) {
                 // Do nothing
-                log.info(actor.getName() + " critically MISSES an attack on " + target.getName() + " with a " + weaponName);
+                log.info("{} critically MISSES an attack on {} with a {}", actor.getName(), target.getName(), weaponName);
             } else if (criticalSuccess) {
                 int damage = damageDice.roll() + damageDice.roll() + damageRollBonus;
-                log.info(actor.getName() + " critically hits an attack on " + target.getName() + " with a " + weaponName + ": damage=" + damage);
+                log.info("{} critically hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), weaponName, damage);
                 target.takeDamage(damage, silvered, magical, false, false);
             } else if (attackRoll + attackRollModifier + attackRollBonus >= target.getAC()) {
                 int damage = damageDice.roll() + damageRollBonus;
-                log.info(actor.getName() + " hits an attack on " + target.getName() + " with a " + weaponName + ": damage=" + damage);
+                log.info("{} hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), weaponName, damage);
                 target.takeDamage(damage, silvered, magical, false, false);
             } else {
                 // Miss
-                log.info(actor.getName() + " MISSES the attack on " + target.getName() + " with a " + weaponName);
+                log.info("{} MISSES the attack on {} with a {}", actor.getName(), target.getName(), weaponName);
             }
         });
     }

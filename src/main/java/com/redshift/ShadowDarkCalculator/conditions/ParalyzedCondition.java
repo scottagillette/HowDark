@@ -25,7 +25,7 @@ public class ParalyzedCondition implements Condition {
 
     @Override
     public void perform(Creature creature) {
-        log.info(creature.getName() + " is paralyzed and skipping their turn.");
+        log.info("{} is paralyzed and skipping their turn.", creature.getName());
         // No adverse effect... other than you cant act!
     }
 

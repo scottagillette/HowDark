@@ -26,10 +26,10 @@ public class DyingCondition implements Condition {
     @Override
     public void perform(Creature creature) {
         if (rounds == 0) {
-            log.info(creature.getName() + " has died!");
+            log.info("{} has died!", creature.getName());
             creature.setDead(true);
         } else {
-            log.info(creature.getName() + " has their death timer tick down: roundsRemaining=" + rounds);
+            log.info("{} has their death timer tick down: roundsRemaining={}", creature.getName(), rounds);
         }
     }
 }

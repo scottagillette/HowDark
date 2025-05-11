@@ -35,7 +35,7 @@ public class VampireSpawn extends UndeadMonster {
         if (takeDamage) {
             super.takeDamage(amount, silvered, magical, fire, cold);
         } else {
-            log.info(getName() + " takes no damage from non-silvered, non-magical damage!");
+            log.info("{} takes no damage from non-silvered, non-magical damage!", getName());
         }
     }
 

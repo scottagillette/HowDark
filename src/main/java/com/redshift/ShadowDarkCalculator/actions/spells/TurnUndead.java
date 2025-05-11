@@ -46,7 +46,7 @@ public class TurnUndead extends MultiTargetSpell {
 
         if (criticalFailure) {
             lost = true; // Failed spell check!
-            log.info(actor.getName() + " critically MISSES the spell check on " + getName());
+            log.info("{} critically MISSES the spell check on {}", actor.getName(), getName());
         } else if (criticalSuccess || spellCheckRoll + spellCheckModifier >= difficultyClass) {
             targets.forEach(target -> {
                 int save = target.getStats().charismaSave();
@@ -54,23 +54,23 @@ public class TurnUndead extends MultiTargetSpell {
                 if (save < spellCheckRoll + spellCheckModifier) {
                     if ((spellCheckRoll + spellCheckModifier) - save >= 10) {
                         if (actor.getLevel() >= target.getLevel()) {
-                            log.info(actor.getName() + " hits a spell on " + target.getName() + " with a " + getName() + " and is destroyed!");
+                            log.info("{} hits a spell on {} with a {} and is destroyed!", actor.getName(), target.getName(), getName());
                             target.takeDamage(999, false, true, false, false); // Destroyed!
                         } else {
                             target.addCondition(new FearCondition(D5.roll())); // Just feared
-                            log.info(actor.getName() + " hits a spell on " + target.getName() + " with a " + getName() + " and feared!");
+                            log.info("{} hits a spell on {} with a {} and feared!", actor.getName(), target.getName(), getName());
                         }
                     } else {
                         target.addCondition(new FearCondition(D5.roll())); // Just feared
-                        log.info(actor.getName() + " hits a spell on " + target.getName() + " with a " + getName() + " and feared!");
+                        log.info("{} hits a spell on {} with a {} and feared!", actor.getName(), target.getName(), getName());
                     }
                 } else {
-                    log.info(actor.getName() + " has their spell resisted by " + target.getName() + " with a " + getName());
+                    log.info("{} has their spell resisted by {} with a {}", actor.getName(), target.getName(), getName());
                 }
             });
         } else {
             lost = true; // Failed spell check!
-            log.info(actor.getName() + " MISSES the spell check with a " + getName());
+            log.info("{} MISSES the spell check with a {}", actor.getName(), getName());
         }
     }
 }

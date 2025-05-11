@@ -45,18 +45,18 @@ public class CureWounds extends SingleTargetBenificialSpell {
 
         if (criticalFailure) {
             lost = true; // Failed spell check!
-            log.info(actor.getName() + " critically MISSES the spell check on " + name);
+            log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
         } else if (criticalSuccess) {
             int hitPoints = D6.roll() + D6.roll();
-            log.info(actor.getName() + " critically heals on " + target.getName() + " for " + hitPoints + " with a " + name);
+            log.info("{} critically heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, name);
             target.healDamage(hitPoints);
         } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
             int hitPoints = D6.roll();
-            log.info(actor.getName() + " heals on " + target.getName() + " for " + hitPoints + " with a " + name);
+            log.info("{} heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, name);
             target.healDamage(hitPoints);
         } else {
             lost = true; // Failed spell check!
-            log.info(actor.getName() + " MISSES the spell check with a " + name);
+            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
         }
 
     }

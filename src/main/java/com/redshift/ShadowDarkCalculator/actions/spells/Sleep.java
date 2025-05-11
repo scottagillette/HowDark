@@ -57,28 +57,28 @@ public class Sleep extends MultiTargetSpell {
 
         if (criticalFailure) {
             lost = true; // Failed spell check!
-            log.info(actor.getName() + " critically MISSES the spell check on " + getName());
+            log.info("{} critically MISSES the spell check on {}", actor.getName(), getName());
         } else if (criticalSuccess) {
             targets.forEach(target -> {
                 if (target.getLevel() <= 2) {
                     target.addCondition(new SleepingCondition());
-                    log.info(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + getName());
+                    log.info("{} critically hits a spell on {} with a {}", actor.getName(), target.getName(), getName());
                 } else {
-                    log.info(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + getName() + " but doesn't affect the creature.");
+                    log.info("{} critically hits a spell on {} with a {} but doesn't affect the creature.", actor.getName(), target.getName(), getName());
                 }
             });
         } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
             targets.forEach(target -> {
                 if (target.getLevel() <= 2) {
                     target.addCondition(new SleepingCondition());
-                    log.info(actor.getName() + " hits a spell on " + target.getName() + " with a " + getName());
+                    log.info("{} hits a spell on {} with a {}", actor.getName(), target.getName(), getName());
                 } else {
-                    log.info(actor.getName() + " hits a spell on " + target.getName() + " with a " + getName() + " but doesn't affect the creature.");
+                    log.info("{} hits a spell on {} with a {} but doesn't affect the creature.", actor.getName(), target.getName(), getName());
                 }
             });
         } else {
             lost = true; // Failed spell check!
-            log.info(actor.getName() + " MISSES the spell check with a " + getName());
+            log.info("{} MISSES the spell check with a {}", actor.getName(), getName());
         }
     }
 }
