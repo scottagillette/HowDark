@@ -210,6 +210,11 @@ public abstract class BaseCreature implements Creature {
                     int deathRounds = D4.roll();
                     log.info("{} is unconscious and dying in {} rounds!", name, deathRounds);
                     conditions.put(DyingCondition.class.getName(), new DyingCondition(deathRounds));
+                } else {
+                    // Taking damage while dying makes you dead! Thx Dave!
+                    log.info("{} is dead!", name);
+                    conditions.clear();
+                    dead = true;
                 }
             }
         }
