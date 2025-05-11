@@ -1,15 +1,14 @@
 package com.redshift.ShadowDarkCalculator.creatures;
 
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
+
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.conditions.*;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public abstract class BaseCreature implements Creature {
@@ -31,14 +30,14 @@ public abstract class BaseCreature implements Creature {
      */
 
     public BaseCreature(
-            String name,
-            int level,
-            Stats stats,
-            int armorClass,
-            int hitPoints,
-            Action action,
-            SingleTargetSelector singleTargetSelector) {
-
+        String name,
+        int level,
+        Stats stats,
+        int armorClass,
+        int hitPoints,
+        Action action,
+        SingleTargetSelector singleTargetSelector
+    ) {
         this.name = name;
         this.level = level;
         this.stats = stats;
@@ -57,22 +56,34 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
+    public void clearCondition(String conditionName) {
+        conditions.remove(conditionName);
+    }
+
+    @Override
     public boolean canAct() {
-        final List<Condition> cantActConditions = conditions.values().stream()
-                .filter(condition -> !condition.canAct())
-                .toList();
+        final List<Condition> cantActConditions = conditions
+            .values()
+            .stream()
+            .filter(condition -> !condition.canAct())
+            .toList();
 
         return cantActConditions.isEmpty() && !dead;
     }
 
     @Override
     public int getAC() {
-        final List<Condition> cantActConditions = conditions.values().stream()
-                .filter(condition -> !condition.canAct())
-                .toList();
+        final List<Condition> cantActConditions = conditions
+            .values()
+            .stream()
+            .filter(condition -> !condition.canAct())
+            .toList();
 
         if (cantActConditions.isEmpty()) {
-            final ShieldOfFaithCondition condition = (ShieldOfFaithCondition) conditions.get(ShieldOfFaithCondition.class.getName());
+            final ShieldOfFaithCondition condition =
+                (ShieldOfFaithCondition) conditions.get(
+                    ShieldOfFaithCondition.class.getName()
+                );
 
             if (condition != null) {
                 return armorClass + condition.getAcBonus();
@@ -162,6 +173,11 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
+    public boolean isDisadvantaged() {
+        return conditions.containsKey(DisadvantagedCondition.class.getName());
+    }
+
+    @Override
     public boolean isUnconscious() {
         return conditions.containsKey(UnconciousCondition.class.getName());
     }
@@ -184,7 +200,13 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold) {
+    public void takeDamage(
+        int amount,
+        boolean silvered,
+        boolean magical,
+        boolean fire,
+        boolean cold
+    ) {
         // Damage awakens any creature!
         conditions.remove(SleepingCondition.class.getName());
 
@@ -197,14 +219,24 @@ public abstract class BaseCreature implements Creature {
                 conditions.clear();
                 dead = true;
             } else {
-                conditions.put(UnconciousCondition.class.getName(), new UnconciousCondition());
+                conditions.put(
+                    UnconciousCondition.class.getName(),
+                    new UnconciousCondition()
+                );
 
                 // Don't reset dying condition if they are already dying!
                 if (conditions.get(DyingCondition.class.getName()) == null) {
                     // Zero hp give them the unconscious and dying condition!
                     int deathRounds = D4.roll();
-                    log.info("{} is unconscious and dying in {} rounds!", name, deathRounds);
-                    conditions.put(DyingCondition.class.getName(), new DyingCondition(deathRounds));
+                    log.info(
+                        "{} is unconscious and dying in {} rounds!",
+                        name,
+                        deathRounds
+                    );
+                    conditions.put(
+                        DyingCondition.class.getName(),
+                        new DyingCondition(deathRounds)
+                    );
                 }
             }
         }
@@ -213,12 +245,17 @@ public abstract class BaseCreature implements Creature {
     @Override
     public void takeTurn(List<Creature> enemies, List<Creature> allies) {
         // Check conditions and remove the ones that have ended.
-        final List<Condition> remainingConditions = conditions.values().stream().
-                filter(condition -> !condition.hasEnded(this)).toList();
+        final List<Condition> remainingConditions = conditions
+            .values()
+            .stream()
+            .filter(condition -> !condition.hasEnded(this))
+            .toList();
 
         conditions.clear();
 
-        remainingConditions.forEach(condition -> conditions.put(condition.getClass().getName(), condition));
+        remainingConditions.forEach(condition ->
+            conditions.put(condition.getClass().getName(), condition)
+        );
 
         // Have each condition perform its effect.
         conditions.values().forEach(condition -> condition.perform(this));

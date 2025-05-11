@@ -3,17 +3,21 @@ package com.redshift.ShadowDarkCalculator.creatures;
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.conditions.Condition;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
-
 import java.util.List;
 import java.util.Set;
 
 public interface Creature {
-
     /**
      * Add the specified condition to the character.
      */
 
     void addCondition(Condition condition);
+
+    /**
+     * Remove the specified condition that has been eliminated via some specific means
+     */
+
+    void clearCondition(String conditionName);
 
     /**
      * Returns true if the creature can act.
@@ -111,6 +115,12 @@ public interface Creature {
 
     boolean isDead();
 
+    /*
+     * Returns true if the creature has disadvantage on it's next action or check
+     */
+
+    boolean isDisadvantaged();
+
     /**
      * Returns true if the creature is unconscious.
      */
@@ -133,12 +143,17 @@ public interface Creature {
      * Instructs the creature to take an amount of damage silvered or magical.
      */
 
-    void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold);
+    void takeDamage(
+        int amount,
+        boolean silvered,
+        boolean magical,
+        boolean fire,
+        boolean cold
+    );
 
     /**
      * Triggers any begin of turn triggers... count down timers, etc.
      */
 
     void takeTurn(List<Creature> enemies, List<Creature> allies);
-
 }

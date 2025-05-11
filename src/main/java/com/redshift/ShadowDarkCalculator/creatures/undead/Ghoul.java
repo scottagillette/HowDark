@@ -1,27 +1,26 @@
 package com.redshift.ShadowDarkCalculator.creatures.undead;
 
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
+
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.List;
-
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Ghoul extends UndeadMonster {
 
     public Ghoul(String name) {
         super(
-                name,
-                2,
-                new Stats(14, 12, 14, 4, 8, 10),
-                11,
-                D8.roll() + D8.roll() + 2,
-                new ParalyzingClaw()
+            name,
+            2,
+            new Stats(14, 12, 14, 4, 8, 10),
+            11,
+            D8.roll() + D8.roll() + 2,
+            new ParalyzingClaw()
         );
         getLabels().add(Label.BRUTE);
     }
@@ -33,27 +32,51 @@ public class Ghoul extends UndeadMonster {
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-            final Creature target = actor.getSingleTargetSelector().get(enemies);
+        public void perform(
+            Creature actor,
+            List<Creature> enemies,
+            List<Creature> allies
+        ) {
+            final Creature target = actor
+                .getSingleTargetSelector()
+                .get(enemies);
 
             if (target == null) {
-                log.info(actor.getName() + " is skipping their turn... no target!");
+                log.info(
+                    actor.getName() + " is skipping their turn... no target!"
+                );
             } else {
-                boolean attackHits = performSingleTargetAttack(actor, target, name, dice, rollModifier);
+                boolean attackHits = performSingleTargetAttack(
+                    actor,
+                    target,
+                    name,
+                    dice,
+                    rollModifier,
+                    actor.isDisadvantaged()
+                );
 
                 if (attackHits) {
-                    if (!target.hasCondition(ParalyzedCondition.class.getName())) {
+                    if (
+                        !target.hasCondition(ParalyzedCondition.class.getName())
+                    ) {
                         if (!target.getStats().constitutionSave(12)) {
                             int rounds = D4.roll();
-                            log.info(target.getName() + " is paralyzed for " + rounds + " rounds!");
+                            log.info(
+                                target.getName() +
+                                " is paralyzed for " +
+                                rounds +
+                                " rounds!"
+                            );
                             target.addCondition(new ParalyzedCondition(rounds));
                         } else {
-                            log.info(target.getName() + " SAVES and is NOT paralyzed!");
+                            log.info(
+                                target.getName() +
+                                " SAVES and is NOT paralyzed!"
+                            );
                         }
                     }
                 }
             }
         }
     }
-
 }

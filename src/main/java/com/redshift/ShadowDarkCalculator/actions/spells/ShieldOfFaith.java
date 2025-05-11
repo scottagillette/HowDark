@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
+import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.ShieldOfFaithCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -26,7 +27,8 @@ public class ShieldOfFaith extends SingleTargetBenificialSpell {
         final Creature target = selector.get(allies); // Randomly choose an ally TODO: What about dead or unconscious?
 
         // See if they pass the spell check!
-        final int spellCheckRoll = getSpellCheckRoll();
+        final int spellCheckRoll = getSpellCheckRoll(actor.isDisadvantaged());
+        actor.clearCondition(DisadvantagedCondition.class.getName());
 
         final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;

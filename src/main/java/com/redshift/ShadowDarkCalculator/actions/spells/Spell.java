@@ -1,12 +1,11 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
-import com.redshift.ShadowDarkCalculator.actions.Action;
-import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.creatures.Creature;
-
-import java.util.List;
-
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
+
+import com.redshift.ShadowDarkCalculator.actions.Action;
+import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.dice.RollModifier;
+import java.util.List;
 
 /**
  * An action that attempts to cast a spell.
@@ -22,11 +21,20 @@ public abstract class Spell implements Action {
     protected boolean spellCheckAdvantage = false; // Some spells or wizards get advantage on spell check.
     protected int priority;
 
-    protected Spell(String name, int difficultyClass, RollModifier rollModifier) {
+    protected Spell(
+        String name,
+        int difficultyClass,
+        RollModifier rollModifier
+    ) {
         this(name, difficultyClass, rollModifier, 1);
     }
 
-    public Spell(String name, int difficultyClass, RollModifier rollModifier, int priority) {
+    public Spell(
+        String name,
+        int difficultyClass,
+        RollModifier rollModifier,
+        int priority
+    ) {
         this.name = name;
         this.difficultyClass = difficultyClass;
         this.rollModifier = rollModifier;
@@ -44,7 +52,11 @@ public abstract class Spell implements Action {
     }
 
     @Override
-    public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+    public boolean canPerform(
+        Creature actor,
+        List<Creature> enemies,
+        List<Creature> allies
+    ) {
         return !lost;
     }
 
@@ -52,8 +64,15 @@ public abstract class Spell implements Action {
      * Returns the spell check roll... which does not include the spell check bonus if any.
      */
 
-    protected int getSpellCheckRoll() {
-        return (spellCheckAdvantage) ? Math.max(D20.roll(), D20.roll()) : D20.roll();
+    protected int getSpellCheckRoll(boolean disadvantaged) {
+        boolean atkAdvantaged = spellCheckAdvantage && !disadvantaged;
+        boolean atkDisadvantaged = !spellCheckAdvantage && disadvantaged;
+
+        return (atkAdvantaged)
+            ? Math.max(D20.roll(), D20.roll())
+            : (atkDisadvantaged)
+                ? Math.min(D20.roll(), D20.roll())
+                : D20.roll();
     }
 
     @Override

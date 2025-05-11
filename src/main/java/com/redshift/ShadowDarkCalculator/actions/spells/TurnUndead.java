@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
+import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.FearCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -33,7 +34,8 @@ public class TurnUndead extends MultiTargetSpell {
         final List<Creature> targets = selector.getTargets(enemies, enemies.size()); // Turn Undead can affect all near enemies.
 
         // See if they pass the spell check!
-        final int spellCheckRoll = getSpellCheckRoll();
+        final int spellCheckRoll = getSpellCheckRoll(actor.isDisadvantaged());
+        actor.clearCondition(DisadvantagedCondition.class.getName());
 
         final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;

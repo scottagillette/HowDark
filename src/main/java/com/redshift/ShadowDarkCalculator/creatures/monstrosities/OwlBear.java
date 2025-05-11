@@ -1,5 +1,7 @@
 package com.redshift.ShadowDarkCalculator.creatures.monstrosities;
 
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
+
 import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.creatures.*;
@@ -7,19 +9,23 @@ import com.redshift.ShadowDarkCalculator.dice.Dice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import lombok.extern.slf4j.Slf4j;
 
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
-
 @Slf4j
 public class OwlBear extends Monster {
 
     public OwlBear(String name) {
         super(
-                name,
-                6,
-                new Stats(18,12,17,7,14,5),
-                13,
-                D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 3,
-                new PerformAllAction(new OwlBear.Claw(), new OwlBear.Claw())
+            name,
+            6,
+            new Stats(18, 12, 17, 7, 14, 5),
+            13,
+            D8.roll() +
+            D8.roll() +
+            D8.roll() +
+            D8.roll() +
+            D8.roll() +
+            D8.roll() +
+            3,
+            new PerformAllAction(new OwlBear.Claw(), new OwlBear.Claw())
         );
         getLabels().add(Label.BRUTE);
     }
@@ -34,14 +40,32 @@ public class OwlBear extends Monster {
         }
 
         @Override
-        protected boolean performSingleTargetAttack(Creature actor, Creature target, String weaponName, Dice damageDice, RollModifier rollModifier) {
-            boolean attackHits = super.performSingleTargetAttack(actor, target, weaponName, damageDice, rollModifier);
+        protected boolean performSingleTargetAttack(
+            Creature actor,
+            Creature target,
+            String weaponName,
+            Dice damageDice,
+            RollModifier rollModifier,
+            boolean disadvantaged
+        ) {
+            boolean attackHits = super.performSingleTargetAttack(
+                actor,
+                target,
+                weaponName,
+                damageDice,
+                rollModifier,
+                disadvantaged
+            );
 
             if (priorAttack) {
                 if (attackHits && priorAttackHits) {
                     // Take extra dice of damage
                     int extraDamage = D10.roll();
-                    log.info(target.getName() + " takes extra crushing damage of " + extraDamage);
+                    log.info(
+                        target.getName() +
+                        " takes extra crushing damage of " +
+                        extraDamage
+                    );
                     target.takeDamage(extraDamage, false, false, false, false);
                 }
                 priorAttack = false; // Reset
@@ -54,5 +78,4 @@ public class OwlBear extends Monster {
             return attackHits;
         }
     }
-
 }

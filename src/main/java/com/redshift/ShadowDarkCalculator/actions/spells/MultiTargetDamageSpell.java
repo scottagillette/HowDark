@@ -1,16 +1,16 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
-import com.redshift.ShadowDarkCalculator.dice.RollModifier;
+import static java.lang.Math.min;
+
+import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
+import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import static java.lang.Math.min;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * A spell that can affect multiple targets and does damage to all... i.e. burning hands, fireball, lightening, etc.
@@ -25,14 +25,14 @@ public abstract class MultiTargetDamageSpell extends Spell {
     private final boolean coldDamage;
 
     public MultiTargetDamageSpell(
-            String name,
-            int difficultyClass,
-            RollModifier rollModifier,
-            Dice damageDice,
-            Dice totalTargets,
-            boolean fireDamage,
-            boolean coldDamage) {
-
+        String name,
+        int difficultyClass,
+        RollModifier rollModifier,
+        Dice damageDice,
+        Dice totalTargets,
+        boolean fireDamage,
+        boolean coldDamage
+    ) {
         super(name, difficultyClass, rollModifier);
         this.damageDice = damageDice;
         this.totalTargets = totalTargets;
@@ -41,7 +41,11 @@ public abstract class MultiTargetDamageSpell extends Spell {
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+    public void perform(
+        Creature actor,
+        List<Creature> enemies,
+        List<Creature> allies
+    ) {
         final int numberOfTargets = min(enemies.size(), totalTargets.roll());
 
         // Get list of targets...
@@ -50,22 +54,34 @@ public abstract class MultiTargetDamageSpell extends Spell {
         Collections.shuffle(targets);
         targets = targets.subList(0, numberOfTargets);
 
-        performMultiTargetSpellAttack(actor, targets, this, difficultyClass, damageDice, rollModifier);
+        performMultiTargetSpellAttack(
+            actor,
+            targets,
+            this,
+            difficultyClass,
+            damageDice,
+            rollModifier,
+            actor.hasCondition(DisadvantagedCondition.class.getName())
+        );
+        actor.clearCondition(DisadvantagedCondition.class.getName());
     }
 
     protected void performMultiTargetSpellAttack(
-            Creature actor,
-            List<Creature> targets,
-            Spell spell,
-            int difficultyClass,
-            Dice damageDice,
-            RollModifier rollModifier) {
-
+        Creature actor,
+        List<Creature> targets,
+        Spell spell,
+        int difficultyClass,
+        Dice damageDice,
+        RollModifier rollModifier,
+        boolean disadvantaged
+    ) {
         // See if they pass the spell check!
-        final int spellCheckRoll = getSpellCheckRoll();
+        final int spellCheckRoll = getSpellCheckRoll(disadvantaged);
 
-        final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
-        final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
+        final boolean criticalSuccess =
+            spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
+        final boolean criticalFailure =
+            spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
 
         int spellCheckModifier = 0;
 
@@ -77,22 +93,49 @@ public abstract class MultiTargetDamageSpell extends Spell {
 
         if (criticalFailure) {
             lost = true; // Failed spell check!
-            log.info(actor.getName() + " critically MISSES the spell check with a " + spell.getName());
+            log.info(
+                actor.getName() +
+                " critically MISSES the spell check with a " +
+                spell.getName()
+            );
         } else if (criticalSuccess) {
             int damage = damageDice.roll() + damageDice.roll();
             targets.forEach(target -> {
-                log.info(actor.getName() + " critically hits a spell on " + target.getName() + " with a " + spell.getName() + ": damage=" + damage);
+                log.info(
+                    actor.getName() +
+                    " critically hits a spell on " +
+                    target.getName() +
+                    " with a " +
+                    spell.getName() +
+                    ": damage=" +
+                    damage
+                );
                 target.takeDamage(damage, false, true, fireDamage, coldDamage);
             });
-        } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
+        } else if (
+            spellCheckRoll + spellCheckModifier + spellCheckBonus >=
+            difficultyClass
+        ) {
             int damage = damageDice.roll();
             targets.forEach(target -> {
-                log.info(actor.getName() + " hits a spell on " + target.getName() + " with a " + spell.getName() + ": damage=" + damage);
+                log.info(
+                    actor.getName() +
+                    " hits a spell on " +
+                    target.getName() +
+                    " with a " +
+                    spell.getName() +
+                    ": damage=" +
+                    damage
+                );
                 target.takeDamage(damage, false, true, fireDamage, coldDamage);
             });
         } else {
             lost = true; // Failed spell check!
-            log.info(actor.getName() + " MISSES the spell check with a " + spell.getName());
+            log.info(
+                actor.getName() +
+                " MISSES the spell check with a " +
+                spell.getName()
+            );
         }
     }
 }
