@@ -1,0 +1,106 @@
+package com.redshift.ShadowDarkCalculator.encounter;
+
+import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
+import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.Player;
+import com.redshift.ShadowDarkCalculator.creatures.Stats;
+import com.redshift.ShadowDarkCalculator.creatures.goblinoid.Goblin;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class CombatSimulatorTest {
+
+    @Test
+    void simulateFight_shouldEndWithWinner() {
+        // Create a simple fighter
+        Player fighter = new Player(
+            "Test Fighter",
+            1,
+            new Stats(16, 14, 14, 10, 10, 10),
+            15, // AC
+            8,  // HP
+            WeaponBuilder.LONGSWORD.build(2) // +2 attack bonus
+        );
+        fighter.getLabels().add(Label.BRUTE);
+
+        // Create a goblin opponent
+        Goblin goblin = new Goblin("Test Goblin");
+
+        // Set up the combat
+        CombatSimulator simulator = new CombatSimulator(
+            List.of(fighter),
+            List.of(goblin)
+        );
+
+        // Run the simulation
+        simulator.simulateFight();
+
+        // Verify that exactly one side won
+        assertTrue(
+            (simulator.getGroup1Wins() == 1 && simulator.getGroup2Wins() == 0) ||
+            (simulator.getGroup1Wins() == 0 && simulator.getGroup2Wins() == 1),
+            "Combat should end with exactly one winner"
+        );
+
+        // Verify that at least one creature is dead
+        assertTrue(
+            fighter.isDead() || goblin.isDead(),
+            "At least one creature should be dead at the end of combat"
+        );
+    }
+
+    @Test
+    void simulateFight_shouldHandleMultipleCreatures() {
+        // Create two fighters
+        Player fighter1 = new Player(
+            "Fighter 1",
+            1,
+            new Stats(16, 14, 14, 10, 10, 10),
+            15,
+            8,
+            WeaponBuilder.LONGSWORD.build(2)
+        );
+        fighter1.getLabels().add(Label.BRUTE);
+
+        Player fighter2 = new Player(
+            "Fighter 2",
+            1,
+            new Stats(16, 14, 14, 10, 10, 10),
+            15,
+            8,
+            WeaponBuilder.LONGSWORD.build(2)
+        );
+        fighter2.getLabels().add(Label.BRUTE);
+
+        // Create two goblins
+        Goblin goblin1 = new Goblin("Goblin 1");
+        Goblin goblin2 = new Goblin("Goblin 2");
+
+        // Set up the combat
+        CombatSimulator simulator = new CombatSimulator(
+            List.of(fighter1, fighter2),
+            List.of(goblin1, goblin2)
+        );
+
+        // Run the simulation
+        simulator.simulateFight();
+
+        // Verify that exactly one side won
+        assertTrue(
+            (simulator.getGroup1Wins() == 1 && simulator.getGroup2Wins() == 0) ||
+            (simulator.getGroup1Wins() == 0 && simulator.getGroup2Wins() == 1),
+            "Combat should end with exactly one winner"
+        );
+
+        // Verify that at least one group is completely dead
+        boolean group1AllDead = fighter1.isDead() && fighter2.isDead();
+        boolean group2AllDead = goblin1.isDead() && goblin2.isDead();
+        assertTrue(
+            group1AllDead || group2AllDead,
+            "One group should be completely defeated"
+        );
+    }
+}
