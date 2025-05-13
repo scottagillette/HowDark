@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator.creatures.undead;
 
-import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
+import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -21,7 +21,7 @@ public class Wraith extends UndeadMonster {
                 new Stats(3,18,10,10,10,16),
                 14,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll(),
-                new PerformAllAction(new DeathTouch(), new DeathTouch(), new DeathTouch()),
+                new PerformAllActions(new DeathTouch(), new DeathTouch(), new DeathTouch()),
                 new RandomTargetSelector()
         );
         getLabels().add(Label.BRUTE);

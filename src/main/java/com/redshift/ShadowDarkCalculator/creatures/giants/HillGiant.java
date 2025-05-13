@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator.creatures.giants;
 
-import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
+import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.creatures.Label;
@@ -21,7 +21,7 @@ public class HillGiant extends Monster {
                 11,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 3,
                 new PerformOneAction(
-                        new PerformAllAction(
+                        new PerformAllActions(
                                 new Weapon("Great Club", new MultipleDice(D8, D8), RollModifier.STRENGTH, 2),
                                 new Weapon("Great Club", new MultipleDice(D8, D8), RollModifier.STRENGTH, 2)
                         ),

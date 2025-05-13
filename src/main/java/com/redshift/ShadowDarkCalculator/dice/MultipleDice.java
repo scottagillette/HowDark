@@ -11,13 +11,13 @@ public class MultipleDice implements Dice {
         this(diceSet, 0);
     }
 
-    public MultipleDice(SingleDie... dice) {
-        this(List.of(dice));
-    }
-
     public MultipleDice(List<Dice> diceSet, int bonus)  {
         this.diceSet = diceSet;
         this.bonus = bonus;
+    }
+
+    public MultipleDice(SingleDie... dice) {
+        this(List.of(dice));
     }
 
     public MultipleDice(Dice... dice) {

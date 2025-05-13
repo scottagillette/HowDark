@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator.creatures.monstrosities;
 
-import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
+import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
@@ -21,7 +21,7 @@ public class CaveCreeper extends Monster {
                 new Stats(14,14,10,4,12,4),
                 12,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll(),
-                new PerformAllAction(new Bite(), new Tentacles())
+                new PerformAllActions(new Bite(), new Tentacles())
         );
         getLabels().add(Label.BRUTE);
     }

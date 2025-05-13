@@ -25,10 +25,8 @@ public class Sleep extends MultiTargetSpell {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        if (lost) return false;
-
         final MultiTargetSelector selector = new LivingTargetSelector();
-        return !selector.getTargets(enemies, enemies.size()).isEmpty();
+        return (!lost && !selector.getTargets(enemies, enemies.size()).isEmpty());
     }
 
     @Override

@@ -4,15 +4,15 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 
 import java.util.List;
 
-public class PerformAllAction implements Action {
+public class PerformAllActions implements Action {
 
     private final List<Action> actions;
 
-    public PerformAllAction(Action... actions) {
+    public PerformAllActions(Action... actions) {
         this.actions = List.of(actions);
     }
 
-    public PerformAllAction(List<Action> actions) {
+    public PerformAllActions(List<Action> actions) {
         this.actions = actions;
     }
 
@@ -28,12 +28,18 @@ public class PerformAllAction implements Action {
 
     @Override
     public String getName() {
-        return "";
+        return "PerformAllActions";
     }
 
     @Override
     public int getPriority() {
-        return 1;
+        int priority = 1;
+
+        for (Action action : actions) {
+            priority = Math.max(priority, action.getPriority());
+        }
+
+        return priority;
     }
 
     @Override
@@ -67,7 +73,6 @@ public class PerformAllAction implements Action {
 
     @Override
     public Action setPriority(int priority) {
-        // hmm
-        return this;
+        throw new UnsupportedOperationException("Can't set priority on PerformAllActions");
     }
 }

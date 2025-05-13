@@ -21,10 +21,8 @@ public class CureWounds extends SingleTargetSpell {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        if (lost) return false;
-
         final SingleTargetSelector selector = new HealTargetSelector();
-        return selector.get(allies) != null;
+        return !lost && selector.get(allies) != null;
     }
 
     @Override

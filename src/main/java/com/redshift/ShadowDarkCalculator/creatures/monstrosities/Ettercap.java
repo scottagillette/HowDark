@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator.creatures.monstrosities;
 
-import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
+import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.PoisonWebCondition;
@@ -26,7 +26,7 @@ public class Ettercap extends Monster {
                 12,
                 D8.roll() + D8.roll() + D8.roll() + 1,
                 new PerformOneAction(
-                        new PerformAllAction(new Bite(),new Bite()),
+                        new PerformAllActions(new Bite(),new Bite()),
                         new PoisonWeb()
                 )
         );

@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator.creatures.giants;
 
-import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
+import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.creatures.Label;
 import com.redshift.ShadowDarkCalculator.creatures.Monster;
@@ -20,7 +20,7 @@ public class Ogre extends Monster {
                 new Stats(18,9,17,7,7,7),
                 9,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 3,
-                new PerformAllAction(
+                new PerformAllActions(
                         new Weapon("Great Club", new MultipleDice(D6, D6), RollModifier.STRENGTH, 2),
                         new Weapon("Great Club", new MultipleDice(D6, D6), RollModifier.STRENGTH, 2)
                 )

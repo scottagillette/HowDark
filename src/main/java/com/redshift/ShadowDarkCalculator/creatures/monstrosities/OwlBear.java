@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator.creatures.monstrosities;
 
-import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
+import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
@@ -19,7 +19,7 @@ public class OwlBear extends Monster {
                 new Stats(18,12,17,7,14,5),
                 13,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 3,
-                new PerformAllAction(new OwlBear.Claw(), new OwlBear.Claw())
+                new PerformAllActions(new OwlBear.Claw(), new OwlBear.Claw())
         );
         getLabels().add(Label.BRUTE);
     }

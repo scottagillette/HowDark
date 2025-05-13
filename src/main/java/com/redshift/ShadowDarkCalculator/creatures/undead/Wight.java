@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator.creatures.undead;
 
-import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
+import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.*;
@@ -22,7 +22,7 @@ public class Wight extends UndeadMonster {
                 new Stats(17,12,14,12,10,17),
                 14,
                 D8.roll() + D8.roll() + D8.roll() + 2,
-                new PerformAllAction(WeaponBuilder.BASTARD_SWORD_2H.build(), new LifeDrain()
+                new PerformAllActions(WeaponBuilder.BASTARD_SWORD_2H.build(), new LifeDrain()
         ));
         getLabels().add(Label.BRUTE);
     }

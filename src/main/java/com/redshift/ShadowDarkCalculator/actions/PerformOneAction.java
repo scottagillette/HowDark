@@ -36,7 +36,13 @@ public class PerformOneAction implements Action {
 
     @Override
     public int getPriority() {
-        return 1; // TODO Implement
+        int priority = 1;
+
+        for (Action action : actions) {
+            priority = Math.max(priority, action.getPriority());
+        }
+
+        return priority;
     }
 
     @Override

@@ -33,7 +33,10 @@ public class GoblinShaman extends Monster {
                 new Stats(10, 12, 12, 9, 14, 12),
                 12,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + 1,
-                new PerformOneAction(WeaponBuilder.STAFF.build(), new BugBrain().setPriority(2), new StinkBomb().setPriority(4))
+                new PerformOneAction(
+                        WeaponBuilder.STAFF.build(),
+                        new BugBrain().addSpellCheckBonus(1).setPriority(2),  // Spells +3 check... 2 from WIS 1 bonus.
+                        new StinkBomb().addSpellCheckBonus(1).setPriority(4)) // Spells +3 check... 2 from WIS 1 bonus.
         );
         getLabels().add(Label.CASTER);
     }
@@ -42,14 +45,13 @@ public class GoblinShaman extends Monster {
 
         public BugBrain() {
             super("BugBrain", 13, RollModifier.WISDOM);
-            addSpellCheckBonus(1); // Stink Bomb +3 check... 2 from WIS 1 bonus.
         }
 
         @Override
         public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
             final SingleTargetSelector selector = new WizardTargetSelector();
             final Creature wizard = selector.get(enemies);
-            return (wizard != null);
+            return (!lost && wizard != null);
         }
 
         @Override
@@ -93,7 +95,6 @@ public class GoblinShaman extends Monster {
 
         public StinkBomb() {
             super("Stink Bomb", 12, RollModifier.WISDOM, new MultipleDice(D4, D4), false);
-            addSpellCheckBonus(1); // Stink Bomb +3 check... 2 from WIS 1 bonus.
         }
 
         @Override

@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator.creatures.undead;
 
-import com.redshift.ShadowDarkCalculator.actions.PerformAllAction;
+import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -21,7 +21,7 @@ public class Shadow extends UndeadMonster {
                 new Stats(3, 14, 14, 6, 10, 12),
                 12,
                 D8.roll() + D8.roll() + D8.roll() + 2,
-                new PerformAllAction(new DraiingTouch(), new DraiingTouch()),
+                new PerformAllActions(new DraiingTouch(), new DraiingTouch()),
                 new RandomTargetSelector()
         );
         getLabels().add(Label.BRUTE);
