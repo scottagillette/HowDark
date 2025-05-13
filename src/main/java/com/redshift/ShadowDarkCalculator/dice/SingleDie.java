@@ -3,7 +3,7 @@ package com.redshift.ShadowDarkCalculator.dice;
 import java.util.Random;
 
 /**
- * Common dice class used to roll standard and custom dice.
+ * Common dice class used to roll standard and custom sided dice.
  */
 
 public class SingleDie implements Dice {
@@ -35,4 +35,5 @@ public class SingleDie implements Dice {
     public int roll() {
         return random.nextInt(sides) + 1 + bonus;
     }
+
 }

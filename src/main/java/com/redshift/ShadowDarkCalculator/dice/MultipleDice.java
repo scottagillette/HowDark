@@ -2,6 +2,10 @@ package com.redshift.ShadowDarkCalculator.dice;
 
 import java.util.List;
 
+/**
+ * Implements the Dice interface and can roll one or more dice with a bonus.
+ */
+
 public class MultipleDice implements Dice {
 
     private final List<Dice> diceSet;
