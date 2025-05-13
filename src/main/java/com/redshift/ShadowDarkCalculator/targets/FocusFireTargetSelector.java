@@ -30,7 +30,7 @@ public class FocusFireTargetSelector implements SingleTargetSelector {
                 final SingleDie dice = new SingleDie(consciousNotDeadTargets.size());
                 target = consciousNotDeadTargets.get(dice.roll() - 1);
             } else {
-                target = woundedCreatures.get(0);
+                target = woundedCreatures.getFirst();
             }
         }
 
