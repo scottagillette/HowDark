@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
 /**
- * Test the PerformAllActions
+ * Test the PerformOneAction
  */
 
 @ExtendWith(MockitoExtension.class)
