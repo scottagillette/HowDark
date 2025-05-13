@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Returns a randomized list of living creatures that are not unconscious to a maximum number.
+ * Returns a randomized list of (non-undead) living creatures that are not unconscious or dead to a maximum number.
  */
 
 public class LivingTargetSelector implements MultiTargetSelector {
@@ -17,13 +17,13 @@ public class LivingTargetSelector implements MultiTargetSelector {
         final List<Creature> livingCreatures = new java.util.ArrayList<>(targetOptions.stream()
                 .filter(creature -> !creature.getLabels().contains(Label.UNDEAD))
                 .filter(creature -> !creature.isUnconscious())
+                .filter(creature -> !creature.isDead())
                 .toList());
 
-        Collections.shuffle(livingCreatures);
-
         if (livingCreatures.isEmpty()) {
-            return livingCreatures;
+            return livingCreatures; // Return empty list.
         } else {
+            Collections.shuffle(livingCreatures);
             return livingCreatures.subList(0, Math.min(livingCreatures.size(), maxTargets));
         }
     }

@@ -13,11 +13,12 @@ public class HealTargetSelector implements SingleTargetSelector {
 
     @Override
     public Creature get(List<Creature> targetOptions) {
-        final List<Creature> unconscious = targetOptions.stream()
+        final List<Creature> unconsciousNotDead = targetOptions.stream()
                 .filter(Creature::isUnconscious)
+                .filter(creature -> !creature.isDead())
                 .toList();
 
-        if (unconscious.isEmpty()) {
+        if (unconsciousNotDead.isEmpty()) {
             final List<Creature> woundedAndNotDead = targetOptions.stream()
                     .filter(Creature::isWounded)
                     .filter(creature -> !creature.isDead())
@@ -28,8 +29,8 @@ public class HealTargetSelector implements SingleTargetSelector {
             int selectionIndex = new SingleDie(woundedAndNotDead.size()).roll();
             return woundedAndNotDead.get(selectionIndex - 1); // Randomly choose a wounded creature
         } else {
-            int selectionIndex = new SingleDie(unconscious.size()).roll();
-            return unconscious.get(selectionIndex - 1); // Randomly choose an unconscious creature
+            int selectionIndex = new SingleDie(unconsciousNotDead.size()).roll();
+            return unconsciousNotDead.get(selectionIndex - 1); // Randomly choose an unconscious creature
         }
     }
 

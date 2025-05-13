@@ -21,7 +21,7 @@ public class UndeadTargetSelector implements MultiTargetSelector {
                 .toList());
 
         if (undead.isEmpty()) {
-            return undead;
+            return undead; // Return empty list.
         } else {
             Collections.shuffle(undead);
             return undead.subList(0, Math.min(undead.size(), maxTargets));
