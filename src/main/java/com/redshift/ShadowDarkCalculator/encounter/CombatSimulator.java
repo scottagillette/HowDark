@@ -59,7 +59,9 @@ public class CombatSimulator {
 
             for (Integer initiative : sortedCreaturesInitiative) {
                 final Creature creature = initiativeMap.get(initiative);
-                creature.takeTurn(enemiesMap.get(creature), alliesMap.get(creature));
+                if (!creature.isDead()) {
+                    creature.takeTurn(enemiesMap.get(creature), alliesMap.get(creature));
+                }
             }
 
             round++;

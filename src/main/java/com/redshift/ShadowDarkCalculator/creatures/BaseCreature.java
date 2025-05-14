@@ -53,7 +53,9 @@ public abstract class BaseCreature implements Creature {
     public void addCondition(Condition condition) {
         // Adding the same condition will replace the prior one... so check prior to adding and default to not add
         // if that makes sense... for example the undead that paralyze don't add it if the target already has it.
-        conditions.put(condition.getClass().getName(), condition);
+        if (!dead) {
+            conditions.put(condition.getClass().getName(), condition);
+        }
     }
 
     @Override
@@ -187,9 +189,9 @@ public abstract class BaseCreature implements Creature {
         this.dead = dead; // Some undead can come back!
         if (dead) {
             currentHitPoints = 0;
-            conditions.clear(); // Your dead! ... not unconscious!
+            conditions.clear(); // Your dead! ... not unconscious or paralyzed!
         } else {
-            conditions.clear();
+            conditions.clear(); // Rise from the dead... have no conditions!
         }
     }
 
@@ -227,6 +229,8 @@ public abstract class BaseCreature implements Creature {
 
     @Override
     public void takeTurn(List<Creature> enemies, List<Creature> allies) {
+        if (dead) throw new IllegalStateException("Dead creatures can't take a turn.. they are dead!");
+
         // Check conditions and remove the ones that have ended.
         final List<Condition> remainingConditions = conditions.values().stream().
                 filter(condition -> !condition.hasEnded(this)).toList();
