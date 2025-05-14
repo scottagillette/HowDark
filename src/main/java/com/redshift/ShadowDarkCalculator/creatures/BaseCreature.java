@@ -232,8 +232,9 @@ public abstract class BaseCreature implements Creature {
         if (dead) throw new IllegalStateException("Dead creatures can't take a turn.. they are dead!");
 
         // Check conditions and remove the ones that have ended.
-        final List<Condition> remainingConditions = conditions.values().stream().
-                filter(condition -> !condition.hasEnded(this)).toList();
+        final List<Condition> remainingConditions = conditions.values().stream()
+                .filter(condition -> !condition.hasEnded(this))
+                .toList();
 
         conditions.clear();
 

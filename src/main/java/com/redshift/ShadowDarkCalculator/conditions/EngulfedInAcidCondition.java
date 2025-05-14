@@ -20,9 +20,14 @@ public class EngulfedInAcidCondition implements Condition {
 
     @Override
     public boolean hasEnded(Creature creature) {
+        // Creature must be able to act to attempt an escape!
         if (creature.canAct()) {
             // DC 12 STR to end...
-            return creature.getStats().strengthSave(12);
+            boolean saves = creature.getStats().strengthSave(12);
+            if (saves) {
+                log.info("{} is no longer engulfed and can act!", creature.getName());
+            }
+            return saves;
         } else {
             return false;
         }
@@ -31,7 +36,7 @@ public class EngulfedInAcidCondition implements Condition {
     @Override
     public void perform(Creature creature) {
         final int damage = damageDice.roll();
-        log.info("{} has been burned by ACID for {}", creature.getName(), damage);
+        log.info("{} is still engulfed and has been burned by ACID for {}", creature.getName(), damage);
         creature.takeDamage(damage, false, false, false, false);
     }
 }

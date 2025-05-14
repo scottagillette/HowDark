@@ -1,8 +1,5 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.goblinoid.Goblin;
-import com.redshift.ShadowDarkCalculator.creatures.goblinoid.GoblinBoss;
-import com.redshift.ShadowDarkCalculator.creatures.goblinoid.GoblinShaman;
 import com.redshift.ShadowDarkCalculator.creatures.monstrosities.Ettercap;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 
