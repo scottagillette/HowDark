@@ -10,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Test the HealTargetSelector
@@ -85,6 +86,6 @@ class HealTargetSelectorTest {
         final HealTargetSelector healTargetSelector = new HealTargetSelector();
         final Creature target = healTargetSelector.get(List.of(creature1, creature2, creature3));
 
-        assertEquals(target, null);
+        assertNull(target);
     }
 }

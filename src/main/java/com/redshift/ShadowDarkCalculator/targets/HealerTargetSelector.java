@@ -7,15 +7,15 @@ import com.redshift.ShadowDarkCalculator.dice.SingleDie;
 import java.util.List;
 
 /**
- * Returns a random caster that is not unconscious or dead; or null if one not found.
+ * Returns a random healer that is not unconscious or dead; or null if one not found.
  */
 
-public class WizardTargetSelector implements SingleTargetSelector {
+public class HealerTargetSelector implements SingleTargetSelector {
 
     @Override
     public Creature get(List<Creature> targetOptions) {
         final List<Creature> casters = targetOptions.stream()
-                .filter(creature -> creature.getLabels().contains(Label.CASTER))
+                .filter(creature -> creature.getLabels().contains(Label.HEALER))
                 .filter(creature -> !creature.isUnconscious())
                 .filter(creature -> !creature.isDead())
                 .toList();
