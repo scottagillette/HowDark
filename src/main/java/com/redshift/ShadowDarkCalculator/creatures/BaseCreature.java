@@ -160,7 +160,7 @@ public abstract class BaseCreature implements Creature {
 
     @Override
     public boolean isBloodied() {
-        return (currentHitPoints <= currentHitPoints / hitPoints);
+        return (currentHitPoints <=  hitPoints / 2);
     }
 
     @Override
