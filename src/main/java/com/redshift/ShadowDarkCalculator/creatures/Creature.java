@@ -58,7 +58,7 @@ public interface Creature {
     SingleTargetSelector getSingleTargetSelector();
 
     /**
-     * Returns the creatures initiative
+     * Returns a new initiative roll.
      */
 
     int rollInitiative();

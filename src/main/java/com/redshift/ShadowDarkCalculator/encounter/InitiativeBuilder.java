@@ -3,6 +3,7 @@ package com.redshift.ShadowDarkCalculator.encounter;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,24 +19,23 @@ public final class InitiativeBuilder {
         // Don't create
     }
 
-    public static Map<Integer, Creature> build(List<Creature> group1, List<Creature> group2) {
-        Map<Integer, Creature> result = new HashMap<>();
+    public static Map<Double, Creature> build(List<Creature> group1, List<Creature> group2) {
+        final Map<Double, Creature> result = new HashMap<>();
 
         final int totalCreatures = group1.size() + group2.size();
 
         while (true) {
-            log.info("Rolling initiative...");
-
             group1.forEach(creature -> {
-                result.put(creature.rollInitiative(), creature);
+                double initiative = creature.rollInitiative() + ((double) creature.getStats().getDexterityModifier() / 10);
+                result.put(initiative, creature);
             });
             group2.forEach(creature -> {
-                result.put(creature.rollInitiative(), creature);
+                double initiative = creature.rollInitiative() + ((double) creature.getStats().getDexterityModifier() / 10);
+                result.put(initiative, creature);
             });
 
             if (totalCreatures != result.size()) {
-                // TODO: rework initiative so that duplicates don't matter.
-                log.info("... Re-rolling initiative");
+                // Re-Roll since we have duplicates
                 result.clear();
             } else {
                 // We have unique initiative!
@@ -43,6 +43,21 @@ public final class InitiativeBuilder {
             }
         }
 
+        logInitiativeOrder(result);
+
         return result;
+    }
+
+    private static void logInitiativeOrder(Map<Double, Creature> result) {
+        final List<Double> sortedCreaturesInitiative = result.keySet()
+                .stream()
+                .sorted(Comparator.reverseOrder())
+                .toList();
+
+        log.info("Initiative order:");
+        for (Double initiative : sortedCreaturesInitiative) {
+            final Creature creature = result.get(initiative);
+            log.info("  {} {}", creature.getName(), initiative);
+        }
     }
 }

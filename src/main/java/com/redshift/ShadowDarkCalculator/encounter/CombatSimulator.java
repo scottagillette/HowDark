@@ -38,26 +38,21 @@ public class CombatSimulator {
         group2.forEach(creature -> alliesMap.put(creature, group2));
 
         // Sort all by initiative
-        final Map<Integer, Creature> initiativeMap = InitiativeBuilder.build(group1, group2);
+        final Map<Double, Creature> initiativeMap = InitiativeBuilder.build(group1, group2);
 
-        final List<Integer> sortedCreaturesInitiative = initiativeMap.keySet()
+        final List<Double> sortedCreaturesInitiative = initiativeMap.keySet()
                 .stream()
                 .sorted(Comparator.reverseOrder())
                 .toList();
 
-        log.info("Initiative order:");
-        for (Integer initiative : sortedCreaturesInitiative) {
-            final Creature creature = initiativeMap.get(initiative);
-            log.info("{} {}", creature.getName(), initiative);
-        }
-
         int round = 1;
+
         boolean continueBattle = true;
 
         while (continueBattle) {
             log.info("[ Round: {} ]", round);
 
-            for (Integer initiative : sortedCreaturesInitiative) {
+            for (Double initiative : sortedCreaturesInitiative) {
                 final Creature creature = initiativeMap.get(initiative);
                 if (!creature.isDead()) {
                     creature.takeTurn(enemiesMap.get(creature), alliesMap.get(creature));
