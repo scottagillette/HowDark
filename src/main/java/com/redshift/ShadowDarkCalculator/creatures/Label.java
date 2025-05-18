@@ -3,7 +3,7 @@ package com.redshift.ShadowDarkCalculator.creatures;
 public enum Label {
     BACKLINE,
     CASTER,
-    BRUTE,
+    FRONT_LINE,
     HEALER,
     MONSTER,
     PLAYER,

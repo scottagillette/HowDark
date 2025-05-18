@@ -21,7 +21,7 @@ public class OwlBear extends Monster {
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 3,
                 new PerformAllActions(new OwlBear.Claw(), new OwlBear.Claw())
         );
-        getLabels().add(Label.BRUTE);
+        getLabels().add(Label.FRONT_LINE);
     }
 
     public static class Claw extends Weapon {

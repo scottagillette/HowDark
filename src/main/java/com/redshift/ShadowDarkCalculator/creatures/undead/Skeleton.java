@@ -21,6 +21,6 @@ public class Skeleton extends UndeadMonster {
                 new PerformOneAction(WeaponBuilder.SHORTSWORD.build(), WeaponBuilder.SHORTBOW.build()),
                 new RandomTargetSelector()
         );
-        getLabels().add(Label.BRUTE);
+        getLabels().add(Label.FRONT_LINE);
     }
 }

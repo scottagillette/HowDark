@@ -30,7 +30,7 @@ public class Ettercap extends Monster {
                         new PoisonWeb()
                 )
         );
-        getLabels().add(Label.BRUTE);
+        getLabels().add(Label.BACKLINE);
     }
 
     public static class Bite extends Weapon {

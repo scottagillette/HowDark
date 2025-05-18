@@ -25,7 +25,7 @@ public class Zombie extends UndeadMonster {
                 new Slam(),
                 new RandomTargetSelector()
         );
-        getLabels().add(Label.BRUTE);
+        getLabels().add(Label.FRONT_LINE);
     }
 
     @Override

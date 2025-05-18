@@ -24,7 +24,7 @@ public class TheWolfPackBuilder implements PartyBuilder {
                 9,
                 WeaponBuilder.LONGSWORD.build()
         );
-        rogar.getLabels().add(Label.BRUTE);
+        rogar.getLabels().add(Label.FRONT_LINE);
         creatures.add(rogar);
 
         final Creature elyon = new Player(

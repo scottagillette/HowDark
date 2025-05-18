@@ -38,6 +38,7 @@ public class GoblinShaman extends Monster {
                         new BugBrain().addSpellCheckBonus(1).setPriority(2),  // Spells +3 check... 2 from WIS 1 bonus.
                         new StinkBomb().addSpellCheckBonus(1).setPriority(4)) // Spells +3 check... 2 from WIS 1 bonus.
         );
+        getLabels().add(Label.BACKLINE);
         getLabels().add(Label.CASTER);
     }
 

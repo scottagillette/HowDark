@@ -18,7 +18,7 @@ public class GoblinBoss extends Monster {
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + 2,
                 WeaponBuilder.SPEAR_STR.build(1)
         );
-        getLabels().add(Label.BRUTE);
+        getLabels().add(Label.FRONT_LINE);
     }
 
 }

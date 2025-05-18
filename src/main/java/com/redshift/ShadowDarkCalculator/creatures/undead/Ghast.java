@@ -28,7 +28,7 @@ public class Ghast extends UndeadMonster {
                 new PerformAllActions(new ParalyzingClaw(), new ParalyzingClaw()),
                 new RandomTargetSelector()
         );
-        getLabels().add(Label.BRUTE);
+        getLabels().add(Label.FRONT_LINE);
     }
 
     private static class ParalyzingClaw extends Weapon {

@@ -23,7 +23,7 @@ public class GelatinousCube extends Monster {
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 2,
                 new GelatinousCube.AcidTouch()
         );
-        getLabels().add(Label.BRUTE);
+        getLabels().add(Label.FRONT_LINE);
     }
 
     public static class AcidTouch extends Weapon {

@@ -28,7 +28,7 @@ public class HillGiant extends Monster {
                         new Weapon("Boulder", D10, RollModifier.STRENGTH, 2)
                 )
         );
-        getLabels().add(Label.BRUTE);
+        getLabels().add(Label.FRONT_LINE);
     }
 
 }

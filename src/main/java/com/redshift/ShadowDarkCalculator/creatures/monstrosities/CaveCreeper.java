@@ -23,7 +23,7 @@ public class CaveCreeper extends Monster {
                 D8.roll() + D8.roll() + D8.roll() + D8.roll(),
                 new PerformAllActions(new Bite(), new Tentacles())
         );
-        getLabels().add(Label.BRUTE);
+        getLabels().add(Label.FRONT_LINE);
     }
 
     public static class Bite extends Weapon {

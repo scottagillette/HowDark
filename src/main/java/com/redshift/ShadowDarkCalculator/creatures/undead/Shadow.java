@@ -24,7 +24,7 @@ public class Shadow extends UndeadMonster {
                 new PerformAllActions(new DraiingTouch(), new DraiingTouch()),
                 new RandomTargetSelector()
         );
-        getLabels().add(Label.BRUTE);
+        getLabels().add(Label.BACKLINE);
     }
 
     public static class DraiingTouch extends Weapon {

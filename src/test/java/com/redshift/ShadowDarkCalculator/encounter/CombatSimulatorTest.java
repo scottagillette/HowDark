@@ -26,7 +26,7 @@ class CombatSimulatorTest {
             8,  // HP
             WeaponBuilder.LONGSWORD.build(2) // +2 attack bonus
         );
-        fighter.getLabels().add(Label.BRUTE);
+        fighter.getLabels().add(Label.FRONT_LINE);
 
         // Create a goblin opponent
         Goblin goblin = new Goblin("Test Goblin");
@@ -65,7 +65,7 @@ class CombatSimulatorTest {
             8,
             WeaponBuilder.LONGSWORD.build(2)
         );
-        fighter1.getLabels().add(Label.BRUTE);
+        fighter1.getLabels().add(Label.FRONT_LINE);
 
         Player fighter2 = new Player(
             "Fighter 2",
@@ -75,7 +75,7 @@ class CombatSimulatorTest {
             8,
             WeaponBuilder.LONGSWORD.build(2)
         );
-        fighter2.getLabels().add(Label.BRUTE);
+        fighter2.getLabels().add(Label.FRONT_LINE);
 
         // Create two goblins
         Goblin goblin1 = new Goblin("Goblin 1");

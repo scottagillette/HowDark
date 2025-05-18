@@ -25,7 +25,7 @@ public class Ogre extends Monster {
                         new Weapon("Great Club", new MultipleDice(D6, D6), RollModifier.STRENGTH, 2)
                 )
         );
-        getLabels().add(Label.BRUTE);
+        getLabels().add(Label.FRONT_LINE);
     }
 
 }

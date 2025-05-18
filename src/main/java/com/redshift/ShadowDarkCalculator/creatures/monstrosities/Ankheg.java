@@ -24,7 +24,7 @@ public class Ankheg extends Monster {
                 D8.roll() + D8.roll() + D8.roll() + 1,
                 new PerformOneAction(new Bite(), new AcidSpray())
         );
-        getLabels().add(Label.BRUTE);
+        getLabels().add(Label.FRONT_LINE);
     }
 
     private static class Bite extends Weapon {

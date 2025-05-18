@@ -27,7 +27,7 @@ public class TheCrabCrushersBuilderv1 implements PartyBuilder {
                 WeaponBuilder.BASTARD_SWORD_1H.build(3,2),
                 new FocusFireTargetSelector()
         );
-        karn.getLabels().add(Label.BRUTE);
+        karn.getLabels().add(Label.FRONT_LINE);
         creatures.add(karn);
 
         final Creature kabsal = new Player(

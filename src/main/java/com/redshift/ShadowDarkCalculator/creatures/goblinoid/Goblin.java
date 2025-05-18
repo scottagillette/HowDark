@@ -20,7 +20,7 @@ public class Goblin extends Monster {
                 D8.roll() + 1,
                 new PerformOneAction(WeaponBuilder.DAGGER_DEX.build(), WeaponBuilder.SHORTBOW.build())
         );
-        getLabels().add(Label.BRUTE);
+        getLabels().add(Label.BACKLINE);
     }
 
 }

@@ -22,7 +22,7 @@ public class Mummy extends UndeadMonster {
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 2,
                 new PerformAllActions(new RotTouch(), new RotTouch(), new RotTouch())
         );
-        getLabels().add(Label.BRUTE);
+        getLabels().add(Label.FRONT_LINE);
     }
 
     @Override
