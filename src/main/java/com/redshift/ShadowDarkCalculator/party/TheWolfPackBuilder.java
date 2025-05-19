@@ -33,7 +33,12 @@ public class TheWolfPackBuilder implements PartyBuilder {
                 new Stats(7, 14, 9, 18, 10, 9),
                 12,
                 1,
-                new PerformOneAction(List.of(WeaponBuilder.STAFF.build(), new MagicMissile(), new BurningHands(), new Sleep()))
+                new PerformOneAction(List.of(
+                        WeaponBuilder.STAFF.build(),
+                        new MagicMissile(),
+                        new BurningHands(),
+                        new Sleep())
+                )
         );
         elyon.getLabels().add(Label.BACKLINE);
         elyon.getLabels().add(Label.CASTER);
@@ -56,7 +61,12 @@ public class TheWolfPackBuilder implements PartyBuilder {
                 new Stats(10, 10, 14, 8, 10, 8),
                 12,
                 8,
-                new PerformOneAction(WeaponBuilder.LONGSWORD.build(), new CureWounds(), new ShieldOfFaith(), new TurnUndead())
+                new PerformOneAction(
+                        WeaponBuilder.LONGSWORD.build(),
+                        new CureWounds(),
+                        new ShieldOfFaith(),
+                        new TurnUndead()
+                )
         );
         grimm.getLabels().add(Label.HEALER);
         creatures.add(grimm);

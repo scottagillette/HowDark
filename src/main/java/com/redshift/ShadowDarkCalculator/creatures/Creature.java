@@ -7,6 +7,10 @@ import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * All players, monsters, etc. are creatures; with appropriate subclass.
+ */
+
 public interface Creature {
 
     /**

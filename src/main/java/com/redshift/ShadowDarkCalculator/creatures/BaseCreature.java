@@ -11,6 +11,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 
+/**
+ * All standard implementations of a creature; see subclasses for custom behavior.
+ */
+
 @Slf4j
 public abstract class BaseCreature implements Creature {
 

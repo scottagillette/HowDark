@@ -1,9 +1,15 @@
 package com.redshift.ShadowDarkCalculator.creatures;
 
 import com.redshift.ShadowDarkCalculator.dice.SingleDie;
+import lombok.Getter;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
 
+/**
+ * Core stats for all creatures, including saving throws and increasing or decreasing states.
+ */
+
+@Getter
 public class Stats {
 
     private final int strength;
@@ -49,14 +55,6 @@ public class Stats {
         };
     }
 
-    public int getStrength() {
-        return strength;
-    }
-
-    public int getCurrentStrength() {
-        return currentStrength;
-    }
-
     public int getStrengthModifier() {
         return getModifier(currentStrength);
     }
@@ -75,15 +73,6 @@ public class Stats {
         return currentStrength;
     }
 
-
-    public int getDexterity() {
-        return dexterity;
-    }
-
-    public int getCurrentDexterity() {
-        return currentDexterity;
-    }
-
     public int getDexterityModifier() {
         return getModifier(currentDexterity);
     }
@@ -94,15 +83,6 @@ public class Stats {
 
     public int dexteritySave() {
         return D20.roll() + getModifier(currentDexterity);
-    }
-
-
-    public int getConstitution() {
-        return constitution;
-    }
-
-    public int getCurrentConstitution() {
-        return currentConstitution;
     }
 
     public int getConstitutionModifier() {
@@ -123,15 +103,6 @@ public class Stats {
         return currentConstitution;
     }
 
-
-    public int getIntelligence() {
-        return intelligence;
-    }
-
-    public int getCurrentIntelligence() {
-        return currentIntelligence;
-    }
-
     public int getIntelligenceModifier() {
         return getModifier(currentIntelligence);
     }
@@ -148,14 +119,6 @@ public class Stats {
         this.currentIntelligence = intelligence;
     }
 
-    public int getWisdom() {
-        return wisdom;
-    }
-
-    public int getCurrentWisdom() {
-        return currentWisdom;
-    }
-
     public int getWisdomModifier() {
         return getModifier(currentWisdom);
     }
@@ -166,15 +129,6 @@ public class Stats {
 
     public int wisdomSave() {
         return D20.roll() + getModifier(currentWisdom);
-    }
-
-
-    public int getCharisma() {
-        return charisma;
-    }
-
-    public int getCurrentCharisma() {
-        return currentCharisma;
     }
 
     public int getCharismaModifier() {
