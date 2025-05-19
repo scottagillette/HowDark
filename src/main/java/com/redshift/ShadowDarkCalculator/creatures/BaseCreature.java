@@ -153,6 +153,11 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
+    public boolean hasCondition(Condition condition) {
+        return (conditions.containsValue(condition));
+    }
+
+    @Override
     public void healDamage(int amount) {
         // No sense in healing the dead!
         if (!dead) {
