@@ -37,7 +37,7 @@ public class Mimic extends Monster {
     private static class Bite extends Weapon {
 
         private Bite() {
-            super("Bite", D8, RollModifier.STRENGTH);
+            super("Bite", D8, RollModifier.STRENGTH, 3);
         }
 
         @Override
