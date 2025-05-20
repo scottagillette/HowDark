@@ -45,7 +45,7 @@ public class GoblinShaman extends Monster {
     public static class BugBrain extends SingleTargetSpell {
 
         public BugBrain() {
-            super("BugBrain", 13, RollModifier.WISDOM);
+            super("Bug Brain", 13, RollModifier.WISDOM);
         }
 
         @Override
