@@ -32,12 +32,12 @@ public class JsonPartyConfigTest {
                 "actions": [
                   {
                     "type": "weapon",
-                    "weapon": "Bastard Sword 1h",
+                    "weapon": "BASTARD_SWORD_1H",
                     "attackBonus": 3,
                     "damageBonus": 2
                   }
                 ],
-                "targetSelector": "FocusFire",
+                "targetSelector": "FOCUS_FIRE",
                 "labels": ["BRUTE", "PLAYER"]
               },
               {
@@ -54,12 +54,12 @@ public class JsonPartyConfigTest {
                 "armorClass": 12,
                 "hitPoints": 7,
                 "actions": [
-                  {"type": "weapon", "weapon": "Longsword", "attackBonus": 1},
-                  {"type": "spell", "name": "Turn Undead", "bonus": 1, "priority": 4},
-                  {"type": "spell", "name": "Cure Wounds", "bonus": 1, "priority": 2},
-                  {"type": "spell", "name": "Shield Of Faith", "bonus": 1}
+                  {"type": "weapon", "weapon": "LONGSWORD", "attackBonus": 1},
+                  {"type": "spell", "name": "TURN_UNDEAD", "bonus": 1, "priority": 4},
+                  {"type": "spell", "name": "CURE_WOUNDS", "bonus": 1, "priority": 2},
+                  {"type": "spell", "name": "SHIELD_OF_FAITH", "bonus": 1}
                 ],
-                "targetSelector": "FocusFire",
+                "targetSelector": "FOCUS_FIRE",
                 "labels": ["HEALER", "PLAYER"]
               },
               {
@@ -76,12 +76,12 @@ public class JsonPartyConfigTest {
                 "armorClass": 11,
                 "hitPoints": 2,
                 "actions": [
-                  {"type": "weapon", "weapon": "Staff"},
-                  {"type": "spell", "name": "Sleep", "bonus": 1, "priority": 3},
-                  {"type": "spell", "name": "Magic Missile", "bonus": 1, "advantage": true, "priority": 2},
-                  {"type": "spell", "name": "Burning Hands", "bonus": 1, "advantage": true, "priority": 4}
+                  {"type": "weapon", "weapon": "STAFF"},
+                  {"type": "spell", "name": "SLEEP", "bonus": 1, "priority": 3},
+                  {"type": "spell", "name": "MAGIC_MISSILE", "bonus": 1, "advantage": true, "priority": 2},
+                  {"type": "spell", "name": "BURNING_HANDS", "bonus": 1, "advantage": true, "priority": 4}
                 ],
-                "targetSelector": "FocusFire",
+                "targetSelector": "FOCUS_FIRE",
                 "labels": ["BACKLINE", "CASTER", "PLAYER"]
               },
               {
@@ -98,9 +98,9 @@ public class JsonPartyConfigTest {
                 "armorClass": 14,
                 "hitPoints": 6,
                 "actions": [
-                  {"type": "weapon", "weapon": "Crossbow"}
+                  {"type": "weapon", "weapon": "CROSSBOW"}
                 ],
-                "targetSelector": "FocusFire",
+                "targetSelector": "FOCUS_FIRE",
                 "labels": ["BACKLINE", "PLAYER"]
               }
             ]

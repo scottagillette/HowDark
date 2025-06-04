@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.*;
+import com.redshift.ShadowDarkCalculator.actions.spells.SpellBuilder;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
@@ -13,6 +14,7 @@ import com.redshift.ShadowDarkCalculator.creatures.Player;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.targets.FocusFireTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.TargetSelectorBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -105,7 +107,7 @@ public class JsonPartyConfig implements PartyBuilder {
     private Action parseAction(JsonNode node) {
         String type = node.path("type").asText();
         if ("weapon".equalsIgnoreCase(type)) {
-            WeaponBuilder builder = mapWeapon(node.path("weapon").asText());
+            WeaponBuilder builder = WeaponBuilder.valueOf(node.path("weapon").asText());
             int attackBonus = node.path("attackBonus").asInt(0);
             int damageBonus = node.path("damageBonus").asInt(0);
             boolean magical = node.path("magical").asBoolean(false);
@@ -114,7 +116,7 @@ public class JsonPartyConfig implements PartyBuilder {
 
             return builder.build(attackBonus, damageBonus, magical, silvered, priority);
         } else if ("spell".equalsIgnoreCase(type)) {
-            Spell spell = mapSpell(node.path("name").asText());
+            Spell spell = SpellBuilder.valueOf(node.path("name").asText()).build();
             int bonus = node.path("bonus").asInt(0);
             if (bonus != 0) {
                 spell.addBonus(bonus);
@@ -128,34 +130,12 @@ public class JsonPartyConfig implements PartyBuilder {
         throw new IllegalArgumentException("Unknown action type: " + type);
     }
 
-    private WeaponBuilder mapWeapon(String weaponName) {
-        return switch (weaponName) {
-            case "Bastard Sword 1h" -> WeaponBuilder.BASTARD_SWORD_1H;
-            case "Longsword" -> WeaponBuilder.LONGSWORD;
-            case "Staff" -> WeaponBuilder.STAFF;
-            case "Crossbow" -> WeaponBuilder.CROSSBOW;
-            default -> throw new IllegalArgumentException("Unknown weapon: " + weaponName);
-        };
-    }
-
-    private Spell mapSpell(String name) {
-        return switch (name) {
-            case "Turn Undead" -> new TurnUndead();
-            case "Cure Wounds" -> new CureWounds();
-            case "Shield Of Faith" -> new ShieldOfFaith();
-            case "Sleep" -> new Sleep();
-            case "Magic Missile" -> new MagicMissile();
-            case "Burning Hands" -> new BurningHands();
-            default -> throw new IllegalArgumentException("Unknown spell: " + name);
-        };
-    }
-
     private SingleTargetSelector parseSelector(String selector) {
-        if ("FocusFire".equalsIgnoreCase(selector)) {
+        try {
+            return TargetSelectorBuilder.valueOf(selector).build();
+        } catch (IllegalArgumentException e) {
             return new FocusFireTargetSelector();
         }
-        // Default selector
-        return new FocusFireTargetSelector();
     }
 }
 
