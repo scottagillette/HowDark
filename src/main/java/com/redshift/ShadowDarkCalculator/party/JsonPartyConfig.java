@@ -6,7 +6,6 @@ import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.*;
 import com.redshift.ShadowDarkCalculator.actions.spells.SpellBuilder;
-import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.Label;
@@ -85,7 +84,7 @@ public class JsonPartyConfig implements PartyBuilder {
             }
         }
 
-        Action action = actions.size() == 1 ? actions.get(0) : new PerformOneAction(actions);
+        Action action = actions.size() == 1 ? actions.getFirst() : new PerformOneAction(actions);
         SingleTargetSelector selector = parseSelector(node.path("targetSelector").asText());
 
         Creature creature = new Player(name, level, stats, armorClass, hitPoints, action, selector);
@@ -119,7 +118,7 @@ public class JsonPartyConfig implements PartyBuilder {
             Spell spell = SpellBuilder.valueOf(node.path("name").asText()).build();
             int bonus = node.path("bonus").asInt(0);
             if (bonus != 0) {
-                spell.addBonus(bonus);
+                spell.addSpellCheckBonus(bonus);
             }
             if (node.path("advantage").asBoolean(false)) {
                 spell.addAdvantage();
