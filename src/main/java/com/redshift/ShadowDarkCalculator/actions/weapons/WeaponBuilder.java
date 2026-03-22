@@ -17,6 +17,7 @@ public enum WeaponBuilder {
     CROSSBOW("Crossbow", D6, RollModifier.DEXTERITY),
     DAGGER_DEX("Dagger (DEX)", D4, RollModifier.DEXTERITY),
     DAGGER_STR("Dagger (STR)", D4, RollModifier.STRENGTH),
+    FIST("Fist", D1, RollModifier.STRENGTH),
     GREATAXE_1H("Greataxe 1h", D8, RollModifier.STRENGTH),
     GREATAXE_2H("Greataxe 2h", D10, RollModifier.STRENGTH),
     GREATSWORD("Greatsword 2h", D12, RollModifier.STRENGTH),

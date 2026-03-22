@@ -1,9 +1,11 @@
 package com.redshift.ShadowDarkCalculator;
 
+import com.redshift.ShadowDarkCalculator.creatures.goblinoid.Goblin;
 import com.redshift.ShadowDarkCalculator.creatures.humanoid.Acolyte;
 import com.redshift.ShadowDarkCalculator.creatures.humanoid.Cultist;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 
+import com.redshift.ShadowDarkCalculator.party.NewbiesPartyBuilder;
 import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilderv2;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,21 +21,22 @@ public class HowDark {
         int group2Wins = 0;
         int group2WinsWithDeath = 0;
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
 
             log.info("[ Fight: {} ]", i + 1);
 
             final CombatSimulator simulator = new CombatSimulator(
 //                    new TheWolfPackBuilder().build(),
 //                    new TheCrabCrushersBuilderv1().build(),
-                    new TheCrabCrushersBuilderv2().build(),
-                    List.of(
-                            new Cultist("Cult Leader"),
-                            new Acolyte("Acolyte 1"),
-                            new Acolyte("Acolyte 2"),
-                            new Acolyte("Acolyte 3"),
-                            new Acolyte("Acolyte 4")
-                    )
+//                    new TheCrabCrushersBuilderv2().build(),
+                    new NewbiesPartyBuilder().build(),
+//                    List.of(
+//                            new Cultist("Cult Leader"),
+//                            new Acolyte("Acolyte 1"),
+//                            new Acolyte("Acolyte 2"),
+//                            new Acolyte("Acolyte 3"),
+//                            new Acolyte("Acolyte 4")
+//                    )
 //                    List.of(new Mimic("Mimic"))
 //                    List.of(new Ogre("'Ulak The Crusher' Ogre"))
 //                    List.of(new CaveCreeper("Cave Creeper"))
@@ -41,7 +44,7 @@ public class HowDark {
 //                    List.of(new GelatinousCube("'Gelatinous Cube'"))
 //                    List.of(new HillGiant("Brundo the Crusher")
 //                    List.of(new HillGiant("Brundo the Crusher"), new HillGiant("Gunda the Smasher"))
-//                    List.of(new Goblin("Grek"), new Goblin("Pek"), new Goblin("Mek"), new Goblin("Rek"))
+                    List.of(new Goblin("Grek"), new Goblin("Pek"), new Goblin("Mek"), new Goblin("Rek"))
 //                    List.of(new GoblinBoss("Boss Grek"), new Goblin("Pek"), new Goblin("Mek"), new GoblinShaman("Rek"))
 //                    List.of(new Ettercap("Ettercap 1"), new Ettercap("Ettercap 2"))
 //                    List.of(
