@@ -9,12 +9,12 @@ public class ShieldOfFaithCondition implements Condition {
     private int rounds;
     private final int acBonus;
 
-    public ShieldOfFaithCondition(int rounds) {
-        this(rounds, 2);
+    public ShieldOfFaithCondition() {
+        this(2);
     }
 
-    public ShieldOfFaithCondition(int rounds, int acBonus) {
-        this.rounds = rounds + 1; // Since we check at the beginning of the creatures turn... add 1.
+    public ShieldOfFaithCondition(int acBonus) {
+        this.rounds = 5 + 1; // Since we check at the beginning of the creatures turn... add 1.
         this.acBonus = acBonus;
     }
 
@@ -25,7 +25,7 @@ public class ShieldOfFaithCondition implements Condition {
 
     @Override
     public boolean hasEnded(Creature creature) {
-        rounds = Math.max(0, rounds -1);
+        rounds = Math.max(0, rounds - 1);
         return (rounds == 0);
     }
 

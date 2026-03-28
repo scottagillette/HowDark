@@ -8,8 +8,8 @@ public class FearCondition implements Condition {
 
     private int rounds;
 
-    public FearCondition(int rounds) {
-        this.rounds = rounds + 1; // Since we check at the beginning of the creatures turn... add 1.
+    public FearCondition() {
+        this.rounds = 5 + 1; // Since we check at the beginning of the creatures turn... add 1.
     }
 
     @Override

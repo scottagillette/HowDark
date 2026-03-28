@@ -40,10 +40,10 @@ public class ShieldOfFaith extends SingleTargetSpell {
         if (criticalFailure) {
             log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
         } else if (criticalSuccess) {
-            target.addCondition(new ShieldOfFaithCondition(D5.roll(), 4)); // Double AC for critical success
+            target.addCondition(new ShieldOfFaithCondition(4)); // Double AC for critical success
             log.info("{} critically adds 4 AC on {} with a {}", actor.getName(), target.getName(), name);
         } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
-            target.addCondition(new ShieldOfFaithCondition(D5.roll()));
+            target.addCondition(new ShieldOfFaithCondition());
             log.info("{} adds 2 AC on {} with a {}", actor.getName(), target.getName(), name);
         } else {
             log.info("{} MISSES the spell check with a {}", actor.getName(), name);
