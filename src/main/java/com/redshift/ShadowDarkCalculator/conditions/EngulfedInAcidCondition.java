@@ -14,6 +14,11 @@ public class EngulfedInAcidCondition implements Condition {
     }
 
     @Override
+    public boolean appliesToDeadCreatures() {
+        return false;
+    }
+
+    @Override
     public boolean canAct() {
         return true; // You can act to try to end this condition.
     }

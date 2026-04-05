@@ -5,6 +5,12 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 public interface Condition {
 
     /**
+     * Does this condition apply to dead creatures?
+     */
+
+    boolean appliesToDeadCreatures();
+
+    /**
      * Returns true if the creature can act with this condition.
      */
 

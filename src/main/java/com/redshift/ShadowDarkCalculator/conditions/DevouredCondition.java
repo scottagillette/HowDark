@@ -1,14 +1,16 @@
 package com.redshift.ShadowDarkCalculator.conditions;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
-public class UnconciousCondition implements Condition {
+/**
+ * Devoured and no longer NOT in a stomach!
+ */
+
+public class DevouredCondition implements Condition {
 
     @Override
     public boolean appliesToDeadCreatures() {
-        return false;
+        return true;
     }
 
     @Override
@@ -18,13 +20,11 @@ public class UnconciousCondition implements Condition {
 
     @Override
     public boolean hasEnded(Creature creature) {
-        return false; // Only ends on healing to the creature; see Creature.healDamage()
+        return false;
     }
 
     @Override
     public void perform(Creature creature) {
-        log.info("{} is unconscious and skipping their turn.", creature.getName());
-        // Has no effect... other than you most likely will be dead...
+        // Nothing to do when dead and devoured!
     }
-
 }

@@ -19,6 +19,11 @@ public class ShieldOfFaithCondition implements Condition {
     }
 
     @Override
+    public boolean appliesToDeadCreatures() {
+        return false;
+    }
+
+    @Override
     public boolean canAct() {
         return true;
     }

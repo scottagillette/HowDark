@@ -13,6 +13,11 @@ public class ParalyzedCondition implements Condition {
     }
 
     @Override
+    public boolean appliesToDeadCreatures() {
+        return false;
+    }
+
+    @Override
     public boolean canAct() {
         return false;
     }

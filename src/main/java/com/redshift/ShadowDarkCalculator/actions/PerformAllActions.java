@@ -6,6 +6,7 @@ import java.util.List;
 
 public class PerformAllActions implements Action {
 
+    private int priority = 1;
     private final List<Action> actions;
 
     public PerformAllActions(Action... actions) {
@@ -33,12 +34,6 @@ public class PerformAllActions implements Action {
 
     @Override
     public int getPriority() {
-        int priority = 1;
-
-        for (Action action : actions) {
-            priority = Math.max(priority, action.getPriority());
-        }
-
         return priority;
     }
 
@@ -73,6 +68,7 @@ public class PerformAllActions implements Action {
 
     @Override
     public Action setPriority(int priority) {
-        throw new UnsupportedOperationException("Can't set priority on PerformAllActions");
+        this.priority = priority;
+        return this;
     }
 }

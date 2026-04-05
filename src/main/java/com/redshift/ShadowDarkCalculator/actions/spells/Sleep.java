@@ -20,6 +20,7 @@ import static java.lang.Math.min;
 public class Sleep extends MultiTargetSpell {
 
     public Sleep() {
+        // Total targets D4 affected... rules say near size cube from player.
         super("Sleep", 11, RollModifier.INTELLIGENCE, D4);
     }
 

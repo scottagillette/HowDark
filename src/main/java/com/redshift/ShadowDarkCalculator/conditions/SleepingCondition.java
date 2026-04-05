@@ -7,6 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 public class SleepingCondition implements Condition {
 
     @Override
+    public boolean appliesToDeadCreatures() {
+        return false;
+    }
+
+    @Override
     public boolean canAct() {
         return false;
     }

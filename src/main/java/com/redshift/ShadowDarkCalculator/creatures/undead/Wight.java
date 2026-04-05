@@ -57,7 +57,7 @@ public class Wight extends UndeadMonster {
 
                 if (attackHits) {
                     int constitutionRemaining = target.getStats().constitutionDrain(D4);
-                    if ( constitutionRemaining == 0) {
+                    if (constitutionRemaining == 0) {
                         log.info("{} is drained of constitution to {} and DIES!", target.getName(), constitutionRemaining);
                         target.setDead(true);
                     } else {

@@ -11,6 +11,11 @@ import lombok.Getter;
 public class DisadvantagedCondition implements Condition {
 
     @Override
+    public boolean appliesToDeadCreatures() {
+        return false;
+    }
+
+    @Override
     public boolean canAct() {
         return true;
     }

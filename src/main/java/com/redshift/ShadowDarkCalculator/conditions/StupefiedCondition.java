@@ -17,6 +17,11 @@ public class StupefiedCondition implements Condition {
     }
 
     @Override
+    public boolean appliesToDeadCreatures() {
+        return false;
+    }
+
+    @Override
     public boolean canAct() {
         return true; // Low intelligence doesn't affect actions... much!
     }

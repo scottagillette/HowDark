@@ -13,6 +13,11 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 public class PoisonWebCondition implements Condition {
 
     @Override
+    public boolean appliesToDeadCreatures() {
+        return false;
+    }
+
+    @Override
     public boolean canAct() {
         return false; // Stuck in the Web!
     }

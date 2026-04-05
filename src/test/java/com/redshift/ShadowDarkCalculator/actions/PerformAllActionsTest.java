@@ -45,14 +45,21 @@ class PerformAllActionsTest {
     }
 
     @Test
-    void testPriority() {
-        Mockito.when(action1.getPriority()).thenReturn(1);
-        Mockito.when(action2.getPriority()).thenReturn(5);
-
+    void testPriorityDefaultOne() {
         final PerformAllActions allActions = new PerformAllActions(action1, action2);
         final int priority = allActions.getPriority();
 
-        assertEquals(5, priority);
+        assertEquals(1, priority);
+    }
+
+    @Test
+    void testPrioritySpecifyThree() {
+        final PerformAllActions allActions = new PerformAllActions(action1, action2);
+        allActions.setPriority(3);
+
+        final int priority = allActions.getPriority();
+
+        assertEquals(3, priority);
     }
 
     @Test

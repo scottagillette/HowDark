@@ -9,7 +9,12 @@ public class StuckToCondition implements Condition {
     private int strDC;
 
     public StuckToCondition(int strDC) {
-        this.strDC =strDC;
+        this.strDC = strDC;
+    }
+
+    @Override
+    public boolean appliesToDeadCreatures() {
+        return false;
     }
 
     @Override

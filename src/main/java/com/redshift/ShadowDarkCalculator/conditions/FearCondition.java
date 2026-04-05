@@ -12,6 +12,15 @@ public class FearCondition implements Condition {
         this.rounds = 5 + 1; // Since we check at the beginning of the creatures turn... add 1.
     }
 
+    public FearCondition(int rounds) {
+        this.rounds = rounds + 1; // Since we check at the beginning of the creatures turn... add 1.
+    }
+
+    @Override
+    public boolean appliesToDeadCreatures() {
+        return false;
+    }
+
     @Override
     public boolean canAct() {
         return false; // Can't act while you are running!

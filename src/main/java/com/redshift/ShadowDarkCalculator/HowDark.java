@@ -1,11 +1,8 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.goblinoid.Goblin;
-import com.redshift.ShadowDarkCalculator.creatures.humanoid.Acolyte;
-import com.redshift.ShadowDarkCalculator.creatures.humanoid.Cultist;
+import com.redshift.ShadowDarkCalculator.creatures.demons.TheWillowMan;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 
-import com.redshift.ShadowDarkCalculator.party.NewbiesPartyBuilder;
 import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilderv2;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,14 +25,18 @@ public class HowDark {
             final CombatSimulator simulator = new CombatSimulator(
 //                    new TheWolfPackBuilder().build(),
 //                    new TheCrabCrushersBuilderv1().build(),
-//                    new TheCrabCrushersBuilderv2().build(),
-                    new NewbiesPartyBuilder().build(),
+                    new TheCrabCrushersBuilderv2().build(),
+                    List.of(new TheWillowMan("The Willow Man"))
+//                    List.of(new MarrowFiend("Death Fiend"))
+//                    List.of(new Dralech("Death Bringer"))
+//                    new NewbiesPartyBuilder().build(),
 //                    List.of(
-//                            new Cultist("Cult Leader"),
-//                            new Acolyte("Acolyte 1"),
-//                            new Acolyte("Acolyte 2"),
-//                            new Acolyte("Acolyte 3"),
-//                            new Acolyte("Acolyte 4")
+//                            new Bittermold("Bittermold 0"),
+//                            new Bittermold("Bittermold 1"),
+//                            new Bittermold("Bittermold 2"),
+//                            new Bittermold("Bittermold 3"),
+//                            new Bittermold("Bittermold 4"),
+//                            new Bittermold("Bittermold 5")
 //                    )
 //                    List.of(new Mimic("Mimic"))
 //                    List.of(new Ogre("'Ulak The Crusher' Ogre"))
@@ -44,7 +45,7 @@ public class HowDark {
 //                    List.of(new GelatinousCube("'Gelatinous Cube'"))
 //                    List.of(new HillGiant("Brundo the Crusher")
 //                    List.of(new HillGiant("Brundo the Crusher"), new HillGiant("Gunda the Smasher"))
-                    List.of(new Goblin("Grek"), new Goblin("Pek"), new Goblin("Mek"), new Goblin("Rek"))
+//                    List.of(new Goblin("Grek"), new Goblin("Pek"), new Goblin("Mek"), new Goblin("Rek"))
 //                    List.of(new GoblinBoss("Boss Grek"), new Goblin("Pek"), new Goblin("Mek"), new GoblinShaman("Rek"))
 //                    List.of(new Ettercap("Ettercap 1"), new Ettercap("Ettercap 2"))
 //                    List.of(
