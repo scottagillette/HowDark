@@ -44,7 +44,7 @@ public class CureWounds extends Spell {
         final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
 
-        final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom!
+        final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
 
         if (criticalFailure) {
             lost = true; // Failed spell check!

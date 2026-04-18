@@ -76,8 +76,10 @@ public abstract class MultiTargetDamageSpell extends Spell {
 
         if (rollModifier.equals(RollModifier.INTELLIGENCE)) {
             spellCheckModifier = actor.getStats().getIntelligenceModifier();
-        } else {
+        } else if (rollModifier.equals(RollModifier.WISDOM)) {
             spellCheckModifier = actor.getStats().getWisdomModifier();
+        } else if (rollModifier.equals(RollModifier.CHARISMA)) {
+            spellCheckModifier = actor.getStats().getCharismaModifier();
         }
 
         if (criticalFailure) {

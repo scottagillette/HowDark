@@ -48,7 +48,7 @@ public class TurnUndead extends MultiTargetSpell {
         final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
 
-        int spellCheckModifier = actor.getStats().getWisdomModifier();
+        int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
 
         if (criticalFailure) {
             lost = true; // Failed spell check!

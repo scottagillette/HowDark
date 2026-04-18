@@ -57,7 +57,7 @@ public class Sleep extends MultiTargetSpell {
         final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
 
-        int spellCheckModifier = actor.getStats().getIntelligenceModifier();
+        int spellCheckModifier = actor.getStats().getIntelligenceModifier(); // Always uses INT modifier!
 
         if (criticalFailure) {
             lost = true; // Failed spell check!
