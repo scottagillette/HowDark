@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.actions;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public interface Action {
      * Performs the specific action.
      */
 
-    void perform(Creature actor, List<Creature> enemies, List<Creature> allies);
+    void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator);
 
     /**
      * Sets the priority of the action; default 1.

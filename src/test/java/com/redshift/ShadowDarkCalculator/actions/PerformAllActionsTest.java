@@ -90,10 +90,10 @@ class PerformAllActionsTest {
         Mockito.when(action2.canPerform(any(), any(), any())).thenReturn(true);
 
         final PerformAllActions allActions = new PerformAllActions(action1, action2);
-        allActions.perform(null, null, null);
+        allActions.perform(null, null, null, null);
 
-        Mockito.verify(action1, Mockito.times(0)).perform(any(), any(), any());
-        Mockito.verify(action2, Mockito.times(1)).perform(any(), any(), any());
+        Mockito.verify(action1, Mockito.times(0)).perform(any(), any(), any(), any());
+        Mockito.verify(action2, Mockito.times(1)).perform(any(), any(), any(), any());
     }
 
 }

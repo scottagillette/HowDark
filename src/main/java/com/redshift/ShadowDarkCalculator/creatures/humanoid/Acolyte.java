@@ -1,7 +1,7 @@
 package com.redshift.ShadowDarkCalculator.creatures.humanoid;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
-import com.redshift.ShadowDarkCalculator.actions.spells.SingleTargetSpell;
+import com.redshift.ShadowDarkCalculator.actions.spells.Spell;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
@@ -9,6 +9,7 @@ import com.redshift.ShadowDarkCalculator.creatures.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
+import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import com.redshift.ShadowDarkCalculator.targets.HealTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,7 @@ public class Acolyte extends Monster {
         );
     }
 
-    private static class HealingTouch extends SingleTargetSpell {
+    private static class HealingTouch extends Spell {
 
         public HealingTouch() {
             super("Healing Touch", 11, RollModifier.WISDOM);
@@ -45,7 +46,7 @@ public class Acolyte extends Monster {
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
             final SingleTargetSelector selector = new HealTargetSelector();
             final Creature target = selector.get(allies); // Shouldn't get null since Spell.canPerform() returned true
 

@@ -5,6 +5,7 @@ import com.redshift.ShadowDarkCalculator.conditions.FearCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
+import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import com.redshift.ShadowDarkCalculator.targets.MultiTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.UndeadTargetSelector;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
+
+/**
+ * Cause fear in undead and can destroy them if spell check is +10 above save roll.
+ */
 
 @Slf4j
 public class TurnUndead extends MultiTargetSpell {
@@ -22,12 +27,15 @@ public class TurnUndead extends MultiTargetSpell {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        final MultiTargetSelector selector = new UndeadTargetSelector();
-        return (!lost && !selector.getTargets(enemies, enemies.size()).isEmpty());
+        if (lost) return false;
+
+        final MultiTargetSelector undeadTargetSelector = new UndeadTargetSelector();
+
+        return (!undeadTargetSelector.getTargets(enemies, enemies.size()).isEmpty());
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
         final MultiTargetSelector selector = new UndeadTargetSelector();
         final List<Creature> targets = selector.getTargets(enemies, enemies.size()); // Turn Undead can affect all near enemies.
 

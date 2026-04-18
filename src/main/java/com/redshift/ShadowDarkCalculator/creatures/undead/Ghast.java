@@ -8,6 +8,7 @@ import com.redshift.ShadowDarkCalculator.creatures.Label;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
+import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,7 +39,7 @@ public class Ghast extends UndeadMonster {
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
             final Creature target = actor.getSingleTargetSelector().get(enemies);
 
             if (target == null) {

@@ -3,10 +3,10 @@ package com.redshift.ShadowDarkCalculator.actions.misc;
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.conditions.DevouredCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-import java.util.Random;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
@@ -25,7 +25,6 @@ public class Devour implements Action {
                 .stream()
                 .filter(creature -> creature.isDead() && !creature.hasCondition(DevouredCondition.class.getName()))
                 .toList();
-
 
         return actor.isWounded() && !deadCreaturesNotDevoured.isEmpty();
     }
@@ -51,7 +50,7 @@ public class Devour implements Action {
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
         final List<Creature> deadCreaturesNotDevoured = enemies
                 .stream()
                 .filter(creature -> creature.isDead() && !creature.hasCondition(DevouredCondition.class.getName()))
@@ -66,7 +65,7 @@ public class Devour implements Action {
             int healingAmount = D8.roll() + D8.roll() + D8.roll();
             actor.healDamage(healingAmount);
             log.info(
-                    "{} is devoured by {} that is healed by {} hitpoints.",
+                    "{} is devoured by {} that is healed by {} hit points.",
                     devouredEnemy.getName(),
                     actor.getName(),
                     healingAmount

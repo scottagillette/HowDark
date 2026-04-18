@@ -5,6 +5,10 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
 
+/**
+ * Randomly burns D4 enemies.
+ */
+
 public class BurningHands extends MultiTargetDamageSpell {
 
     public BurningHands() {

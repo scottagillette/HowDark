@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.actions;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class PerformAllActions implements Action {
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
         // Choose all actions; but can't be lost and can be performed.
 
         final List<Action> filteredActions = actions.stream()
@@ -62,7 +63,7 @@ public class PerformAllActions implements Action {
                 .toList();
 
         if (!filteredActions.isEmpty()) {
-            filteredActions.forEach(action -> action.perform(actor, enemies, allies));
+            filteredActions.forEach(action -> action.perform(actor, enemies, allies, simulator));
         }
     }
 

@@ -4,6 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
+import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,7 +47,7 @@ public class Wraith extends UndeadMonster {
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
             final Creature target = actor.getSingleTargetSelector().get(enemies);
 
             if (target == null) {

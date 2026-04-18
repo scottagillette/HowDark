@@ -2,7 +2,7 @@ package com.redshift.ShadowDarkCalculator.creatures.goblinoid;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.SingleTargetDamageSpell;
-import com.redshift.ShadowDarkCalculator.actions.spells.SingleTargetSpell;
+import com.redshift.ShadowDarkCalculator.actions.spells.Spell;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.StupefiedCondition;
@@ -13,6 +13,7 @@ import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
+import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.WizardTargetSelector;
 
@@ -42,7 +43,7 @@ public class GoblinShaman extends Monster {
         getLabels().add(Label.CASTER);
     }
 
-    public static class BugBrain extends SingleTargetSpell {
+    public static class BugBrain extends Spell {
 
         public BugBrain() {
             super("Bug Brain", 13, RollModifier.WISDOM);
@@ -56,7 +57,7 @@ public class GoblinShaman extends Monster {
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
             final SingleTargetSelector selector = new WizardTargetSelector();
             final Creature target = selector.get(enemies);
 
@@ -101,7 +102,7 @@ public class GoblinShaman extends Monster {
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
             final Creature target = actor.getSingleTargetSelector().get(enemies);
 
             if (target == null) {

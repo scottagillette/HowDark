@@ -4,6 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
+import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class Ghoul extends UndeadMonster {
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
             final Creature target = actor.getSingleTargetSelector().get(enemies);
 
             if (target == null) {

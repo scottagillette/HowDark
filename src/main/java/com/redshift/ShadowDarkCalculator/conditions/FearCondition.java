@@ -3,6 +3,10 @@ package com.redshift.ShadowDarkCalculator.conditions;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Can take action other than run away.
+ */
+
 @Slf4j
 public class FearCondition implements Condition {
 

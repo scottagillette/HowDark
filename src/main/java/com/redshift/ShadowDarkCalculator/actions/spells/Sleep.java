@@ -5,6 +5,7 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.conditions.SleepingCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
+import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import com.redshift.ShadowDarkCalculator.targets.LivingTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.MultiTargetSelector;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,10 @@ import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 import static java.lang.Math.min;
+
+/**
+ * Cast sleep on D4, L2 or below, creatures.
+ */
 
 @Slf4j
 public class Sleep extends MultiTargetSpell {
@@ -31,7 +36,7 @@ public class Sleep extends MultiTargetSpell {
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
         final MultiTargetSelector selector = new LivingTargetSelector();
         final List<Creature> livingCreatures = selector.getTargets(enemies, enemies.size());
 

@@ -86,10 +86,10 @@ class PerformOneActionTest {
         Mockito.when(action2.getPriority()).thenReturn(5);
 
         final PerformOneAction oneAction = new PerformOneAction(action1, action2);
-        oneAction.perform(null, null, null);
+        oneAction.perform(null, null, null, null);
 
-        Mockito.verify(action1, Mockito.times(0)).perform(any(), any(), any());
-        Mockito.verify(action2, Mockito.times(1)).perform(any(), any(), any());
+        Mockito.verify(action1, Mockito.times(0)).perform(any(), any(), any(), any());
+        Mockito.verify(action2, Mockito.times(1)).perform(any(), any(), any(), any());
     }
 
 }

@@ -3,6 +3,10 @@ package com.redshift.ShadowDarkCalculator.conditions;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import lombok.Getter;
 
+/**
+ * +2 AC for 5 rounds; +4 AC if critical success.
+ */
+
 @Getter
 public class ShieldOfFaithCondition implements Condition {
 

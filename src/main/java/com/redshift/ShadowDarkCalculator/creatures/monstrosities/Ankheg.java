@@ -5,6 +5,7 @@ import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
+import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class Ankheg extends Monster {
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
             log.info("{} sprays ACID!", actor.getName());
             performMultipleTargetAttack(actor, enemies, name, dice, rollModifier);
         }

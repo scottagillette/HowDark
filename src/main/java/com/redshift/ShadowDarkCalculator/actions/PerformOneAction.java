@@ -2,6 +2,7 @@ package com.redshift.ShadowDarkCalculator.actions;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.SingleDie;
+import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -61,7 +62,7 @@ public class PerformOneAction implements Action {
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
         // Choose 1 action based on priority; but can't be lost and can be performed.
 
         final List<Action> availableActions = actions.stream()
@@ -85,7 +86,7 @@ public class PerformOneAction implements Action {
                 sum = sum + actionPriority;
 
                 if (priorityRoll >= sum - (actionPriority - 1) && priorityRoll <= sum) {
-                    action.perform(actor, enemies, allies);
+                    action.perform(actor, enemies, allies, simulator);
                     break;
                 }
             }

@@ -4,6 +4,7 @@ import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
+import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import com.redshift.ShadowDarkCalculator.targets.HealTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +13,12 @@ import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
 
+/**
+ * Heals D6 health of a friendly target that is damaged.
+ */
+
 @Slf4j
-public class CureWounds extends SingleTargetSpell {
+public class CureWounds extends Spell {
 
     public CureWounds() {
         super("Cure Wounds", 11, RollModifier.WISDOM);
@@ -26,7 +31,7 @@ public class CureWounds extends SingleTargetSpell {
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
         final SingleTargetSelector selector = new HealTargetSelector();
         final Creature target = selector.get(allies); // Shouldn't get null since Spell.canPerform() returned true
 
@@ -56,7 +61,6 @@ public class CureWounds extends SingleTargetSpell {
             lost = true; // Failed spell check!
             log.info("{} MISSES the spell check with a {}", actor.getName(), name);
         }
-
     }
 
 }

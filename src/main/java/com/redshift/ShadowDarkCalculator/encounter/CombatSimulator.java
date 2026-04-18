@@ -4,10 +4,7 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 @Slf4j
@@ -22,6 +19,14 @@ public class CombatSimulator {
     private int group2Wins = 0;
     private int group2WinsWithDeath = 0;
 
+    private Map<Double, Creature> initiativeMap;
+    private List<Double> sortedCreaturesInitiative;
+
+    private final Map<Creature, List<Creature>> enemiesMap = new HashMap<>();
+    private final Map<Creature, List<Creature>> alliesMap = new HashMap<>();
+
+    private Double nextNewCreatureInitiative = Double.valueOf(-100);
+
     public CombatSimulator(List<Creature> group1, List<Creature> group2) {
         this.group1 = group1;
         this.group2 = group2;
@@ -29,21 +34,14 @@ public class CombatSimulator {
 
     public void simulateFight() {
         // Put each creature in the map with their available enemies and another for allies.
-        final Map<Creature, List<Creature>> enemiesMap = new HashMap<>();
         group1.forEach(creature -> enemiesMap.put(creature, group2));
         group2.forEach(creature -> enemiesMap.put(creature, group1));
 
-        final Map<Creature, List<Creature>> alliesMap = new HashMap<>();
         group1.forEach(creature -> alliesMap.put(creature, group1));
         group2.forEach(creature -> alliesMap.put(creature, group2));
 
         // Sort all by initiative
-        final Map<Double, Creature> initiativeMap = InitiativeBuilder.build(group1, group2);
-
-        final List<Double> sortedCreaturesInitiative = initiativeMap.keySet()
-                .stream()
-                .sorted(Comparator.reverseOrder())
-                .toList();
+        initiativeMap = InitiativeBuilder.build(group1, group2);
 
         int round = 1;
 
@@ -52,10 +50,15 @@ public class CombatSimulator {
         while (continueBattle) {
             log.info("[ Round: {} ]", round);
 
+            sortedCreaturesInitiative = initiativeMap.keySet()
+                    .stream()
+                    .sorted(Comparator.reverseOrder())
+                    .toList();
+
             for (Double initiative : sortedCreaturesInitiative) {
                 final Creature creature = initiativeMap.get(initiative);
                 if (!creature.isDead()) {
-                    creature.takeTurn(enemiesMap.get(creature), alliesMap.get(creature));
+                    creature.takeTurn(enemiesMap.get(creature), alliesMap.get(creature), this);
                 }
             }
 
@@ -65,6 +68,32 @@ public class CombatSimulator {
 
         calculateDead();
         reportSummary();
+    }
+
+    /**
+     * Add a new creature to the combat that is friendly to the actor. It starts at initiative -100 and
+     * each additional creature added with start after, -101, -102, etc.
+     *
+     * @param actor
+     *      The creature the new added creature is friendly to.
+     * @param newCreature
+     *      The new creature to add.
+     */
+
+    public void addFriendlyCreature(Creature actor, Creature newCreature) {
+        if (group1.contains(actor)) {
+            group1.add(newCreature);
+            alliesMap.put(newCreature, group1);
+            enemiesMap.put(newCreature, group2);
+        }
+        if (group2.contains(actor)) {
+            group2.add(newCreature);
+            alliesMap.put(newCreature, group2);
+            enemiesMap.put(newCreature, group1);
+        }
+
+        initiativeMap.put(nextNewCreatureInitiative, newCreature); // Creature will act next round!
+        nextNewCreatureInitiative = nextNewCreatureInitiative - 1; // Decrement the next new creature initiative value.
     }
 
     private void calculateDead() {

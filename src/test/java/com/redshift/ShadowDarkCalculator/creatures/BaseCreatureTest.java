@@ -48,7 +48,7 @@ public class BaseCreatureTest {
         assertEquals(10, monster.getAC());
 
         assertThrows(IllegalStateException.class, () -> {
-            monster.takeTurn(List.of(), List.of()); // Dead can't take a turn!
+            monster.takeTurn(List.of(), List.of(), null); // Dead can't take a turn!
         });
 
         // Now make sure healing a dead creature does nothing

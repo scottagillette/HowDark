@@ -2,6 +2,7 @@ package com.redshift.ShadowDarkCalculator.creatures;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.conditions.Condition;
+import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 
 import java.util.List;
@@ -161,6 +162,6 @@ public interface Creature {
      * Triggers any begin of turn triggers... count down timers, etc.
      */
 
-    void takeTurn(List<Creature> enemies, List<Creature> allies);
+    void takeTurn(List<Creature> enemies, List<Creature> allies, CombatSimulator simulator);
 
 }

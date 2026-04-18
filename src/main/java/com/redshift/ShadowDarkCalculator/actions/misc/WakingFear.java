@@ -3,6 +3,7 @@ package com.redshift.ShadowDarkCalculator.actions.misc;
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.conditions.FearCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class WakingFear implements Action {
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
         // All creatures within near DC 15 CHA or flee in a random direction for 1d4 rounds.
 
         log.info("{} invokes Waking Fear to all!", actor.getName());

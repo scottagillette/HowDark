@@ -5,6 +5,7 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
+import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -55,6 +56,16 @@ public class Weapon implements Action {
         this.priority = priority;
     }
 
+    public Weapon addDamageRollBonus(int damageRollBonus) {
+        this.damageRollBonus = this.damageRollBonus + damageRollBonus;
+        return this;
+    }
+
+    public Weapon addAttackRollBonus(int attackRollBonus) {
+        this.attackRollBonus = this.attackRollBonus + attackRollBonus;
+        return this;
+    }
+
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         return true; // Melee and ranged attacks by default can always be performed.
@@ -81,7 +92,7 @@ public class Weapon implements Action {
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
         // Normal weapons attack a single target... custom weapons can hit multiple (see performMultipleTargetAttack())
         final Creature target = actor.getSingleTargetSelector().get(enemies);
 
