@@ -6,6 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
+/**
+ * Given two groups of creatures; roll initiative and proceed with combat until one group remains!
+ */
+
 @Getter
 @Slf4j
 public class CombatSimulator {
@@ -50,6 +54,7 @@ public class CombatSimulator {
         while (continueBattle) {
             log.info("[ Round: {} ]", round);
 
+            // Sort creatures each turn since creatures may have been added
             sortedCreaturesInitiative = initiativeMap.keySet()
                     .stream()
                     .sorted(Comparator.reverseOrder())

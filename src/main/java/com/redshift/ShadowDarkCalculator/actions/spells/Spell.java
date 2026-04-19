@@ -20,7 +20,7 @@ public abstract class Spell implements Action {
     protected boolean lost = false; // True if the spell failed to cast and is lost until a rest occurs.
     protected int spellCheckBonus = 0; // A bonus to the spell check roll... zero by default.
     protected boolean spellCheckAdvantage = false; // Some spells or wizards get advantage on spell check.
-    protected int priority;
+    protected int priority; // Non-Zero integer value indicating it's overall priority to other actions.
 
     protected Spell(String name, int difficultyClass, RollModifier rollModifier) {
         this(name, difficultyClass, rollModifier, 1);
@@ -48,21 +48,6 @@ public abstract class Spell implements Action {
         return !lost;
     }
 
-    /**
-     * Returns the spell check roll... which does not include the spell check bonus if any.
-     */
-
-    protected int getSpellCheckRoll(boolean disadvantaged) {
-        boolean atkAdvantaged = spellCheckAdvantage && !disadvantaged;
-        boolean atkDisadvantaged = !spellCheckAdvantage && disadvantaged;
-
-        return (atkAdvantaged) ?
-                Math.max(D20.roll(), D20.roll()) :
-                (atkDisadvantaged) ?
-                        Math.min(D20.roll(), D20.roll()) :
-                        D20.roll();
-    }
-
     @Override
     public String getName() {
         return name;
@@ -71,6 +56,22 @@ public abstract class Spell implements Action {
     @Override
     public int getPriority() {
         return priority;
+    }
+
+    /**
+     * Returns the spell check roll... which does not include the spell check bonus if any.
+     */
+
+    protected int getSpellCheckRoll(boolean disadvantaged) {
+        boolean checkWithAdvantaged = spellCheckAdvantage && !disadvantaged;
+        boolean checkWithDisadvantaged = !spellCheckAdvantage && disadvantaged;
+
+        if (checkWithAdvantaged) {
+            return Math.max(D20.roll(), D20.roll());
+        } else if (checkWithDisadvantaged) {
+            return Math.min(D20.roll(), D20.roll());
+        }
+        return D20.roll();
     }
 
     @Override

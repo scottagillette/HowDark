@@ -78,7 +78,7 @@ public class BaseCreatureTest {
         assertTrue(monster.isWounded());
         assertEquals(5, monster.getCurrentHitPoints());
 
-        monster.healDamage(5);
+        monster.healDamage(10); // Healing past max caps at max.
 
         assertFalse(monster.isDead());
         assertEquals("Alive", monster.getStatus());

@@ -18,7 +18,9 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 import static java.lang.Math.min;
 
 /**
- * Cast sleep on D4, L2 or below, creatures.
+ * You weave a lulling spell that fills a near-sized cube extending from you. Living creatures in the area of effect
+ * fall into a deep sleep if they are LV 2 or less. Vigorous shaking or being injured wakes them. (Note: This affects
+ * D4 creatures.)
  */
 
 @Slf4j

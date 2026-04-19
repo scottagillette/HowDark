@@ -1,10 +1,7 @@
 package com.redshift.ShadowDarkCalculator.party;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
-import com.redshift.ShadowDarkCalculator.actions.spells.BurningHands;
-import com.redshift.ShadowDarkCalculator.actions.spells.Sleep;
-import com.redshift.ShadowDarkCalculator.actions.spells.Undeath;
-import com.redshift.ShadowDarkCalculator.actions.spells.Withermark;
+import com.redshift.ShadowDarkCalculator.actions.spells.*;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.Label;
@@ -54,6 +51,7 @@ public class DiableriePartyBuilder implements PartyBuilder {
                 new FocusFireTargetSelector()
         );
         mal.getLabels().add(Label.BACKLINE);
+        mal.getLabels().add(Label.CASTER);
         creatures.add(mal);
 
 
@@ -65,12 +63,14 @@ public class DiableriePartyBuilder implements PartyBuilder {
                 5,
                 new PerformOneAction(List.of(
                         WeaponBuilder.STAFF.build().setPriority(1),
+                        new MagicMissile().setPriority(2),
                         new Sleep().setPriority(10),
                         new BurningHands().addAdvantage().setPriority(5)
                 )),
                 new FocusFireTargetSelector()
         );
         alaric.getLabels().add(Label.BACKLINE);
+        alaric.getLabels().add(Label.CASTER);
         creatures.add(alaric);
 
         return creatures;

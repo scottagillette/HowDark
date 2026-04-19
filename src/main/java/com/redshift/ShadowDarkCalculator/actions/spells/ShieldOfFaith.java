@@ -12,7 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
-
+/**
+ * A protective force wrought of your holy conviction surrounds you. You gain a +2 bonus to your armor class for
+ * the duration (5 rounds).
+ */
 
 @Slf4j
 public class ShieldOfFaith extends Spell {
