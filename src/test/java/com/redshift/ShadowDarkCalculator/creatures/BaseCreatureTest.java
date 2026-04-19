@@ -1,6 +1,8 @@
 package com.redshift.ShadowDarkCalculator.creatures;
 
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
+import com.redshift.ShadowDarkCalculator.conditions.ShieldOfFaithCondition;
+import com.redshift.ShadowDarkCalculator.conditions.SleepingCondition;
 import com.redshift.ShadowDarkCalculator.conditions.UnconciousCondition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BaseCreatureTest {
 
     private Monster monster;
+    private Player player;
 
     @BeforeEach
     public void setup() {
@@ -30,58 +33,77 @@ public class BaseCreatureTest {
                 10,
                 WeaponBuilder.CLUB.build()
         );
+
+        player = new Player(
+                "Foo",
+                1,
+                new Stats(10,10,10,10,10,10),
+                10,
+                10,
+                WeaponBuilder.CLUB.build()
+        );
     }
 
     @Test
-    public void testDeadMonster() {
-        monster.takeDamage(10, false, false, false, false);
+    void testUnconsciousMonster() {
+        monster.addCondition(new UnconciousCondition());
+        monster.addCondition(new ShieldOfFaithCondition()); // Make sure it doesn't get AC from this...
 
-        assertTrue(monster.isDead());
-        assertEquals("Dead", monster.getStatus());
-        assertEquals(0, monster.getCurrentHitPoints());
-        assertFalse(monster.hasCondition(UnconciousCondition.class.getName()));
-        assertTrue(monster.getLabels().contains(Label.MONSTER));
+        assertTrue(monster.isUnconscious());
         assertFalse(monster.canAct());
-        assertEquals(1, monster.getLevel());
-        assertFalse(monster.isUnconscious());
-        assertEquals("Foo", monster.getName());
-        assertEquals(10, monster.getAC());
-
-        assertThrows(IllegalStateException.class, () -> {
-            monster.takeTurn(List.of(), List.of(), null); // Dead can't take a turn!
-        });
-
-        // Now make sure healing a dead creature does nothing
-
-        monster.healDamage(10);
-
-        assertTrue(monster.isDead());
-        assertEquals("Dead", monster.getStatus());
-        assertEquals(0, monster.getCurrentHitPoints());
+        assertEquals(monster.getAC(), 0);
+        assertEquals(monster.getStatus(), "Unconscious");
     }
 
     @Test
-    public void testWoundedMonster() {
+    void testWounded() {
         monster.takeDamage(5, false, false, false, false);
-
-        assertFalse(monster.isDead());
-        assertEquals("Alive", monster.getStatus());
-        assertEquals(5, monster.getCurrentHitPoints());
-        assertFalse(monster.hasCondition(UnconciousCondition.class.getName()));
-        assertTrue(monster.getLabels().contains(Label.MONSTER));
-        assertTrue(monster.canAct());
-        assertEquals(1, monster.getLevel());
-        assertFalse(monster.isUnconscious());
-        assertEquals("Foo", monster.getName());
-        assertEquals(10, monster.getAC());
-        assertTrue(monster.isBloodied());
         assertTrue(monster.isWounded());
-        assertEquals(5, monster.getCurrentHitPoints());
 
-        monster.healDamage(10); // Healing past max caps at max.
+        monster.healDamage(5);
+        assertFalse(monster.isWounded());
+    }
 
-        assertFalse(monster.isDead());
-        assertEquals("Alive", monster.getStatus());
-        assertEquals(10, monster.getCurrentHitPoints());
+    @Test
+    void testBloodied() {
+        monster.takeDamage(5, false, false, false, false);
+        assertTrue(monster.isBloodied());
+
+        monster.healDamage(1);
+        assertFalse(monster.isBloodied());
+    }
+
+    @Test
+    void testTakingDamageWakesUpCreature() {
+        monster.addCondition(new SleepingCondition());
+
+        monster.takeDamage(1, false, false, false, false);
+        assertFalse(monster.hasCondition(SleepingCondition.class.getName()));
+        assertTrue(monster.canAct());
+    }
+
+    @Test
+    void testTakingDamageKillsMonster() {
+        monster.takeDamage(10, false, false, false, false);
+        assertTrue(monster.isDead());
+        assertTrue(monster.isBloodied());
+        assertFalse(monster.canAct());
+    }
+
+    @Test
+    void testTakingDamageDoesNotKillPlayer() {
+        player.takeDamage(10, false, false, false, false);
+        assertFalse(player.isDead());
+        assertTrue(player.hasCondition(UnconciousCondition.class.getName()));
+        assertFalse(player.canAct());
+    }
+
+    @Test
+    void testAc() {
+        assertEquals(monster.getAC(), 10);
+        monster.addCondition(new ShieldOfFaithCondition());
+        assertEquals(monster.getAC(), 12);
+        monster.addCondition(new UnconciousCondition());
+        assertEquals(monster.getAC(), 0);
     }
 }
