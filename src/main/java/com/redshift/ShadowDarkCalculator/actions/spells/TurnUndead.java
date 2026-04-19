@@ -6,7 +6,6 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
-import com.redshift.ShadowDarkCalculator.targets.MultiTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.UndeadTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,17 +26,13 @@ public class TurnUndead extends MultiTargetSpell {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        if (lost) return false;
-
-        final MultiTargetSelector undeadTargetSelector = new UndeadTargetSelector();
-
-        return (!undeadTargetSelector.getTargets(enemies, enemies.size()).isEmpty());
+        final List<Creature> undeadEnemies = new UndeadTargetSelector().getTargets(enemies, enemies.size());
+        return (!lost && !undeadEnemies.isEmpty());
     }
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
-        final MultiTargetSelector selector = new UndeadTargetSelector();
-        final List<Creature> targets = selector.getTargets(enemies, enemies.size()); // Turn Undead can affect all near enemies.
+        final List<Creature> targets = new UndeadTargetSelector().getTargets(enemies, enemies.size()); // Turn Undead can affect all near enemies.
 
         boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
         actor.removeCondition(DisadvantagedCondition.class.getName());
@@ -53,7 +48,7 @@ public class TurnUndead extends MultiTargetSpell {
         if (criticalFailure) {
             lost = true; // Failed spell check!
             log.info("{} critically MISSES the spell check on {}", actor.getName(), getName());
-        } else if (criticalSuccess || spellCheckRoll + spellCheckModifier >= difficultyClass) {
+        } else if (criticalSuccess || spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             targets.forEach(target -> {
                 int save = target.getStats().charismaSave();
 

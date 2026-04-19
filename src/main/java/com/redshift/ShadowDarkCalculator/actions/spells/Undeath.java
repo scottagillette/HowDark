@@ -7,6 +7,7 @@ import com.redshift.ShadowDarkCalculator.creatures.undead.Skeleton;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
+import com.redshift.ShadowDarkCalculator.targets.DeadCreatureTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -29,16 +30,13 @@ public class Undeath extends Spell {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        if (lost) return false;
-
-        final List<Creature> deadEnemies = enemies.stream().filter(Creature::isDead).toList();
-
-        return !deadEnemies.isEmpty();
+        final Creature deadEnemy = new DeadCreatureTargetSelector().get(enemies);
+        return !lost && deadEnemy != null;
     }
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
-        final List<Creature> deadEnemies = enemies.stream().filter(Creature::isDead).toList();
+        final Creature deadEnemy = new DeadCreatureTargetSelector().get(enemies);
 
         boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
         actor.removeCondition(DisadvantagedCondition.class.getName());
@@ -58,12 +56,12 @@ public class Undeath extends Spell {
             log.info("{} critically succeeds on raising a skeleton for 10 rounds with {}", actor.getName(), name);
             simulator.addFriendlyCreature(actor, new Skeleton("Undeath Skeleton"));
             lost = true; // Single per combat use.
-            deadEnemies.getFirst().addCondition(new DevouredCondition()); // Mark corpse as devoured so it can't be used again.
-        } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
+            deadEnemy.addCondition(new DevouredCondition()); // Mark corpse as devoured so it can't be used again.
+        } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             log.info("{} succeeds on raising a skeleton for 5 rounds with {}", actor.getName(), name);
             simulator.addFriendlyCreature(actor, new Skeleton("Undeath Skeleton"));
             lost = true; // Single per combat use.
-            deadEnemies.getFirst().addCondition(new DevouredCondition()); // Mark corpse as devoured so it can't be used again.
+            deadEnemy.addCondition(new DevouredCondition()); // Mark corpse as devoured so it can't be used again.
         } else {
             lost = true; // Failed spell check!
             log.info("{} MISSES the spell check with a {}", actor.getName(), name);

@@ -5,7 +5,6 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
-import com.redshift.ShadowDarkCalculator.targets.FocusFireTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.LivingTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.MultiTargetSelector;
 import lombok.extern.slf4j.Slf4j;
@@ -28,16 +27,12 @@ public class Withermark extends Spell {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        // Requires living targets.
-        final MultiTargetSelector selector = new LivingTargetSelector();
-        return (!lost && !selector.getTargets(enemies, enemies.size()).isEmpty());
+        return (!lost && !new LivingTargetSelector().getTargets(enemies, enemies.size()).isEmpty());
     }
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
-        // Custom target selection; living creatures only.
-        final MultiTargetSelector livingCreatureSelector = new LivingTargetSelector();
-        final List<Creature> livingCreatures = livingCreatureSelector.getTargets(enemies, enemies.size());
+        final List<Creature> livingCreatures = new LivingTargetSelector().getTargets(enemies, enemies.size());
 
         final Creature target = actor.getSingleTargetSelector().get(livingCreatures);
 
@@ -66,7 +61,7 @@ public class Withermark extends Spell {
             int damage = D4.roll() + D4.roll();
             log.info("{} critically hits a spell on {} with a {}: damage={}", actor.getName(), target.getName(), name, damage);
             target.takeDamage(damage, false, true, false, false);
-        } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
+        } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             int damage = D4.roll();
             log.info("{} hits a spell on {} with a {}: damage={}", actor.getName(), target.getName(), name, damage);
             target.takeDamage(damage, false, true, false, false);

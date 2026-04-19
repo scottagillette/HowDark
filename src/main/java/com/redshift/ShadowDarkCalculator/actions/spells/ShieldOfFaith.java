@@ -7,7 +7,6 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
-import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -27,8 +26,7 @@ public class ShieldOfFaith extends Spell {
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
         // Note you can always cast this on yourself if everyone else is unconscious!
-        final SingleTargetSelector selector = new RandomTargetSelector();
-        final Creature target = selector.get(allies); // Randomly choose an ally TODO: What about dead or unconscious?
+        final Creature target = new RandomTargetSelector().get(allies); // Randomly choose an ally TODO: What about dead or unconscious?
 
         boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
         actor.removeCondition(DisadvantagedCondition.class.getName());
@@ -46,7 +44,7 @@ public class ShieldOfFaith extends Spell {
         } else if (criticalSuccess) {
             target.addCondition(new ShieldOfFaithCondition(4)); // Double AC for critical success
             log.info("{} critically adds 4 AC on {} with a {}", actor.getName(), target.getName(), name);
-        } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
+        } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             target.addCondition(new ShieldOfFaithCondition());
             log.info("{} adds 2 AC on {} with a {}", actor.getName(), target.getName(), name);
         } else {

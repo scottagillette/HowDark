@@ -7,7 +7,6 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import com.redshift.ShadowDarkCalculator.targets.LivingTargetSelector;
-import com.redshift.ShadowDarkCalculator.targets.MultiTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -33,14 +32,12 @@ public class Sleep extends MultiTargetSpell {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        final MultiTargetSelector selector = new LivingTargetSelector();
-        return (!lost && !selector.getTargets(enemies, enemies.size()).isEmpty());
+        return (!lost && !new LivingTargetSelector().getTargets(enemies, enemies.size()).isEmpty());
     }
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
-        final MultiTargetSelector selector = new LivingTargetSelector();
-        final List<Creature> livingCreatures = selector.getTargets(enemies, enemies.size());
+        final List<Creature> livingCreatures = new LivingTargetSelector().getTargets(enemies, enemies.size());
 
         // Number of targets...
         final int numberOfTargets = min(livingCreatures.size(), totalTargets.roll());
@@ -73,7 +70,7 @@ public class Sleep extends MultiTargetSpell {
                     log.info("{} critically hits a spell on {} with a {} but doesn't affect the creature.", actor.getName(), target.getName(), getName());
                 }
             });
-        } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
+        } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             targets.forEach(target -> {
                 if (target.getLevel() <= 2) {
                     target.addCondition(new SleepingCondition());

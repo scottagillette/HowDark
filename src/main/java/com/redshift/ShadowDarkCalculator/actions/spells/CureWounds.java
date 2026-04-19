@@ -26,14 +26,12 @@ public class CureWounds extends Spell {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        final SingleTargetSelector selector = new HealTargetSelector();
-        return !lost && selector.get(allies) != null;
+        return !lost && new HealTargetSelector().get(allies) != null;
     }
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
-        final SingleTargetSelector selector = new HealTargetSelector();
-        final Creature target = selector.get(allies); // Shouldn't get null since Spell.canPerform() returned true
+        final Creature target = new HealTargetSelector().get(allies); // Shouldn't get null since Spell.canPerform() returned true
 
         boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
         actor.removeCondition(DisadvantagedCondition.class.getName());
@@ -53,7 +51,7 @@ public class CureWounds extends Spell {
             int hitPoints = D6.roll() + D6.roll();
             log.info("{} critically heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, name);
             target.healDamage(hitPoints);
-        } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
+        } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             int hitPoints = D6.roll();
             log.info("{} heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, name);
             target.healDamage(hitPoints);

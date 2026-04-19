@@ -32,19 +32,19 @@ class FocusFireTargetSelectorTest {
 
     @Test
     void testSelectWounded() {
-        Mockito.when(creature1.isUnconscious()).thenReturn(true);
+        Mockito.when(creature1.isUnconscious()).thenReturn(true); // Don't target...
         Mockito.when(creature2.isUnconscious()).thenReturn(false);
         Mockito.when(creature3.isUnconscious()).thenReturn(false);
         Mockito.when(creature4.isUnconscious()).thenReturn(false);
 
 //        Mockito.when(creature1.isDead()).thenReturn(false);
-        Mockito.when(creature2.isDead()).thenReturn(true);
+        Mockito.when(creature2.isDead()).thenReturn(true); // Don't target...
         Mockito.when(creature3.isDead()).thenReturn(false);
         Mockito.when(creature4.isDead()).thenReturn(false);
 
 //        Mockito.when(creature1.isWounded()).thenReturn(true);
 //        Mockito.when(creature2.isWounded()).thenReturn(true);
-        Mockito.when(creature3.isWounded()).thenReturn(false);
+        Mockito.when(creature3.isWounded()).thenReturn(false); // Dobn't target...
         Mockito.when(creature4.isWounded()).thenReturn(true); // Must select
 
         final FocusFireTargetSelector focusFireTargetSelector = new FocusFireTargetSelector();

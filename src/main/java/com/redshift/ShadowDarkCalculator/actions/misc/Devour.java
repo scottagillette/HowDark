@@ -4,6 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.conditions.DevouredCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
+import com.redshift.ShadowDarkCalculator.targets.DeadCreatureTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -21,12 +22,8 @@ public class Devour implements Action {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        final List<Creature> deadCreaturesNotDevoured = enemies
-                .stream()
-                .filter(creature -> creature.isDead() && !creature.hasCondition(DevouredCondition.class.getName()))
-                .toList();
-
-        return actor.isWounded() && !deadCreaturesNotDevoured.isEmpty();
+        final Creature deadEnemy = new DeadCreatureTargetSelector().get(enemies);
+        return actor.isWounded() && deadEnemy != null;
     }
 
     @Override
@@ -51,22 +48,18 @@ public class Devour implements Action {
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
-        final List<Creature> deadCreaturesNotDevoured = enemies
-                .stream()
-                .filter(creature -> creature.isDead() && !creature.hasCondition(DevouredCondition.class.getName()))
-                .toList();
+        final Creature deadEnemy = new DeadCreatureTargetSelector().get(enemies);
 
-        if (deadCreaturesNotDevoured.isEmpty()) {
+        if (deadEnemy == null) {
             log.info("Devour attempted but there are no dead bodies!");
         } else {
-            final Creature devouredEnemy = deadCreaturesNotDevoured.getFirst();
-            devouredEnemy.addCondition(new DevouredCondition());
+            deadEnemy.addCondition(new DevouredCondition());
 
             int healingAmount = D8.roll() + D8.roll() + D8.roll();
             actor.healDamage(healingAmount);
             log.info(
                     "{} is devoured by {} that is healed by {} hit points.",
-                    devouredEnemy.getName(),
+                    deadEnemy.getName(),
                     actor.getName(),
                     healingAmount
             );
