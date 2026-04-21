@@ -24,6 +24,20 @@ public class DiableriePartyBuilder implements PartyBuilder {
 
     @Override
     public List<Creature> build() {
+
+        final Creature clank = new Player(
+                "Clank Smashfist",
+                1,
+                new Stats(16, 14, 12, 8, 11, 3),
+                15,
+                8,
+                WeaponBuilder.GREATAXE_1H.build().addAttackRollBonus(2).addDamageRollBonus(2),
+                new FocusFireTargetSelector()
+        );
+        clank.getLabels().add(Label.FRONT_LINE);
+        creatures.add(clank);
+
+
         final Creature borlin = new Player(
                 "Borlin Little Digger",
                 1,
@@ -73,6 +87,26 @@ public class DiableriePartyBuilder implements PartyBuilder {
         alaric.getLabels().add(Label.CASTER);
         creatures.add(alaric);
 
+
+        final Creature torvin = new Player(
+                "Brother Torvin",
+                1,
+                new Stats(18, 10, 10, 7, 18, 10),
+                13,
+                8,
+                new PerformOneAction(List.of(
+                        WeaponBuilder.LONGSWORD.build().setPriority(1),
+                        new CureWounds().setPriority(10),
+                        new TurnUndead().setPriority(10)
+                )),
+                new FocusFireTargetSelector()
+        );
+        torvin.getLabels().add(Label.BACKLINE);
+        torvin.getLabels().add(Label.CASTER);
+        creatures.add(torvin);
+
+
         return creatures;
     }
+
 }

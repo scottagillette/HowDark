@@ -31,9 +31,10 @@ public class HowDark {
 //                    List.of(new Dralech("Death Bringer"))
 //                    new NewbiesPartyBuilder().build(),
                     List.of(
-                            new Bittermold("Bittermold 0"),
                             new Bittermold("Bittermold 1"),
-                            new Bittermold("Bittermold 2")
+                            new Bittermold("Bittermold 2"),
+                            new Bittermold("Bittermold 3"),
+                            new Bittermold("Bittermold 4")
 //                            new Bittermold("Bittermold 3"),
 //                            new Bittermold("Bittermold 4"),
 //                            new Bittermold("Bittermold 5")

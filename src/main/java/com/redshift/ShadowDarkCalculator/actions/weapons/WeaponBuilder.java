@@ -62,6 +62,7 @@ public enum WeaponBuilder {
     public Weapon buildSilvered() {
         return new Weapon(name, dice, rollModifier, false, true, 0, 0,1);
     }
+
     public Weapon buildMagicPlus1() {
         return new Weapon(name, dice, rollModifier, true, false, 1, 1,1);
     }

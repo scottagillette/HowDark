@@ -6,7 +6,6 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import com.redshift.ShadowDarkCalculator.targets.LivingTargetSelector;
-import com.redshift.ShadowDarkCalculator.targets.MultiTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
