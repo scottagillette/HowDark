@@ -5,10 +5,7 @@ import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
@@ -23,7 +20,10 @@ public class Ankheg extends Monster {
                 new Stats(14,14,12,7,12,7),
                 14,
                 D8.roll() + D8.roll() + D8.roll() + 1,
-                new PerformOneAction(new Bite(), new AcidSpray())
+                new PerformOneAction(
+                        new Bite().setPriority(2),
+                        new AcidSpray().setPriority(1) // Make this less common to not nuke the party to quickly ;)
+                )
         );
         getLabels().add(Label.FRONT_LINE);
     }
@@ -32,7 +32,7 @@ public class Ankheg extends Monster {
 
         private Bite() {
             super("Bite", D6, RollModifier.STRENGTH);
-            addAttackRollBonus(2);
+            addAttackRollBonus(2); // +2 modifier above STR
         }
 
     }
@@ -41,13 +41,8 @@ public class Ankheg extends Monster {
 
         private AcidSpray() {
             super("Acid Spray", new MultipleDice(D6, D6), RollModifier.STRENGTH);
-            addAttackRollBonus(2);
-        }
-
-        @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
-            log.info("{} sprays ACID!", actor.getName());
-            performMultipleTargetAttack(actor, enemies, name, dice, rollModifier);
+            addAttackRollBonus(2); // +2 modifier above STR
         }
     }
+
 }
