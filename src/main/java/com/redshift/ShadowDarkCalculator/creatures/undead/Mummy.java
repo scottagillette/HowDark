@@ -46,7 +46,8 @@ public class Mummy extends UndeadMonster {
     private static class RotTouch extends Weapon {
 
         public RotTouch() {
-            super("Rot Touch", D10, RollModifier.STRENGTH, 5);
+            super("Rot Touch", D10, RollModifier.STRENGTH);
+            addAttackRollBonus(5);
         }
 
         @Override

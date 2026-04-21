@@ -43,7 +43,8 @@ public class VampireSpawn extends UndeadMonster {
     private static class Bite extends Weapon {
 
         public Bite() {
-            super("Bite", D8, RollModifier.STRENGTH, 1);
+            super("Bite", D8, RollModifier.STRENGTH);
+            addAttackRollBonus(1);
         }
 
         @Override

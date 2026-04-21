@@ -28,9 +28,9 @@ public class TheWillowMan extends Monster {
                         D8.roll() + D8.roll() + D8.roll() + 3,
                 new PerformOneAction(
                         new PerformAllActions(
-                                new Weapon("Finger Needle", new MultipleDice(D10, D10), RollModifier.DEXTERITY, 5),
-                                new Weapon("Finger Needle", new MultipleDice(D10, D10), RollModifier.DEXTERITY, 5),
-                                new Weapon("Finger Needle", new MultipleDice(D10, D10), RollModifier.DEXTERITY, 5),
+                                new Weapon("Finger Needle", new MultipleDice(D10, D10), RollModifier.DEXTERITY).addAttackRollBonus(5),
+                                new Weapon("Finger Needle", new MultipleDice(D10, D10), RollModifier.DEXTERITY).addAttackRollBonus(5),
+                                new Weapon("Finger Needle", new MultipleDice(D10, D10), RollModifier.DEXTERITY).addAttackRollBonus(5),
                                 new Terrify().setPriority(1)
                         ).setPriority(2),
                         new WakingFear().setPriority(1)

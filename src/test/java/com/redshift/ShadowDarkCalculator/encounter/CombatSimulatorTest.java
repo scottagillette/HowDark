@@ -11,7 +11,7 @@ import com.redshift.ShadowDarkCalculator.creatures.Player;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.goblinoid.Goblin;
 import com.redshift.ShadowDarkCalculator.creatures.undead.Skeleton;
-import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilderv2;
+import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilder;
 
 class CombatSimulatorTest {
 
@@ -24,7 +24,7 @@ class CombatSimulatorTest {
             new Stats(16, 14, 14, 10, 10, 10),
             15, // AC
             8,  // HP
-            WeaponBuilder.LONGSWORD.build(2) // +2 attack bonus
+            WeaponBuilder.LONGSWORD.build().addAttackRollBonus(2) // +2 attack bonus
         );
         fighter.getLabels().add(Label.FRONT_LINE);
 
@@ -63,7 +63,7 @@ class CombatSimulatorTest {
             new Stats(16, 14, 14, 10, 10, 10),
             15,
             8,
-            WeaponBuilder.LONGSWORD.build(2)
+            WeaponBuilder.LONGSWORD.build().addDamageRollBonus(2)
         );
         fighter1.getLabels().add(Label.FRONT_LINE);
 
@@ -73,7 +73,7 @@ class CombatSimulatorTest {
             new Stats(16, 14, 14, 10, 10, 10),
             15,
             8,
-            WeaponBuilder.LONGSWORD.build(2)
+            WeaponBuilder.LONGSWORD.build().addAttackRollBonus(2)
         );
         fighter2.getLabels().add(Label.FRONT_LINE);
 
@@ -116,7 +116,7 @@ class CombatSimulatorTest {
             
         for (int i = 0; i < 100; i++) {
             // Create the Crab Crushers party
-            List<com.redshift.ShadowDarkCalculator.creatures.Creature> crabCrushers = new TheCrabCrushersBuilderv2().build();
+            List<com.redshift.ShadowDarkCalculator.creatures.Creature> crabCrushers = new TheCrabCrushersBuilder().build();
 
             // Create four skeletons
             List<com.redshift.ShadowDarkCalculator.creatures.Creature> skeletons = List.of(

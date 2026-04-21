@@ -31,7 +31,8 @@ public class Ankheg extends Monster {
     private static class Bite extends Weapon {
 
         private Bite() {
-            super("Bite", D6, RollModifier.STRENGTH, 2);
+            super("Bite", D6, RollModifier.STRENGTH);
+            addAttackRollBonus(2);
         }
 
     }
@@ -39,7 +40,8 @@ public class Ankheg extends Monster {
     private static class AcidSpray extends Weapon {
 
         private AcidSpray() {
-            super("Acid Spray", new MultipleDice(D6, D6), RollModifier.STRENGTH, 2);
+            super("Acid Spray", new MultipleDice(D6, D6), RollModifier.STRENGTH);
+            addAttackRollBonus(2);
         }
 
         @Override

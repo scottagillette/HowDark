@@ -43,7 +43,8 @@ public class Wraith extends UndeadMonster {
     private static class DeathTouch extends Weapon {
 
         public DeathTouch() {
-            super("Death Touch", D10, RollModifier.DEXTERITY, 2);
+            super("Death Touch", D10, RollModifier.DEXTERITY);
+            addAttackRollBonus(2);
         }
 
         @Override

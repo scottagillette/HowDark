@@ -22,10 +22,10 @@ public class HillGiant extends Monster {
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 3,
                 new PerformOneAction(
                         new PerformAllActions(
-                                new Weapon("Great Club", new MultipleDice(D8, D8), RollModifier.STRENGTH, 2),
-                                new Weapon("Great Club", new MultipleDice(D8, D8), RollModifier.STRENGTH, 2)
+                                new Weapon("Great Club", new MultipleDice(D8, D8), RollModifier.STRENGTH).addAttackRollBonus(2),
+                                new Weapon("Great Club", new MultipleDice(D8, D8), RollModifier.STRENGTH).addAttackRollBonus(2)
                         ),
-                        new Weapon("Boulder", D10, RollModifier.STRENGTH, 2)
+                        new Weapon("Boulder", D10, RollModifier.STRENGTH).addAttackRollBonus(2)
                 )
         );
         getLabels().add(Label.FRONT_LINE);

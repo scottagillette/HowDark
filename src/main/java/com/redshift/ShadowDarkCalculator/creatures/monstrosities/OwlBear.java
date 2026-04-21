@@ -30,7 +30,8 @@ public class OwlBear extends Monster {
         private static boolean priorAttack = false;
 
         public Claw() {
-            super("Claw", D10, RollModifier.STRENGTH, 1);
+            super("Claw", D10, RollModifier.STRENGTH);
+            addAttackRollBonus(1);
         }
 
         @Override

@@ -25,7 +25,7 @@ public class NewbiesPartyBuilder implements PartyBuilder {
                 new Stats(15, 14, 8, 12, 10, 10),
                 12,
                 1,
-                WeaponBuilder.FIST.build(0,0),
+                WeaponBuilder.FIST.build(),
                 new FocusFireTargetSelector()
         );
         glogor.getLabels().add(Label.FRONT_LINE);
@@ -37,7 +37,7 @@ public class NewbiesPartyBuilder implements PartyBuilder {
                 new Stats(16, 10, 10, 12, 14, 12),
                 10,
                 1,
-                WeaponBuilder.FIST.build(0,0),
+                WeaponBuilder.FIST.build(),
                 new FocusFireTargetSelector()
         );
         muddle.getLabels().add(Label.FRONT_LINE);
@@ -49,7 +49,7 @@ public class NewbiesPartyBuilder implements PartyBuilder {
                 new Stats(10, 10, 12, 12, 14, 12),
                 10,
                 1,
-                WeaponBuilder.FIST.build(0,0),
+                WeaponBuilder.FIST.build(),
                 new FocusFireTargetSelector()
         );
         imol.getLabels().add(Label.FRONT_LINE);
@@ -61,7 +61,7 @@ public class NewbiesPartyBuilder implements PartyBuilder {
                 new Stats(12, 10, 10, 14, 14, 6),
                 10,
                 1,
-                WeaponBuilder.DAGGER_STR.build(0,0),
+                WeaponBuilder.DAGGER_STR.build(),
                 new FocusFireTargetSelector()
         );
         da.getLabels().add(Label.FRONT_LINE);
@@ -73,7 +73,7 @@ public class NewbiesPartyBuilder implements PartyBuilder {
                 new Stats(14, 14, 10, 10, 10, 16),
                 12,
                 1,
-                WeaponBuilder.FIST.build(0,0),
+                WeaponBuilder.FIST.build(),
                 new FocusFireTargetSelector()
         );
         hod.getLabels().add(Label.FRONT_LINE);
@@ -85,7 +85,7 @@ public class NewbiesPartyBuilder implements PartyBuilder {
                 new Stats(10, 12, 12, 16, 8, 12),
                 11,
                 1,
-                WeaponBuilder.FIST.build(0,0),
+                WeaponBuilder.FIST.build(),
                 new FocusFireTargetSelector()
         );
         bakhrud.getLabels().add(Label.FRONT_LINE);
@@ -97,7 +97,7 @@ public class NewbiesPartyBuilder implements PartyBuilder {
                 new Stats(6, 4, 8, 10, 14, 14),
                 10,
                 1,
-                WeaponBuilder.DAGGER_STR.build(0,0),
+                WeaponBuilder.DAGGER_STR.build(),
                 new FocusFireTargetSelector()
         );
         ghazshad.getLabels().add(Label.FRONT_LINE);
@@ -109,7 +109,7 @@ public class NewbiesPartyBuilder implements PartyBuilder {
                 new Stats(10, 12, 10, 10, 10, 17),
                 10,
                 1,
-                WeaponBuilder.SHORTBOW.build(0,0),
+                WeaponBuilder.SHORTBOW.build(),
                 new FocusFireTargetSelector()
         );
         slogyark.getLabels().add(Label.FRONT_LINE);
@@ -121,7 +121,7 @@ public class NewbiesPartyBuilder implements PartyBuilder {
                 new Stats(15, 14, 8, 12, 10, 10),
                 12,
                 1,
-                WeaponBuilder.FIST.build(0,0),
+                WeaponBuilder.FIST.build(),
                 new FocusFireTargetSelector()
         );
         mufas.getLabels().add(Label.FRONT_LINE);
@@ -133,7 +133,7 @@ public class NewbiesPartyBuilder implements PartyBuilder {
                 new Stats(16, 10, 10, 12, 14, 12),
                 10,
                 1,
-                WeaponBuilder.FIST.build(0,0),
+                WeaponBuilder.FIST.build(),
                 new FocusFireTargetSelector()
         );
         krukar.getLabels().add(Label.FRONT_LINE);
@@ -145,7 +145,7 @@ public class NewbiesPartyBuilder implements PartyBuilder {
                 new Stats(10, 10, 12, 12, 14, 12),
                 10,
                 1,
-                WeaponBuilder.FIST.build(0,0),
+                WeaponBuilder.FIST.build(),
                 new FocusFireTargetSelector()
         );
         ufas.getLabels().add(Label.FRONT_LINE);
@@ -157,7 +157,7 @@ public class NewbiesPartyBuilder implements PartyBuilder {
                 new Stats(12, 10, 10, 14, 14, 6),
                 10,
                 1,
-                WeaponBuilder.DAGGER_STR.build(0,0),
+                WeaponBuilder.DAGGER_STR.build(),
                 new FocusFireTargetSelector()
         );
         gregor.getLabels().add(Label.FRONT_LINE);

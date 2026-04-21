@@ -16,7 +16,7 @@ public class GoblinBoss extends Monster {
                 new Stats(14,12,14,9,10,12),
                 14,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + 2,
-                WeaponBuilder.SPEAR_STR.build(1)
+                WeaponBuilder.SPEAR_STR.build().addAttackRollBonus(1)
         );
         getLabels().add(Label.FRONT_LINE);
     }

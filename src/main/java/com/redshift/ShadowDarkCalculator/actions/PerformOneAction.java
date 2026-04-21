@@ -16,10 +16,6 @@ public class PerformOneAction implements Action {
         this.actions = List.of(actions);
     }
 
-    public PerformOneAction(List<Action> actions) {
-        this.actions = actions;
-    }
-
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         final List<Action> canPerformActions = actions.stream()

@@ -44,7 +44,7 @@ public class DiableriePartyBuilder implements PartyBuilder {
                 new Stats(18, 13, 13, 8, 7, 8),
                 14,
                 6,
-                WeaponBuilder.BASTARD_SWORD_1H.build(),
+                WeaponBuilder.BASTARD_SWORD_1H.build().addIsMagical(),
                 new FocusFireTargetSelector()
         );
         borlin.getLabels().add(Label.FRONT_LINE);
@@ -57,11 +57,11 @@ public class DiableriePartyBuilder implements PartyBuilder {
                 new Stats(13, 10, 10, 13, 5, 15),
                 11,
                 4,
-                new PerformOneAction(List.of(
+                new PerformOneAction(
                         WeaponBuilder.LONGSWORD.build().addAttackRollBonus(1).setPriority(2),
                         new Withermark().addSpellCheckBonus(1).setPriority(1),
                         new Undeath().addSpellCheckBonus(1).setPriority(10)
-                )),
+                ),
                 new FocusFireTargetSelector()
         );
         mal.getLabels().add(Label.BACKLINE);
@@ -75,12 +75,12 @@ public class DiableriePartyBuilder implements PartyBuilder {
                 new Stats(13, 13, 13, 16, 10, 11),
                 11,
                 5,
-                new PerformOneAction(List.of(
+                new PerformOneAction(
                         WeaponBuilder.STAFF.build().setPriority(1),
                         new MagicMissile().setPriority(2),
                         new Sleep().setPriority(10),
                         new BurningHands().addAdvantage().setPriority(5)
-                )),
+                ),
                 new FocusFireTargetSelector()
         );
         alaric.getLabels().add(Label.BACKLINE);
@@ -94,11 +94,11 @@ public class DiableriePartyBuilder implements PartyBuilder {
                 new Stats(18, 10, 10, 7, 18, 10),
                 13,
                 8,
-                new PerformOneAction(List.of(
+                new PerformOneAction(
                         WeaponBuilder.LONGSWORD.build().setPriority(1),
                         new CureWounds().setPriority(10),
                         new TurnUndead().setPriority(10)
-                )),
+                ),
                 new FocusFireTargetSelector()
         );
         torvin.getLabels().add(Label.BACKLINE);

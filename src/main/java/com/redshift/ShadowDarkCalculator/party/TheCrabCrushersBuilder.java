@@ -3,20 +3,20 @@ package com.redshift.ShadowDarkCalculator.party;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.*;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
+import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.Label;
 import com.redshift.ShadowDarkCalculator.creatures.Player;
-import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.targets.FocusFireTargetSelector;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TheCrabCrushersBuilderv1 implements PartyBuilder {
+public class TheCrabCrushersBuilder implements PartyBuilder {
 
     private final List<Creature> creatures = new ArrayList<>();
 
-    public TheCrabCrushersBuilderv1() {
+    public TheCrabCrushersBuilder() {
 
         final Creature karn = new Player(
                 "Karn Crabcrusher",
@@ -24,7 +24,7 @@ public class TheCrabCrushersBuilderv1 implements PartyBuilder {
                 new Stats(15, 14, 14, 14, 11, 14),
                 15,
                 7,
-                WeaponBuilder.BASTARD_SWORD_1H.build(3,2),
+                WeaponBuilder.BASTARD_SWORD_1H.build().addAttackRollBonus(3).addDamageRollBonus(3),
                 new FocusFireTargetSelector()
         );
         karn.getLabels().add(Label.FRONT_LINE);
@@ -36,12 +36,12 @@ public class TheCrabCrushersBuilderv1 implements PartyBuilder {
                 new Stats(15, 9, 13, 10, 17, 12),
                 12,
                 7,
-                new PerformOneAction(List.of(
-                        WeaponBuilder.LONGSWORD.build(1),
-                        new TurnUndead().addSpellCheckBonus(1),
-                        new CureWounds().addSpellCheckBonus(1),
+                new PerformOneAction(
+                        WeaponBuilder.LONGSWORD.build().addAttackRollBonus(1).setPriority(1),
+                        new TurnUndead().addSpellCheckBonus(1).setPriority(4),
+                        new CureWounds().addSpellCheckBonus(1).setPriority(2),
                         new ShieldOfFaith().addSpellCheckBonus(1)
-                )),
+                ),
                 new FocusFireTargetSelector()
         );
         kabsal.getLabels().add(Label.HEALER);
@@ -53,12 +53,12 @@ public class TheCrabCrushersBuilderv1 implements PartyBuilder {
                 new Stats(8, 13, 12, 16, 10, 8),
                 11,
                 2,
-                new PerformOneAction(List.of(
-                        WeaponBuilder.STAFF.build(),
-                        new Sleep().addSpellCheckBonus(1),
-                        new MagicMissile().addSpellCheckBonus(1).addAdvantage(),
-                        new BurningHands().addSpellCheckBonus(1).addAdvantage()
-                )),
+                new PerformOneAction(
+                        WeaponBuilder.STAFF.build().setPriority(1),
+                        new Sleep().addSpellCheckBonus(1).setPriority(3),
+                        new MagicMissile().addSpellCheckBonus(1).addAdvantage().setPriority(2),
+                        new BurningHands().addSpellCheckBonus(1).addAdvantage().setPriority(4)
+                ),
                 new FocusFireTargetSelector()
         );
         alderon.getLabels().add(Label.BACKLINE);
@@ -71,7 +71,7 @@ public class TheCrabCrushersBuilderv1 implements PartyBuilder {
                 new Stats(10, 10, 14, 8, 10, 8),
                 14,
                 6,
-                new PerformOneAction(List.of(WeaponBuilder.CROSSBOW.build())),
+                WeaponBuilder.CROSSBOW.build(),
                 new FocusFireTargetSelector()
         );
         fennick.getLabels().add(Label.BACKLINE);

@@ -29,31 +29,14 @@ public class Weapon implements Action {
     protected int priority = 1;
 
     public Weapon(String name, Dice dice, RollModifier rollModifier) {
-        this(name, dice, rollModifier, false, false, 0, 0,1);
-    }
-
-    public Weapon(String name, Dice dice, RollModifier rollModifier, int attackRollBonus) {
-        this(name, dice, rollModifier, false, false, attackRollBonus, 0, 1);
-    }
-
-    public Weapon(
-            String name,
-            Dice dice,
-            RollModifier rollModifier,
-            boolean magical,
-            boolean silvered,
-            int attackRollBonus,
-            int damageRollBonus,
-            int priority) {
-
         this.name = name;
         this.dice = dice;
         this.rollModifier = rollModifier;
-        this.attackRollBonus = attackRollBonus;
-        this.damageRollBonus = damageRollBonus;
-        this.magical = magical;
-        this.silvered =silvered;
-        this.priority = priority;
+    }
+
+    public Weapon addAttackRollBonus(int attackRollBonus) {
+        this.attackRollBonus = this.attackRollBonus + attackRollBonus;
+        return this;
     }
 
     public Weapon addDamageRollBonus(int damageRollBonus) {
@@ -61,8 +44,13 @@ public class Weapon implements Action {
         return this;
     }
 
-    public Weapon addAttackRollBonus(int attackRollBonus) {
-        this.attackRollBonus = this.attackRollBonus + attackRollBonus;
+    public Weapon addIsMagical() {
+        this.magical = true;
+        return this;
+    }
+
+    public Weapon addSilvered() {
+        this.silvered = true;
         return this;
     }
 
@@ -173,7 +161,10 @@ public class Weapon implements Action {
 
     @Override
     public Weapon setPriority(int priority) {
+        if (priority <= 0) throw new UnsupportedOperationException("Priority must be positive.");
+
         this.priority = priority;
         return this;
     }
+
 }

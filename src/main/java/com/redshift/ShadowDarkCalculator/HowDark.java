@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.humanoid.Bittermold;
+import com.redshift.ShadowDarkCalculator.creatures.undead.VampireSpawn;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
 
@@ -30,15 +30,15 @@ public class HowDark {
 //                    List.of(new MarrowFiend("Death Fiend"))
 //                    List.of(new Dralech("Death Bringer"))
 //                    new NewbiesPartyBuilder().build(),
-                    List.of(
-                            new Bittermold("Bittermold 1"),
-                            new Bittermold("Bittermold 2"),
-                            new Bittermold("Bittermold 3"),
-                            new Bittermold("Bittermold 4")
+//                    List.of(
+//                            new Bittermold("Bittermold 1"),
+//                            new Bittermold("Bittermold 2"),
+//                            new Bittermold("Bittermold 3"),
+//                            new Bittermold("Bittermold 4")
 //                            new Bittermold("Bittermold 3"),
 //                            new Bittermold("Bittermold 4"),
 //                            new Bittermold("Bittermold 5")
-                    )
+//                    )
 //                    List.of(new Mimic("Mimic"))
 //                    List.of(new Ogre("'Ulak The Crusher' Ogre"))
 //                    List.of(new CaveCreeper("Cave Creeper"))
@@ -72,7 +72,7 @@ public class HowDark {
 //                    List.of(new Bugbear("Bugbear 1"), new Bugbear("Bugbear 2"))
 //                    List.of(new Wraith("Wraith"))
 //                    List.of(new Mummy("Mummy of Death"))
-//                    List.of(new VampireSpawn("Vampire Spawn"))
+                    List.of(new VampireSpawn("Vampire Spawn"))
 //                    List.of(new OwlBear("Rabid Owlbear"))
 //                    List.of(new Ankheg("Ankheg of Death"))
                     );
