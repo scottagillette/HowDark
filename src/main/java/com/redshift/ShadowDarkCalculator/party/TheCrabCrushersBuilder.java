@@ -20,11 +20,11 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
 
         final Creature karn = new Player(
                 "Karn Crabcrusher",
-                1,
+                2,
                 new Stats(15, 14, 14, 14, 11, 14),
                 15,
                 7,
-                WeaponBuilder.BASTARD_SWORD_1H.build().addAttackRollBonus(3).addDamageRollBonus(3),
+                WeaponBuilder.BASTARD_SWORD_1H.build().addAttackRollBonus(4).addDamageRollBonus(3),
                 new FocusFireTargetSelector()
         );
         karn.getLabels().add(Label.FRONT_LINE);
@@ -32,10 +32,10 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
 
         final Creature kabsal = new Player(
                 "Kabsal Argent",
-                1,
+                2,
                 new Stats(15, 9, 13, 10, 17, 12),
                 12,
-                7,
+                9,
                 new PerformOneAction(
                         WeaponBuilder.LONGSWORD.build().addAttackRollBonus(1).setPriority(1),
                         new TurnUndead().addSpellCheckBonus(1).setPriority(4),
@@ -49,10 +49,10 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
 
         final Creature alderon = new Player(
                 "Alderon",
-                1,
+                2,
                 new Stats(8, 13, 12, 16, 10, 8),
                 11,
-                2,
+                5,
                 new PerformOneAction(
                         WeaponBuilder.STAFF.build().setPriority(1),
                         new Sleep().addSpellCheckBonus(1).setPriority(3),
@@ -67,10 +67,10 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
 
         final Creature fennick = new Player(
                 "Fennick Quickfoot",
-                1,
-                new Stats(10, 10, 14, 8, 10, 8),
-                14,
-                6,
+                2,
+                new Stats(11, 18, 13, 11, 10, 7),
+                15,
+                10,
                 WeaponBuilder.CROSSBOW.build(),
                 new FocusFireTargetSelector()
         );
