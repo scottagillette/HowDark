@@ -19,7 +19,10 @@ public class OwlBear extends Monster {
                 new Stats(18,12,17,7,14,5),
                 13,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 3,
-                new PerformAllActions(new OwlBear.Claw(), new OwlBear.Claw())
+                new PerformAllActions(
+                        new OwlBear.Claw(),
+                        new OwlBear.Claw()
+                )
         );
         getLabels().add(Label.FRONT_LINE);
     }

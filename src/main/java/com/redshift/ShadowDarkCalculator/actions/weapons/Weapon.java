@@ -106,7 +106,6 @@ public class Weapon implements Action {
         }
 
         if (criticalFailure) {
-            // Do nothing
             log.info("{} critically MISSES an attack on {} with a {}", actor.getName(), target.getName(), weaponName);
             return false;
         } else if (criticalSuccess) {
@@ -126,6 +125,7 @@ public class Weapon implements Action {
         }
     }
 
+    // TODO: Not used ATM... maybe in the future by dragons?
     protected void performMultipleTargetAttack(Creature actor, List<Creature> targets, String weaponName, Dice damageDice, RollModifier rollModifier) {
         targets.forEach(target -> {
             final int attackRoll = D20.roll();
