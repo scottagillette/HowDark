@@ -59,11 +59,6 @@ public class Weapon extends BaseAction implements Action {
     }
 
     @Override
-    public boolean isLost() {
-        return false; // Melee and ranged attacks by default cannot be lost like spells.
-    }
-
-    @Override
     public boolean isMagical() {
         return magical;
     }

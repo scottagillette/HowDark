@@ -18,19 +18,9 @@ public class PerformAllActions extends BaseAction implements Action {
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         final List<Action> canPerformActions = actions.stream()
                 .filter(action -> action.canPerform(actor, enemies, allies))
-                .filter(action -> !action.isLost())
                 .toList();
 
         return !canPerformActions.isEmpty();
-    }
-
-    @Override
-    public boolean isLost() {
-        final List<Action> filteredActions = actions.stream()
-                .filter(action -> !action.isLost())
-                .toList();
-
-        return filteredActions.isEmpty();
     }
 
     @Override
@@ -45,7 +35,6 @@ public class PerformAllActions extends BaseAction implements Action {
 
         final List<Action> filteredActions = actions.stream()
                 .filter(action -> action.canPerform(actor, enemies, allies))
-                .filter(action -> !action.isLost())
                 .toList();
 
         if (!filteredActions.isEmpty()) {

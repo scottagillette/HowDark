@@ -63,28 +63,6 @@ class PerformAllActionsTest {
     }
 
     @Test
-    void testIsLostFalse() {
-        Mockito.when(action1.isLost()).thenReturn(false);
-        Mockito.when(action2.isLost()).thenReturn(true);
-
-        final PerformAllActions allActions = new PerformAllActions(action1, action2);
-        final boolean lost = allActions.isLost();
-
-        assertFalse(lost);
-    }
-
-    @Test
-    void testIsLostTrue() {
-        Mockito.when(action1.isLost()).thenReturn(true);
-        Mockito.when(action2.isLost()).thenReturn(true);
-
-        final PerformAllActions allActions = new PerformAllActions(action1, action2);
-        final boolean lost = allActions.isLost();
-
-        assertTrue(lost);
-    }
-
-    @Test
     void testPerform() {
         Mockito.when(action1.canPerform(any(), any(), any())).thenReturn(false);
         Mockito.when(action2.canPerform(any(), any(), any())).thenReturn(true);

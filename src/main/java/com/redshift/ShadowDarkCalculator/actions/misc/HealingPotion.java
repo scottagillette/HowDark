@@ -31,11 +31,6 @@ public class HealingPotion extends BaseAction implements Action {
     }
 
     @Override
-    public boolean isLost() {
-        return used;
-    }
-
-    @Override
     public boolean isMagical() {
         return true;
     }

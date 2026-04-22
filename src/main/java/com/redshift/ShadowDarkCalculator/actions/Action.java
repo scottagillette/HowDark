@@ -34,12 +34,6 @@ public interface Action {
     int getPriority();
 
     /**
-     * Returns true if the action cannot be used. (i.e. spells that are lost)
-     */
-
-    boolean isLost();
-
-    /**
      * Returns true if the action is magical.
      */
 

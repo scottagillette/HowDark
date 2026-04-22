@@ -56,28 +56,6 @@ class PerformOneActionTest {
     }
 
     @Test
-    void testIsLostFalse() {
-        Mockito.when(action1.isLost()).thenReturn(false);
-        Mockito.when(action2.isLost()).thenReturn(true);
-
-        final PerformOneAction oneAction = new PerformOneAction(action1, action2);
-        final boolean lost = oneAction.isLost();
-
-        assertFalse(lost);
-    }
-
-    @Test
-    void testIsLostTrue() {
-        Mockito.when(action1.isLost()).thenReturn(true);
-        Mockito.when(action2.isLost()).thenReturn(true);
-
-        final PerformOneAction oneAction = new PerformOneAction(action1, action2);
-        final boolean lost = oneAction.isLost();
-
-        assertTrue(lost);
-    }
-
-    @Test
     void testPerform() {
         Mockito.when(action1.canPerform(any(), any(), any())).thenReturn(false);
         Mockito.when(action2.canPerform(any(), any(), any())).thenReturn(true);

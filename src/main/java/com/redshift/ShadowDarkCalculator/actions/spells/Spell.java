@@ -59,11 +59,6 @@ public abstract class Spell extends BaseAction implements Action {
     }
 
     @Override
-    public boolean isLost() {
-        return lost;
-    }
-
-    @Override
     public boolean isMagical() {
         return true;
     }

@@ -35,11 +35,6 @@ public class WakingFear implements Action {
     }
 
     @Override
-    public boolean isLost() {
-        return false;
-    }
-
-    @Override
     public boolean isMagical() {
         return false;
     }

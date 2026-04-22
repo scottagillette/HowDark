@@ -40,11 +40,6 @@ public class Terrify implements Action {
     }
 
     @Override
-    public boolean isLost() {
-        return false;
-    }
-
-    @Override
     public boolean isMagical() {
         return false;
     }
