@@ -57,7 +57,7 @@ public class Mummy extends UndeadMonster {
             if (target == null) {
                 log.info("{} is skipping their turn... no target!", actor.getName());
             } else {
-                boolean attackHits = performSingleTargetAttack(actor, target, getName(), dice, rollModifier);
+                boolean attackHits = performSingleTargetAttack(actor, target, getName(), damageDice, rollModifier);
 
                 if (attackHits & target.getCurrentHitPoints() != 0) {
                     if (target.getStats().constitutionSave(15)) {

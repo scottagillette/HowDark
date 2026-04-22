@@ -54,7 +54,7 @@ public class Wraith extends UndeadMonster {
             if (target == null) {
                 log.info("{} is skipping their turn... no target!", actor.getName());
             } else {
-                boolean attackHits = performSingleTargetAttack(actor, target, getName(), dice, rollModifier);
+                boolean attackHits = performSingleTargetAttack(actor, target, getName(), damageDice, rollModifier);
 
                 if (attackHits) {
                     int constitutionRemaining = target.getStats().constitutionDrain(D4);

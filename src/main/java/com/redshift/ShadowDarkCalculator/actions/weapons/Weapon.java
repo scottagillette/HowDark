@@ -20,16 +20,16 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
 @Slf4j
 public class Weapon extends BaseAction implements Action {
 
-    protected final Dice dice;
+    protected final Dice damageDice;
     protected final RollModifier rollModifier;
     protected int attackRollBonus = 0;
     protected int damageRollBonus = 0;
     protected boolean magical;
     protected boolean silvered;
 
-    public Weapon(String name, Dice dice, RollModifier rollModifier) {
+    public Weapon(String name, Dice damageDice, RollModifier rollModifier) {
         super(name);
-        this.dice = dice;
+        this.damageDice = damageDice;
         this.rollModifier = rollModifier;
     }
 
@@ -66,7 +66,7 @@ public class Weapon extends BaseAction implements Action {
         if (target == null) {
             log.info("{} is skipping their turn... no target!", actor.getName());
         } else {
-            performSingleTargetAttack(actor, target, getName(), dice, rollModifier);
+            performSingleTargetAttack(actor, target, getName(), damageDice, rollModifier);
         }
     }
 

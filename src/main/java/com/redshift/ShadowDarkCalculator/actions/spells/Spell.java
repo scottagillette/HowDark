@@ -19,7 +19,7 @@ public abstract class Spell extends BaseAction implements Action {
     protected final RollModifier rollModifier;
     protected boolean lost = false; // True if the spell failed to cast and is lost until a rest occurs.
     protected int spellCheckBonus = 0; // A bonus to the spell check roll... zero by default.
-    protected boolean spellCheckAdvantage = false; // Some spells or wizards get advantage on spell check.
+    protected boolean spellCheckAdvantage = false; // Some talents or spells get advantage on the spell check.
 
     protected Spell(String name, int difficultyClass, RollModifier rollModifier) {
         super(name);
