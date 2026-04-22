@@ -34,20 +34,16 @@ public class Devour extends BaseAction implements Action {
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
         final Creature deadEnemy = new DeadCreatureTargetSelector().get(enemies);
 
-        if (deadEnemy == null) {
-            log.info("Devour attempted but there are no dead bodies!");
-        } else {
-            deadEnemy.addCondition(new DevouredCondition());
+        deadEnemy.addCondition(new DevouredCondition());
 
-            int healingAmount = D8.roll() + D8.roll() + D8.roll();
-            actor.healDamage(healingAmount);
-            log.info(
-                    "{} is devoured by {} that is healed by {} hit points.",
-                    deadEnemy.getName(),
-                    actor.getName(),
-                    healingAmount
-            );
-        }
+        int healingAmount = D8.roll() + D8.roll() + D8.roll();
+        actor.healDamage(healingAmount);
+        log.info(
+                "{} is devoured by {} that is healed by {} hit points.",
+                deadEnemy.getName(),
+                actor.getName(),
+                healingAmount
+        );
     }
 
 }

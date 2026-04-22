@@ -34,22 +34,16 @@ public class Terrify extends BaseAction implements Action {
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
         // One target in near DC 15 CHA or paralyzed 1d4 rounds.
 
-        List<Creature> targets = enemies
-                .stream()
-                .filter(enemy -> !enemy.isDead() && !enemy.isUnconscious())
-                .toList();
+        final List<Creature> targets = new LivingTargetSelector().getTargets(enemies, enemies.size());
 
-        if (targets.isEmpty()) {
-            log.info("{} finds no targets to Terrify!", actor.getName());
+        final Creature target = targets.getFirst();
+        if (target.getStats().charismaSave(15)) {
+            log.info("{} resists the Terrify effect from {}.", target.getName(), actor.getName());
         } else {
-            final Creature enemy = targets.getFirst();
-            if (enemy.getStats().charismaSave(15)) {
-                log.info("{} resists the Terrify.", enemy.getName());
-            } else {
-                log.info("{} is terrified and is paralyzed.", enemy.getName());
-                enemy.addCondition(new ParalyzedCondition(D4.roll()));
-            }
+            log.info("{} is terrified and is paralyzed by {}.", target.getName(), actor.getName());
+            target.addCondition(new ParalyzedCondition(D4.roll()));
         }
+
     }
 
 }

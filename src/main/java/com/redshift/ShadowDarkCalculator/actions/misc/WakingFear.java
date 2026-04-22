@@ -34,16 +34,16 @@ public class WakingFear extends BaseAction implements Action {
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
         // All creatures within near DC 15 CHA or flee in a random direction for 1d4 rounds.
 
-        log.info("{} invokes Waking Fear to all!", actor.getName());
+        final List<Creature> targets = new LivingTargetSelector().getTargets(enemies, enemies.size());
 
-        enemies.forEach(enemy -> {
-            if (!enemy.isUnconscious() && !enemy.isDead()) {
-                if (enemy.getStats().charismaSave(15)) {
-                    log.info("{} resists the fear.", enemy.getName());
-                } else {
-                    log.info("{} runs in fear from {}", enemy.getName(), actor.getName());
-                    enemy.addCondition(new FearCondition(D4.roll()));
-                }
+        log.info("{} invokes Waking Fear to all living creatures!", actor.getName());
+
+        targets.forEach(enemy -> {
+            if (enemy.getStats().charismaSave(15)) {
+                log.info("{} resists the fear.", enemy.getName());
+            } else {
+                log.info("{} runs in fear from {}", enemy.getName(), actor.getName());
+                enemy.addCondition(new FearCondition(D4.roll()));
             }
         });
     }
