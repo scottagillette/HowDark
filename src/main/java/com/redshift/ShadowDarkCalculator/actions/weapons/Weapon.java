@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.actions.weapons;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
+import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
@@ -17,19 +18,17 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
  */
 
 @Slf4j
-public class Weapon implements Action {
+public class Weapon extends BaseAction implements Action {
 
-    protected final String name;
     protected final Dice dice;
     protected final RollModifier rollModifier;
     protected int attackRollBonus = 0;
     protected int damageRollBonus = 0;
     protected boolean magical;
     protected boolean silvered;
-    protected int priority = 1;
 
     public Weapon(String name, Dice dice, RollModifier rollModifier) {
-        this.name = name;
+        super(name);
         this.dice = dice;
         this.rollModifier = rollModifier;
     }
@@ -60,16 +59,6 @@ public class Weapon implements Action {
     }
 
     @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public int getPriority() {
-        return priority;
-    }
-
-    @Override
     public boolean isLost() {
         return false; // Melee and ranged attacks by default cannot be lost like spells.
     }
@@ -87,7 +76,7 @@ public class Weapon implements Action {
         if (target == null) {
             log.info("{} is skipping their turn... no target!", actor.getName());
         } else {
-            performSingleTargetAttack(actor, target, name, dice, rollModifier);
+            performSingleTargetAttack(actor, target, getName(), dice, rollModifier);
         }
     }
 
@@ -157,14 +146,6 @@ public class Weapon implements Action {
                 log.info("{} MISSES the attack on {} with a {}", actor.getName(), target.getName(), weaponName);
             }
         });
-    }
-
-    @Override
-    public Weapon setPriority(int priority) {
-        if (priority <= 0) throw new UnsupportedOperationException("Priority must be positive.");
-
-        this.priority = priority;
-        return this;
     }
 
 }

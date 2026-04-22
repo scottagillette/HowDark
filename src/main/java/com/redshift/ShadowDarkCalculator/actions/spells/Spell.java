@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
+import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 
@@ -12,25 +13,18 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
  * An action that attempts to cast a spell.
  */
 
-public abstract class Spell implements Action {
+public abstract class Spell extends BaseAction implements Action {
 
-    protected final String name;
     protected final int difficultyClass;
     protected final RollModifier rollModifier;
     protected boolean lost = false; // True if the spell failed to cast and is lost until a rest occurs.
     protected int spellCheckBonus = 0; // A bonus to the spell check roll... zero by default.
     protected boolean spellCheckAdvantage = false; // Some spells or wizards get advantage on spell check.
-    protected int priority; // Non-Zero integer value indicating it's overall priority to other actions.
 
     protected Spell(String name, int difficultyClass, RollModifier rollModifier) {
-        this(name, difficultyClass, rollModifier, 1);
-    }
-
-    public Spell(String name, int difficultyClass, RollModifier rollModifier, int priority) {
-        this.name = name;
+        super(name);
         this.difficultyClass = difficultyClass;
         this.rollModifier = rollModifier;
-        this.priority = priority;
     }
 
     public Spell addAdvantage() {
@@ -46,16 +40,6 @@ public abstract class Spell implements Action {
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         return !lost;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public int getPriority() {
-        return priority;
     }
 
     /**
@@ -84,9 +68,4 @@ public abstract class Spell implements Action {
         return true;
     }
 
-    @Override
-    public Spell setPriority(int priority) {
-        this.priority = priority;
-        return this;
-    }
 }

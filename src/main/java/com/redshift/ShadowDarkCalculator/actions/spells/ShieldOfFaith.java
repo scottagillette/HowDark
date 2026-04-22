@@ -40,15 +40,15 @@ public class ShieldOfFaith extends Spell {
         final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
 
         if (criticalFailure) {
-            log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
+            log.info("{} critically MISSES the spell check on {}", actor.getName(), getName());
         } else if (criticalSuccess) {
             target.addCondition(new ShieldOfFaithCondition(4)); // Double AC for critical success
-            log.info("{} critically adds 4 AC on {} with a {}", actor.getName(), target.getName(), name);
+            log.info("{} critically adds 4 AC on {} with a {}", actor.getName(), target.getName(), getName());
         } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             target.addCondition(new ShieldOfFaithCondition());
-            log.info("{} adds 2 AC on {} with a {}", actor.getName(), target.getName(), name);
+            log.info("{} adds 2 AC on {} with a {}", actor.getName(), target.getName(), getName());
         } else {
-            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
+            log.info("{} MISSES the spell check with a {}", actor.getName(), getName());
         }
 
         lost = true; // Always lost... cast only one per battle per character...

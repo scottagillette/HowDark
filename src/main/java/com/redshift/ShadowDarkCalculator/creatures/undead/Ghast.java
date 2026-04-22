@@ -48,7 +48,7 @@ public class Ghast extends UndeadMonster {
 
                 // TODO: Note - The Carrion Stench ability is not implemented...
 
-                boolean attackHits = performSingleTargetAttack(actor, target, name, dice, rollModifier);
+                boolean attackHits = performSingleTargetAttack(actor, target, getName(), dice, rollModifier);
 
                 if (attackHits) {
                     if (!target.hasCondition(ParalyzedCondition.class.getName())) {

@@ -5,17 +5,13 @@ import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 
 import java.util.List;
 
-public class PerformAllActions implements Action {
+public class PerformAllActions extends BaseAction implements Action {
 
-    private int priority = 1;
     private final List<Action> actions;
 
     public PerformAllActions(Action... actions) {
+        super("Perform All Actions");
         this.actions = List.of(actions);
-    }
-
-    public PerformAllActions(List<Action> actions) {
-        this.actions = actions;
     }
 
     @Override
@@ -26,16 +22,6 @@ public class PerformAllActions implements Action {
                 .toList();
 
         return !canPerformActions.isEmpty();
-    }
-
-    @Override
-    public String getName() {
-        return "PerformAllActions";
-    }
-
-    @Override
-    public int getPriority() {
-        return priority;
     }
 
     @Override
@@ -67,9 +53,4 @@ public class PerformAllActions implements Action {
         }
     }
 
-    @Override
-    public Action setPriority(int priority) {
-        this.priority = priority;
-        return this;
-    }
 }

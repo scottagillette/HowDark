@@ -63,18 +63,18 @@ public class Acolyte extends Monster {
 
             if (criticalFailure) {
                 lost = true; // Failed spell check!
-                log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
+                log.info("{} critically MISSES the spell check on {}", actor.getName(), getName());
             } else if (criticalSuccess) {
                 int hitPoints = D4.roll() + D4.roll();
-                log.info("{} critically heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, name);
+                log.info("{} critically heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, getName());
                 target.healDamage(hitPoints);
             } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
                 int hitPoints = D4.roll();
-                log.info("{} heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, name);
+                log.info("{} heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, getName());
                 target.healDamage(hitPoints);
             } else {
                 lost = true; // Failed spell check!
-                log.info("{} MISSES the spell check with a {}", actor.getName(), name);
+                log.info("{} MISSES the spell check with a {}", actor.getName(), getName());
             }
         }
     }

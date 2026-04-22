@@ -45,18 +45,18 @@ public class CureWounds extends Spell {
 
         if (criticalFailure) {
             lost = true; // Failed spell check!
-            log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
+            log.info("{} critically MISSES the spell check on {}", actor.getName(), getName());
         } else if (criticalSuccess) {
             int hitPoints = D6.roll() + D6.roll();
-            log.info("{} critically heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, name);
+            log.info("{} critically heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, getName());
             target.healDamage(hitPoints);
         } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             int hitPoints = D6.roll();
-            log.info("{} heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, name);
+            log.info("{} heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, getName());
             target.healDamage(hitPoints);
         } else {
             lost = true; // Failed spell check!
-            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
+            log.info("{} MISSES the spell check with a {}", actor.getName(), getName());
         }
     }
 

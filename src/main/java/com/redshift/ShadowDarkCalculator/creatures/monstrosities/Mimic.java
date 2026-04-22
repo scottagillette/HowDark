@@ -52,7 +52,7 @@ public class Mimic extends Monster {
                 if (target == null) {
                     log.info("{} is skipping their turn... no target!", actor.getName());
                 } else {
-                    boolean attackHit = performSingleTargetAttack(actor, target, name, dice, rollModifier);
+                    boolean attackHit = performSingleTargetAttack(actor, target, getName(), dice, rollModifier);
 
                     if (attackHit) {
                         // Check for stuck DC15 STR check

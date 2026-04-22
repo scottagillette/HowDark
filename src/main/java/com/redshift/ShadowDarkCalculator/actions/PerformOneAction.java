@@ -8,11 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 @Slf4j
-public class PerformOneAction implements Action {
+public class PerformOneAction extends BaseAction implements Action {
 
     private final List<Action> actions;
 
     public PerformOneAction(Action... actions) {
+        super("Perform One Action");
         this.actions = List.of(actions);
     }
 
@@ -24,11 +25,6 @@ public class PerformOneAction implements Action {
                 .toList();
 
         return !canPerformActions.isEmpty();
-    }
-
-    @Override
-    public String getName() {
-        return "";
     }
 
     @Override
@@ -89,9 +85,4 @@ public class PerformOneAction implements Action {
         }
     }
 
-    @Override
-    public Action setPriority(int priority) {
-        // mkay
-        return this;
-    }
 }

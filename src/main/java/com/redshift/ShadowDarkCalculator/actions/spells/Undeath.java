@@ -51,20 +51,20 @@ public class Undeath extends Spell {
 
         if (criticalFailure) {
             lost = true; // Failed spell check!
-            log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
+            log.info("{} critically MISSES the spell check on {}", actor.getName(), getName());
         } else if (criticalSuccess) {
-            log.info("{} critically succeeds on raising a skeleton for 10 rounds with {}", actor.getName(), name);
+            log.info("{} critically succeeds on raising a skeleton for 10 rounds with {}", actor.getName(), getName());
             simulator.addFriendlyCreature(actor, new Skeleton("Undeath Skeleton"));
             lost = true; // Single per combat use.
             deadEnemy.addCondition(new DevouredCondition()); // Mark corpse as devoured so it can't be used again.
         } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-            log.info("{} succeeds on raising a skeleton for 5 rounds with {}", actor.getName(), name);
+            log.info("{} succeeds on raising a skeleton for 5 rounds with {}", actor.getName(), getName());
             simulator.addFriendlyCreature(actor, new Skeleton("Undeath Skeleton"));
             lost = true; // Single per combat use.
             deadEnemy.addCondition(new DevouredCondition()); // Mark corpse as devoured so it can't be used again.
         } else {
             lost = true; // Failed spell check!
-            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
+            log.info("{} MISSES the spell check with a {}", actor.getName(), getName());
         }
     }
 

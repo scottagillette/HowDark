@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.actions.misc;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
+import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
 import com.redshift.ShadowDarkCalculator.targets.HealerTargetSelector;
@@ -15,25 +16,18 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
  */
 
 @Slf4j
-public class HealingPotion implements Action {
+public class HealingPotion extends BaseAction implements Action {
 
-    private int priority = 1;
     private boolean used = false;
+
+    public HealingPotion() {
+        super("Healing Potion");
+    }
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         final Creature healingTarget = new HealerTargetSelector().get(allies);
         return (!used && healingTarget != null);
-    }
-
-    @Override
-    public String getName() {
-        return "Healing Potion";
-    }
-
-    @Override
-    public int getPriority() {
-        return priority;
     }
 
     @Override
@@ -48,13 +42,13 @@ public class HealingPotion implements Action {
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
-        used = true;
-
         final Creature healingTarget = new HealerTargetSelector().get(allies);
 
         int damageHealed = D6.roll();
-
         healingTarget.healDamage(damageHealed);
+
+        used = true;
+
         log.info(
                 "{} heals {} with a healing potion for {} hit points.",
                 actor.getName(),
@@ -63,9 +57,4 @@ public class HealingPotion implements Action {
         );
     }
 
-    @Override
-    public Action setPriority(int priority) {
-        this.priority = priority;
-        return this;
-    }
 }

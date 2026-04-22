@@ -55,18 +55,18 @@ public class Withermark extends Spell {
 
         if (criticalFailure) {
             lost = true; // Failed spell check!
-            log.info("{} critically MISSES the spell check with a {}", actor.getName(), name);
+            log.info("{} critically MISSES the spell check with a {}", actor.getName(), getName());
         } else if (criticalSuccess) {
             int damage = D4.roll() + D4.roll();
-            log.info("{} critically hits a spell on {} with a {}: damage={}", actor.getName(), target.getName(), name, damage);
+            log.info("{} critically hits a spell on {} with a {} for {} damage", actor.getName(), target.getName(), getName(), damage);
             target.takeDamage(damage, false, true, false, false);
         } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             int damage = D4.roll();
-            log.info("{} hits a spell on {} with a {}: damage={}", actor.getName(), target.getName(), name, damage);
+            log.info("{} hits a spell on {} with a {} for {} damage", actor.getName(), target.getName(), getName(), damage);
             target.takeDamage(damage, false, true, false, false);
         } else {
             lost = true; // Failed spell check!
-            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
+            log.info("{} MISSES the spell check with a {}", actor.getName(), getName());
         }
     }
 }

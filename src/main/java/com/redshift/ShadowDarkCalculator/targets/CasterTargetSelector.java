@@ -10,7 +10,7 @@ import java.util.List;
  * Returns a random caster that is not unconscious or dead; or null if one not found.
  */
 
-public class WizardTargetSelector implements SingleTargetSelector {
+public class CasterTargetSelector implements SingleTargetSelector {
 
     @Override
     public Creature get(List<Creature> targetOptions) {
