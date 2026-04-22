@@ -19,20 +19,14 @@ public class SingleDie implements Dice {
     private static final Random random = new Random();
 
     private final int sides;
-    private final int bonus;
 
     public SingleDie(int sides) {
-        this(sides, 0);
-    }
-
-    public SingleDie(int sides, int bonus) {
         this.sides = sides;
-        this.bonus = bonus;
     }
 
     @Override
     public int roll() {
-        return random.nextInt(sides) + 1 + bonus;
+        return random.nextInt(sides) + 1;
     }
 
 }

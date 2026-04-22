@@ -118,38 +118,4 @@ public class Weapon extends BaseAction implements Action {
         }
     }
 
-    // TODO: Not used ATM... maybe in the future by dragons?
-    protected void performMultipleTargetAttack(Creature actor, List<Creature> targets, String weaponName, Dice damageDice, RollModifier rollModifier) {
-        targets.forEach(target -> {
-            final int attackRoll = D20.roll();
-
-            final boolean criticalSuccess = attackRoll == RollOutcome.CRITICAL_SUCCESS;
-            final boolean criticalFailure = attackRoll == RollOutcome.CRITICAL_FAILURE;
-
-            int attackRollModifier = 0;
-
-            if (rollModifier.equals(RollModifier.STRENGTH)) {
-                attackRollModifier = attackRollModifier + actor.getStats().getStrengthModifier();
-            } else if (rollModifier.equals(RollModifier.DEXTERITY)) {
-                attackRollModifier = attackRollModifier + actor.getStats().getDexterityModifier();
-            }
-
-            if (criticalFailure) {
-                // Do nothing
-                log.info("{} critically MISSES an attack on {} with a {}", actor.getName(), target.getName(), weaponName);
-            } else if (criticalSuccess) {
-                int damage = damageDice.roll() + damageDice.roll() + damageRollBonus;
-                log.info("{} critically hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), weaponName, damage);
-                target.takeDamage(damage, silvered, magical, false, false);
-            } else if (attackRoll + attackRollModifier + attackRollBonus >= target.getAC()) {
-                int damage = damageDice.roll() + damageRollBonus;
-                log.info("{} hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), weaponName, damage);
-                target.takeDamage(damage, silvered, magical, false, false);
-            } else {
-                // Miss
-                log.info("{} MISSES the attack on {} with a {}", actor.getName(), target.getName(), weaponName);
-            }
-        });
-    }
-
 }
