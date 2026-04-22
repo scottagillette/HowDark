@@ -25,6 +25,7 @@ public class Devour extends BaseAction implements Action {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+        // Must have a dead target and this creature is wounded.
         final Creature deadEnemy = new DeadCreatureTargetSelector().get(enemies);
         return actor.isWounded() && deadEnemy != null;
     }

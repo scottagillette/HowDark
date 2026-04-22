@@ -5,6 +5,7 @@ import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.conditions.FearCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
+import com.redshift.ShadowDarkCalculator.targets.LivingTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -24,7 +25,9 @@ public class WakingFear extends BaseAction implements Action {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        return true; // Not a spell
+        // Not dead, unconscious or undead targets.
+        final List<Creature> targets = new LivingTargetSelector().getTargets(enemies, enemies.size());
+        return !targets.isEmpty();
     }
 
     @Override

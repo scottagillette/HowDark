@@ -5,6 +5,7 @@ import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
+import com.redshift.ShadowDarkCalculator.targets.LivingTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -24,11 +25,8 @@ public class Terrify extends BaseAction implements Action {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        List<Creature> targets = enemies
-                .stream()
-                .filter(enemy -> !enemy.isDead() && !enemy.isUnconscious())
-                .toList();
-
+        // Not dead, unconscious or undead targets.
+        final List<Creature> targets = new LivingTargetSelector().getTargets(enemies, enemies.size());
         return !targets.isEmpty();
     }
 
