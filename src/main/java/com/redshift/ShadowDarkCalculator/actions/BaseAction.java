@@ -7,6 +7,7 @@ package com.redshift.ShadowDarkCalculator.actions;
 public abstract class BaseAction implements Action {
 
     public BaseAction(String name) {
+        if (name == null || name.isEmpty()) throw new UnsupportedOperationException("An action name must specified.");
         this.name = name;
     }
 
@@ -25,9 +26,10 @@ public abstract class BaseAction implements Action {
 
     @Override
     public Action setPriority(int priority) {
-        if (priority <= 0) throw new UnsupportedOperationException("Priority must be positive.");
+        if (priority <= 0) throw new UnsupportedOperationException("An action priority must be positive.");
 
         this.priority = priority;
         return this;
     }
+
 }

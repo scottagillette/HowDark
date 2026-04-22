@@ -27,13 +27,11 @@ public class PerformAllActions extends BaseAction implements Action {
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
         // Choose all actions; but can't be lost and can be performed.
 
-        final List<Action> filteredActions = actions.stream()
+        final List<Action> canPerformActions = actions.stream()
                 .filter(action -> action.canPerform(actor, enemies, allies))
                 .toList();
 
-        if (!filteredActions.isEmpty()) {
-            filteredActions.forEach(action -> action.perform(actor, enemies, allies, simulator));
-        }
+        canPerformActions.forEach(action -> action.perform(actor, enemies, allies, simulator));
     }
 
 }

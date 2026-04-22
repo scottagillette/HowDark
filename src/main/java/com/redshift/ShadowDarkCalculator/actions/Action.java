@@ -28,7 +28,8 @@ public interface Action {
      * priority will be retrieved weighted by their priority. A random number drawn that totals all actions priority
      * then selection occurs based on that number. So for example a Wizard with three spells could prioritize the first
      * one 2 and the other two 1... for a total of 4. A random D4 is rolled... 1 or 2 the first action, 3 the second,
-     * 4 the third. Thus giving the first spell a 50% chance of being selected out of three spells.
+     * 4 the third. Thus giving the first spell a 50% chance of being selected out of three spells. If not specified
+     * the default action priority is 1.
      */
 
     int getPriority();
@@ -40,7 +41,7 @@ public interface Action {
     void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator);
 
     /**
-     * Sets the priority of the action; default 1.
+     * Sets the priority of the action, with a default of 1, and returns the action.
      */
 
     Action setPriority(int priority);

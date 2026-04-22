@@ -46,21 +46,20 @@ public class PerformOneAction extends BaseAction implements Action {
                 .toList();
 
         if (!availableActions.isEmpty()) {
-            int maxPriority = 0;
+            int priorityTotal = 0;
 
             for (Action action : availableActions) {
-                maxPriority = maxPriority + action.getPriority();
+                priorityTotal = priorityTotal + action.getPriority();
             }
 
-            final int priorityRoll = new SingleDie(maxPriority).roll();
+            final int priorityRoll = new SingleDie(priorityTotal).roll();
 
             int sum = 0;
 
             for (Action action : availableActions) {
-                final int actionPriority = action.getPriority();
-                sum = sum + actionPriority;
+                sum = sum + action.getPriority();
 
-                if (priorityRoll >= sum - (actionPriority - 1) && priorityRoll <= sum) {
+                if (priorityRoll >= sum - (action.getPriority() - 1) && priorityRoll <= sum) {
                     action.perform(actor, enemies, allies, simulator);
                     break;
                 }
