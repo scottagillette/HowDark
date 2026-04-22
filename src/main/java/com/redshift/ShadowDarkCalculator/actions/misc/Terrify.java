@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.actions.misc;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
+import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
@@ -15,9 +16,11 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
  */
 
 @Slf4j
-public class Terrify implements Action {
+public class Terrify extends BaseAction implements Action {
 
-    private int priority = 1;
+    public Terrify() {
+        super("Terrify");
+    }
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
@@ -27,16 +30,6 @@ public class Terrify implements Action {
                 .toList();
 
         return !targets.isEmpty();
-    }
-
-    @Override
-    public String getName() {
-        return "Terrify";
-    }
-
-    @Override
-    public int getPriority() {
-        return priority;
     }
 
     @Override
@@ -61,9 +54,4 @@ public class Terrify implements Action {
         }
     }
 
-    @Override
-    public Action setPriority(int priority) {
-        this.priority = priority;
-        return this;
-    }
 }

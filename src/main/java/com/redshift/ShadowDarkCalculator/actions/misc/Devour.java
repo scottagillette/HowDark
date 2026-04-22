@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.actions.misc;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
+import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.conditions.DevouredCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
@@ -16,24 +17,16 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
  */
 
 @Slf4j
-public class Devour implements Action {
+public class Devour extends BaseAction implements Action {
 
-    private int priority = 0;
+    public Devour() {
+        super("Devour");
+    }
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         final Creature deadEnemy = new DeadCreatureTargetSelector().get(enemies);
         return actor.isWounded() && deadEnemy != null;
-    }
-
-    @Override
-    public String getName() {
-        return "Devour";
-    }
-
-    @Override
-    public int getPriority() {
-        return priority;
     }
 
     @Override
@@ -56,9 +49,4 @@ public class Devour implements Action {
         }
     }
 
-    @Override
-    public Action setPriority(int priority) {
-        this.priority = priority;
-        return this;
-    }
 }

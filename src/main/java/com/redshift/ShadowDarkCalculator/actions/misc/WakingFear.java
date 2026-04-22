@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.actions.misc;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
+import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.conditions.FearCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
@@ -15,23 +16,15 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
  */
 
 @Slf4j
-public class WakingFear implements Action {
+public class WakingFear extends BaseAction implements Action {
 
-    private int priority;
+    public WakingFear() {
+        super("Waking Fear");
+    }
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         return true; // Not a spell
-    }
-
-    @Override
-    public String getName() {
-        return "Waking Fear";
-    }
-
-    @Override
-    public int getPriority() {
-        return priority;
     }
 
     @Override
@@ -52,9 +45,4 @@ public class WakingFear implements Action {
         });
     }
 
-    @Override
-    public Action setPriority(int priority) {
-        this.priority = priority;
-        return this;
-    }
 }
