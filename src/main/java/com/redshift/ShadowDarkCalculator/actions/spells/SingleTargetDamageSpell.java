@@ -5,7 +5,7 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
-import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
+import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public abstract class SingleTargetDamageSpell extends Spell {
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
+    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         final Creature target = actor.getSingleTargetSelector().get(enemies);
 
         if (target == null) {

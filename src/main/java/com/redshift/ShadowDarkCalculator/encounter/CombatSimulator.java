@@ -12,7 +12,7 @@ import java.util.*;
 
 @Getter
 @Slf4j
-public class CombatSimulator {
+public class CombatSimulator implements Encounter {
 
     private final List<Creature> group1;
     private final List<Creature> group2;
@@ -75,16 +75,7 @@ public class CombatSimulator {
         reportSummary();
     }
 
-    /**
-     * Add a new creature to the combat that is friendly to the actor. It starts at initiative -100 and
-     * each additional creature added with start after, -101, -102, etc.
-     *
-     * @param actor
-     *      The creature the new added creature is friendly to.
-     * @param newCreature
-     *      The new creature to add.
-     */
-
+    @Override
     public void addFriendlyCreature(Creature actor, Creature newCreature) {
         if (group1.contains(actor)) {
             group1.add(newCreature);

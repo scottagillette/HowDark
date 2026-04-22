@@ -6,7 +6,7 @@ import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.ZeroDice;
-import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
+import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public class Wight extends UndeadMonster {
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
+        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
             final Creature target = actor.getSingleTargetSelector().get(enemies);
 
             if (target == null) {

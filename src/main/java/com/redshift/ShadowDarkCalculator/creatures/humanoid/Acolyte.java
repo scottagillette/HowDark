@@ -9,7 +9,7 @@ import com.redshift.ShadowDarkCalculator.creatures.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
-import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
+import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.HealTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +46,7 @@ public class Acolyte extends Monster {
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
+        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
             final SingleTargetSelector selector = new HealTargetSelector();
             final Creature target = selector.get(allies); // Shouldn't get null since Spell.canPerform() returned true
 

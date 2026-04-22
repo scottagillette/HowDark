@@ -5,7 +5,7 @@ import com.redshift.ShadowDarkCalculator.conditions.ShieldOfFaithCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
-import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
+import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,7 +24,7 @@ public class ShieldOfFaith extends Spell {
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
+    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         // Note you can always cast this on yourself if everyone else is unconscious!
         final Creature target = new RandomTargetSelector().get(allies); // Randomly choose an ally TODO: What about dead or unconscious?
 

@@ -7,7 +7,7 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
+import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +43,7 @@ public class Mimic extends Monster {
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
+        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
             final Mimic mimic = (Mimic)actor;
 
             if (mimic.getCurrentStuckTarget() == null) {
@@ -74,7 +74,7 @@ public class Mimic extends Monster {
                     mimic.setCurrentStuckTarget(null); // Find a new target is the current is dead or unconscious.
                     mimic.setCurrentStuckCondition(null);
                     log.info("{} finds a new target!", actor.getName());
-                    perform(actor, enemies, allies, simulator);
+                    perform(actor, enemies, allies, encounter);
                 } else {
                     if (mimic.getCurrentStuckTarget().hasCondition(mimic.currentStuckCondition)) {
                         final int damage = D8.roll();
@@ -83,7 +83,7 @@ public class Mimic extends Monster {
                     } else {
                         mimic.setCurrentStuckTarget(null); // Find a new target the current one broke free!
                         mimic.setCurrentStuckCondition(null);
-                        perform(actor, enemies, allies, simulator);
+                        perform(actor, enemies, allies, encounter);
                     }
                 }
             }

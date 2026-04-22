@@ -6,7 +6,7 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.undead.Skeleton;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
-import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
+import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.DeadCreatureTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,7 +35,7 @@ public class Undeath extends Spell {
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
+    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         final Creature deadEnemy = new DeadCreatureTargetSelector().get(enemies);
 
         boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
@@ -54,12 +54,12 @@ public class Undeath extends Spell {
             log.info("{} critically MISSES the spell check on {}", actor.getName(), getName());
         } else if (criticalSuccess) {
             log.info("{} critically succeeds on raising a skeleton for 10 rounds with {}", actor.getName(), getName());
-            simulator.addFriendlyCreature(actor, new Skeleton("Undeath Skeleton"));
+            encounter.addFriendlyCreature(actor, new Skeleton("Undeath Skeleton"));
             lost = true; // Single per combat use.
             deadEnemy.addCondition(new DevouredCondition()); // Mark corpse as devoured so it can't be used again.
         } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             log.info("{} succeeds on raising a skeleton for 5 rounds with {}", actor.getName(), getName());
-            simulator.addFriendlyCreature(actor, new Skeleton("Undeath Skeleton"));
+            encounter.addFriendlyCreature(actor, new Skeleton("Undeath Skeleton"));
             lost = true; // Single per combat use.
             deadEnemy.addCondition(new DevouredCondition()); // Mark corpse as devoured so it can't be used again.
         } else {

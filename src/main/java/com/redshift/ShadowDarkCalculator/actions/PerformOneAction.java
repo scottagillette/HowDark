@@ -2,10 +2,14 @@ package com.redshift.ShadowDarkCalculator.actions;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.SingleDie;
-import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
+import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+
+/**
+ * A composite action that performs one of the sub-actions randomly based on priority.
+ */
 
 @Slf4j
 public class PerformOneAction extends BaseAction implements Action {
@@ -38,7 +42,7 @@ public class PerformOneAction extends BaseAction implements Action {
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
+    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         // Choose 1 action based on priority; but can't be lost and can be performed.
 
         final List<Action> availableActions = actions.stream()
@@ -60,7 +64,7 @@ public class PerformOneAction extends BaseAction implements Action {
                 sum = sum + action.getPriority();
 
                 if (priorityRoll >= sum - (action.getPriority() - 1) && priorityRoll <= sum) {
-                    action.perform(actor, enemies, allies, simulator);
+                    action.perform(actor, enemies, allies, encounter);
                     break;
                 }
             }

@@ -2,7 +2,7 @@ package com.redshift.ShadowDarkCalculator.creatures;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.conditions.*;
-import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
+import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
@@ -238,7 +238,7 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
-    public void takeTurn(List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
+    public void takeTurn(List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         if (dead) throw new IllegalStateException("Dead creatures can't take a turn.. they are dead!");
 
         // Check conditions and remove the ones that have ended.
@@ -254,7 +254,7 @@ public abstract class BaseCreature implements Creature {
         conditions.values().forEach(condition -> condition.perform(this));
 
         if (canAct()) {
-            getAction().perform(this, enemies, allies, simulator);
+            getAction().perform(this, enemies, allies, encounter);
         }
     }
 }

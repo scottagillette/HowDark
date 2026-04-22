@@ -4,7 +4,7 @@ import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
-import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
+import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.LivingTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,7 +30,7 @@ public class Withermark extends Spell {
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
+    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         final List<Creature> livingCreatures = new LivingTargetSelector().getTargets(enemies, enemies.size());
 
         final Creature target = actor.getSingleTargetSelector().get(livingCreatures);

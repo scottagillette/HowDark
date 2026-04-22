@@ -4,7 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
+import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.LivingTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +31,7 @@ public class Terrify extends BaseAction implements Action {
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
+    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         // One target in near DC 15 CHA or paralyzed 1d4 rounds.
 
         final List<Creature> targets = new LivingTargetSelector().getTargets(enemies, enemies.size());

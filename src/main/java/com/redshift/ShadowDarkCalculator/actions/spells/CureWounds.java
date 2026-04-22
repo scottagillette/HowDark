@@ -4,7 +4,7 @@ import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
-import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
+import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.HealTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,7 +29,7 @@ public class CureWounds extends Spell {
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
+    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         final Creature target = new HealTargetSelector().get(allies); // Shouldn't get null since Spell.canPerform() returned true
 
         boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());

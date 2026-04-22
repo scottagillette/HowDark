@@ -13,7 +13,7 @@ import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
-import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
+import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.CasterTargetSelector;
 
@@ -57,7 +57,7 @@ public class GoblinShaman extends Monster {
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
+        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
             final SingleTargetSelector selector = new CasterTargetSelector();
             final Creature target = selector.get(enemies);
 
@@ -102,7 +102,7 @@ public class GoblinShaman extends Monster {
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
+        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
             final Creature target = actor.getSingleTargetSelector().get(enemies);
 
             if (target == null) {

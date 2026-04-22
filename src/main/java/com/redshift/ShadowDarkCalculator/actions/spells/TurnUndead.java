@@ -5,7 +5,7 @@ import com.redshift.ShadowDarkCalculator.conditions.FearCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
-import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
+import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.UndeadTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +31,7 @@ public class TurnUndead extends MultiTargetSpell {
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
+    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         final List<Creature> targets = new UndeadTargetSelector().getTargets(enemies, enemies.size()); // Turn Undead can affect all near enemies.
 
         boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
