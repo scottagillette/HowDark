@@ -58,9 +58,4 @@ public abstract class Spell extends BaseAction implements Action {
         return D20.roll();
     }
 
-    @Override
-    public boolean isMagical() {
-        return true;
-    }
-
 }

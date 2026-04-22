@@ -37,11 +37,6 @@ public class Devour implements Action {
     }
 
     @Override
-    public boolean isMagical() {
-        return false;
-    }
-
-    @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
         final Creature deadEnemy = new DeadCreatureTargetSelector().get(enemies);
 

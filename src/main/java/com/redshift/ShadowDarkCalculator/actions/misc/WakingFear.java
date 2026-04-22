@@ -35,11 +35,6 @@ public class WakingFear implements Action {
     }
 
     @Override
-    public boolean isMagical() {
-        return false;
-    }
-
-    @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
         // All creatures within near DC 15 CHA or flee in a random direction for 1d4 rounds.
 

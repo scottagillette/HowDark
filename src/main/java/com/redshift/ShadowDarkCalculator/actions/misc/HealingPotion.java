@@ -31,11 +31,6 @@ public class HealingPotion extends BaseAction implements Action {
     }
 
     @Override
-    public boolean isMagical() {
-        return true;
-    }
-
-    @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
         final Creature healingTarget = new HealerTargetSelector().get(allies);
 

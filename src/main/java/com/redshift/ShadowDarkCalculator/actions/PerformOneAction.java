@@ -38,12 +38,6 @@ public class PerformOneAction extends BaseAction implements Action {
     }
 
     @Override
-    public boolean isMagical() {
-        // TODO: Does this need to check?
-        return false;
-    }
-
-    @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, CombatSimulator simulator) {
         // Choose 1 action based on priority; but can't be lost and can be performed.
 

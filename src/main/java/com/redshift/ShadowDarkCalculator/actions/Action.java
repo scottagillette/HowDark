@@ -34,12 +34,6 @@ public interface Action {
     int getPriority();
 
     /**
-     * Returns true if the action is magical.
-     */
-
-    boolean isMagical();
-
-    /**
      * Performs the specific action.
      */
 
