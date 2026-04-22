@@ -2,6 +2,7 @@ package com.redshift.ShadowDarkCalculator.actions.weapons;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.BaseAction;
+import com.redshift.ShadowDarkCalculator.conditions.HolyWeaponCondition;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
@@ -43,7 +44,7 @@ public class Weapon extends BaseAction implements Action {
         return this;
     }
 
-    public Weapon addIsMagical() {
+    public Weapon addMagical() {
         this.magical = true;
         return this;
     }
@@ -82,20 +83,33 @@ public class Weapon extends BaseAction implements Action {
             attackRollModifier = attackRollModifier + actor.getStats().getStrengthModifier();
         } else if (rollModifier.equals(RollModifier.DEXTERITY)) {
             attackRollModifier = attackRollModifier + actor.getStats().getDexterityModifier();
+        } else {
+            throw new IllegalStateException("Invalid roll modifier: " + rollModifier.getClass().getName());
+        }
+
+        int tempDamageRollBonus = damageRollBonus; // May get boosted up based on Holy Weapon
+        boolean tempMagical = magical; // The item maybe magical already...
+
+        // Enable holy weapon attack bonus and damage bonus if the actor has this condition AD this weapon isn't
+        // magical already.
+        if (actor.hasCondition(HolyWeaponCondition.class.getName()) && !magical) {
+            attackRollModifier = attackRollModifier + 1;
+            tempDamageRollBonus = tempDamageRollBonus + 1;
+            tempMagical = true; // The weapon is magical while holy weapon is enabled.
         }
 
         if (criticalFailure) {
             log.info("{} critically MISSES an attack on {} with a {}", actor.getName(), target.getName(), weaponName);
             return false;
         } else if (criticalSuccess) {
-            int damage = damageDice.roll() + damageDice.roll() + damageRollBonus;
+            int damage = damageDice.roll() + damageDice.roll() + tempDamageRollBonus;
             log.info("{} critically hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), weaponName, damage);
-            target.takeDamage(damage, silvered, magical, false, false);
+            target.takeDamage(damage, silvered, tempMagical, false, false);
             return true;
         } else if (attackRoll + attackRollModifier + attackRollBonus >= target.getAC()) {
-            int damage = damageDice.roll() + damageRollBonus;
+            int damage = damageDice.roll() + tempDamageRollBonus;
             log.info("{} hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), weaponName, damage);
-            target.takeDamage(damage, silvered, magical, false, false);
+            target.takeDamage(damage, silvered, tempMagical, false, false);
             return true;
         } else {
             // Miss

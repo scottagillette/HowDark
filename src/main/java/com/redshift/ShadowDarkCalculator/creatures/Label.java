@@ -7,5 +7,6 @@ public enum Label {
     HEALER,
     MONSTER,
     PLAYER,
-    UNDEAD
+    UNDEAD,
+    HAS_MAGIC_WEAPON
 }

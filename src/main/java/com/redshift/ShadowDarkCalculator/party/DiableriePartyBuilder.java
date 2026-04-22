@@ -44,10 +44,11 @@ public class DiableriePartyBuilder implements PartyBuilder {
                 new Stats(18, 13, 13, 8, 7, 8),
                 14,
                 6,
-                WeaponBuilder.BASTARD_SWORD_1H.build().addIsMagical(),
+                WeaponBuilder.BASTARD_SWORD_1H.build().addMagical(),
                 new FocusFireTargetSelector()
         );
         borlin.getLabels().add(Label.FRONT_LINE);
+        borlin.getLabels().add(Label.HAS_MAGIC_WEAPON);
         creatures.add(borlin);
 
 
@@ -96,6 +97,7 @@ public class DiableriePartyBuilder implements PartyBuilder {
                 8,
                 new PerformOneAction(
                         WeaponBuilder.LONGSWORD.build().setPriority(1),
+                        new HolyWeapon().setPriority(3),
                         new CureWounds().setPriority(10),
                         new TurnUndead().setPriority(10)
                 ),
