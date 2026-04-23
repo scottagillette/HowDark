@@ -14,11 +14,11 @@ import java.util.List;
  * Test a party of 12 level 0 characters.
  */
 
-public class NewbiesPartyBuilder implements PartyBuilder {
+public class FunnelPartyBuilder implements PartyBuilder {
 
     private final List<Creature> creatures = new ArrayList<>();
 
-    public NewbiesPartyBuilder() {
+    public FunnelPartyBuilder() {
         final Creature glogor = new Player(
                 "Glogor the Half Orc",
                 0,
