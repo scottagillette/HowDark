@@ -13,7 +13,7 @@ import com.redshift.ShadowDarkCalculator.creatures.goblinoid.Goblin;
 import com.redshift.ShadowDarkCalculator.creatures.undead.Skeleton;
 import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilder;
 
-class CombatSimulatorTest {
+class EncounterSimulatorTest {
 
     @Test
     void simulateFight_shouldEndWithWinner() {
@@ -32,7 +32,7 @@ class CombatSimulatorTest {
         Goblin goblin = new Goblin("Test Goblin");
 
         // Set up the combat
-        CombatSimulator simulator = new CombatSimulator(
+        EncounterSimulator simulator = new EncounterSimulator(
             List.of(fighter),
             List.of(goblin)
         );
@@ -82,7 +82,7 @@ class CombatSimulatorTest {
         Goblin goblin2 = new Goblin("Goblin 2");
 
         // Set up the combat
-        CombatSimulator simulator = new CombatSimulator(
+        EncounterSimulator simulator = new EncounterSimulator(
             List.of(fighter1, fighter2),
             List.of(goblin1, goblin2)
         );
@@ -127,7 +127,7 @@ class CombatSimulatorTest {
             );
 
             // Set up the combat
-            CombatSimulator simulator = new CombatSimulator(crabCrushers, skeletons);
+            EncounterSimulator simulator = new EncounterSimulator(crabCrushers, skeletons);
 
             // Run the simulation
             simulator.simulateFight();

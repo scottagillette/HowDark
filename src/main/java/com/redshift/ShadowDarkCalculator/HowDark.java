@@ -1,7 +1,7 @@
 package com.redshift.ShadowDarkCalculator;
 
 import com.redshift.ShadowDarkCalculator.creatures.undead.VampireSpawn;
-import com.redshift.ShadowDarkCalculator.encounter.CombatSimulator;
+import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ public class HowDark {
 
             log.info("[ Fight: {} ]", i + 1);
 
-            final CombatSimulator simulator = new CombatSimulator(
+            final EncounterSimulator simulator = new EncounterSimulator(
 //                    new TheWolfPackBuilder().build(),
 //                    new TheCrabCrushersBuilderv1().build(),
                     new DiableriePartyBuilder().build(),

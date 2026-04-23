@@ -12,7 +12,7 @@ import java.util.*;
 
 @Getter
 @Slf4j
-public class CombatSimulator implements Encounter {
+public class EncounterSimulator implements Encounter {
 
     private final List<Creature> group1;
     private final List<Creature> group2;
@@ -31,7 +31,7 @@ public class CombatSimulator implements Encounter {
 
     private Double nextNewCreatureInitiative = Double.valueOf(-100);
 
-    public CombatSimulator(List<Creature> group1, List<Creature> group2) {
+    public EncounterSimulator(List<Creature> group1, List<Creature> group2) {
         this.group1 = group1;
         this.group2 = group2;
     }
