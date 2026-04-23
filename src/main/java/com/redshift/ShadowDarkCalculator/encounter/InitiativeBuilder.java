@@ -26,11 +26,12 @@ public final class InitiativeBuilder {
 
         while (true) {
             group1.forEach(creature -> {
-                double initiative = creature.rollInitiative() + ((double) creature.getStats().getDexterityModifier() / 10);
+                double initiative = creature.rollInitiative() + ((double) creature.getStats().getDexterity() / 100);
                 result.put(initiative, creature);
             });
+
             group2.forEach(creature -> {
-                double initiative = creature.rollInitiative() + ((double) creature.getStats().getDexterityModifier() / 10);
+                double initiative = creature.rollInitiative() + ((double) creature.getStats().getDexterity() / 100);
                 result.put(initiative, creature);
             });
 
