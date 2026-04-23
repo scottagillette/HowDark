@@ -36,7 +36,11 @@ public class EncounterSimulator implements Encounter {
         this.group2 = group2;
     }
 
-    public void simulateFight() {
+    /**
+     * Simulate an encounter between two groups of creatures.
+     */
+
+    public void simulateEncounter() {
         // Put each creature in the map with their available enemies and another for allies.
         group1.forEach(creature -> enemiesMap.put(creature, group2));
         group2.forEach(creature -> enemiesMap.put(creature, group1));

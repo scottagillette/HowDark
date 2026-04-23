@@ -16,7 +16,7 @@ import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilder;
 class EncounterSimulatorTest {
 
     @Test
-    void simulateFight_shouldEndWithWinner() {
+    void simulateEncounter_shouldEndWithWinner() {
         // Create a simple fighter
         Player fighter = new Player(
             "Test Fighter",
@@ -38,7 +38,7 @@ class EncounterSimulatorTest {
         );
 
         // Run the simulation
-        simulator.simulateFight();
+        simulator.simulateEncounter();
 
         // Verify that exactly one side won
         assertTrue(
@@ -55,7 +55,7 @@ class EncounterSimulatorTest {
     }
 
     @Test
-    void simulateFight_shouldHandleMultipleCreatures() {
+    void simulateEncounter_shouldHandleMultipleCreatures() {
         // Create two fighters
         Player fighter1 = new Player(
             "Fighter 1",
@@ -88,7 +88,7 @@ class EncounterSimulatorTest {
         );
 
         // Run the simulation
-        simulator.simulateFight();
+        simulator.simulateEncounter();
 
         // Verify that exactly one side won
         assertTrue(
@@ -107,7 +107,7 @@ class EncounterSimulatorTest {
     }
 
     @Test
-    void simulateFight_crabCrushersVsSkeletons() {
+    void simulateEncounter_crabCrushersVsSkeletons() {
         int group1Wins = 0;
         int group1WinsWithDeath = 0;
 
@@ -130,7 +130,7 @@ class EncounterSimulatorTest {
             EncounterSimulator simulator = new EncounterSimulator(crabCrushers, skeletons);
 
             // Run the simulation
-            simulator.simulateFight();
+            simulator.simulateEncounter();
 
             // Verify that exactly one side won
             assertTrue(

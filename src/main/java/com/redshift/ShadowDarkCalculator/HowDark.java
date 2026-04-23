@@ -77,7 +77,7 @@ public class HowDark {
 //                    List.of(new Ankheg("Ankheg of Death"))
                     );
 
-            simulator.simulateFight();
+            simulator.simulateEncounter();
 
             group1Wins = group1Wins + simulator.getGroup1Wins();
             group1WinsWithDeath = group1WinsWithDeath + simulator.getGroup1WinsWithDeath();
