@@ -31,17 +31,6 @@ public class PerformOneAction extends BaseAction implements Action {
     }
 
     @Override
-    public int getPriority() {
-        int priority = 1; // Default priority of all actions.
-
-        for (Action action : actions) {
-            priority = Math.max(priority, action.getPriority());
-        }
-
-        return priority;
-    }
-
-    @Override
     public boolean isMagicalWeapon() {
         // If one or more actions are magical weapons return true.
         final List<Action> magicalWeapons = actions.stream()

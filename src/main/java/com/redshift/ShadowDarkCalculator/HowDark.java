@@ -1,12 +1,16 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.undead.VampireSpawn;
+import com.redshift.ShadowDarkCalculator.creatures.goblinoid.Goblin;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
 
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+
+/**
+ * Application to run X number of combat simulations between two groups of creatures.
+ */
 
 @Slf4j
 public class HowDark {
@@ -18,7 +22,7 @@ public class HowDark {
         int group2Wins = 0;
         int group2WinsWithDeath = 0;
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
 
             log.info("[ Fight: {} ]", i + 1);
 
@@ -46,7 +50,7 @@ public class HowDark {
 //                    List.of(new GelatinousCube("'Gelatinous Cube'"))
 //                    List.of(new HillGiant("Brundo the Crusher")
 //                    List.of(new HillGiant("Brundo the Crusher"), new HillGiant("Gunda the Smasher"))
-//                    List.of(new Goblin("Grek"), new Goblin("Pek"), new Goblin("Mek"), new Goblin("Rek"))
+                    List.of(new Goblin("Grek"), new Goblin("Pek"), new Goblin("Mek"), new Goblin("Rek"))
 //                    List.of(new GoblinBoss("Boss Grek"), new Goblin("Pek"), new Goblin("Mek"), new GoblinShaman("Rek"))
 //                    List.of(new Ettercap("Ettercap 1"), new Ettercap("Ettercap 2"))
 //                    List.of(
@@ -72,9 +76,10 @@ public class HowDark {
 //                    List.of(new Bugbear("Bugbear 1"), new Bugbear("Bugbear 2"))
 //                    List.of(new Wraith("Wraith"))
 //                    List.of(new Mummy("Mummy of Death"))
-                    List.of(new VampireSpawn("Vampire Spawn"))
+//                    List.of(new VampireSpawn("Vampire Spawn"))
 //                    List.of(new OwlBear("Rabid Owlbear"))
 //                    List.of(new Ankheg("Ankheg of Death"))
+//                    List.of(new FireDragon("Red Fire Dragon of death"))
                     );
 
             simulator.simulateEncounter();
