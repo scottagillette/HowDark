@@ -5,6 +5,7 @@ public enum CreatureLabel {
     CASTER,
     FRONT_LINE,
     HEALER,
+    HUMANOID,
     MONSTER,
     PLAYER,
     UNDEAD

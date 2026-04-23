@@ -22,7 +22,10 @@ public class Shadow extends UndeadMonster {
                 new Stats(3, 14, 14, 6, 10, 12),
                 12,
                 D8.roll() + D8.roll() + D8.roll() + 2,
-                new PerformAllActions(new DraiingTouch(), new DraiingTouch()),
+                new PerformAllActions(
+                        new DraiingTouch(),
+                        new DraiingTouch()
+                ),
                 new RandomTargetSelector()
         );
         getLabels().add(CreatureLabel.FRONT_LINE);

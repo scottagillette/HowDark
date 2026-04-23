@@ -25,7 +25,7 @@ public class MarrowFiend extends Monster {
                         new PerformAllActions(
                                 new Weapon("Claw", new MultipleDice(D10), RollModifier.STRENGTH).addAttackRollBonus(3),
                                 new Weapon("Claw", new MultipleDice(D10), RollModifier.STRENGTH).addAttackRollBonus(3)
-                        ),
+                        ).setPriority(1),
                         new Devour().setPriority(4)
                 )
         );

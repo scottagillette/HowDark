@@ -22,10 +22,14 @@ public class VampireSpawn extends UndeadMonster {
                 new Stats(16,14,16,9,12,14),
                 13,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 3,
-                new PerformAllActions(new Bite(), new Bite()),
+                new PerformAllActions(
+                        new Bite(),
+                        new Bite()
+                ),
                 new RandomTargetSelector()
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.HUMANOID);
     }
 
     @Override

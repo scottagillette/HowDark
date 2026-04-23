@@ -26,10 +26,14 @@ public class Ghast extends UndeadMonster {
                 new Stats(17,12,14,10,10,14),
                 11,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + 2,
-                new PerformAllActions(new ParalyzingClaw(), new ParalyzingClaw()),
+                new PerformAllActions(
+                        new ParalyzingClaw(),
+                        new ParalyzingClaw()
+                ),
                 new RandomTargetSelector()
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.HUMANOID);
     }
 
     private static class ParalyzingClaw extends Weapon {

@@ -31,7 +31,10 @@ public class Mimic extends Monster {
                 new Stats(14, 10, 12, 6, 10, 3),
                 12,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 1,
-                new PerformAllActions(new Bite(), new Bite())
+                new PerformAllActions(
+                        new Bite(),
+                        new Bite()
+                )
         );
     }
 

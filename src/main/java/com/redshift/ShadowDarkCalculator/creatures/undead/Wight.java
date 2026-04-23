@@ -26,6 +26,7 @@ public class Wight extends UndeadMonster {
                 new PerformAllActions(WeaponBuilder.BASTARD_SWORD_2H.build(), new LifeDrain()
         ));
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.HUMANOID);
     }
 
     @Override

@@ -41,6 +41,7 @@ public class GoblinShaman extends Monster {
         );
         getLabels().add(CreatureLabel.BACKLINE);
         getLabels().add(CreatureLabel.CASTER);
+        getLabels().add(CreatureLabel.HUMANOID);
     }
 
     /**

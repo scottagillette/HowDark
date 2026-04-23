@@ -20,5 +20,6 @@ public class Bugbear extends Monster {
                 new PerformAllActions(WeaponBuilder.MACE.build(), WeaponBuilder.MACE.build())
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.HUMANOID);
     }
 }

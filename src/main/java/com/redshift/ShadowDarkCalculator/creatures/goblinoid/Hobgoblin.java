@@ -20,5 +20,6 @@ public class Hobgoblin extends Monster {
                 // Skip longbow
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.HUMANOID);
     }
 }

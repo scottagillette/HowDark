@@ -3,6 +3,7 @@ package com.redshift.ShadowDarkCalculator.creatures.humanoid;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.SingleTargetDamageSpell;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -25,6 +26,8 @@ public class Cultist extends Monster {
                         new DeathTouch().setPriority(2)
                 )
         );
+        getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.HUMANOID);
     }
 
     private static class DeathTouch extends SingleTargetDamageSpell {

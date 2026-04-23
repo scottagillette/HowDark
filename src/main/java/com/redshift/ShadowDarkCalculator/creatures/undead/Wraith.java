@@ -22,7 +22,11 @@ public class Wraith extends UndeadMonster {
                 new Stats(3,18,10,10,10,16),
                 14,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll(),
-                new PerformAllActions(new DeathTouch(), new DeathTouch(), new DeathTouch()),
+                new PerformAllActions(
+                        new DeathTouch(),
+                        new DeathTouch(),
+                        new DeathTouch()
+                ),
                 new RandomTargetSelector()
         );
         getLabels().add(CreatureLabel.FRONT_LINE);

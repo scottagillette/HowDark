@@ -21,9 +21,14 @@ public class Mummy extends UndeadMonster {
                 new Stats(17,10,15,17,15,17),
                 13,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 2,
-                new PerformAllActions(new RotTouch(), new RotTouch(), new RotTouch())
+                new PerformAllActions(
+                        new RotTouch(),
+                        new RotTouch(),
+                        new RotTouch()
+                )
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.HUMANOID);
     }
 
     @Override

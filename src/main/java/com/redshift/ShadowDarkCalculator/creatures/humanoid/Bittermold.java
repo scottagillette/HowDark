@@ -20,6 +20,7 @@ public class Bittermold extends Monster {
                 new PerformOneAction(WeaponBuilder.SHORTSWORD.build())
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.HUMANOID);
     }
 
 }

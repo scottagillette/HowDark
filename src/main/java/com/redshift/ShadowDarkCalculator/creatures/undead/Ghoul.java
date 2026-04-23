@@ -25,6 +25,7 @@ public class Ghoul extends UndeadMonster {
                 new ParalyzingClaw()
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.HUMANOID);
     }
 
     private static class ParalyzingClaw extends Weapon {

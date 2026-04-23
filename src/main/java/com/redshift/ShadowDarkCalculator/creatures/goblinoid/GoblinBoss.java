@@ -19,6 +19,7 @@ public class GoblinBoss extends Monster {
                 WeaponBuilder.SPEAR_STR.build().addAttackRollBonus(1)
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.HUMANOID);
     }
 
 }

@@ -1,10 +1,11 @@
 package com.redshift.ShadowDarkCalculator.creatures.humanoid;
 
-import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
+import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.Spell;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -29,8 +30,13 @@ public class Acolyte extends Monster {
                 new Stats(12, 8, 10, 8,14, 10),
                 12,
                 D8.roll(),
-                new PerformAllActions(WeaponBuilder.MACE.build(), new HealingTouch().setPriority(4))
+                new PerformOneAction(
+                        WeaponBuilder.MACE.build(),
+                        new HealingTouch().setPriority(4)
+                )
         );
+        getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.HUMANOID);
     }
 
     private static class HealingTouch extends Spell {
@@ -48,7 +54,7 @@ public class Acolyte extends Monster {
         @Override
         public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
             final SingleTargetSelector selector = new HealTargetSelector();
-            final Creature target = selector.get(allies); // Shouldn't get null since Spell.canPerform() returned true
+            final Creature target = selector.get(allies);
 
             boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
             actor.removeCondition(DisadvantagedCondition.class.getName());

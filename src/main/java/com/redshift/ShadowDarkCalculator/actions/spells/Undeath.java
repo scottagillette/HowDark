@@ -3,13 +3,16 @@ package com.redshift.ShadowDarkCalculator.actions.spells;
 import com.redshift.ShadowDarkCalculator.conditions.DevouredCondition;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.undead.Skeleton;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
+import com.redshift.ShadowDarkCalculator.targets.CreatureLabelTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.DeadCreatureTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,13 +33,24 @@ public class Undeath extends Spell {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        final Creature deadEnemy = new DeadCreatureTargetSelector().get(enemies);
-        return !lost && deadEnemy != null;
+        final Creature deadCreature = getTarget(enemies, allies);
+        return !lost && deadCreature != null;
+    }
+
+    private Creature getTarget(List<Creature> enemies, List<Creature> allies) {
+        final List<Creature> allCreatures = new ArrayList<>();
+        allCreatures.addAll(enemies);
+        allCreatures.addAll(allies); // Might as well summon a dead ally!
+
+        final List<Creature> humanoidCreatures = new CreatureLabelTargetSelector(CreatureLabel.HUMANOID)
+                .getTargets(allCreatures, allCreatures.size());
+
+        return new DeadCreatureTargetSelector().get(humanoidCreatures);
     }
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-        final Creature deadEnemy = new DeadCreatureTargetSelector().get(enemies);
+        final Creature deadCreature = getTarget(enemies, allies);
 
         boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
         actor.removeCondition(DisadvantagedCondition.class.getName());
@@ -56,12 +70,12 @@ public class Undeath extends Spell {
             log.info("{} critically succeeds on raising a skeleton for 10 rounds with {}", actor.getName(), getName());
             encounter.addFriendlyCreature(actor, new Skeleton("Undeath Skeleton"));
             lost = true; // Single per combat use.
-            deadEnemy.addCondition(new DevouredCondition()); // Mark corpse as devoured so it can't be used again.
+            deadCreature.addCondition(new DevouredCondition()); // Mark corpse as devoured so it can't be used again.
         } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             log.info("{} succeeds on raising a skeleton for 5 rounds with {}", actor.getName(), getName());
             encounter.addFriendlyCreature(actor, new Skeleton("Undeath Skeleton"));
             lost = true; // Single per combat use.
-            deadEnemy.addCondition(new DevouredCondition()); // Mark corpse as devoured so it can't be used again.
+            deadCreature.addCondition(new DevouredCondition()); // Mark corpse as devoured so it can't be used again.
         } else {
             lost = true; // Failed spell check!
             log.info("{} MISSES the spell check with a {}", actor.getName(), getName());

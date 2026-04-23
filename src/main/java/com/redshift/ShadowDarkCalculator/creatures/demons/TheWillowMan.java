@@ -30,7 +30,7 @@ public class TheWillowMan extends Monster {
                                 new Weapon("Finger Needle", new MultipleDice(D10, D10), RollModifier.DEXTERITY).addAttackRollBonus(5),
                                 new Weapon("Finger Needle", new MultipleDice(D10, D10), RollModifier.DEXTERITY).addAttackRollBonus(5),
                                 new Weapon("Finger Needle", new MultipleDice(D10, D10), RollModifier.DEXTERITY).addAttackRollBonus(5),
-                                new Terrify().setPriority(1)
+                                new Terrify()
                         ).setPriority(2),
                         new WakingFear().setPriority(1)
                 )

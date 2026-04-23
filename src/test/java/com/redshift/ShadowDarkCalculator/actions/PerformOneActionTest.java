@@ -46,10 +46,9 @@ class PerformOneActionTest {
 
     @Test
     void testPriority() {
-        Mockito.when(action1.getPriority()).thenReturn(1);
-        Mockito.when(action2.getPriority()).thenReturn(5);
-
         final PerformOneAction oneAction = new PerformOneAction(action1, action2);
+        oneAction.setPriority(5);
+
         final int priority = oneAction.getPriority();
 
         assertEquals(5, priority);
