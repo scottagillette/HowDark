@@ -31,6 +31,11 @@ public class Devour extends BaseAction implements Action {
     }
 
     @Override
+    public boolean isMagicalWeapon() {
+        return false;
+    }
+
+    @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         final Creature deadEnemy = new DeadCreatureTargetSelector().get(enemies);
 

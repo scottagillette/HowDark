@@ -60,6 +60,11 @@ public class Weapon extends BaseAction implements Action {
     }
 
     @Override
+    public boolean isMagicalWeapon() {
+        return magical;
+    }
+
+    @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         // Normal weapons attack a single target... custom weapons can hit multiple (see performMultipleTargetAttack())
         final Creature target = actor.getSingleTargetSelector().get(enemies);

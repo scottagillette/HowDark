@@ -7,6 +7,5 @@ public enum CreatureLabel {
     HEALER,
     MONSTER,
     PLAYER,
-    UNDEAD,
-    HAS_MAGIC_WEAPON
+    UNDEAD
 }

@@ -31,6 +31,11 @@ public class Terrify extends BaseAction implements Action {
     }
 
     @Override
+    public boolean isMagicalWeapon() {
+        return false;
+    }
+
+    @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         // One target in near DC 15 CHA or paralyzed 1d4 rounds.
 

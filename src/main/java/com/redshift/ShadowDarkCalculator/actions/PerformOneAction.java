@@ -42,6 +42,16 @@ public class PerformOneAction extends BaseAction implements Action {
     }
 
     @Override
+    public boolean isMagicalWeapon() {
+        // If one or more actions are magical weapons return true.
+        final List<Action> magicalWeapons = actions.stream()
+                .filter(Action::isMagicalWeapon)
+                .toList();
+
+        return !magicalWeapons.isEmpty();
+    }
+
+    @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         // Choose 1 action based on priority; but can't be lost and can be performed.
 

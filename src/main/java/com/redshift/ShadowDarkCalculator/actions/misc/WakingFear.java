@@ -31,6 +31,11 @@ public class WakingFear extends BaseAction implements Action {
     }
 
     @Override
+    public boolean isMagicalWeapon() {
+        return false;
+    }
+
+    @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         // All creatures within near DC 15 CHA or flee in a random direction for 1d4 rounds.
 

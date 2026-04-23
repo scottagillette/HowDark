@@ -48,7 +48,6 @@ public class DiableriePartyBuilder implements PartyBuilder {
                 new FocusFireTargetSelector()
         );
         borlin.getLabels().add(CreatureLabel.FRONT_LINE);
-        borlin.getLabels().add(CreatureLabel.HAS_MAGIC_WEAPON);
         creatures.add(borlin);
 
 
@@ -105,6 +104,7 @@ public class DiableriePartyBuilder implements PartyBuilder {
         );
         torvin.getLabels().add(CreatureLabel.BACKLINE);
         torvin.getLabels().add(CreatureLabel.CASTER);
+        torvin.getLabels().add(CreatureLabel.HEALER);
         creatures.add(torvin);
 
 

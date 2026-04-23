@@ -24,7 +24,7 @@ public class HolyWeaponTargetSelector implements SingleTargetSelector {
                 .stream()
                 .filter(creature -> !creature.isUnconscious())
                 .filter(creature -> !creature.isDead())
-                .filter(creature -> !creature.getLabels().contains(CreatureLabel.HAS_MAGIC_WEAPON))
+                .filter(creature -> !creature.getAction().isMagicalWeapon())
                 .filter(creature -> creature.getLabels().contains(CreatureLabel.FRONT_LINE))
                 .filter(creature -> !creature.hasCondition(HolyWeaponCondition.class.getName()))
                 .toList());

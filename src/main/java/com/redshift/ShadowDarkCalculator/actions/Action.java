@@ -2,7 +2,6 @@ package com.redshift.ShadowDarkCalculator.actions;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 
 import java.util.List;
 
@@ -34,6 +33,12 @@ public interface Action {
      */
 
     int getPriority();
+
+    /**
+     * True if this is a magical weapon.
+     */
+
+    boolean isMagicalWeapon();
 
     /**
      * Performs the specific action.
