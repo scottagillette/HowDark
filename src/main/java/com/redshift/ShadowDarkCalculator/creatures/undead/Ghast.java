@@ -4,7 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -29,7 +29,7 @@ public class Ghast extends UndeadMonster {
                 new PerformAllActions(new ParalyzingClaw(), new ParalyzingClaw()),
                 new RandomTargetSelector()
         );
-        getLabels().add(Label.FRONT_LINE);
+        getLabels().add(CreatureLabel.FRONT_LINE);
     }
 
     private static class ParalyzingClaw extends Weapon {

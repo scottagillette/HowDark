@@ -19,7 +19,7 @@ public class Player extends BaseCreature {
             Action action) {
 
         super(name, level, stats, armorClass, hitPoints, action, new FocusFireTargetSelector());
-        getLabels().add(Label.PLAYER);
+        getLabels().add(CreatureLabel.PLAYER);
     }
 
     public Player(
@@ -32,7 +32,7 @@ public class Player extends BaseCreature {
             SingleTargetSelector singleTargetSelector) {
 
         super(name, level, stats, armorClass, hitPoints, action, singleTargetSelector);
-        getLabels().add(Label.PLAYER);
+        getLabels().add(CreatureLabel.PLAYER);
     }
 
 }

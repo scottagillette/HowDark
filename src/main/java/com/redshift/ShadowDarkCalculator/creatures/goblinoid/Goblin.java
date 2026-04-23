@@ -2,8 +2,7 @@ package com.redshift.ShadowDarkCalculator.creatures.goblinoid;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
-import com.redshift.ShadowDarkCalculator.creatures.BaseCreature;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 
@@ -20,7 +19,7 @@ public class Goblin extends Monster {
                 D8.roll() + 1,
                 new PerformOneAction(WeaponBuilder.DAGGER_DEX.build(), WeaponBuilder.SHORTBOW.build())
         );
-        getLabels().add(Label.BACKLINE);
+        getLabels().add(CreatureLabel.BACKLINE);
     }
 
 }

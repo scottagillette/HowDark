@@ -4,7 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.*;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Player;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.targets.FocusFireTargetSelector;
@@ -27,7 +27,7 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
                 WeaponBuilder.BASTARD_SWORD_1H.build().addAttackRollBonus(4).addDamageRollBonus(3),
                 new FocusFireTargetSelector()
         );
-        karn.getLabels().add(Label.FRONT_LINE);
+        karn.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(karn);
 
         final Creature kabsal = new Player(
@@ -44,7 +44,7 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
                 ),
                 new FocusFireTargetSelector()
         );
-        kabsal.getLabels().add(Label.HEALER);
+        kabsal.getLabels().add(CreatureLabel.HEALER);
         creatures.add(kabsal);
 
         final Creature alderon = new Player(
@@ -61,8 +61,8 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
                 ),
                 new FocusFireTargetSelector()
         );
-        alderon.getLabels().add(Label.BACKLINE);
-        alderon.getLabels().add(Label.CASTER);
+        alderon.getLabels().add(CreatureLabel.BACKLINE);
+        alderon.getLabels().add(CreatureLabel.CASTER);
         creatures.add(alderon);
 
         final Creature fennick = new Player(
@@ -74,7 +74,7 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
                 WeaponBuilder.CROSSBOW.build(),
                 new FocusFireTargetSelector()
         );
-        fennick.getLabels().add(Label.BACKLINE);
+        fennick.getLabels().add(CreatureLabel.BACKLINE);
         creatures.add(fennick);
     }
 

@@ -19,7 +19,7 @@ public class Monster extends BaseCreature {
             Action action) {
 
         super(name, level, stats, armorClass, hitPoints, action, new RandomTargetSelector());
-        getLabels().add(Label.MONSTER);
+        getLabels().add(CreatureLabel.MONSTER);
     }
 
     public Monster(
@@ -32,7 +32,7 @@ public class Monster extends BaseCreature {
             SingleTargetSelector singleTargetSelector) {
 
         super(name, level, stats, armorClass, hitPoints, action, singleTargetSelector);
-        getLabels().add(Label.MONSTER);
+        getLabels().add(CreatureLabel.MONSTER);
     }
 
 }

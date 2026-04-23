@@ -25,7 +25,7 @@ public class VampireSpawn extends UndeadMonster {
                 new PerformAllActions(new Bite(), new Bite()),
                 new RandomTargetSelector()
         );
-        getLabels().add(Label.FRONT_LINE);
+        getLabels().add(CreatureLabel.FRONT_LINE);
     }
 
     @Override

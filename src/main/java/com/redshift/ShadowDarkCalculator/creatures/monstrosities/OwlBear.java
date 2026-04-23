@@ -24,7 +24,7 @@ public class OwlBear extends Monster {
                         new OwlBear.Claw()
                 )
         );
-        getLabels().add(Label.FRONT_LINE);
+        getLabels().add(CreatureLabel.FRONT_LINE);
     }
 
     public static class Claw extends Weapon {

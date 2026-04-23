@@ -2,11 +2,10 @@ package com.redshift.ShadowDarkCalculator.creatures.demons;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
-import com.redshift.ShadowDarkCalculator.actions.misc.Devour;
 import com.redshift.ShadowDarkCalculator.actions.misc.Terrify;
 import com.redshift.ShadowDarkCalculator.actions.misc.WakingFear;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
@@ -36,7 +35,7 @@ public class TheWillowMan extends Monster {
                         new WakingFear().setPriority(1)
                 )
         );
-        getLabels().add(Label.FRONT_LINE);
+        getLabels().add(CreatureLabel.FRONT_LINE);
     }
 
 }

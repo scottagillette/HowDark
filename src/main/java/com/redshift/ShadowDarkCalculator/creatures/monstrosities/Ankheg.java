@@ -25,7 +25,7 @@ public class Ankheg extends Monster {
                         new AcidSpray().setPriority(1) // Make this less common to not nuke the party to quickly ;)
                 )
         );
-        getLabels().add(Label.FRONT_LINE);
+        getLabels().add(CreatureLabel.FRONT_LINE);
     }
 
     private static class Bite extends Weapon {

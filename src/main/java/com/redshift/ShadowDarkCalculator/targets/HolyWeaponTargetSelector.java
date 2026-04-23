@@ -2,7 +2,7 @@ package com.redshift.ShadowDarkCalculator.targets;
 
 import com.redshift.ShadowDarkCalculator.conditions.HolyWeaponCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 
 import java.util.Collections;
 import java.util.List;
@@ -24,8 +24,8 @@ public class HolyWeaponTargetSelector implements SingleTargetSelector {
                 .stream()
                 .filter(creature -> !creature.isUnconscious())
                 .filter(creature -> !creature.isDead())
-                .filter(creature -> !creature.getLabels().contains(Label.HAS_MAGIC_WEAPON))
-                .filter(creature -> creature.getLabels().contains(Label.FRONT_LINE))
+                .filter(creature -> !creature.getLabels().contains(CreatureLabel.HAS_MAGIC_WEAPON))
+                .filter(creature -> creature.getLabels().contains(CreatureLabel.FRONT_LINE))
                 .filter(creature -> !creature.hasCondition(HolyWeaponCondition.class.getName()))
                 .toList());
 

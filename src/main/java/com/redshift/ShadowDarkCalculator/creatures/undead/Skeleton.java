@@ -2,7 +2,7 @@ package com.redshift.ShadowDarkCalculator.creatures.undead;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
@@ -21,6 +21,6 @@ public class Skeleton extends UndeadMonster {
                 new PerformOneAction(WeaponBuilder.SHORTSWORD.build(), WeaponBuilder.SHORTBOW.build()),
                 new RandomTargetSelector()
         );
-        getLabels().add(Label.FRONT_LINE);
+        getLabels().add(CreatureLabel.FRONT_LINE);
     }
 }

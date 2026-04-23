@@ -1,7 +1,7 @@
 package com.redshift.ShadowDarkCalculator.targets;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -41,7 +41,7 @@ class LivingTargetSelectorTest {
 
         Mockito.when(creature1.getLabels()).thenReturn(Set.of());
         Mockito.when(creature2.getLabels()).thenReturn(Set.of());
-        Mockito.when(creature3.getLabels()).thenReturn(Set.of(Label.UNDEAD));
+        Mockito.when(creature3.getLabels()).thenReturn(Set.of(CreatureLabel.UNDEAD));
 
         final LivingTargetSelector livingTargetSelector = new LivingTargetSelector();
         final List<Creature> targets = livingTargetSelector.getTargets(List.of(creature1, creature2, creature3), 1);
@@ -61,7 +61,7 @@ class LivingTargetSelectorTest {
 
         Mockito.when(creature1.getLabels()).thenReturn(Set.of());
         Mockito.when(creature2.getLabels()).thenReturn(Set.of());
-        Mockito.when(creature3.getLabels()).thenReturn(Set.of(Label.UNDEAD));
+        Mockito.when(creature3.getLabels()).thenReturn(Set.of(CreatureLabel.UNDEAD));
 
         final LivingTargetSelector livingTargetSelector = new LivingTargetSelector();
         final List<Creature> targets = livingTargetSelector.getTargets(List.of(creature1, creature2, creature3), 1);

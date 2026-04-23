@@ -54,7 +54,7 @@ public interface Creature {
      * Returns a list of labels for the creature.
      */
 
-    Set<Label> getLabels();
+    Set<CreatureLabel> getLabels();
 
     /**
      * Returns the target selector strategy for enemies.

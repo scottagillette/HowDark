@@ -1,7 +1,7 @@
 package com.redshift.ShadowDarkCalculator.creatures.undead;
 
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -25,7 +25,7 @@ public class Zombie extends UndeadMonster {
                 new Slam(),
                 new RandomTargetSelector()
         );
-        getLabels().add(Label.FRONT_LINE);
+        getLabels().add(CreatureLabel.FRONT_LINE);
     }
 
     @Override

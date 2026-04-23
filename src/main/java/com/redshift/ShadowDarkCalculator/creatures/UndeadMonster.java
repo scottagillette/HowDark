@@ -15,7 +15,7 @@ public class UndeadMonster extends Monster {
             Action action) {
 
         super(name, level, stats, armorClass, hitPoints, action, new RandomTargetSelector());
-        getLabels().add(Label.UNDEAD);
+        getLabels().add(CreatureLabel.UNDEAD);
     }
 
     public UndeadMonster(
@@ -28,7 +28,7 @@ public class UndeadMonster extends Monster {
             SingleTargetSelector singleTargetSelector) {
 
         super(name, level, stats, armorClass, hitPoints, action, singleTargetSelector);
-        getLabels().add(Label.UNDEAD);
+        getLabels().add(CreatureLabel.UNDEAD);
     }
 
 }

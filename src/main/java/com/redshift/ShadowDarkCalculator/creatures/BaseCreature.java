@@ -29,7 +29,7 @@ public abstract class BaseCreature implements Creature {
     private final String name;
     private final SingleTargetSelector singleTargetSelector;
     private final Stats stats;
-    private final Set<Label> labels = new HashSet<>();
+    private final Set<CreatureLabel> creatureLabels = new HashSet<>();
 
     /**
      * All argument constructor.
@@ -127,8 +127,8 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
-    public Set<Label> getLabels() {
-        return labels;
+    public Set<CreatureLabel> getLabels() {
+        return creatureLabels;
     }
 
     @Override
@@ -213,7 +213,7 @@ public abstract class BaseCreature implements Creature {
         currentHitPoints = Math.max(0, currentHitPoints - amount);
 
         if (currentHitPoints == 0) {
-            if (labels.contains(Label.MONSTER)) {
+            if (creatureLabels.contains(CreatureLabel.MONSTER)) {
                 // Zero hp give them the unconscious condition!
                 log.info("{} is dead!", name);
                 conditions.clear();

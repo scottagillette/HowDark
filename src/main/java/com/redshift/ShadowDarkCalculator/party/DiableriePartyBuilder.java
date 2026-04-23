@@ -4,7 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.*;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Player;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.targets.FocusFireTargetSelector;
@@ -34,7 +34,7 @@ public class DiableriePartyBuilder implements PartyBuilder {
                 WeaponBuilder.GREATAXE_1H.build().addAttackRollBonus(2).addDamageRollBonus(2),
                 new FocusFireTargetSelector()
         );
-        clank.getLabels().add(Label.FRONT_LINE);
+        clank.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(clank);
 
 
@@ -47,8 +47,8 @@ public class DiableriePartyBuilder implements PartyBuilder {
                 WeaponBuilder.BASTARD_SWORD_1H.build().addMagical(),
                 new FocusFireTargetSelector()
         );
-        borlin.getLabels().add(Label.FRONT_LINE);
-        borlin.getLabels().add(Label.HAS_MAGIC_WEAPON);
+        borlin.getLabels().add(CreatureLabel.FRONT_LINE);
+        borlin.getLabels().add(CreatureLabel.HAS_MAGIC_WEAPON);
         creatures.add(borlin);
 
 
@@ -65,8 +65,8 @@ public class DiableriePartyBuilder implements PartyBuilder {
                 ),
                 new FocusFireTargetSelector()
         );
-        mal.getLabels().add(Label.BACKLINE);
-        mal.getLabels().add(Label.CASTER);
+        mal.getLabels().add(CreatureLabel.BACKLINE);
+        mal.getLabels().add(CreatureLabel.CASTER);
         creatures.add(mal);
 
 
@@ -84,8 +84,8 @@ public class DiableriePartyBuilder implements PartyBuilder {
                 ),
                 new FocusFireTargetSelector()
         );
-        alaric.getLabels().add(Label.BACKLINE);
-        alaric.getLabels().add(Label.CASTER);
+        alaric.getLabels().add(CreatureLabel.BACKLINE);
+        alaric.getLabels().add(CreatureLabel.CASTER);
         creatures.add(alaric);
 
 
@@ -103,8 +103,8 @@ public class DiableriePartyBuilder implements PartyBuilder {
                 ),
                 new FocusFireTargetSelector()
         );
-        torvin.getLabels().add(Label.BACKLINE);
-        torvin.getLabels().add(Label.CASTER);
+        torvin.getLabels().add(CreatureLabel.BACKLINE);
+        torvin.getLabels().add(CreatureLabel.CASTER);
         creatures.add(torvin);
 
 

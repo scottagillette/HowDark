@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class StuckToCondition implements Condition {
 
-    private int strDC;
+    private final int strDC;
 
     public StuckToCondition(int strDC) {
         this.strDC = strDC;

@@ -1,7 +1,7 @@
 package com.redshift.ShadowDarkCalculator.creatures.goblinoid;
 
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 
@@ -18,7 +18,7 @@ public class GoblinBoss extends Monster {
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + 2,
                 WeaponBuilder.SPEAR_STR.build().addAttackRollBonus(1)
         );
-        getLabels().add(Label.FRONT_LINE);
+        getLabels().add(CreatureLabel.FRONT_LINE);
     }
 
 }

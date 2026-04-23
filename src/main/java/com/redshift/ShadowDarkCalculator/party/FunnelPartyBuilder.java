@@ -2,7 +2,7 @@ package com.redshift.ShadowDarkCalculator.party;
 
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Player;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.targets.FocusFireTargetSelector;
@@ -28,7 +28,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 WeaponBuilder.FIST.build(),
                 new FocusFireTargetSelector()
         );
-        glogor.getLabels().add(Label.FRONT_LINE);
+        glogor.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(glogor);
 
         final Creature muddle = new Player(
@@ -40,7 +40,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 WeaponBuilder.FIST.build(),
                 new FocusFireTargetSelector()
         );
-        muddle.getLabels().add(Label.FRONT_LINE);
+        muddle.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(muddle);
 
         final Creature imol = new Player(
@@ -52,7 +52,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 WeaponBuilder.FIST.build(),
                 new FocusFireTargetSelector()
         );
-        imol.getLabels().add(Label.FRONT_LINE);
+        imol.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(imol);
 
         final Creature da = new Player(
@@ -64,7 +64,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 WeaponBuilder.DAGGER_STR.build(),
                 new FocusFireTargetSelector()
         );
-        da.getLabels().add(Label.FRONT_LINE);
+        da.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(da);
 
         final Creature hod = new Player(
@@ -76,7 +76,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 WeaponBuilder.FIST.build(),
                 new FocusFireTargetSelector()
         );
-        hod.getLabels().add(Label.FRONT_LINE);
+        hod.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(hod);
 
         final Creature bakhrud = new Player(
@@ -88,7 +88,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 WeaponBuilder.FIST.build(),
                 new FocusFireTargetSelector()
         );
-        bakhrud.getLabels().add(Label.FRONT_LINE);
+        bakhrud.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(bakhrud);
 
         final Creature ghazshad = new Player(
@@ -100,7 +100,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 WeaponBuilder.DAGGER_STR.build(),
                 new FocusFireTargetSelector()
         );
-        ghazshad.getLabels().add(Label.FRONT_LINE);
+        ghazshad.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(ghazshad);
 
         final Creature slogyark = new Player(
@@ -112,7 +112,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 WeaponBuilder.SHORTBOW.build(),
                 new FocusFireTargetSelector()
         );
-        slogyark.getLabels().add(Label.FRONT_LINE);
+        slogyark.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(slogyark);
 
         final Creature mufas = new Player(
@@ -124,7 +124,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 WeaponBuilder.FIST.build(),
                 new FocusFireTargetSelector()
         );
-        mufas.getLabels().add(Label.FRONT_LINE);
+        mufas.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(mufas);
 
         final Creature krukar = new Player(
@@ -136,7 +136,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 WeaponBuilder.FIST.build(),
                 new FocusFireTargetSelector()
         );
-        krukar.getLabels().add(Label.FRONT_LINE);
+        krukar.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(krukar);
 
         final Creature ufas = new Player(
@@ -148,7 +148,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 WeaponBuilder.FIST.build(),
                 new FocusFireTargetSelector()
         );
-        ufas.getLabels().add(Label.FRONT_LINE);
+        ufas.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(ufas);
 
         final Creature gregor = new Player(
@@ -160,7 +160,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 WeaponBuilder.DAGGER_STR.build(),
                 new FocusFireTargetSelector()
         );
-        gregor.getLabels().add(Label.FRONT_LINE);
+        gregor.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(gregor);
     }
 

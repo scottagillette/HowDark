@@ -2,7 +2,7 @@ package com.redshift.ShadowDarkCalculator.creatures.demons;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
@@ -26,7 +26,7 @@ public class Dralech extends Monster {
                         new Weapon("Bone Axe", new MultipleDice(D6, D6), RollModifier.STRENGTH).addAttackRollBonus(1)
                 )
         );
-        getLabels().add(Label.FRONT_LINE);
+        getLabels().add(CreatureLabel.FRONT_LINE);
     }
 
 }

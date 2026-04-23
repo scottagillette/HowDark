@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator.creatures;
 
-public enum Label {
+public enum CreatureLabel {
     BACKLINE,
     CASTER,
     FRONT_LINE,

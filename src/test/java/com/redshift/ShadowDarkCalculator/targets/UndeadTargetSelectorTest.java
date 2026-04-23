@@ -1,7 +1,7 @@
 package com.redshift.ShadowDarkCalculator.targets;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -39,8 +39,8 @@ class UndeadTargetSelectorTest {
 //        Mockito.when(creature2.isDead()).thenReturn(false);
 //        Mockito.when(creature3.isUnconscious()).thenReturn(false);
 
-        Mockito.when(creature1.getLabels()).thenReturn(Set.of(Label.UNDEAD));
-        Mockito.when(creature2.getLabels()).thenReturn(Set.of(Label.UNDEAD));
+        Mockito.when(creature1.getLabels()).thenReturn(Set.of(CreatureLabel.UNDEAD));
+        Mockito.when(creature2.getLabels()).thenReturn(Set.of(CreatureLabel.UNDEAD));
         Mockito.when(creature3.getLabels()).thenReturn(Set.of()); // Can't return him... he's not undead!
 
         final UndeadTargetSelector undeadTargetSelector = new UndeadTargetSelector();
@@ -61,7 +61,7 @@ class UndeadTargetSelectorTest {
 
         Mockito.when(creature1.getLabels()).thenReturn(Set.of());
         Mockito.when(creature2.getLabels()).thenReturn(Set.of());
-        Mockito.when(creature3.getLabels()).thenReturn(Set.of(Label.UNDEAD));
+        Mockito.when(creature3.getLabels()).thenReturn(Set.of(CreatureLabel.UNDEAD));
 
         final UndeadTargetSelector undeadTargetSelector = new UndeadTargetSelector();
         final List<Creature> targets = undeadTargetSelector.getTargets(List.of(creature1, creature2, creature3), 1);

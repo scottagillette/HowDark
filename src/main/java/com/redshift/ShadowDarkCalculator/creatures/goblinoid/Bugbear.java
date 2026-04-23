@@ -2,7 +2,7 @@ package com.redshift.ShadowDarkCalculator.creatures.goblinoid;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 
@@ -19,6 +19,6 @@ public class Bugbear extends Monster {
                 D8.roll() + D8.roll() + 1,
                 new PerformAllActions(WeaponBuilder.MACE.build(), WeaponBuilder.MACE.build())
         );
-        getLabels().add(Label.FRONT_LINE);
+        getLabels().add(CreatureLabel.FRONT_LINE);
     }
 }

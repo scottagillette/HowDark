@@ -1,7 +1,7 @@
 package com.redshift.ShadowDarkCalculator.targets;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.dice.SingleDie;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class HealerTargetSelector implements SingleTargetSelector {
     @Override
     public Creature get(List<Creature> targetOptions) {
         final List<Creature> casters = targetOptions.stream()
-                .filter(creature -> creature.getLabels().contains(Label.HEALER))
+                .filter(creature -> creature.getLabels().contains(CreatureLabel.HEALER))
                 .filter(creature -> !creature.isUnconscious())
                 .filter(creature -> !creature.isDead())
                 .toList();

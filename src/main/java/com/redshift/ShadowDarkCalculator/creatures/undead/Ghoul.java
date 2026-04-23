@@ -24,7 +24,7 @@ public class Ghoul extends UndeadMonster {
                 D8.roll() + D8.roll() + 2,
                 new ParalyzingClaw()
         );
-        getLabels().add(Label.FRONT_LINE);
+        getLabels().add(CreatureLabel.FRONT_LINE);
     }
 
     private static class ParalyzingClaw extends Weapon {

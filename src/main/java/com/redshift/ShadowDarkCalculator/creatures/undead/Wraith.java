@@ -25,7 +25,7 @@ public class Wraith extends UndeadMonster {
                 new PerformAllActions(new DeathTouch(), new DeathTouch(), new DeathTouch()),
                 new RandomTargetSelector()
         );
-        getLabels().add(Label.FRONT_LINE);
+        getLabels().add(CreatureLabel.FRONT_LINE);
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.redshift.ShadowDarkCalculator.party;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.*;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Player;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
@@ -24,7 +24,7 @@ public class TheWolfPackBuilder implements PartyBuilder {
                 9,
                 WeaponBuilder.LONGSWORD.build()
         );
-        rogar.getLabels().add(Label.FRONT_LINE);
+        rogar.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(rogar);
 
         final Creature elyon = new Player(
@@ -40,8 +40,8 @@ public class TheWolfPackBuilder implements PartyBuilder {
                         new Sleep().setPriority(8)
                 )
         );
-        elyon.getLabels().add(Label.BACKLINE);
-        elyon.getLabels().add(Label.CASTER);
+        elyon.getLabels().add(CreatureLabel.BACKLINE);
+        elyon.getLabels().add(CreatureLabel.CASTER);
         creatures.add(elyon);
 
         final Creature tarin = new Player(
@@ -55,7 +55,7 @@ public class TheWolfPackBuilder implements PartyBuilder {
                         WeaponBuilder.DAGGER_DEX.build()
                 )
         );
-        tarin.getLabels().add(Label.BACKLINE);
+        tarin.getLabels().add(CreatureLabel.BACKLINE);
         creatures.add(tarin);
 
         final Creature grimm = new Player(
@@ -71,7 +71,7 @@ public class TheWolfPackBuilder implements PartyBuilder {
                         new TurnUndead().setPriority(4)
                 )
         );
-        grimm.getLabels().add(Label.HEALER);
+        grimm.getLabels().add(CreatureLabel.HEALER);
         creatures.add(grimm);
     }
 

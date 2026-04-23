@@ -5,7 +5,7 @@ import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.PoisonWebCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
@@ -30,7 +30,7 @@ public class Ettercap extends Monster {
                         new PoisonWeb()
                 )
         );
-        getLabels().add(Label.BACKLINE);
+        getLabels().add(CreatureLabel.BACKLINE);
     }
 
     public static class Bite extends Weapon {

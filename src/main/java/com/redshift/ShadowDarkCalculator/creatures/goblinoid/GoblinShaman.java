@@ -7,7 +7,7 @@ import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.StupefiedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
@@ -39,9 +39,13 @@ public class GoblinShaman extends Monster {
                         new BugBrain().addSpellCheckBonus(1).setPriority(2),  // Spells +3 check... 2 from WIS 1 bonus.
                         new StinkBomb().addSpellCheckBonus(1).setPriority(4)) // Spells +3 check... 2 from WIS 1 bonus.
         );
-        getLabels().add(Label.BACKLINE);
-        getLabels().add(Label.CASTER);
+        getLabels().add(CreatureLabel.BACKLINE);
+        getLabels().add(CreatureLabel.CASTER);
     }
+
+    /**
+     * INT drops to 1 for 1d4 rounds
+     */
 
     public static class BugBrain extends Spell {
 

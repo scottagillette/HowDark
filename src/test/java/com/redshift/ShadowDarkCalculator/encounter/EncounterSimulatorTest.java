@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Player;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.goblinoid.Goblin;
@@ -26,7 +26,7 @@ class EncounterSimulatorTest {
             8,  // HP
             WeaponBuilder.LONGSWORD.build().addAttackRollBonus(2) // +2 attack bonus
         );
-        fighter.getLabels().add(Label.FRONT_LINE);
+        fighter.getLabels().add(CreatureLabel.FRONT_LINE);
 
         // Create a goblin opponent
         Goblin goblin = new Goblin("Test Goblin");
@@ -65,7 +65,7 @@ class EncounterSimulatorTest {
             8,
             WeaponBuilder.LONGSWORD.build().addDamageRollBonus(2)
         );
-        fighter1.getLabels().add(Label.FRONT_LINE);
+        fighter1.getLabels().add(CreatureLabel.FRONT_LINE);
 
         Player fighter2 = new Player(
             "Fighter 2",
@@ -75,7 +75,7 @@ class EncounterSimulatorTest {
             8,
             WeaponBuilder.LONGSWORD.build().addAttackRollBonus(2)
         );
-        fighter2.getLabels().add(Label.FRONT_LINE);
+        fighter2.getLabels().add(CreatureLabel.FRONT_LINE);
 
         // Create two goblins
         Goblin goblin1 = new Goblin("Goblin 1");

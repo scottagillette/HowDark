@@ -1,7 +1,7 @@
 package com.redshift.ShadowDarkCalculator.targets;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.Label;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 
 import java.util.Collections;
 import java.util.List;
@@ -15,7 +15,7 @@ public class UndeadTargetSelector implements MultiTargetSelector {
     @Override
     public List<Creature> getTargets(List<Creature> targetOptions, int maxTargets) {
         final List<Creature> undead = new java.util.ArrayList<>(targetOptions.stream()
-                .filter(creature -> creature.getLabels().contains(Label.UNDEAD))
+                .filter(creature -> creature.getLabels().contains(CreatureLabel.UNDEAD))
                 .filter(creature -> !creature.isUnconscious())
                 .filter(creature -> !creature.isDead())
                 .toList());
