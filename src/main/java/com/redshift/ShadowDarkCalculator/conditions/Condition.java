@@ -2,6 +2,12 @@ package com.redshift.ShadowDarkCalculator.conditions;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 
+/**
+ * Conditions are added to creatures to have some effect. Conditions can restrict a creature to act, take damage, or
+ * have a beneficial effect. Conditions can be timed or be removed by other causes. For example the sleeping condition
+ * could be lost when the creature is damaged.
+ */
+
 public interface Condition {
 
     /**
@@ -27,4 +33,5 @@ public interface Condition {
      */
 
     void perform(Creature creature);
+
 }
