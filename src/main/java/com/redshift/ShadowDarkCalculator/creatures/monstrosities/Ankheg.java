@@ -21,28 +21,11 @@ public class Ankheg extends Monster {
                 14,
                 D8.roll() + D8.roll() + D8.roll() + 1,
                 new PerformOneAction(
-                        new Bite().setPriority(2),
-                        new AcidSpray().setPriority(1) // Make this less common to not nuke the party to quickly ;)
+                        new Weapon("Bite", D6, RollModifier.STRENGTH).addAttackRollBonus(2).setPriority(2),
+                        new Weapon("Acid Spray", new MultipleDice(D6, D6), RollModifier.STRENGTH).addAttackRollBonus(2).setPriority(1)
                 )
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
-    }
-
-    private static class Bite extends Weapon {
-
-        private Bite() {
-            super("Bite", D6, RollModifier.STRENGTH);
-            addAttackRollBonus(2); // +2 modifier above STR
-        }
-
-    }
-
-    private static class AcidSpray extends Weapon {
-
-        private AcidSpray() {
-            super("Acid Spray", new MultipleDice(D6, D6), RollModifier.STRENGTH);
-            addAttackRollBonus(2); // +2 modifier above STR
-        }
     }
 
 }

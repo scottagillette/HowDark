@@ -22,7 +22,7 @@ public class Zombie extends UndeadMonster {
                 new Stats(14, 6, 14, 6, 6, 4),
                 8,
                 D8.roll() + D8.roll() + 2,
-                new Slam(),
+                new Weapon("Slam", D6, RollModifier.STRENGTH),
                 new RandomTargetSelector()
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
@@ -46,11 +46,4 @@ public class Zombie extends UndeadMonster {
         }
     }
 
-    private static class Slam extends Weapon {
-
-        public Slam() {
-            super("Slam", D6, RollModifier.STRENGTH);
-        }
-
-    }
 }

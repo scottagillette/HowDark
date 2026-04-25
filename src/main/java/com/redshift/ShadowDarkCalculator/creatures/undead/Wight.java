@@ -23,8 +23,11 @@ public class Wight extends UndeadMonster {
                 new Stats(17,12,14,12,10,17),
                 14,
                 D8.roll() + D8.roll() + D8.roll() + 2,
-                new PerformAllActions(WeaponBuilder.BASTARD_SWORD_2H.build(), new LifeDrain()
-        ));
+                new PerformAllActions(
+                        WeaponBuilder.BASTARD_SWORD_2H.build(),
+                        new LifeDrain()
+                )
+        );
         getLabels().add(CreatureLabel.FRONT_LINE);
         getLabels().add(CreatureLabel.HUMANOID);
     }

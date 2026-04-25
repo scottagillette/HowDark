@@ -27,21 +27,13 @@ public class Ettercap extends Monster {
                 D8.roll() + D8.roll() + D8.roll() + 1,
                 new PerformOneAction(
                         new PerformAllActions(
-                                new Bite(),
-                                new Bite()
+                                new Weapon("Bite", D6, RollModifier.DEXTERITY),
+                                new Weapon("Bite", D6, RollModifier.DEXTERITY)
                         ),
                         new PoisonWeb()
                 )
         );
         getLabels().add(CreatureLabel.BACKLINE);
-    }
-
-    public static class Bite extends Weapon {
-
-        public Bite() {
-            super("Bite", D6, RollModifier.DEXTERITY);
-        }
-
     }
 
     public static class PoisonWeb extends Weapon {

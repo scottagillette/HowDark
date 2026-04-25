@@ -1,6 +1,5 @@
 package com.redshift.ShadowDarkCalculator.creatures.humanoid;
 
-import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Monster;
@@ -17,7 +16,7 @@ public class Bittermold extends Monster {
                 new Stats(12,14,12,10,10,10),
                 12,
                 D8.roll() + 1,
-                new PerformOneAction(WeaponBuilder.SHORTSWORD.build())
+                WeaponBuilder.SHORTSWORD.build()
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
         getLabels().add(CreatureLabel.HUMANOID);
