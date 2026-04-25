@@ -32,10 +32,10 @@ public class FireDragon extends Monster {
                 new MultipleDice(D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8).roll() + 4,
                 new PerformOneAction(
                         new PerformAllActions(
-                                new Weapon("Rend", new MultipleDice(D12, D12), RollModifier.STRENGTH),
-                                new Weapon("Rend", new MultipleDice(D12, D12), RollModifier.STRENGTH),
-                                new Weapon("Rend", new MultipleDice(D12, D12), RollModifier.STRENGTH),
-                                new Weapon("Rend", new MultipleDice(D12, D12), RollModifier.STRENGTH)
+                                new Weapon("Rend", new MultipleDice(D12, D12), RollModifier.STRENGTH).addAttackRollBonus(5),
+                                new Weapon("Rend", new MultipleDice(D12, D12), RollModifier.STRENGTH).addAttackRollBonus(5),
+                                new Weapon("Rend", new MultipleDice(D12, D12), RollModifier.STRENGTH).addAttackRollBonus(5),
+                                new Weapon("Rend", new MultipleDice(D12, D12), RollModifier.STRENGTH).addAttackRollBonus(5)
                         ).setPriority(2),
                         new FireBreath().setPriority(1) // Every third attack is fire breath!
                 )
