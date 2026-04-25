@@ -2,6 +2,7 @@ package com.redshift.ShadowDarkCalculator.actions.weapons;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.BaseAction;
+import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.HolyWeaponCondition;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
@@ -59,6 +60,18 @@ public class Weapon extends BaseAction implements Action {
         return true; // Melee and ranged attacks by default can always be performed.
     }
 
+    /**
+     * Returns the spell check roll... which does not include the spell check bonus if any.
+     */
+
+    protected int getAttackRoll(boolean disadvantaged) {
+        if (disadvantaged) {
+            return Math.min(D20.roll(), D20.roll());
+        } else {
+            return D20.roll();
+        }
+    }
+
     @Override
     public boolean isMagicalWeapon() {
         return magical;
@@ -77,7 +90,10 @@ public class Weapon extends BaseAction implements Action {
     }
 
     protected boolean performSingleTargetAttack(Creature actor, Creature target, String weaponName, Dice damageDice, RollModifier rollModifier) {
-        final int attackRoll = D20.roll();
+        boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
+        actor.removeCondition(DisadvantagedCondition.class.getName());
+
+        final int attackRoll = getAttackRoll(disadvantage);
 
         final boolean criticalSuccess = attackRoll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = attackRoll == RollOutcome.CRITICAL_FAILURE;
