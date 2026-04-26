@@ -24,6 +24,7 @@ public enum CreatureLabel {
     NECROMANCER,
     PALADIN,
     PRIEST,
+    RANGER,
     THIEF,
     WARLOCK,
     WITCH,

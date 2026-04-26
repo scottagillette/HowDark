@@ -3,7 +3,7 @@ package com.redshift.ShadowDarkCalculator.party;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
-import com.redshift.ShadowDarkCalculator.creatures.Player;
+import com.redshift.ShadowDarkCalculator.creatures.players.Player;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 
 import java.util.ArrayList;

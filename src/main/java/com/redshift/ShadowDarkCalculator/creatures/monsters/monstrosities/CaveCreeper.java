@@ -2,14 +2,12 @@ package com.redshift.ShadowDarkCalculator.creatures.monsters.monstrosities;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.creatures.*;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
-import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 

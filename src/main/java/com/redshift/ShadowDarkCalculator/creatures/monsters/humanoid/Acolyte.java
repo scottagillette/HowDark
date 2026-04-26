@@ -6,7 +6,7 @@ import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
-import com.redshift.ShadowDarkCalculator.creatures.Monster;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;

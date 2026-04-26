@@ -6,7 +6,7 @@ import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
-import com.redshift.ShadowDarkCalculator.creatures.UndeadMonster;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;

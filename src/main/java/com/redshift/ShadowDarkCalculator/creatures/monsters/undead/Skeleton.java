@@ -4,7 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
-import com.redshift.ShadowDarkCalculator.creatures.UndeadMonster;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;

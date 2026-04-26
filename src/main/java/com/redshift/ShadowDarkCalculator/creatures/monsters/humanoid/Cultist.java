@@ -4,7 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.SingleTargetDamageSpell;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
-import com.redshift.ShadowDarkCalculator.creatures.Monster;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import lombok.extern.slf4j.Slf4j;

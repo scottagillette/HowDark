@@ -1,7 +1,7 @@
 package com.redshift.ShadowDarkCalculator.creatures.monsters.beasts;
 
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
-import com.redshift.ShadowDarkCalculator.creatures.Monster;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import lombok.extern.slf4j.Slf4j;

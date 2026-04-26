@@ -3,7 +3,7 @@ package com.redshift.ShadowDarkCalculator.creatures.monsters.demons;
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
-import com.redshift.ShadowDarkCalculator.creatures.Monster;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;

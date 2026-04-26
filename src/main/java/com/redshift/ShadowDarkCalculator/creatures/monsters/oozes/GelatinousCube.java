@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.creatures.monsters.oozes;
 
 import com.redshift.ShadowDarkCalculator.creatures.*;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.EngulfedInAcidCondition;

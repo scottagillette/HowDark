@@ -1,18 +1,19 @@
 package com.redshift.ShadowDarkCalculator.creatures.players;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
+import com.redshift.ShadowDarkCalculator.creatures.BaseCreature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.targets.FocusFireTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 
 /**
- * Class specific player; Priest.
+ * Useful constructors for characters, not undead, not a monster, focus fire target selector.
  */
 
-public class Priest extends Player {
+public class Player extends BaseCreature {
 
-    public Priest(
+    public Player(
             String name,
             int level,
             Stats stats,
@@ -21,13 +22,11 @@ public class Priest extends Player {
             Action action) {
 
         super(name, level, stats, armorClass, hitPoints, action, new FocusFireTargetSelector());
-        getLabels().add(CreatureLabel.PRIEST);
-        getLabels().add(CreatureLabel.CASTER);
-        getLabels().add(CreatureLabel.HEALER);
-        getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.PLAYER);
+        getLabels().add(CreatureLabel.HUMANOID);
     }
 
-    public Priest(
+    public Player(
             String name,
             int level,
             Stats stats,
@@ -37,10 +36,8 @@ public class Priest extends Player {
             SingleTargetSelector singleTargetSelector) {
 
         super(name, level, stats, armorClass, hitPoints, action, singleTargetSelector);
-        getLabels().add(CreatureLabel.PRIEST);
-        getLabels().add(CreatureLabel.CASTER);
-        getLabels().add(CreatureLabel.HEALER);
-        getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.PLAYER);
+        getLabels().add(CreatureLabel.HUMANOID);
     }
 
 }

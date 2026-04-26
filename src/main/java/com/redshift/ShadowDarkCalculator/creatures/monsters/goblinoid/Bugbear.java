@@ -3,7 +3,7 @@ package com.redshift.ShadowDarkCalculator.creatures.monsters.goblinoid;
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
-import com.redshift.ShadowDarkCalculator.creatures.Monster;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;

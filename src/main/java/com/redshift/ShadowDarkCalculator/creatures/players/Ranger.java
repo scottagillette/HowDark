@@ -1,16 +1,14 @@
-package com.redshift.ShadowDarkCalculator.creatures;
+package com.redshift.ShadowDarkCalculator.creatures.players;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
+import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.targets.FocusFireTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 
-/**
- * Useful constructors for characters, not undead, not a monster, focus fire target selector.
- */
+public class Ranger extends Player {
 
-public class Player extends BaseCreature {
-
-    public Player(
+    public Ranger(
             String name,
             int level,
             Stats stats,
@@ -19,11 +17,11 @@ public class Player extends BaseCreature {
             Action action) {
 
         super(name, level, stats, armorClass, hitPoints, action, new FocusFireTargetSelector());
-        getLabels().add(CreatureLabel.PLAYER);
-        getLabels().add(CreatureLabel.HUMANOID);
+        getLabels().add(CreatureLabel.RANGER);
+        getLabels().add(CreatureLabel.FRONT_LINE);
     }
 
-    public Player(
+    public Ranger(
             String name,
             int level,
             Stats stats,
@@ -33,8 +31,8 @@ public class Player extends BaseCreature {
             SingleTargetSelector singleTargetSelector) {
 
         super(name, level, stats, armorClass, hitPoints, action, singleTargetSelector);
-        getLabels().add(CreatureLabel.PLAYER);
-        getLabels().add(CreatureLabel.HUMANOID);
+        getLabels().add(CreatureLabel.RANGER);
+        getLabels().add(CreatureLabel.FRONT_LINE);
     }
 
 }
