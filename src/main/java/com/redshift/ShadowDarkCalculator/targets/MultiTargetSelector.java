@@ -4,6 +4,10 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 
 import java.util.List;
 
+/**
+ * Defines a class of components that can select multiple target from a list of creatures.
+ */
+
 public interface MultiTargetSelector {
 
     /**
