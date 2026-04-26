@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.dragons.SwampDragon;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.dragons.SwampDragon;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
 

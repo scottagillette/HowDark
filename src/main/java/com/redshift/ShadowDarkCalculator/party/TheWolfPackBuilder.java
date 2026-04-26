@@ -5,10 +5,10 @@ import com.redshift.ShadowDarkCalculator.actions.spells.*;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
-import com.redshift.ShadowDarkCalculator.creatures.classes.Fighter;
-import com.redshift.ShadowDarkCalculator.creatures.classes.Priest;
-import com.redshift.ShadowDarkCalculator.creatures.classes.Thief;
-import com.redshift.ShadowDarkCalculator.creatures.classes.Wizard;
+import com.redshift.ShadowDarkCalculator.creatures.players.Fighter;
+import com.redshift.ShadowDarkCalculator.creatures.players.Priest;
+import com.redshift.ShadowDarkCalculator.creatures.players.Thief;
+import com.redshift.ShadowDarkCalculator.creatures.players.Wizard;
 
 import java.util.ArrayList;
 import java.util.List;

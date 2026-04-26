@@ -5,7 +5,7 @@ import com.redshift.ShadowDarkCalculator.actions.spells.*;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
-import com.redshift.ShadowDarkCalculator.creatures.classes.*;
+import com.redshift.ShadowDarkCalculator.creatures.players.*;
 
 import java.util.ArrayList;
 import java.util.List;

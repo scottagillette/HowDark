@@ -4,7 +4,7 @@ import com.redshift.ShadowDarkCalculator.conditions.DevouredCondition;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
-import com.redshift.ShadowDarkCalculator.creatures.undead.Skeleton;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.undead.Skeleton;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;

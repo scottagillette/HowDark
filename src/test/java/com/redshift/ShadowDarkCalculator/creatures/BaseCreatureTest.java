@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.creatures;
 
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
+import com.redshift.ShadowDarkCalculator.conditions.MageArmorCondition;
 import com.redshift.ShadowDarkCalculator.conditions.ShieldOfFaithCondition;
 import com.redshift.ShadowDarkCalculator.conditions.SleepingCondition;
 import com.redshift.ShadowDarkCalculator.conditions.UnconciousCondition;
@@ -42,6 +43,17 @@ public class BaseCreatureTest {
                 10,
                 WeaponBuilder.CLUB.build()
         );
+    }
+
+    @Test
+    void testUnconsciousPlayer() {
+        player.addCondition(new UnconciousCondition());
+        player.addCondition(new MageArmorCondition(10, 14)); // Make sure it doesn't get AC from this...
+
+        assertTrue(player.isUnconscious());
+        assertFalse(player.canAct());
+        assertEquals(player.getAC(), 0);
+        assertEquals(player.getStatus(), "Unconscious");
     }
 
     @Test
@@ -105,5 +117,8 @@ public class BaseCreatureTest {
         assertEquals(monster.getAC(), 12);
         monster.addCondition(new UnconciousCondition());
         assertEquals(monster.getAC(), 0);
+
+        player.addCondition(new MageArmorCondition(10, 14));
+        assertEquals(player.getAC(), 14);
     }
 }
