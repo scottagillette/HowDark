@@ -79,7 +79,8 @@ public class DiableriePartyBuilder implements PartyBuilder {
                         WeaponBuilder.STAFF.build().setPriority(1),
                         new MagicMissile().setPriority(2),
                         new Sleep().setPriority(10),
-                        new BurningHands().addAdvantage().setPriority(5)
+                        new BurningHands().addAdvantage().setPriority(5),
+                        new MageArmor().setPriority(100)
                 ),
                 new FocusFireTargetSelector()
         );

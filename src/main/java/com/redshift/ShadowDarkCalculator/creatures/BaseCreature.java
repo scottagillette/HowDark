@@ -65,7 +65,8 @@ public abstract class BaseCreature implements Creature {
 
     @Override
     public boolean canAct() {
-        final List<Condition> cantActConditions = conditions.values().stream()
+        final List<Condition> cantActConditions = conditions.values()
+                .stream()
                 .filter(condition -> !condition.canAct())
                 .toList();
 
@@ -74,15 +75,21 @@ public abstract class BaseCreature implements Creature {
 
     @Override
     public int getAC() {
-        final List<Condition> cantActConditions = conditions.values().stream()
+        final List<Condition> cantActConditions = conditions.values()
+                .stream()
                 .filter(condition -> !condition.canAct())
                 .toList();
 
         if (cantActConditions.isEmpty()) {
-            final ShieldOfFaithCondition condition = (ShieldOfFaithCondition) conditions.get(ShieldOfFaithCondition.class.getName());
+            final boolean hasShieldOfFaith = hasCondition(ShieldOfFaithCondition.class.getName());
+            final boolean hasMageArmor = hasCondition(MageArmorCondition.class.getName());
 
-            if (condition != null) {
+            if (hasShieldOfFaith) {
+                final ShieldOfFaithCondition condition = (ShieldOfFaithCondition) conditions.get(ShieldOfFaithCondition.class.getName());
                 return armorClass + condition.getAcBonus();
+            } else if (hasMageArmor) {
+                final MageArmorCondition condition = (MageArmorCondition) conditions.get(MageArmorCondition.class.getName());
+                return condition.getAC();
             } else {
                 return armorClass;
             }
