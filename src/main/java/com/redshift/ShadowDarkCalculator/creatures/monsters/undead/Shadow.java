@@ -26,8 +26,7 @@ public class Shadow extends UndeadMonster {
                 new PerformAllActions(
                         new DraiingTouch(),
                         new DraiingTouch()
-                ),
-                new RandomTargetSelector()
+                )
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
     }

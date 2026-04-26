@@ -21,8 +21,7 @@ public class Skeleton extends UndeadMonster {
                 new PerformOneAction(
                         WeaponBuilder.SHORTSWORD.build(),
                         WeaponBuilder.SHORTBOW.build()
-                ),
-                new RandomTargetSelector()
+                )
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
         getLabels().add(CreatureLabel.HUMANOID); // Not a humanoid?

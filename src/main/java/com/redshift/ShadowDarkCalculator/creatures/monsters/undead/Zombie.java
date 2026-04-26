@@ -22,8 +22,7 @@ public class Zombie extends UndeadMonster {
                 new Stats(14, 6, 14, 6, 6, 4),
                 8,
                 D8.roll() + D8.roll() + 2,
-                new Weapon("Slam", D6, RollModifier.STRENGTH),
-                new RandomTargetSelector()
+                new Weapon("Slam", D6, RollModifier.STRENGTH)
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
         getLabels().add(CreatureLabel.HUMANOID);
