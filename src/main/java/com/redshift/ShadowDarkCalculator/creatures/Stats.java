@@ -6,7 +6,7 @@ import lombok.Getter;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
 
 /**
- * Core stats for all creatures, including saving throws and increasing or decreasing states.
+ * Core stats for all creatures, including saving throws and increasing or decreasing stats.
  */
 
 @Getter
