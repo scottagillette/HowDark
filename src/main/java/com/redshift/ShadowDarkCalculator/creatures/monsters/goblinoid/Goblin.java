@@ -17,7 +17,10 @@ public class Goblin extends Monster {
                 new Stats(10,12,12,9,9,7),
                 12,
                 D8.roll() + 1,
-                new PerformOneAction(WeaponBuilder.DAGGER_DEX.build(), WeaponBuilder.SHORTBOW.build())
+                new PerformOneAction(
+                        WeaponBuilder.DAGGER_DEX.build(),
+                        WeaponBuilder.SHORTBOW.build()
+                )
         );
         getLabels().add(CreatureLabel.BACKLINE);
         getLabels().add(CreatureLabel.HUMANOID);
