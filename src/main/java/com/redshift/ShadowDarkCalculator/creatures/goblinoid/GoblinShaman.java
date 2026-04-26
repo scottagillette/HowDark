@@ -63,8 +63,7 @@ public class GoblinShaman extends Monster {
 
         @Override
         public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-            final SingleTargetSelector selector = new CasterTargetSelector();
-            final Creature target = selector.get(enemies);
+            final Creature target = new CasterTargetSelector().get(enemies);
 
             boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
             actor.removeCondition(DisadvantagedCondition.class.getName());
@@ -74,13 +73,7 @@ public class GoblinShaman extends Monster {
             final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
             final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
 
-            int spellCheckModifier = 0;
-
-            if (rollModifier.equals(RollModifier.INTELLIGENCE)) {
-                spellCheckModifier = actor.getStats().getIntelligenceModifier();
-            } else {
-                spellCheckModifier = actor.getStats().getWisdomModifier();
-            }
+            int spellCheckModifier = actor.getStats().getWisdomModifier();
 
             if (criticalFailure) {
                 lost = true; // Failed spell check!

@@ -5,7 +5,6 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Player;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
-import com.redshift.ShadowDarkCalculator.targets.FocusFireTargetSelector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,17 +15,18 @@ import java.util.List;
 
 public class FunnelPartyBuilder implements PartyBuilder {
 
-    private final List<Creature> creatures = new ArrayList<>();
+    @Override
+    public List<Creature> build() {
 
-    public FunnelPartyBuilder() {
+        final List<Creature> creatures = new ArrayList<>();
+
         final Creature glogor = new Player(
                 "Glogor the Half Orc",
                 0,
                 new Stats(15, 14, 8, 12, 10, 10),
                 12,
                 1,
-                WeaponBuilder.FIST.build(),
-                new FocusFireTargetSelector()
+                WeaponBuilder.FIST.build()
         );
         glogor.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(glogor);
@@ -37,8 +37,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 new Stats(16, 10, 10, 12, 14, 12),
                 10,
                 1,
-                WeaponBuilder.FIST.build(),
-                new FocusFireTargetSelector()
+                WeaponBuilder.FIST.build()
         );
         muddle.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(muddle);
@@ -49,8 +48,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 new Stats(10, 10, 12, 12, 14, 12),
                 10,
                 1,
-                WeaponBuilder.FIST.build(),
-                new FocusFireTargetSelector()
+                WeaponBuilder.FIST.build()
         );
         imol.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(imol);
@@ -61,8 +59,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 new Stats(12, 10, 10, 14, 14, 6),
                 10,
                 1,
-                WeaponBuilder.DAGGER_STR.build(),
-                new FocusFireTargetSelector()
+                WeaponBuilder.DAGGER_STR.build()
         );
         da.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(da);
@@ -73,8 +70,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 new Stats(14, 14, 10, 10, 10, 16),
                 12,
                 1,
-                WeaponBuilder.FIST.build(),
-                new FocusFireTargetSelector()
+                WeaponBuilder.FIST.build()
         );
         hod.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(hod);
@@ -85,8 +81,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 new Stats(10, 12, 12, 16, 8, 12),
                 11,
                 1,
-                WeaponBuilder.FIST.build(),
-                new FocusFireTargetSelector()
+                WeaponBuilder.FIST.build()
         );
         bakhrud.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(bakhrud);
@@ -97,8 +92,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 new Stats(6, 4, 8, 10, 14, 14),
                 10,
                 1,
-                WeaponBuilder.DAGGER_STR.build(),
-                new FocusFireTargetSelector()
+                WeaponBuilder.DAGGER_STR.build()
         );
         ghazshad.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(ghazshad);
@@ -109,8 +103,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 new Stats(10, 12, 10, 10, 10, 17),
                 10,
                 1,
-                WeaponBuilder.SHORTBOW.build(),
-                new FocusFireTargetSelector()
+                WeaponBuilder.SHORTBOW.build()
         );
         slogyark.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(slogyark);
@@ -121,8 +114,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 new Stats(15, 14, 8, 12, 10, 10),
                 12,
                 1,
-                WeaponBuilder.FIST.build(),
-                new FocusFireTargetSelector()
+                WeaponBuilder.FIST.build()
         );
         mufas.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(mufas);
@@ -133,8 +125,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 new Stats(16, 10, 10, 12, 14, 12),
                 10,
                 1,
-                WeaponBuilder.FIST.build(),
-                new FocusFireTargetSelector()
+                WeaponBuilder.FIST.build()
         );
         krukar.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(krukar);
@@ -145,8 +136,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 new Stats(10, 10, 12, 12, 14, 12),
                 10,
                 1,
-                WeaponBuilder.FIST.build(),
-                new FocusFireTargetSelector()
+                WeaponBuilder.FIST.build()
         );
         ufas.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(ufas);
@@ -157,21 +147,12 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 new Stats(12, 10, 10, 14, 14, 6),
                 10,
                 1,
-                WeaponBuilder.DAGGER_STR.build(),
-                new FocusFireTargetSelector()
+                WeaponBuilder.DAGGER_STR.build()
         );
         gregor.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(gregor);
-    }
 
-    @Override
-    public PartyBuilder add(Creature creature) {
-        creatures.add(creature);
-        return this;
-    }
-
-    @Override
-    public List<Creature> build() {
         return creatures;
     }
+
 }

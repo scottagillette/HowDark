@@ -1,16 +1,19 @@
-package com.redshift.ShadowDarkCalculator.creatures;
+package com.redshift.ShadowDarkCalculator.creatures.classes;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
+import com.redshift.ShadowDarkCalculator.creatures.Player;
+import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.targets.FocusFireTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 
 /**
- * Useful constructors for characters, not undead, not a monster, focus fire target selector.
+ * Class specific player; Thief.
  */
 
-public class Player extends BaseCreature {
+public class Thief extends Player {
 
-    public Player(
+    public Thief(
             String name,
             int level,
             Stats stats,
@@ -19,11 +22,10 @@ public class Player extends BaseCreature {
             Action action) {
 
         super(name, level, stats, armorClass, hitPoints, action, new FocusFireTargetSelector());
-        getLabels().add(CreatureLabel.PLAYER);
-        getLabels().add(CreatureLabel.HUMANOID);
+        getLabels().add(CreatureLabel.THIEF);
     }
 
-    public Player(
+    public Thief(
             String name,
             int level,
             Stats stats,
@@ -33,8 +35,7 @@ public class Player extends BaseCreature {
             SingleTargetSelector singleTargetSelector) {
 
         super(name, level, stats, armorClass, hitPoints, action, singleTargetSelector);
-        getLabels().add(CreatureLabel.PLAYER);
-        getLabels().add(CreatureLabel.HUMANOID);
+        getLabels().add(CreatureLabel.THIEF);
     }
 
 }

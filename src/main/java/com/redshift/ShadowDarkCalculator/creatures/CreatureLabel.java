@@ -1,12 +1,31 @@
 package com.redshift.ShadowDarkCalculator.creatures;
 
 public enum CreatureLabel {
+    // Position Types
     BACKLINE,
-    CASTER,
     FRONT_LINE,
-    HEALER,
-    HUMANOID,
-    MONSTER,
+
+    // Creature Type
     PLAYER,
-    UNDEAD
+    MONSTER,
+
+    // Creature Sub-Type
+    HUMANOID,
+    UNDEAD,
+
+    // Generic Spell Types
+    CASTER,
+    HEALER,
+
+    // Class Types
+    BARD,
+    FIGHTER,
+    KNIGHT_OF_ST_YDRIS,
+    NECROMANCER,
+    PALADIN,
+    PRIEST,
+    THIEF,
+    WARLOCK,
+    WITCH,
+    WIZARD
 }

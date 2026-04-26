@@ -3,20 +3,24 @@ package com.redshift.ShadowDarkCalculator.party;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.*;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
-import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
-import com.redshift.ShadowDarkCalculator.creatures.Player;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
+import com.redshift.ShadowDarkCalculator.creatures.classes.Fighter;
+import com.redshift.ShadowDarkCalculator.creatures.classes.Priest;
+import com.redshift.ShadowDarkCalculator.creatures.classes.Thief;
+import com.redshift.ShadowDarkCalculator.creatures.classes.Wizard;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TheWolfPackBuilder implements PartyBuilder {
 
-    private final List<Creature> creatures = new ArrayList<>();
+    @Override
+    public List<Creature> build() {
 
-    public TheWolfPackBuilder() {
-        final Creature rogar = new Player(
+        final List<Creature> creatures = new ArrayList<>();
+
+        final Creature rogar = new Fighter(
                 "Rogar Windbane",
                 1,
                 new Stats(15, 9, 12, 9, 6, 10),
@@ -24,10 +28,9 @@ public class TheWolfPackBuilder implements PartyBuilder {
                 9,
                 WeaponBuilder.LONGSWORD.build()
         );
-        rogar.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(rogar);
 
-        final Creature elyon = new Player(
+        final Creature elyon = new Wizard(
                 "Elyon Elothy",
                 1,
                 new Stats(7, 14, 9, 18, 10, 9),
@@ -40,11 +43,9 @@ public class TheWolfPackBuilder implements PartyBuilder {
                         new Sleep().setPriority(8)
                 )
         );
-        elyon.getLabels().add(CreatureLabel.BACKLINE);
-        elyon.getLabels().add(CreatureLabel.CASTER);
         creatures.add(elyon);
 
-        final Creature tarin = new Player(
+        final Creature tarin = new Thief(
                 "Tarin",
                 1,
                 new Stats(9, 18, 10, 9, 10, 10),
@@ -55,10 +56,9 @@ public class TheWolfPackBuilder implements PartyBuilder {
                         WeaponBuilder.DAGGER_DEX.build()
                 )
         );
-        tarin.getLabels().add(CreatureLabel.BACKLINE);
         creatures.add(tarin);
 
-        final Creature grimm = new Player(
+        final Creature grimm = new Priest(
                 "Grimm",
                 1,
                 new Stats(10, 10, 14, 8, 10, 8),
@@ -71,18 +71,9 @@ public class TheWolfPackBuilder implements PartyBuilder {
                         new TurnUndead().setPriority(4)
                 )
         );
-        grimm.getLabels().add(CreatureLabel.HEALER);
         creatures.add(grimm);
-    }
 
-    @Override
-    public PartyBuilder add(Creature creature) {
-        creatures.add(creature);
-        return this;
-    }
-
-    @Override
-    public List<Creature> build() {
         return creatures;
     }
+
 }

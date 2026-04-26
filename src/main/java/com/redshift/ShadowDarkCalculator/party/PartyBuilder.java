@@ -11,12 +11,6 @@ import java.util.List;
 public interface PartyBuilder {
 
     /**
-     * Fluent method to add a creature and return the builder.
-     */
-
-    PartyBuilder add(Creature creature);
-
-    /**
      * Build the party!
      */
 
