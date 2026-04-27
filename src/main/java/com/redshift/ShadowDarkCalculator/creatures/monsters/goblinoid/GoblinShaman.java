@@ -14,8 +14,7 @@ import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
-import com.redshift.ShadowDarkCalculator.targets.CasterTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.WizardTargetSelector;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -56,14 +55,13 @@ public class GoblinShaman extends Monster {
 
         @Override
         public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-            final SingleTargetSelector selector = new CasterTargetSelector();
-            final Creature wizard = selector.get(enemies);
+            final Creature wizard = new WizardTargetSelector().get(enemies);
             return (!lost && wizard != null);
         }
 
         @Override
         public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-            final Creature target = new CasterTargetSelector().get(enemies);
+            final Creature target = new WizardTargetSelector().get(enemies);
 
             boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
             actor.removeCondition(DisadvantagedCondition.class.getName());

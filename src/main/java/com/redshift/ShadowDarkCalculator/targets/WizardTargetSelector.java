@@ -7,24 +7,24 @@ import com.redshift.ShadowDarkCalculator.dice.SingleDie;
 import java.util.List;
 
 /**
- * Returns a random caster that is not unconscious or dead; or null if one not found.
+ * Returns a random Wizard that is conscious and alive; or null if one is not found.
  */
 
-public class CasterTargetSelector implements SingleTargetSelector {
+public class WizardTargetSelector implements SingleTargetSelector {
 
     @Override
     public Creature get(List<Creature> targetOptions) {
-        final List<Creature> casters = targetOptions.stream()
-                .filter(creature -> creature.getLabels().contains(CreatureLabel.CASTER))
+        final List<Creature> wizards = targetOptions.stream()
+                .filter(creature -> creature.getLabels().contains(CreatureLabel.WIZARD))
                 .filter(creature -> !creature.isUnconscious())
                 .filter(creature -> !creature.isDead())
                 .toList();
 
-        if (casters.isEmpty()) {
+        if (wizards.isEmpty()) {
             return null;
         } else {
-            final SingleDie dice = new SingleDie(casters.size());
-            return casters.get(dice.roll() - 1);
+            final SingleDie dice = new SingleDie(wizards.size());
+            return wizards.get(dice.roll() - 1);
         }
     }
 
