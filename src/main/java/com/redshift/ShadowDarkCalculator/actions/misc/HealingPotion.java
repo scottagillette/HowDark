@@ -4,7 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.targets.HealerTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.HealTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class HealingPotion extends BaseAction implements Action {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        final Creature healingTarget = new HealerTargetSelector().get(allies);
+        final Creature healingTarget = new HealTargetSelector().get(allies);
         return (!used && healingTarget != null);
     }
 
@@ -37,7 +37,7 @@ public class HealingPotion extends BaseAction implements Action {
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-        final Creature healingTarget = new HealerTargetSelector().get(allies);
+        final Creature healingTarget = new HealTargetSelector().get(allies);
 
         int damageHealed = D6.roll();
         healingTarget.healDamage(damageHealed);
