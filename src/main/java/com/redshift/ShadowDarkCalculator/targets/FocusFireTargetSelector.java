@@ -31,6 +31,7 @@ public class FocusFireTargetSelector implements SingleTargetSelector {
                 target = consciousNotDeadTargets.get(dice.roll() - 1);
             } else {
                 target = woundedCreatures.getFirst();
+                // TODO: Could sort by the most damaged?
             }
         }
 

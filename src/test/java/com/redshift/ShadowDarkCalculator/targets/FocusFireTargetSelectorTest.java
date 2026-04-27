@@ -6,6 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import java.util.List;
 
@@ -16,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 class FocusFireTargetSelectorTest {
 
     @Mock
@@ -37,14 +40,14 @@ class FocusFireTargetSelectorTest {
         Mockito.when(creature3.isUnconscious()).thenReturn(false);
         Mockito.when(creature4.isUnconscious()).thenReturn(false);
 
-//        Mockito.when(creature1.isDead()).thenReturn(false);
+        Mockito.when(creature1.isDead()).thenReturn(false);
         Mockito.when(creature2.isDead()).thenReturn(true); // Don't target...
         Mockito.when(creature3.isDead()).thenReturn(false);
         Mockito.when(creature4.isDead()).thenReturn(false);
 
-//        Mockito.when(creature1.isWounded()).thenReturn(true);
-//        Mockito.when(creature2.isWounded()).thenReturn(true);
-        Mockito.when(creature3.isWounded()).thenReturn(false); // Dobn't target...
+        Mockito.when(creature1.isWounded()).thenReturn(true);
+        Mockito.when(creature2.isWounded()).thenReturn(true);
+        Mockito.when(creature3.isWounded()).thenReturn(false); // Don't target...
         Mockito.when(creature4.isWounded()).thenReturn(true); // Must select
 
         final FocusFireTargetSelector focusFireTargetSelector = new FocusFireTargetSelector();
@@ -60,13 +63,13 @@ class FocusFireTargetSelectorTest {
         Mockito.when(creature3.isUnconscious()).thenReturn(false);
         Mockito.when(creature4.isUnconscious()).thenReturn(false);
 
-//        Mockito.when(creature1.isDead()).thenReturn(false);
+        Mockito.when(creature1.isDead()).thenReturn(false);
         Mockito.when(creature2.isDead()).thenReturn(true);
         Mockito.when(creature3.isDead()).thenReturn(false);
         Mockito.when(creature4.isDead()).thenReturn(false);
 
-//        Mockito.when(creature1.isWounded()).thenReturn(true);
-//        Mockito.when(creature2.isWounded()).thenReturn(true);
+        Mockito.when(creature1.isWounded()).thenReturn(true);
+        Mockito.when(creature2.isWounded()).thenReturn(true);
         Mockito.when(creature3.isWounded()).thenReturn(false); // Can select
         Mockito.when(creature4.isWounded()).thenReturn(false); // Can select
 
@@ -84,9 +87,9 @@ class FocusFireTargetSelectorTest {
         Mockito.when(creature4.isUnconscious()).thenReturn(true);
 
         Mockito.when(creature1.isDead()).thenReturn(true);
-//        Mockito.when(creature2.isDead()).thenReturn(false);
+        Mockito.when(creature2.isDead()).thenReturn(false);
         Mockito.when(creature3.isDead()).thenReturn(true);
-//        Mockito.when(creature4.isDead()).thenReturn(false);
+        Mockito.when(creature4.isDead()).thenReturn(false);
 
         final FocusFireTargetSelector focusFireTargetSelector = new FocusFireTargetSelector();
         final Creature target = focusFireTargetSelector.get(List.of(creature1, creature2, creature3, creature4));
