@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator;
 
 import com.redshift.ShadowDarkCalculator.creatures.monsters.dragons.SwampDragon;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.humanoid.Cultist;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
 
@@ -81,7 +82,8 @@ public class HowDark {
 //                    List.of(new Ankheg("Ankheg of Death"))
 //                    List.of(new FireDragon("Red Fire Dragon of death"))
 //                    List.of(new TarBat("Bat 1"), new TarBat("Bat 2"), new TarBat("Bat 3"), new TarBat("Bat 4"))
-                    List.of(new SwampDragon("Black dragon of death"))
+//                    List.of(new SwampDragon("Black dragon of death"))
+                    List.of(new Cultist("Cultist 1"), new Cultist("Cultist 2"), new Cultist("Cultist 3"), new Cultist("Cultist 4"), new Cultist("Cultist 5"))
                     );
 
             simulator.simulateEncounter();
