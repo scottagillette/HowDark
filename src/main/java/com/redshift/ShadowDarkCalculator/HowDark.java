@@ -1,6 +1,9 @@
 package com.redshift.ShadowDarkCalculator;
 
 import com.redshift.ShadowDarkCalculator.creatures.monsters.dragons.SwampDragon;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.goblinoid.Goblin;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.goblinoid.GoblinBoss;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.goblinoid.GoblinShaman;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.humanoid.Cultist;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
@@ -52,7 +55,7 @@ public class HowDark {
 //                    List.of(new HillGiant("Brundo the Crusher")
 //                    List.of(new HillGiant("Brundo the Crusher"), new HillGiant("Gunda the Smasher"))
 //                    List.of(new Goblin("Grek"), new Goblin("Pek"), new Goblin("Mek"), new Goblin("Rek"))
-//                    List.of(new GoblinBoss("Boss Grek"), new Goblin("Pek"), new Goblin("Mek"), new GoblinShaman("Rek"))
+                    List.of(new GoblinBoss("Boss Grek"), new Goblin("Pek"), new Goblin("Mek"), new GoblinShaman("Rek the shaman"))
 //                    List.of(new Ettercap("Ettercap 1"), new Ettercap("Ettercap 2"))
 //                    List.of(
 //                            new Skeleton("Skeleton 1"),
@@ -83,7 +86,7 @@ public class HowDark {
 //                    List.of(new FireDragon("Red Fire Dragon of death"))
 //                    List.of(new TarBat("Bat 1"), new TarBat("Bat 2"), new TarBat("Bat 3"), new TarBat("Bat 4"))
 //                    List.of(new SwampDragon("Black dragon of death"))
-                    List.of(new Cultist("Cultist 1"), new Cultist("Cultist 2"), new Cultist("Cultist 3"), new Cultist("Cultist 4"), new Cultist("Cultist 5"))
+//                    List.of(new Cultist("Cultist 1"), new Cultist("Cultist 2"), new Cultist("Cultist 3"), new Cultist("Cultist 4"), new Cultist("Cultist 5"))
                     );
 
             simulator.simulateEncounter();

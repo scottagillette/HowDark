@@ -14,8 +14,9 @@ import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.targets.WizardTargetSelector;
 
+import com.redshift.ShadowDarkCalculator.targets.AliveAwakeNotUndeadTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.CreatureLabelTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -55,13 +56,22 @@ public class GoblinShaman extends Monster {
 
         @Override
         public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-            final Creature wizard = new WizardTargetSelector().get(enemies);
-            return (!lost && wizard != null);
+            final List<Creature> candidateTargets = new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size());
+
+            final CreatureLabelTargetSelector wizardSelector = new CreatureLabelTargetSelector(CreatureLabel.WIZARD);
+            final List<Creature> wizards = wizardSelector.getTargets(candidateTargets, candidateTargets.size());
+
+            return (!lost && !wizards.isEmpty());
         }
 
         @Override
         public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-            final Creature target = new WizardTargetSelector().get(enemies);
+            final List<Creature> candidateTargets = new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size());
+
+            final CreatureLabelTargetSelector wizardSelector = new CreatureLabelTargetSelector(CreatureLabel.WIZARD);
+            final List<Creature> wizards = wizardSelector.getTargets(candidateTargets, candidateTargets.size());
+
+            final Creature target = wizards.getFirst();
 
             boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
             actor.removeCondition(DisadvantagedCondition.class.getName());
