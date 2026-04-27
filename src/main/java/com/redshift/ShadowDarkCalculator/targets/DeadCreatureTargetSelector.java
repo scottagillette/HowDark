@@ -15,7 +15,8 @@ public class DeadCreatureTargetSelector implements SingleTargetSelector {
     @Override
     public Creature get(List<Creature> targetOptions) {
         final List<Creature> deadCreatures = new java.util.ArrayList<>(targetOptions.stream()
-                .filter(creature -> creature.isDead() && !creature.hasCondition(DevouredCondition.class.getName()))
+                .filter(Creature::isDead)
+                .filter(creature -> !creature.hasCondition(DevouredCondition.class.getName()))
                 .toList());
 
         if (deadCreatures.isEmpty()) {
