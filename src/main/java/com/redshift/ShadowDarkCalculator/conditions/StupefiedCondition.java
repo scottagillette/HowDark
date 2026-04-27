@@ -31,7 +31,7 @@ public class StupefiedCondition implements Condition {
         rounds = Math.max(0, rounds - 1);
         if (rounds == 0) {
             log.info("{} is no longer dazed and confused.", creature.getName());
-            creature.getStats().setIntelligence(creature.getStats().getIntelligence());
+            creature.getStats().setCurrentIntelligence(creature.getStats().getIntelligence());
         }
         return (rounds == 0);
     }
@@ -39,7 +39,7 @@ public class StupefiedCondition implements Condition {
     @Override
     public void perform(Creature creature) {
         log.info("{} is still dazed and confused!", creature.getName());
-        creature.getStats().setIntelligence(1);
+        creature.getStats().setCurrentIntelligence(1);
         // No adverse effect... other than being dumb!
     }
 }

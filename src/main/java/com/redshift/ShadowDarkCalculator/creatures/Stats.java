@@ -2,6 +2,7 @@ package com.redshift.ShadowDarkCalculator.creatures;
 
 import com.redshift.ShadowDarkCalculator.dice.SingleDie;
 import lombok.Getter;
+import lombok.Setter;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
 
@@ -10,6 +11,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
  */
 
 @Getter
+@Setter
 public class Stats {
 
     private final int strength;
@@ -119,10 +121,6 @@ public class Stats {
 
     public int intelligenceSave() {
         return D20.roll() + getModifier(currentIntelligence);
-    }
-
-    public void setIntelligence(int intelligence) {
-        this.currentIntelligence = intelligence;
     }
 
     public int getWisdomModifier() {
