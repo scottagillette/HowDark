@@ -7,6 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import java.util.List;
 import java.util.Set;
@@ -18,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 class UndeadTargetSelectorTest {
 
     @Mock
@@ -32,12 +35,12 @@ class UndeadTargetSelectorTest {
     @Test
     void testEmptyList() {
         Mockito.when(creature1.isUnconscious()).thenReturn(false);
-        Mockito.when(creature2.isUnconscious()).thenReturn(true);
-//        Mockito.when(creature3.isUnconscious()).thenReturn(false);
+        Mockito.when(creature2.isUnconscious()).thenReturn(true); // Excluded
+        Mockito.when(creature3.isUnconscious()).thenReturn(false);
 
-        Mockito.when(creature1.isDead()).thenReturn(true);
-//        Mockito.when(creature2.isDead()).thenReturn(false);
-//        Mockito.when(creature3.isUnconscious()).thenReturn(false);
+        Mockito.when(creature1.isDead()).thenReturn(true); // Excluded
+        Mockito.when(creature2.isDead()).thenReturn(false);
+        Mockito.when(creature3.isDead()).thenReturn(false);
 
         Mockito.when(creature1.getLabels()).thenReturn(Set.of(CreatureLabel.UNDEAD));
         Mockito.when(creature2.getLabels()).thenReturn(Set.of(CreatureLabel.UNDEAD));
@@ -51,17 +54,17 @@ class UndeadTargetSelectorTest {
 
     @Test
     void testOneInList() {
-//        Mockito.when(creature1.isUnconscious()).thenReturn(true);
-//        Mockito.when(creature2.isUnconscious()).thenReturn(false);
+        Mockito.when(creature1.isUnconscious()).thenReturn(true); // Excluded
+        Mockito.when(creature2.isUnconscious()).thenReturn(false);
         Mockito.when(creature3.isUnconscious()).thenReturn(false);
 
-//        Mockito.when(creature1.isDead()).thenReturn(false);
-//        Mockito.when(creature2.isDead()).thenReturn(true);
+        Mockito.when(creature1.isDead()).thenReturn(false);
+        Mockito.when(creature2.isDead()).thenReturn(true);  // Excluded
         Mockito.when(creature3.isDead()).thenReturn(false);
 
-        Mockito.when(creature1.getLabels()).thenReturn(Set.of());
-        Mockito.when(creature2.getLabels()).thenReturn(Set.of());
-        Mockito.when(creature3.getLabels()).thenReturn(Set.of(CreatureLabel.UNDEAD));
+        Mockito.when(creature1.getLabels()).thenReturn(Set.of()); // Excluded
+        Mockito.when(creature2.getLabels()).thenReturn(Set.of(CreatureLabel.UNDEAD));
+        Mockito.when(creature3.getLabels()).thenReturn(Set.of(CreatureLabel.UNDEAD)); // Pick this one
 
         final UndeadTargetSelector undeadTargetSelector = new UndeadTargetSelector();
         final List<Creature> targets = undeadTargetSelector.getTargets(List.of(creature1, creature2, creature3), 1);
