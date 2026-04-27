@@ -6,7 +6,7 @@ import com.redshift.ShadowDarkCalculator.conditions.SleepingCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.targets.LivingTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.AliveAwakeNotUndeadTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -32,12 +32,12 @@ public class Sleep extends MultiTargetSpell {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        return (!lost && !new LivingTargetSelector().getTargets(enemies, enemies.size()).isEmpty());
+        return (!lost && !new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size()).isEmpty());
     }
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-        final List<Creature> livingCreatures = new LivingTargetSelector().getTargets(enemies, enemies.size());
+        final List<Creature> livingCreatures = new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size());
 
         // Number of targets...
         final int numberOfTargets = min(livingCreatures.size(), totalTargets.roll());

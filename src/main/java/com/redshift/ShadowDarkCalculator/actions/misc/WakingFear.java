@@ -5,7 +5,7 @@ import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.conditions.FearCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.targets.LivingTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.AliveAwakeNotUndeadTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class WakingFear extends BaseAction implements Action {
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         // Not dead, unconscious or undead targets.
-        final List<Creature> targets = new LivingTargetSelector().getTargets(enemies, enemies.size());
+        final List<Creature> targets = new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size());
         return !targets.isEmpty();
     }
 
@@ -39,7 +39,7 @@ public class WakingFear extends BaseAction implements Action {
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         // All creatures within near DC 15 CHA or flee in a random direction for 1d4 rounds.
 
-        final List<Creature> targets = new LivingTargetSelector().getTargets(enemies, enemies.size());
+        final List<Creature> targets = new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size());
 
         log.info("{} invokes Waking Fear to all living creatures!", actor.getName());
 

@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 @ExtendWith(MockitoExtension.class)
-class LivingTargetSelectorTest {
+class AliveAwakeNotUndeadTargetSelectorTest {
 
     @Mock
     private Creature creature1;
@@ -43,8 +43,8 @@ class LivingTargetSelectorTest {
         Mockito.when(creature2.getLabels()).thenReturn(Set.of());
         Mockito.when(creature3.getLabels()).thenReturn(Set.of(CreatureLabel.UNDEAD));
 
-        final LivingTargetSelector livingTargetSelector = new LivingTargetSelector();
-        final List<Creature> targets = livingTargetSelector.getTargets(List.of(creature1, creature2, creature3), 1);
+        final AliveAwakeNotUndeadTargetSelector aliveAwakeNotUndeadTargetSelector = new AliveAwakeNotUndeadTargetSelector();
+        final List<Creature> targets = aliveAwakeNotUndeadTargetSelector.getTargets(List.of(creature1, creature2, creature3), 1);
 
         assertEquals(0, targets.size());
     }
@@ -63,8 +63,8 @@ class LivingTargetSelectorTest {
         Mockito.when(creature2.getLabels()).thenReturn(Set.of());
         Mockito.when(creature3.getLabels()).thenReturn(Set.of(CreatureLabel.UNDEAD));
 
-        final LivingTargetSelector livingTargetSelector = new LivingTargetSelector();
-        final List<Creature> targets = livingTargetSelector.getTargets(List.of(creature1, creature2, creature3), 1);
+        final AliveAwakeNotUndeadTargetSelector aliveAwakeNotUndeadTargetSelector = new AliveAwakeNotUndeadTargetSelector();
+        final List<Creature> targets = aliveAwakeNotUndeadTargetSelector.getTargets(List.of(creature1, creature2, creature3), 1);
 
         assertEquals(1, targets.size());
         assertEquals(targets.getFirst(), creature2);
