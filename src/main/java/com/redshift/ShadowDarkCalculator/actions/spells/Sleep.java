@@ -18,8 +18,8 @@ import static java.lang.Math.min;
 
 /**
  * You weave a lulling spell that fills a near-sized cube extending from you. Living creatures in the area of effect
- * fall into a deep sleep if they are LV 2 or less. Vigorous shaking or being injured wakes them. (Note: This affects
- * D4 creatures.)
+ * fall into a deep sleep if they are LV 2 or less. Vigorous shaking or being injured wakes them.
+ * (Note: This affects D4 random enemies for balance reasons.)
  */
 
 @Slf4j
@@ -37,13 +37,13 @@ public class Sleep extends MultiTargetSpell {
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-        final List<Creature> livingCreatures = new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size());
+        final List<Creature> potentialTargets = new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size());
 
         // Number of targets...
-        final int numberOfTargets = min(livingCreatures.size(), totalTargets.roll());
+        final int numberOfTargets = min(potentialTargets.size(), totalTargets.roll());
 
         // Get list of targets...
-        List<Creature> targets = new ArrayList<>(livingCreatures);
+        List<Creature> targets = new ArrayList<>(potentialTargets);
         Collections.shuffle(targets);
         targets = targets.subList(0, numberOfTargets);
 
