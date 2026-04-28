@@ -90,7 +90,7 @@ public class GoblinShaman extends Monster {
                 lost = true; // Use bug brain Once
                 log.info("{} critically hits a spell on {} with a {}", actor.getName(), target.getName(), getName());
                 target.addCondition(new StupefiedCondition(D4.roll() + D4.roll()));
-            } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
+            } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
                 lost = true; // Use bug brain Once
                 log.info("{} hits a spell on {} with a {}", actor.getName(), target.getName(), getName());
                 target.addCondition(new StupefiedCondition(D4.roll()));

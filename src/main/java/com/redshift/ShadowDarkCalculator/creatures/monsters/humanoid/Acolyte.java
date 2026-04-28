@@ -74,7 +74,7 @@ public class Acolyte extends Monster {
                 int hitPoints = D4.roll() + D4.roll();
                 log.info("{} critically heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, getName());
                 target.healDamage(hitPoints);
-            } else if (spellCheckRoll + spellCheckModifier >= difficultyClass) {
+            } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
                 int hitPoints = D4.roll();
                 log.info("{} heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, getName());
                 target.healDamage(hitPoints);
