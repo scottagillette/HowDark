@@ -30,7 +30,7 @@ public class StupefiedCondition implements Condition {
     public boolean hasEnded(Creature creature) {
         rounds = Math.max(0, rounds - 1);
         if (rounds == 0) {
-            log.info("{} is no longer dazed and confused.", creature.getName());
+            log.info("{} is no longer stupefied.", creature.getName());
             creature.getStats().setCurrentIntelligence(creature.getStats().getIntelligence());
         }
         return (rounds == 0);
@@ -38,8 +38,13 @@ public class StupefiedCondition implements Condition {
 
     @Override
     public void perform(Creature creature) {
-        log.info("{} is still dazed and confused!", creature.getName());
+        log.info("{} is still stupefied!", creature.getName());
         creature.getStats().setCurrentIntelligence(1);
-        // No adverse effect... other than being dumb!
+
+        // Loose any spell focus while stupefied!
+        final SpellFocusCondition spellFocusCondition = (SpellFocusCondition) creature.removeCondition(SpellFocusCondition.class.getName());
+        if (spellFocusCondition != null) {
+            spellFocusCondition.end();
+        }
     }
 }

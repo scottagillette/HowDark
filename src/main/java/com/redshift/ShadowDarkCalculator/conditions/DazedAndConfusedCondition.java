@@ -3,8 +3,12 @@ package com.redshift.ShadowDarkCalculator.conditions;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Dazed and confused, cant act, removed when damaged.
+ */
+
 @Slf4j
-public class SleepingCondition implements Condition {
+public class DazedAndConfusedCondition implements Condition {
 
     @Override
     public boolean appliesToDeadCreatures() {
@@ -18,14 +22,14 @@ public class SleepingCondition implements Condition {
 
     @Override
     public boolean hasEnded(Creature creature) {
-        return false; // Only ends on damage...
+        return false; // Only ends on damage... or spell focus lost by caster, etc.
     }
 
     @Override
     public void perform(Creature creature) {
-        log.info("{} is sleeping and skipping their turn.", creature.getName());
+        log.info("{} is dazed and confused and skipping their turn.", creature.getName());
 
-        // Loose any spell focus while sleeping!
+        // Loose any spell focus while dazed and confused!
         final SpellFocusCondition spellFocusCondition = (SpellFocusCondition) creature.removeCondition(SpellFocusCondition.class.getName());
         if (spellFocusCondition != null) {
             spellFocusCondition.end();

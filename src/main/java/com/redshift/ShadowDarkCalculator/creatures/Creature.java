@@ -144,7 +144,7 @@ public interface Creature {
      * Removes the specified condition if the creature has it.
      */
 
-    void removeCondition(String conditionName);
+    Condition removeCondition(String conditionName);
 
     /**
      * Sets whether the creature is dead or not.

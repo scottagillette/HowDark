@@ -34,7 +34,12 @@ public class ParalyzedCondition implements Condition {
     @Override
     public void perform(Creature creature) {
         log.info("{} is paralyzed and skipping their turn.", creature.getName());
-        // No adverse effect... other than you cant act!
+
+        // Loose any spell focus while paralyzed!
+        final SpellFocusCondition spellFocusCondition = (SpellFocusCondition) creature.removeCondition(SpellFocusCondition.class.getName());
+        if (spellFocusCondition != null) {
+            spellFocusCondition.end();
+        }
     }
 
 }

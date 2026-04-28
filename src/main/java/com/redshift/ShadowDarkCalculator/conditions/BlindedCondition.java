@@ -39,5 +39,11 @@ public class BlindedCondition implements Condition {
     public void perform(Creature creature) {
         // Each turn add the Disadvantage condition so casting spells, attacking, etc. is at disadvantage.
         creature.addCondition(new DisadvantagedCondition());
+
+        // Loose any spell focus while blinded!
+        final SpellFocusCondition spellFocusCondition = (SpellFocusCondition) creature.removeCondition(SpellFocusCondition.class.getName());
+        if (spellFocusCondition != null) {
+            spellFocusCondition.end();
+        }
     }
 }
