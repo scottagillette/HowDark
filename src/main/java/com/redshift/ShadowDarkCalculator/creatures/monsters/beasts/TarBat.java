@@ -10,7 +10,10 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 /**
  * A pinwheeling bat that smells of sulfur. Excretes a black, tarry oil.
- * TODO: No Pyro ability implemented.
+ * AC 13, HP 4, ATK 1 bite +3 (1d4), MV near (fly)
+ * S -3, D +3, C +0, I -3, W +1, Ch -3, AL N, LV 1
+ * Pyro. Seeks open flames, ignites on contact with them to deal 1d4 damage. TODO: Implement Pyro
+ * Immune to fire.
  */
 
 @Slf4j
@@ -22,7 +25,7 @@ public class TarBat extends Monster {
                 1,
                 new Stats(4,16,10,4,12,4),
                 13,
-                D6.roll(),
+                D6.roll(), // Usually use a D8 for random first level mob.
                 new Weapon("Bite", D4, RollModifier.DEXTERITY)
         );
     }

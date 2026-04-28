@@ -6,12 +6,28 @@ import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
+
+/**
+ * Lesser, feral vampires born from the bite of their vampiric sires. Bloodthirsty and savage. They rarely leave
+ * a victim alive.
+ * AC 13 (leather), HP 25, ATK 2 bite +4 (1d8 + blood drain), MV near (climb)
+ * S +3, D +2, C +3, I -1, W +1, Ch +2, AL C, LV 5
+ *
+ * Greater Undead. Immune to morale checks. Only damaged by silver or magical sources.
+ *
+ * Blood Drain. Vampire heals 2d6 HP and target permanently loses 1d4 CON. At 0 CON, target dies and rises as a vampire
+ * spawn.
+ *
+ * Vampire. Must sleep in a coffin daily or loses 2d6 HP each day that can't be healed until resting in coffin.
+ *
+ * Takes 3d8 damage each round while in direct sunlight. Cannot be killed unless pierced through heart with a wooden
+ * stake while at 0 HP.
+ */
 
 @Slf4j
 public class VampireSpawn extends UndeadMonster {
@@ -67,8 +83,9 @@ public class VampireSpawn extends UndeadMonster {
                     // Loose 1d4 CON
                     int constitutionRemaining = target.getStats().constitutionDrain(D4);
                     if (constitutionRemaining == 0) {
-                        log.info("{} is drained of constitution to {} and DIES!", target.getName(), constitutionRemaining);
+                        log.info("{} is drained of constitution to {} and DIES! A new vampire spawn rises!", target.getName(), constitutionRemaining);
                         target.setDead(true);
+                        encounter.addFriendlyCreature(actor, new VampireSpawn("Vampire Spawn " + target.getName()));
                     } else {
                         log.info("{} is drained of constitution to {}", target.getName(), constitutionRemaining);
                     }

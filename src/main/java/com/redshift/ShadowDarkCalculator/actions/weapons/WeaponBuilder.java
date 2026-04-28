@@ -28,6 +28,7 @@ public enum WeaponBuilder {
     MACE("Mace", D6, RollModifier.STRENGTH),
     SHORTBOW("Short Bow", D4, RollModifier.DEXTERITY),
     SHORTSWORD("Shortsword", D6, RollModifier.STRENGTH),
+    SLING("Sling", D4, RollModifier.DEXTERITY),
     SPEAR_STR("Spear (STR)", D6, RollModifier.STRENGTH),
     SPEAR_DEX("Spear (DEX)", D6, RollModifier.DEXTERITY),
     STAFF("Staff", D4, RollModifier.STRENGTH),

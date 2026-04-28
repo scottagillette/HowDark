@@ -20,6 +20,13 @@ import java.util.List;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
+/**
+ * A religious trainee who knows basic rites and rituals.
+ * AC 12, HP 4, ATK 1 mace +1 (1d6) or 1 spell +2, MV near
+ * S +1, D -1, C +0, I -1, W +2, Ch +0, AL L, LV 1
+ * Healing Touch (WIS Spell). DC 11. Heal one creature within close for 1d4 HP.
+ */
+
 @Slf4j
 public class Acolyte extends Monster {
 
@@ -31,7 +38,7 @@ public class Acolyte extends Monster {
                 12,
                 D8.roll(),
                 new PerformOneAction(
-                        WeaponBuilder.MACE.build(),
+                        WeaponBuilder.MACE.build().setPriority(1),
                         new HealingTouch().setPriority(4)
                 )
         );

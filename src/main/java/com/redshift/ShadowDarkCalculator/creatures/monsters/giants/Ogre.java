@@ -11,6 +11,12 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
+/**
+ * A massive, dim-witted brute with tusks and a heavy frame. Often lords over goblins or orcs.
+ * AC 9, HP 30, ATK 2 great club +6 (2d6), MV near
+ * S +4, D -1, C +3, I -2, W -2, Ch -2, AL C, LV 6
+ */
+
 public class Ogre extends Monster {
 
     public Ogre(String name) {

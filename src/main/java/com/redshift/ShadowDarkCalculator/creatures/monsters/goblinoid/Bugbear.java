@@ -8,6 +8,13 @@ import com.redshift.ShadowDarkCalculator.creatures.Stats;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
+/**
+ * Brutish, bat-eared goblinoids covered in brown fur.
+ * AC 13 (leather + shield), HP 14, ATK 2 spiked mace +3 (1d6), MV near
+ * S +3, D +0, C +1, I -1, W +0, Ch -2, AL C, LV 3
+ * Stealthy. ADV on checks to sneak and hide.
+ */
+
 public class Bugbear extends Monster {
 
     public Bugbear(String name) {

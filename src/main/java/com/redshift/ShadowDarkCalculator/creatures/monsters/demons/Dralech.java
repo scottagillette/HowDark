@@ -11,6 +11,13 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
+/**
+ * As tall as two humans with a pair of curved horns, a shark's grin, and an axe of white bone.
+ * AC 13, HP 29, ATK 3 bone axe +5 (2d6), MV near
+ * S +4, D +1, C +2, I +0, W +0, Ch +1, AL C, LV 6
+ * Shatter. Destroy one non-magic gear instead of dealing damage. // TODO: Not Implemented
+ */
+
 public class Dralech extends Monster {
 
     public Dralech(String name) {

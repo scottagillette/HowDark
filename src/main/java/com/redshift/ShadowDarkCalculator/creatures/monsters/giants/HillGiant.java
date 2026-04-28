@@ -11,6 +11,12 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
+/**
+ * Fleshy hulks with leathery skin and broad, sloping foreheads. Cruel, boorish, and dim-witted.
+ * AC 11 (leather), HP 34, ATK 2 great club +6 (2d8) or 1 boulder (far) +6 (2d10), MV double near
+ * S +4, D +0, C +3, I -2, W -2, Ch -2, AL C, LV 7
+ */
+
 public class HillGiant extends Monster {
 
     public HillGiant(String name) {

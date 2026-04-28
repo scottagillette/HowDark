@@ -14,6 +14,16 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D10;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
+/**
+ * A pale, faceless man with elongated limbs and curved talons that rake the ground. Moves in quick stutters during
+ * each eye blink.
+ * AC 17, HP 61, ATK 3 finger needle +9 (2d10) and 1 terrify, MV near (teleport)
+ * S +5, D +7, C +3, I +4, W +4, Ch +5, AL C, LV 13
+ * Fearless. Immune to morale checks.
+ * Terrify. One target in near DC 15 CHA or paralyzed 1d4 rounds.
+ * Waking Nightmare. In place of attacks, all creatures within near DC 15 CHA or flee in a random direction for 1d4 rounds.
+ */
+
 public class TheWillowMan extends Monster {
 
     public TheWillowMan(String name) {

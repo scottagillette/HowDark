@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.humanoid.Apprentice;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.humanoid.Bittermold;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.undead.VampireSpawn;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
 
@@ -38,7 +39,7 @@ public class HowDark {
 //                            new Bittermold("Bittermold 1"),
 //                            new Bittermold("Bittermold 2"),
 //                            new Bittermold("Bittermold 3"),
-//                            new Bittermold("Bittermold 4")
+//                            new Bittermold("Bittermold 4"),
 //                            new Bittermold("Bittermold 3"),
 //                            new Bittermold("Bittermold 4"),
 //                            new Bittermold("Bittermold 5")
@@ -76,14 +77,14 @@ public class HowDark {
 //                    List.of(new Bugbear("Bugbear 1"), new Bugbear("Bugbear 2"))
 //                    List.of(new Wraith("Wraith"))
 //                    List.of(new Mummy("Mummy of Death"))
-//                    List.of(new VampireSpawn("Vampire Spawn"))
+                    List.of(new VampireSpawn("Vampire Spawn"))
 //                    List.of(new OwlBear("Rabid Owlbear"))
 //                    List.of(new Ankheg("Ankheg of Death"))
 //                    List.of(new FireDragon("Red Fire Dragon of death"))
 //                    List.of(new TarBat("Bat 1"), new TarBat("Bat 2"), new TarBat("Bat 3"), new TarBat("Bat 4"))
 //                    List.of(new SwampDragon("Black dragon of death"))
 //                    List.of(new Cultist("Cultist 1"), new Cultist("Cultist 2"), new Cultist("Cultist 3"), new Cultist("Cultist 4"), new Cultist("Cultist 5"))
-                    List.of(new Apprentice("Apprentice 1"), new Apprentice("Apprentice 2"), new Apprentice("Apprentice 3"), new Apprentice("Apprentice 4"))
+//                    List.of(new Apprentice("Apprentice 1"), new Apprentice("Apprentice 2"), new Apprentice("Apprentice 3"), new Apprentice("Apprentice 4"))
                     );
 
             simulator.simulateEncounter();

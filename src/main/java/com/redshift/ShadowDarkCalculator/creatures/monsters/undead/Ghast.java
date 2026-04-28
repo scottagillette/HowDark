@@ -9,12 +9,21 @@ import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
+
+/**
+ * Greater ghouls who retain the intelligence they had in life.
+ * AC 11, HP 20, ATK 2 claw +4 (1d8 + paralyze), MV near
+ * S +3, D +1, C +2, I +0, W +0, Ch +2, AL C, LV 4
+ * Undead. Immune to morale checks.
+ * Carrion Stench. Living creatures DC 12 CON the first time within near or DISADV on attacks and spellcasting
+ * for 5 rounds. // TODO: Not Implemented
+ * Paralyze. DC 12 CON or paralyzed 1d4 rounds.
+ */
 
 @Slf4j
 public class Ghast extends UndeadMonster {

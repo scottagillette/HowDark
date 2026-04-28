@@ -12,6 +12,15 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
+/**
+ * A wolfish hulk of razor bone and sinewy muscle. Black marrow tree sap drips from its jaws and the gaps
+ * in its bony plating.
+ * AC 15, HP 39, ATK 2 claws +7 (1d10) and 1 sap gout (near line) +5 (2d6 + sap), MV near (climb)
+ * S +4, D +4, C +3, I +2, W +3, Ch +3, AL C, LV 8
+ * Devour. Use turn to devour a humanoid body to regain 3d8 HP.
+ * Sap. DC 15 DEX check or stuck in place. Repeat check on turn to escape. // TODO: Sap not implemented
+ */
+
 public class MarrowFiend extends Monster {
 
     public MarrowFiend(String name) {

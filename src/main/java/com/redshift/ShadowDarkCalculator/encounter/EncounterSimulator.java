@@ -32,8 +32,9 @@ public class EncounterSimulator implements Encounter {
     private Double nextNewCreatureInitiative = Double.valueOf(-100);
 
     public EncounterSimulator(List<Creature> group1, List<Creature> group2) {
-        this.group1 = group1;
-        this.group2 = group2;
+        // Create a copy of the lists so they can be mutated.
+        this.group1 = new ArrayList<>(group1);
+        this.group2 = new ArrayList<>(group2);
     }
 
     /**
