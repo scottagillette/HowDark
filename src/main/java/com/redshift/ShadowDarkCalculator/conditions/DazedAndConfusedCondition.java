@@ -20,6 +20,12 @@ public class DazedAndConfusedCondition implements Condition {
         return false;
     }
 
+
+    @Override
+    public void end() {
+        // No specific behavior
+    }
+
     @Override
     public boolean hasEnded(Creature creature) {
         return false; // Only ends on damage... or spell focus lost by caster, etc.

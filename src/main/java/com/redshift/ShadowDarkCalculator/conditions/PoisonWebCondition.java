@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 
 /**
- * Takes D4 damage each round unless it makes a DEX save.
+ * Stuck in a poison web and take D4 damage each round unless it makes a DEX save.
  */
 
 @Slf4j
@@ -23,11 +23,16 @@ public class PoisonWebCondition implements Condition {
     }
 
     @Override
+    public void end() {
+        // No specific behavior
+    }
+
+    @Override
     public boolean hasEnded(Creature creature) {
         boolean saves = false;
 
         boolean canCheck = !creature.hasCondition(DyingCondition.class.getName()) &&
-                !creature.hasCondition(UnconciousCondition.class.getName()) &&
+                !creature.hasCondition(UnconsciousCondition.class.getName()) &&
                 !creature.hasCondition(ParalyzedCondition.class.getName());
 
         if (canCheck) {

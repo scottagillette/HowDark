@@ -28,8 +28,14 @@ public class MageArmorCondition implements Condition {
         return true;
     }
 
+    @Override
+    public void end() {
+        // No specific behavior
+        rounds = 0;
+    }
+
     /**
-     * Gets the AC of this spell.. 14 or 18.
+     * Gets the AC of this spell... 14 or 18.
      */
 
     public int getAC() {

@@ -3,6 +3,10 @@ package com.redshift.ShadowDarkCalculator.conditions;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Asleep and can't act!
+ */
+
 @Slf4j
 public class SleepingCondition implements Condition {
 
@@ -14,6 +18,11 @@ public class SleepingCondition implements Condition {
     @Override
     public boolean canAct() {
         return false;
+    }
+
+    @Override
+    public void end() {
+        // No specific behavior
     }
 
     @Override

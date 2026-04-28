@@ -3,6 +3,10 @@ package com.redshift.ShadowDarkCalculator.conditions;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Dying and can't act!
+ */
+
 @Slf4j
 public class DyingCondition implements Condition {
 
@@ -20,6 +24,12 @@ public class DyingCondition implements Condition {
     @Override
     public boolean canAct() {
         return false;
+    }
+
+    @Override
+    public void end() {
+        // No specific behavior
+        rounds = 0;
     }
 
     @Override

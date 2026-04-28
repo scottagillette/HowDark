@@ -33,6 +33,12 @@ public class ShieldOfFaithCondition implements Condition {
     }
 
     @Override
+    public void end() {
+        // No specific behavior
+        rounds = 0;
+    }
+
+    @Override
     public boolean hasEnded(Creature creature) {
         rounds = Math.max(0, rounds - 1);
         return (rounds == 0);
@@ -40,6 +46,6 @@ public class ShieldOfFaithCondition implements Condition {
 
     @Override
     public void perform(Creature creature) {
-        // does nothing.. see Creature.getAC() for implementation of effect.
+        // Does nothing... see Creature.getAC() for implementation of effect.
     }
 }

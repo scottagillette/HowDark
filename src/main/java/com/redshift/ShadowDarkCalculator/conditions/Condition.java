@@ -23,6 +23,12 @@ public interface Condition {
     boolean canAct();
 
     /**
+     * Signifies the condition should end.
+     */
+
+    void end();
+
+    /**
      * Ticks down any counters and checks to see if this condition has ended.
      */
 

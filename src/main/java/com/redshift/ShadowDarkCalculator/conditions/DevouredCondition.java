@@ -19,6 +19,11 @@ public class DevouredCondition implements Condition {
     }
 
     @Override
+    public void end() {
+        // No specific behavior
+    }
+
+    @Override
     public boolean hasEnded(Creature creature) {
         return false;
     }

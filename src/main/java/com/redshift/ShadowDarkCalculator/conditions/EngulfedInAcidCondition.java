@@ -4,6 +4,9 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Engulfed in acid and taking damage. IF they can act they can try to break free.
+ */
 @Slf4j
 public class EngulfedInAcidCondition implements Condition {
 
@@ -21,6 +24,11 @@ public class EngulfedInAcidCondition implements Condition {
     @Override
     public boolean canAct() {
         return true; // You can act to try to end this condition.
+    }
+
+    @Override
+    public void end() {
+        // No specific behavior
     }
 
     @Override

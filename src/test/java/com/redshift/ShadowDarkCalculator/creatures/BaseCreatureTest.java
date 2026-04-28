@@ -4,7 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.conditions.MageArmorCondition;
 import com.redshift.ShadowDarkCalculator.conditions.ShieldOfFaithCondition;
 import com.redshift.ShadowDarkCalculator.conditions.SleepingCondition;
-import com.redshift.ShadowDarkCalculator.conditions.UnconciousCondition;
+import com.redshift.ShadowDarkCalculator.conditions.UnconsciousCondition;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.players.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,7 +47,7 @@ public class BaseCreatureTest {
 
     @Test
     void testUnconsciousPlayer() {
-        player.addCondition(new UnconciousCondition());
+        player.addCondition(new UnconsciousCondition());
         player.addCondition(new MageArmorCondition(10, 14)); // Make sure it doesn't get AC from this...
 
         assertTrue(player.isUnconscious());
@@ -58,7 +58,7 @@ public class BaseCreatureTest {
 
     @Test
     void testUnconsciousMonster() {
-        monster.addCondition(new UnconciousCondition());
+        monster.addCondition(new UnconsciousCondition());
         monster.addCondition(new ShieldOfFaithCondition()); // Make sure it doesn't get AC from this...
 
         assertTrue(monster.isUnconscious());
@@ -106,7 +106,7 @@ public class BaseCreatureTest {
     void testTakingDamageDoesNotKillPlayer() {
         player.takeDamage(10, false, false, false, false);
         assertFalse(player.isDead());
-        assertTrue(player.hasCondition(UnconciousCondition.class.getName()));
+        assertTrue(player.hasCondition(UnconsciousCondition.class.getName()));
         assertFalse(player.canAct());
     }
 
@@ -115,7 +115,7 @@ public class BaseCreatureTest {
         assertEquals(monster.getAC(), 10);
         monster.addCondition(new ShieldOfFaithCondition());
         assertEquals(monster.getAC(), 12);
-        monster.addCondition(new UnconciousCondition());
+        monster.addCondition(new UnconsciousCondition());
         assertEquals(monster.getAC(), 0);
 
         player.addCondition(new MageArmorCondition(10, 14));

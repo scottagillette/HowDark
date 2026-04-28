@@ -3,8 +3,12 @@ package com.redshift.ShadowDarkCalculator.conditions;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Unconscious and can't act!
+ */
+
 @Slf4j
-public class UnconciousCondition implements Condition {
+public class UnconsciousCondition implements Condition {
 
     @Override
     public boolean appliesToDeadCreatures() {
@@ -14,6 +18,11 @@ public class UnconciousCondition implements Condition {
     @Override
     public boolean canAct() {
         return false;
+    }
+
+    @Override
+    public void end() {
+        // No specific behavior
     }
 
     @Override
