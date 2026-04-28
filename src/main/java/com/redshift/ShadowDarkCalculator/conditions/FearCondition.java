@@ -42,7 +42,12 @@ public class FearCondition implements Condition {
     @Override
     public void perform(Creature creature) {
         log.info("{} is feared and skipping their turn.", creature.getName());
-        // No ill effects... other than you are just running away!
+
+        // Loose any spell focus while running away in terror!
+        final SpellFocusCondition spellFocusCondition = (SpellFocusCondition) creature.removeCondition(SpellFocusCondition.class.getName());
+        if (spellFocusCondition != null) {
+            spellFocusCondition.end();
+        }
     }
 
 }

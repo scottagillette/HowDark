@@ -43,5 +43,6 @@ public class EngulfedInAcidCondition implements Condition {
         final int damage = damageDice.roll();
         log.info("{} is still engulfed and has been burned by ACID for {}", creature.getName(), damage);
         creature.takeDamage(damage, false, false, false, false);
+        // Damage may lose spell focus!
     }
 }

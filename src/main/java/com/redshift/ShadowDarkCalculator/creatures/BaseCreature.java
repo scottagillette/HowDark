@@ -197,8 +197,8 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
-    public void removeCondition(String conditionName) {
-        conditions.remove(conditionName);
+    public Condition removeCondition(String conditionName) {
+        return conditions.remove(conditionName);
     }
 
     @Override
@@ -214,32 +214,38 @@ public abstract class BaseCreature implements Creature {
 
     @Override
     public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold) {
-        // Damage awakens any creature!
+        // Damage awakens any creature sleeping or dazed!
         conditions.remove(SleepingCondition.class.getName());
+        conditions.remove(DazedAndConfusedCondition.class.getName());
+
+        // Check spell focus on damage
+        final SpellFocusCondition spellFocusCondition = (SpellFocusCondition)conditions.get(SpellFocusCondition.class.getName());
 
         currentHitPoints = Math.max(0, currentHitPoints - amount);
 
         if (currentHitPoints == 0) {
+            if (spellFocusCondition != null) {
+                spellFocusCondition.end(); // Spell focus ends when you die or unconcious!
+            }
             if (creatureLabels.contains(CreatureLabel.MONSTER)) {
-                // Zero hp give them the unconscious condition!
                 log.info("{} is dead!", name);
-                conditions.clear();
-                dead = true;
+                setDead(true);
             } else {
-                conditions.put(UnconciousCondition.class.getName(), new UnconciousCondition());
-
-                // Don't reset dying condition if they are already dying!
                 if (conditions.get(DyingCondition.class.getName()) == null) {
                     // Zero hp give them the unconscious and dying condition!
                     int deathRounds = D4.roll();
                     log.info("{} is unconscious and dying in {} rounds!", name, deathRounds);
+                    conditions.put(UnconciousCondition.class.getName(), new UnconciousCondition());
                     conditions.put(DyingCondition.class.getName(), new DyingCondition(deathRounds));
                 } else {
                     // Taking damage while dying makes you dead! Thx Dave!
                     log.info("{} is dead!", name);
-                    conditions.clear();
-                    dead = true;
+                    setDead(true);
                 }
+            }
+        } else {
+            if (spellFocusCondition != null) {
+                spellFocusCondition.hasEnded(this);
             }
         }
     }

@@ -24,7 +24,12 @@ public class UnconciousCondition implements Condition {
     @Override
     public void perform(Creature creature) {
         log.info("{} is unconscious and skipping their turn.", creature.getName());
-        // Has no effect... other than you most likely will be dead...
+
+        // Loose any spell focus while unconscious!
+        final SpellFocusCondition spellFocusCondition = (SpellFocusCondition) creature.removeCondition(SpellFocusCondition.class.getName());
+        if (spellFocusCondition != null) {
+            spellFocusCondition.end();
+        }
     }
 
 }
