@@ -38,7 +38,8 @@ public class Ghoul extends UndeadMonster {
     private static class ParalyzingClaw extends Weapon {
 
         public ParalyzingClaw() {
-            super("ParalyzingTouch Touch", D6, RollModifier.STRENGTH, false);
+            super("ParalyzingTouch Touch", D6, RollModifier.STRENGTH);
+            addSlashing();
         }
 
         @Override

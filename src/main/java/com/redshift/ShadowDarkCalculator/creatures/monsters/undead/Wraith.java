@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.creatures.monsters.undead;
 
+import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.creatures.*;
@@ -39,12 +40,12 @@ public class Wraith extends UndeadMonster {
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing) {
+    public void takeDamage(int amount, DamageType damageType) {
         // Take only silvered or magical damage!
-        final boolean takeDamage = silvered || magical;
+        final boolean takeDamage = damageType.isSilvered() || damageType.isMagical();
 
         if (takeDamage) {
-            super.takeDamage(amount, silvered, magical, fire, cold, piercing);
+            super.takeDamage(amount, damageType);
         } else {
             log.info("{} takes no damage from non-silvered, non-magical damage!", getName());
         }
@@ -53,8 +54,8 @@ public class Wraith extends UndeadMonster {
     private static class DeathTouch extends Weapon {
 
         public DeathTouch() {
-            super("Death Touch", D10, RollModifier.DEXTERITY, false);
-            addAttackRollBonus(2);
+            super("Death Touch", D10, RollModifier.DEXTERITY);
+            addSlashing().addAttackRollBonus(2);
         }
 
         @Override

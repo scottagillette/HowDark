@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.creatures.monsters.beasts;
 
+import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.VoidSpiderPoisonedCondition;
@@ -41,13 +42,13 @@ public class VoidSpider extends Monster {
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing) {
+    public void takeDamage(int amount, DamageType damageType) {
         // Impervious. Immune to cold.
 
-        if (cold) {
+        if (damageType.isCold()) {
             log.info("{} resists all cold damage!", this.getName());
         } else {
-            super.takeDamage(amount, silvered, magical, fire, cold, piercing);
+            super.takeDamage(amount, damageType);
         }
     }
 
@@ -55,8 +56,8 @@ public class VoidSpider extends Monster {
     private static class PoisonBite extends Weapon {
 
         private PoisonBite() {
-            super("Bite", D8, RollModifier.DEXTERITY, true);
-            addAttackRollBonus(1);
+            super("Bite", D8, RollModifier.DEXTERITY);
+            addPiercing().addAttackRollBonus(1);
         }
 
         @Override

@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.creatures.monsters.oozes;
 
+import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
@@ -37,19 +38,20 @@ public class GelatinousCube extends Monster {
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing) {
-        if (piercing) {
+    public void takeDamage(int amount, DamageType damageType) {
+        if (damageType.isPiercing()) {
             log.info("{} seems to take less damage than normal from piercing!", getName());
-            super.takeDamage((amount / 2), silvered, magical, fire, cold, true);
+            super.takeDamage((amount / 2), damageType);
         } else {
-            super.takeDamage(amount, silvered, magical, fire, cold, false);
+            super.takeDamage(amount, damageType);
         }
     }
 
     public static class AcidTouch extends Weapon {
 
         public AcidTouch() {
-            super("Acid Touch", D8, RollModifier.STRENGTH, false);
+            super("Acid Touch", D8, RollModifier.STRENGTH);
+            addAcid();
         }
 
         @Override

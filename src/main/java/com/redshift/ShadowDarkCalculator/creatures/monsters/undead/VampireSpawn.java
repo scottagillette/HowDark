@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.creatures.monsters.undead;
 
+import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.creatures.*;
@@ -49,12 +50,12 @@ public class VampireSpawn extends UndeadMonster {
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing) {
+    public void takeDamage(int amount, DamageType damageType) {
         // Take only silvered or magical damage!
-        final boolean takeDamage = silvered || magical;
+        final boolean takeDamage = damageType.isSilvered() || damageType.isMagical();
 
         if (takeDamage) {
-            super.takeDamage(amount, silvered, magical, fire, cold, piercing);
+            super.takeDamage(amount, damageType);
         } else {
             log.info("{} takes no damage from non-silvered, non-magical damage!", getName());
         }
@@ -63,8 +64,8 @@ public class VampireSpawn extends UndeadMonster {
     private static class Bite extends Weapon {
 
         public Bite() {
-            super("Bite", D8, RollModifier.STRENGTH, true);
-            addAttackRollBonus(1);
+            super("Bite", D8, RollModifier.STRENGTH);
+            addPiercing().addAttackRollBonus(1);
         }
 
         @Override

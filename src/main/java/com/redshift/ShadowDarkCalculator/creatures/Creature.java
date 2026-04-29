@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.creatures;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
+import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.conditions.Condition;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
@@ -153,10 +154,10 @@ public interface Creature {
     void setDead(boolean dead);
 
     /**
-     * Instructs the creature to take an amount of damage silvered or magical.
+     * Instructs the creature to take an amount of damage  and various aspects of damage types.
      */
 
-    void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing);
+    void takeDamage(int amount, DamageType damageType);
 
     /**
      * Triggers any begin of turn triggers... count down timers, etc.

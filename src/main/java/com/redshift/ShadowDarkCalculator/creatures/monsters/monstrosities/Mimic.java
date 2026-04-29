@@ -48,8 +48,8 @@ public class Mimic extends Monster {
     private static class Bite extends Weapon {
 
         private Bite() {
-            super("Bite", D8, RollModifier.STRENGTH, true);
-            addAttackRollBonus(3);
+            super("Bite", D8, RollModifier.STRENGTH);
+            addPiercing().addAttackRollBonus(3);
         }
 
         @Override
@@ -89,7 +89,7 @@ public class Mimic extends Monster {
                     if (mimic.getCurrentStuckTarget().hasCondition(mimic.currentStuckCondition)) {
                         final int damage = D8.roll();
                         log.info("{} AUTO-HITS on stuck target {} for {} damage!", actor.getName(), mimic.getCurrentStuckTarget().getName(), damage);
-                        mimic.getCurrentStuckTarget().takeDamage(damage, false, false, false, false, false);
+                        mimic.getCurrentStuckTarget().takeDamage(damage, damageType);
                     } else {
                         mimic.setCurrentStuckTarget(null); // Find a new target the current one broke free!
                         mimic.setCurrentStuckCondition(null);

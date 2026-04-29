@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
+import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -59,11 +60,11 @@ public class Withermark extends Spell {
         } else if (criticalSuccess) {
             int damage = D4.roll() + D4.roll();
             log.info("{} critically hits a spell on {} with a {} for {} damage", actor.getName(), target.getName(), getName(), damage);
-            target.takeDamage(damage, false, true, false, false, false);
+            target.takeDamage(damage, new DamageType().addMagical());
         } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             int damage = D4.roll();
             log.info("{} hits a spell on {} with a {} for {} damage", actor.getName(), target.getName(), getName(), damage);
-            target.takeDamage(damage, false, true, false, false, false);
+            target.takeDamage(damage, new DamageType().addMagical());
         } else {
             lost = true; // Failed spell check!
             log.info("{} MISSES the spell check with a {}", actor.getName(), getName());

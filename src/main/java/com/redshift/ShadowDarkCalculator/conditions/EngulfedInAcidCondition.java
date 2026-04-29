@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.conditions;
 
+import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +51,7 @@ public class EngulfedInAcidCondition implements Condition {
     public void perform(Creature creature) {
         final int damage = damageDice.roll();
         log.info("{} is still engulfed and has been burned by ACID for {}", creature.getName(), damage);
-        creature.takeDamage(damage, false, false, false, false, false);
+        creature.takeDamage(damage, new DamageType().addAcid());
         // Damage may lose spell focus!
     }
 }

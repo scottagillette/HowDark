@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.conditions;
 
+import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,6 +52,6 @@ public class PoisonWebCondition implements Condition {
     public void perform(Creature creature) {
         final int damage = D4.roll();
         log.info("{} takes poison damage of {}", creature.getName(), damage);
-        creature.takeDamage(damage, false, false, false, false, false);
+        creature.takeDamage(damage, new DamageType().addPoison());
     }
 }

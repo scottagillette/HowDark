@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.creatures;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
+import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.conditions.*;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
@@ -213,7 +214,7 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing) {
+    public void takeDamage(int amount, DamageType damageType) {
         // Damage awakens any creature sleeping or dazed!
         conditions.remove(SleepingCondition.class.getName());
         conditions.remove(DazedAndConfusedCondition.class.getName());

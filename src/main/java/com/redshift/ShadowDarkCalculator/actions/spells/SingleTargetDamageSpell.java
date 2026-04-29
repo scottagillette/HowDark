@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
+import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
@@ -18,11 +19,14 @@ import java.util.List;
 public abstract class SingleTargetDamageSpell extends Spell {
 
     protected final Dice damageDice;
+    protected final DamageType damageType = new DamageType();
 
     public SingleTargetDamageSpell(String name, int difficultyClass, RollModifier rollModifier, Dice damageDice, boolean advantage) {
         super(name, difficultyClass, rollModifier);
         this.damageDice = damageDice;
         this.spellCheckAdvantage = advantage;
+
+        damageType.addMagical(); // All damage spells should be magical.
     }
 
     @Override
@@ -68,11 +72,11 @@ public abstract class SingleTargetDamageSpell extends Spell {
         } else if (criticalSuccess) {
             int damage = damageDice.roll() + damageDice.roll();
             log.info("{} critically hits a spell on {} with a {}: damage={}", actor.getName(), target.getName(), spell.getName(), damage);
-            target.takeDamage(damage, false, true, false, false, false);
+            target.takeDamage(damage, damageType);
         } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             int damage = damageDice.roll();
             log.info("{} hits a spell on {} with a {}: damage={}", actor.getName(), target.getName(), spell.getName(), damage);
-            target.takeDamage(damage, false, true, false, false, false);
+            target.takeDamage(damage, damageType);
         } else {
             lost = true; // Failed spell check!
             log.info("{} MISSES the spell check with a {}", actor.getName(), spell.getName());

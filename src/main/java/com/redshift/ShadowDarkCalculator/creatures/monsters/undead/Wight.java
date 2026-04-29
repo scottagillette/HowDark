@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.creatures.monsters.undead;
 
+import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
@@ -40,12 +41,12 @@ public class Wight extends UndeadMonster {
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing) {
+    public void takeDamage(int amount, DamageType damageType) {
         // Take only silvered or magical damage!
-        final boolean takeDamage = silvered || magical;
+        final boolean takeDamage = damageType.isSilvered() || damageType.isMagical();
 
         if (takeDamage) {
-            super.takeDamage(amount, silvered, magical, fire, cold, piercing);
+            super.takeDamage(amount, damageType);
         } else {
             log.info("{} takes no damage from non-silvered, non-magical damage!", getName());
         }
@@ -55,7 +56,8 @@ public class Wight extends UndeadMonster {
 
         public LifeDrain() {
             // Life drain does no damage but only drains life!
-            super("Life Drain", new ZeroDice(), RollModifier.STRENGTH, false);
+            super("Life Drain", new ZeroDice(), RollModifier.STRENGTH);
+            addSlashing();
         }
 
         @Override

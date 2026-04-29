@@ -2,6 +2,7 @@ package com.redshift.ShadowDarkCalculator.actions.weapons;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.BaseAction;
+import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.HolyWeaponCondition;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -26,19 +27,26 @@ public class Weapon extends BaseAction implements Action {
     protected final RollModifier rollModifier;
     protected int attackRollBonus = 0;
     protected int damageRollBonus = 0;
-    protected boolean magical;
-    protected boolean silvered;
-    protected boolean piercing;
 
-    public Weapon(String name, Dice damageDice, RollModifier rollModifier, boolean piercing) {
+    protected DamageType damageType = new DamageType();
+
+    public Weapon(String name, Dice damageDice, RollModifier rollModifier) {
         super(name);
         this.damageDice = damageDice;
         this.rollModifier = rollModifier;
-        this.piercing = piercing;
     }
 
+    public Weapon addAcid() {
+        this.damageType.addAcid();
+        return this;
+    }
     public Weapon addAttackRollBonus(int attackRollBonus) {
         this.attackRollBonus = this.attackRollBonus + attackRollBonus;
+        return this;
+    }
+
+    public Weapon addCrushing() {
+        damageType.addCrushing();
         return this;
     }
 
@@ -48,12 +56,27 @@ public class Weapon extends BaseAction implements Action {
     }
 
     public Weapon addMagical() {
-        this.magical = true;
+        damageType.addMagical();
+        return this;
+    }
+
+    public Weapon addPiercing() {
+        damageType.addPiercing();
+        return this;
+    }
+
+    public Weapon addPoison() {
+        damageType.addPoison();
         return this;
     }
 
     public Weapon addSilvered() {
-        this.silvered = true;
+        damageType.addSilvered();
+        return this;
+    }
+
+    public Weapon addSlashing() {
+        damageType.addSlashing();
         return this;
     }
 
@@ -76,7 +99,7 @@ public class Weapon extends BaseAction implements Action {
 
     @Override
     public boolean isMagicalWeapon() {
-        return magical;
+        return damageType.isMagical();
     }
 
     @Override
@@ -111,11 +134,11 @@ public class Weapon extends BaseAction implements Action {
         }
 
         int tempDamageRollBonus = damageRollBonus; // May get boosted up based on Holy Weapon
-        boolean tempMagical = magical; // The item maybe magical already...
+        boolean tempMagical = damageType.isMagical(); // The item maybe magical already...
 
         // Enable holy weapon attack bonus and damage bonus if the actor has this condition AD this weapon isn't
         // magical already.
-        if (actor.hasCondition(HolyWeaponCondition.class.getName()) && !magical) {
+        if (actor.hasCondition(HolyWeaponCondition.class.getName()) && !damageType.isMagical()) {
             attackRollModifier = attackRollModifier + 1;
             tempDamageRollBonus = tempDamageRollBonus + 1;
             tempMagical = true; // The weapon is magical while holy weapon is enabled.
@@ -127,12 +150,12 @@ public class Weapon extends BaseAction implements Action {
         } else if (criticalSuccess) {
             int damage = damageDice.roll() + damageDice.roll() + tempDamageRollBonus;
             log.info("{} critically hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), weaponName, damage);
-            target.takeDamage(damage, silvered, tempMagical, false, false, piercing);
+            target.takeDamage(damage, damageType);
             return true;
         } else if (attackRoll + attackRollModifier + attackRollBonus >= target.getAC()) {
             int damage = damageDice.roll() + tempDamageRollBonus;
             log.info("{} hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), weaponName, damage);
-            target.takeDamage(damage, silvered, tempMagical, false, false, piercing);
+            target.takeDamage(damage, damageType);
             return true;
         } else {
             // Miss

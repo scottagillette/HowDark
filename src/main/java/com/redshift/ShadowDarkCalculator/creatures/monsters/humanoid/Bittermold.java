@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.creatures.monsters.humanoid;
 
+import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
@@ -36,12 +37,12 @@ public class Bittermold extends Monster {
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing) {
-        if (piercing) {
+    public void takeDamage(int amount, DamageType damageType) {
+        if (damageType.isPiercing()) {
             log.info("{} seems to take less damage than normal from piercing!", getName());
-            super.takeDamage((amount / 2), silvered, magical, fire, cold, true);
+            super.takeDamage((amount / 2), damageType);
         } else {
-            super.takeDamage(amount, silvered, magical, fire, cold, false);
+            super.takeDamage(amount, damageType);
         }
     }
 }

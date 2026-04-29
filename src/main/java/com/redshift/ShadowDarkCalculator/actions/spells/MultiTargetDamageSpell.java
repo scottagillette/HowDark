@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
+import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
@@ -23,23 +24,20 @@ public abstract class MultiTargetDamageSpell extends Spell {
 
     protected final Dice totalTargets;
     protected final Dice damageDice;
-    private final boolean fireDamage;
-    private final boolean coldDamage;
+    protected final DamageType damageType = new DamageType();
 
     public MultiTargetDamageSpell(
             String name,
             int difficultyClass,
             RollModifier rollModifier,
             Dice damageDice,
-            Dice totalTargets,
-            boolean fireDamage,
-            boolean coldDamage) {
+            Dice totalTargets) {
 
         super(name, difficultyClass, rollModifier);
         this.damageDice = damageDice;
         this.totalTargets = totalTargets;
-        this.fireDamage = fireDamage;
-        this.coldDamage = coldDamage;
+
+        damageType.addMagical(); // All damage spells should be magical.
     }
 
     @Override
@@ -89,13 +87,13 @@ public abstract class MultiTargetDamageSpell extends Spell {
             int damage = damageDice.roll() + damageDice.roll();
             targets.forEach(target -> {
                 log.info("{} critically hits a spell on {} with a {}: damage={}", actor.getName(), target.getName(), spell.getName(), damage);
-                target.takeDamage(damage, false, true, fireDamage, coldDamage, false);
+                target.takeDamage(damage, damageType);
             });
         } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             int damage = damageDice.roll();
             targets.forEach(target -> {
                 log.info("{} hits a spell on {} with a {}: damage={}", actor.getName(), target.getName(), spell.getName(), damage);
-                target.takeDamage(damage, false, true, fireDamage, coldDamage, false);
+                target.takeDamage(damage, damageType);
             });
         } else {
             lost = true; // Failed spell check!

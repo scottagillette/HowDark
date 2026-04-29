@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
+import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.FearCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
@@ -56,7 +57,7 @@ public class TurnUndead extends MultiTargetSpell {
                     if ((spellCheckRoll + spellCheckModifier) - save >= 10) {
                         if (actor.getLevel() >= target.getLevel()) {
                             log.info("{} hits a spell on {} with a {} and is destroyed!", actor.getName(), target.getName(), getName());
-                            target.takeDamage(999, false, true, false, false, false); // Destroyed!
+                            target.takeDamage(999, new DamageType().addMagical()); // Destroyed!
                         } else {
                             target.addCondition(new FearCondition()); // Just feared
                             log.info("{} hits a spell on {} with a {} and feared!", actor.getName(), target.getName(), getName());

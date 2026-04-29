@@ -11,43 +11,56 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 public enum WeaponBuilder {
 
-    BASTARD_SWORD_1H("Bastard Sword 1h", D8, RollModifier.STRENGTH, false),
-    BASTARD_SWORD_2H("Bastard Sword 2h", D10, RollModifier.STRENGTH, false),
-    CLUB("Club", D4, RollModifier.STRENGTH, false),
-    CROSSBOW("Crossbow", D6, RollModifier.DEXTERITY, true),
-    DAGGER_DEX("Dagger (DEX)", D4, RollModifier.DEXTERITY, true),
-    DAGGER_STR("Dagger (STR)", D4, RollModifier.STRENGTH, true),
-    FIST("Fist", D1, RollModifier.STRENGTH, false),
-    GREATAXE_1H("Greataxe 1h", D8, RollModifier.STRENGTH, false),
-    GREATAXE_2H("Greataxe 2h", D10, RollModifier.STRENGTH, false),
-    GREATSWORD("Greatsword 2h", D12, RollModifier.STRENGTH, false),
-    JAVELIN_STR("Javelin", D4, RollModifier.STRENGTH, true),
-    JAVELIN_DEX("Javelin", D4, RollModifier.DEXTERITY, true),
-    LONGBOW("Longbow", D8, RollModifier.DEXTERITY, true),
-    LONGSWORD("Longsword", D8, RollModifier.STRENGTH, false),
-    MACE("Mace", D6, RollModifier.STRENGTH, false),
-    SHORTBOW("Short Bow", D4, RollModifier.DEXTERITY, true),
-    SHORTSWORD("Shortsword", D6, RollModifier.STRENGTH, false),
-    SLING("Sling", D4, RollModifier.DEXTERITY, false),
-    SPEAR_STR("Spear (STR)", D6, RollModifier.STRENGTH, true),
-    SPEAR_DEX("Spear (DEX)", D6, RollModifier.DEXTERITY, true),
-    STAFF("Staff", D4, RollModifier.STRENGTH, false),
-    WARHAMMER("Warhammer", D10, RollModifier.STRENGTH, false);
+    BASTARD_SWORD_1H("Bastard Sword 1h", D8, RollModifier.STRENGTH, WeaponType.SLASHING),
+    BASTARD_SWORD_2H("Bastard Sword 2h", D10, RollModifier.STRENGTH, WeaponType.SLASHING),
+    CLUB("Club", D4, RollModifier.STRENGTH, WeaponType.CRUSHING),
+    CROSSBOW("Crossbow", D6, RollModifier.DEXTERITY, WeaponType.PIERCING),
+    DAGGER_DEX("Dagger (DEX)", D4, RollModifier.DEXTERITY, WeaponType.PIERCING),
+    DAGGER_STR("Dagger (STR)", D4, RollModifier.STRENGTH, WeaponType.PIERCING),
+    FIST("Fist", D1, RollModifier.STRENGTH, WeaponType.PIERCING),
+    GREATAXE_1H("Greataxe 1h", D8, RollModifier.STRENGTH, WeaponType.SLASHING),
+    GREATAXE_2H("Greataxe 2h", D10, RollModifier.STRENGTH, WeaponType.SLASHING),
+    GREATSWORD("Greatsword 2h", D12, RollModifier.STRENGTH, WeaponType.SLASHING),
+    JAVELIN_STR("Javelin", D4, RollModifier.STRENGTH, WeaponType.PIERCING),
+    JAVELIN_DEX("Javelin", D4, RollModifier.DEXTERITY, WeaponType.PIERCING),
+    LONGBOW("Longbow", D8, RollModifier.DEXTERITY, WeaponType.PIERCING),
+    LONGSWORD("Longsword", D8, RollModifier.STRENGTH, WeaponType.SLASHING),
+    MACE("Mace", D6, RollModifier.STRENGTH, WeaponType.CRUSHING),
+    SHORTBOW("Short Bow", D4, RollModifier.DEXTERITY, WeaponType.PIERCING),
+    SHORTSWORD("Shortsword", D6, RollModifier.STRENGTH, WeaponType.SLASHING),
+    SLING("Sling", D4, RollModifier.DEXTERITY, WeaponType.CRUSHING),
+    SPEAR_STR("Spear (STR)", D6, RollModifier.STRENGTH, WeaponType.PIERCING),
+    SPEAR_DEX("Spear (DEX)", D6, RollModifier.DEXTERITY, WeaponType.PIERCING),
+    STAFF("Staff", D4, RollModifier.STRENGTH, WeaponType.CRUSHING),
+    WARHAMMER("Warhammer", D10, RollModifier.STRENGTH, WeaponType.CRUSHING);
 
     private final String name;
     private final Dice dice;
     private final RollModifier rollModifier;
-    private final boolean piercing;
+    private final WeaponType weaponType;
 
-    WeaponBuilder(String name, Dice dice, RollModifier rollModifier, boolean piercing) {
+    WeaponBuilder(String name, Dice dice, RollModifier rollModifier, WeaponType weaponType) {
         this.name = name;
         this.dice = dice;
         this.rollModifier = rollModifier;
-        this.piercing = piercing;
+        this.weaponType = weaponType;
     }
 
     public Weapon build() {
-        return new Weapon(name, dice, rollModifier, piercing);
+        switch (weaponType) {
+            case WeaponType.CRUSHING -> {
+                return new Weapon(name, dice, rollModifier).addCrushing();
+            }
+            case WeaponType.PIERCING -> {
+                return new Weapon(name, dice, rollModifier).addPiercing();
+            }
+            case WeaponType.SLASHING -> {
+                return new Weapon(name, dice, rollModifier).addSlashing();
+            }
+            default -> {
+                return new Weapon(name, dice, rollModifier);
+            }
+        }
     }
 
 }

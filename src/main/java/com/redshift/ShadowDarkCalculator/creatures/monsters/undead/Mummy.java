@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.creatures.monsters.undead;
 
+import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.creatures.*;
@@ -41,15 +42,15 @@ public class Mummy extends UndeadMonster {
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing) {
+    public void takeDamage(int amount, DamageType damageType) {
         // Damage for fire or magical only.
-        if (fire) {
+        if (damageType.isFire()) {
             // Double damage for fire!
             log.info("{} takes DOUBLE damage from fire!", getName());
-            super.takeDamage(amount + amount, silvered, magical, fire, cold, piercing);
+            super.takeDamage(amount + amount, damageType);
         } else {
-            if (magical) {
-                super.takeDamage(amount, silvered, magical, fire, cold, piercing);
+            if (damageType.isMagical()) {
+                super.takeDamage(amount, damageType);
             } else {
                 log.info("{} takes no damage from non-magical, non-fire damage!", getName());
             }
@@ -60,8 +61,8 @@ public class Mummy extends UndeadMonster {
     private static class RotTouch extends Weapon {
 
         public RotTouch() {
-            super("Rot Touch", D10, RollModifier.STRENGTH, false);
-            addAttackRollBonus(5);
+            super("Rot Touch", D10, RollModifier.STRENGTH);
+            addSlashing().addAttackRollBonus(5);
         }
 
         @Override
@@ -74,7 +75,7 @@ public class Mummy extends UndeadMonster {
                 } else {
                     // HP 0
                     log.info("{} is drained of health and drops to 0 hit points!", target.getName());
-                    target.takeDamage(999, false, false, false, false, false);
+                    target.takeDamage(999, damageType.addMagical());
                 }
             }
 

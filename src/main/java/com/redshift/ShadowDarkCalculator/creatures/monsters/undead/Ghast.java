@@ -45,7 +45,8 @@ public class Ghast extends UndeadMonster {
     private static class ParalyzingClaw extends Weapon {
 
         public ParalyzingClaw() {
-            super("Paralyzing Claw", D8, RollModifier.STRENGTH, false);
+            super("Paralyzing Claw", D8, RollModifier.STRENGTH);
+            addSlashing();
         }
 
         @Override

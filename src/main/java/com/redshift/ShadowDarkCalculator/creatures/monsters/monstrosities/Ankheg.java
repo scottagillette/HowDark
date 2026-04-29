@@ -28,8 +28,8 @@ public class Ankheg extends Monster {
                 14,
                 D8.roll() + D8.roll() + D8.roll() + 1,
                 new PerformOneAction(
-                        new Weapon("Bite", D6, RollModifier.STRENGTH, true).addAttackRollBonus(2).setPriority(2),
-                        new Weapon("Acid Spray", new MultipleDice(D6, D6), RollModifier.STRENGTH, false).addAttackRollBonus(2).setPriority(1)
+                        new Weapon("Bite", D6, RollModifier.STRENGTH).addPiercing().addAttackRollBonus(2).setPriority(2),
+                        new Weapon("Acid Spray", new MultipleDice(D6, D6), RollModifier.STRENGTH).addAcid().addAttackRollBonus(2).setPriority(1)
                 )
         );
         getLabels().add(CreatureLabel.FRONT_LINE);

@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.creatures.monsters.undead;
 
+import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
@@ -29,20 +30,20 @@ public class Zombie extends UndeadMonster {
                 new Stats(14, 6, 14, 6, 6, 4),
                 8,
                 D8.roll() + D8.roll() + 2,
-                new Weapon("Slam", D6, RollModifier.STRENGTH, false)
+                new Weapon("Slam", D6, RollModifier.STRENGTH).addCrushing()
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
         getLabels().add(CreatureLabel.HUMANOID);
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing) {
+    public void takeDamage(int amount, DamageType damageType) {
         // Does the Zombie get back up after taking damage!
 
-        super.takeDamage(amount, silvered, magical, fire, cold, piercing);
+        super.takeDamage(amount, damageType);
 
         // If it is now dead from a non-magical source and has not already returned...
-        if (isDead() && !magical && !returned) {
+        if (isDead() && !damageType.isMagical() && !returned) {
             if (this.getStats().constitutionSave(15)) {
                 log.info("{} seems to be killed ... but slowly stands back up!", getName());
                 setDead(false);

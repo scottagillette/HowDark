@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.creatures.monsters.dragons;
 
 import com.redshift.ShadowDarkCalculator.actions.BaseAction;
+import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
@@ -36,10 +37,10 @@ public class FireDragon extends Monster {
                 new MultipleDice(D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8).roll() + 4,
                 new PerformOneAction(
                         new PerformAllActions(
-                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH, false).addAttackRollBonus(5),
-                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH, false).addAttackRollBonus(5),
-                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH, false).addAttackRollBonus(5),
-                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH, false).addAttackRollBonus(5)
+                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH).addSlashing().addAttackRollBonus(5),
+                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH).addSlashing().addAttackRollBonus(5),
+                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH).addSlashing().addAttackRollBonus(5),
+                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH).addSlashing().addAttackRollBonus(5)
                         ).setPriority(2),
                         new FireBreath().setPriority(1) // Every third attack is fire breath!
                 )
@@ -47,13 +48,13 @@ public class FireDragon extends Monster {
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing) {
+    public void takeDamage(int amount, DamageType damageType) {
         // Fireblood. Fire immune.
 
-        if (fire) {
+        if (damageType.isFire()) {
             log.info("{} resists all fire damage!", this.getName());
         } else {
-            super.takeDamage(amount, silvered, magical, fire, cold, piercing);
+            super.takeDamage(amount, damageType);
         }
     }
 
@@ -81,15 +82,19 @@ public class FireDragon extends Monster {
         @Override
         public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
             enemies.forEach(creature -> {
-                if (creature.isUnconscious() || creature.isDead()) {
-                    // No damage
+                if (creature.isUnconscious()) {
+                    final int damage = new MultipleDice(D6, D6, D6, D6, D6, D6, D6, D6, D6, D6).roll();
+                    log.info("{} is unconscious and is burned by Fire Breath for {} damage!", creature.getName(), damage);
+                    creature.takeDamage(damage, new DamageType().addFire());
+                } else if (creature.isDead()) {
+                    // Ignore damage for dead cretures
                 } else {
                     if (creature.getStats().dexteritySave(15)) {
                         log.info("{} makes a DEX save and takes no damage from Fire Breath!", creature.getName());
                     } else {
                         final int damage = new MultipleDice(D6, D6, D6, D6, D6, D6, D6, D6, D6, D6).roll();
                         log.info("{} is burned by Fire Breath for {} damage!", creature.getName(), damage);
-                        creature.takeDamage(damage, false, false, true, false, false);
+                        creature.takeDamage(damage, new DamageType().addFire());
                     }
                 }
             });

@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.creatures.monsters.dragons;
 
 import com.redshift.ShadowDarkCalculator.actions.BaseAction;
+import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
@@ -36,9 +37,9 @@ public class SwampDragon extends Monster {
                 new MultipleDice(D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8).roll() + 4,
                 new PerformOneAction(
                         new PerformAllActions(
-                                new Weapon("Rending Claws", new MultipleDice(D10, D10), RollModifier.STRENGTH, false).addAttackRollBonus(3),
-                                new Weapon("Rending Claws", new MultipleDice(D10, D10), RollModifier.STRENGTH, false).addAttackRollBonus(3),
-                                new Weapon("Rending Claws", new MultipleDice(D10, D10), RollModifier.STRENGTH, false).addAttackRollBonus(3)
+                                new Weapon("Rending Claws", new MultipleDice(D10, D10), RollModifier.STRENGTH).addSlashing().addAttackRollBonus(3),
+                                new Weapon("Rending Claws", new MultipleDice(D10, D10), RollModifier.STRENGTH).addSlashing().addAttackRollBonus(3),
+                                new Weapon("Rending Claws", new MultipleDice(D10, D10), RollModifier.STRENGTH).addSlashing().addAttackRollBonus(3)
                         ).setPriority(2),
                         new SmogBreath().setPriority(1) // Every third attack is smog breath!
                 )
@@ -79,7 +80,7 @@ public class SwampDragon extends Monster {
                     } else {
                         final int damage = new MultipleDice(D10, D10).roll();
                         log.info("{} is damaged by Smog Breath for {} damage and is blinded for 1 round!", creature.getName(), damage);
-                        creature.takeDamage(damage, false, false, true, false, false);
+                        creature.takeDamage(damage, new DamageType()); // No special damage type
                         creature.addCondition(new BlindedCondition(1));
                     }
                 }
