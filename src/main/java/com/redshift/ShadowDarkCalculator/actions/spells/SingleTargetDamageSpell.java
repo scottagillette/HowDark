@@ -68,11 +68,11 @@ public abstract class SingleTargetDamageSpell extends Spell {
         } else if (criticalSuccess) {
             int damage = damageDice.roll() + damageDice.roll();
             log.info("{} critically hits a spell on {} with a {}: damage={}", actor.getName(), target.getName(), spell.getName(), damage);
-            target.takeDamage(damage, false, true, false, false);
+            target.takeDamage(damage, false, true, false, false, false);
         } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             int damage = damageDice.roll();
             log.info("{} hits a spell on {} with a {}: damage={}", actor.getName(), target.getName(), spell.getName(), damage);
-            target.takeDamage(damage, false, true, false, false);
+            target.takeDamage(damage, false, true, false, false, false);
         } else {
             lost = true; // Failed spell check!
             log.info("{} MISSES the spell check with a {}", actor.getName(), spell.getName());

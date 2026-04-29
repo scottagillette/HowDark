@@ -29,7 +29,7 @@ public class CaveCreeper extends Monster {
                 12,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll(),
                 new PerformAllActions(
-                        new Weapon("Bite", D6, RollModifier.STRENGTH).addAttackRollBonus(1),
+                        new Weapon("Bite", D6, RollModifier.STRENGTH, true).addAttackRollBonus(1),
                         new Tentacles()
                 )
         );
@@ -39,7 +39,7 @@ public class CaveCreeper extends Monster {
     public static class Tentacles extends Weapon {
 
         public Tentacles() {
-            super("Tentacles", D8, RollModifier.STRENGTH);
+            super("Tentacles", D8, RollModifier.STRENGTH, false);
             addAttackRollBonus(1);
         }
 

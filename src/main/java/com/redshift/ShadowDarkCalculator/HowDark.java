@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.VoidSpider;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.oozes.GelatinousCube;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
 
@@ -30,7 +30,7 @@ public class HowDark {
 //                    new TheWolfPackBuilder().build(),
 //                    new TheCrabCrushersBuilderv1().build(),
                     new DiableriePartyBuilder().build(),
-                    List.of(new VoidSpider("Void Spider of the Deep"))
+//                    List.of(new VoidSpider("Void Spider of the Deep"))
 //                    List.of(new TheWillowMan("The Willow Man"))
 //                    List.of(new MarrowFiend("Death Fiend"))
 //                    List.of(new Dralech("Death Bringer"))
@@ -48,7 +48,7 @@ public class HowDark {
 //                    List.of(new Ogre("'Ulak The Crusher' Ogre"))
 //                    List.of(new CaveCreeper("Cave Creeper"))
 //                    List.of(new CaveCreeper("Cave Creeper 1"), new CaveCreeper("Cave Creeper 2"))
-//                    List.of(new GelatinousCube("'Gelatinous Cube'"))
+                    List.of(new GelatinousCube("Gelatinous Cube"))
 //                    List.of(new HillGiant("Brundo the Crusher")
 //                    List.of(new HillGiant("Brundo the Crusher"), new HillGiant("Gunda the Smasher"))
 //                    List.of(new Goblin("Grek"), new Goblin("Pek"), new Goblin("Mek"), new Goblin("Rek"))

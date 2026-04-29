@@ -56,7 +56,7 @@ public class TurnUndead extends MultiTargetSpell {
                     if ((spellCheckRoll + spellCheckModifier) - save >= 10) {
                         if (actor.getLevel() >= target.getLevel()) {
                             log.info("{} hits a spell on {} with a {} and is destroyed!", actor.getName(), target.getName(), getName());
-                            target.takeDamage(999, false, true, false, false); // Destroyed!
+                            target.takeDamage(999, false, true, false, false, false); // Destroyed!
                         } else {
                             target.addCondition(new FearCondition()); // Just feared
                             log.info("{} hits a spell on {} with a {} and feared!", actor.getName(), target.getName(), getName());

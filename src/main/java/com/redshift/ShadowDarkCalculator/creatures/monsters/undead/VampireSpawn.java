@@ -49,12 +49,12 @@ public class VampireSpawn extends UndeadMonster {
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold) {
+    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing) {
         // Take only silvered or magical damage!
         final boolean takeDamage = silvered || magical;
 
         if (takeDamage) {
-            super.takeDamage(amount, silvered, magical, fire, cold);
+            super.takeDamage(amount, silvered, magical, fire, cold, piercing);
         } else {
             log.info("{} takes no damage from non-silvered, non-magical damage!", getName());
         }
@@ -63,7 +63,7 @@ public class VampireSpawn extends UndeadMonster {
     private static class Bite extends Weapon {
 
         public Bite() {
-            super("Bite", D8, RollModifier.STRENGTH);
+            super("Bite", D8, RollModifier.STRENGTH, true);
             addAttackRollBonus(1);
         }
 

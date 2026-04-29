@@ -40,12 +40,12 @@ public class Wight extends UndeadMonster {
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold) {
+    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing) {
         // Take only silvered or magical damage!
         final boolean takeDamage = silvered || magical;
 
         if (takeDamage) {
-            super.takeDamage(amount, silvered, magical, fire, cold);
+            super.takeDamage(amount, silvered, magical, fire, cold, piercing);
         } else {
             log.info("{} takes no damage from non-silvered, non-magical damage!", getName());
         }
@@ -55,7 +55,7 @@ public class Wight extends UndeadMonster {
 
         public LifeDrain() {
             // Life drain does no damage but only drains life!
-            super("Life Drain", new ZeroDice(), RollModifier.STRENGTH);
+            super("Life Drain", new ZeroDice(), RollModifier.STRENGTH, false);
         }
 
         @Override

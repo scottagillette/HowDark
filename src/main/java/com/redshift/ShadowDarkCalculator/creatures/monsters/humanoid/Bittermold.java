@@ -5,8 +5,7 @@ import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
-
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
@@ -14,9 +13,10 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
  * A staring, stooped human that scuttles along. Pale, wet skin.
  * AC 12, HP 5, ATK 1 short sword +1 (1d6) or 1 sling (far) +2 (1d4), MV near
  * S +1, D +2, C +1, I +0, W +0, Ch +0, AL C, LV 1
- * Rubbery. Half damage from stabbing weapons. // TODO: No Implemented
+ * Rubbery. Half damage from stabbing weapons.
  */
 
+@Slf4j
 public class Bittermold extends Monster {
 
     public Bittermold(String name) {
@@ -35,4 +35,13 @@ public class Bittermold extends Monster {
         getLabels().add(CreatureLabel.HUMANOID);
     }
 
+    @Override
+    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing) {
+        if (piercing) {
+            log.info("{} seems to take less damage than normal from piercing!", getName());
+            super.takeDamage((amount / 2), silvered, magical, fire, cold, true);
+        } else {
+            super.takeDamage(amount, silvered, magical, fire, cold, false);
+        }
+    }
 }

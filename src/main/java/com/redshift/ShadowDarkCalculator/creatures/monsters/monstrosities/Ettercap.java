@@ -34,8 +34,8 @@ public class Ettercap extends Monster {
                 D8.roll() + D8.roll() + D8.roll() + 1,
                 new PerformOneAction(
                         new PerformAllActions(
-                                new Weapon("Bite", D6, RollModifier.DEXTERITY),
-                                new Weapon("Bite", D6, RollModifier.DEXTERITY)
+                                new Weapon("Bite", D6, RollModifier.DEXTERITY, true),
+                                new Weapon("Bite", D6, RollModifier.DEXTERITY, true)
                         ),
                         new PoisonWeb()
                 )
@@ -46,7 +46,7 @@ public class Ettercap extends Monster {
     public static class PoisonWeb extends Weapon {
 
         public PoisonWeb() {
-            super("Poison Web", new ZeroDice(), RollModifier.DEXTERITY);
+            super("Poison Web", new ZeroDice(), RollModifier.DEXTERITY, false);
         }
 
         @Override

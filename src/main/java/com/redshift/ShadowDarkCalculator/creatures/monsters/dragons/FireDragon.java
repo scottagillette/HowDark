@@ -36,10 +36,10 @@ public class FireDragon extends Monster {
                 new MultipleDice(D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8).roll() + 4,
                 new PerformOneAction(
                         new PerformAllActions(
-                                new Weapon("Rend", new MultipleDice(D12, D12), RollModifier.STRENGTH).addAttackRollBonus(5),
-                                new Weapon("Rend", new MultipleDice(D12, D12), RollModifier.STRENGTH).addAttackRollBonus(5),
-                                new Weapon("Rend", new MultipleDice(D12, D12), RollModifier.STRENGTH).addAttackRollBonus(5),
-                                new Weapon("Rend", new MultipleDice(D12, D12), RollModifier.STRENGTH).addAttackRollBonus(5)
+                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH, false).addAttackRollBonus(5),
+                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH, false).addAttackRollBonus(5),
+                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH, false).addAttackRollBonus(5),
+                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH, false).addAttackRollBonus(5)
                         ).setPriority(2),
                         new FireBreath().setPriority(1) // Every third attack is fire breath!
                 )
@@ -47,13 +47,13 @@ public class FireDragon extends Monster {
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold) {
+    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing) {
         // Fireblood. Fire immune.
 
         if (fire) {
             log.info("{} resists all fire damage!", this.getName());
         } else {
-            super.takeDamage(amount, silvered, magical, fire, cold);
+            super.takeDamage(amount, silvered, magical, fire, cold, piercing);
         }
     }
 
@@ -89,7 +89,7 @@ public class FireDragon extends Monster {
                     } else {
                         final int damage = new MultipleDice(D6, D6, D6, D6, D6, D6, D6, D6, D6, D6).roll();
                         log.info("{} is burned by Fire Breath for {} damage!", creature.getName(), damage);
-                        creature.takeDamage(damage, false, false, true, false);
+                        creature.takeDamage(damage, false, false, true, false, false);
                     }
                 }
             });

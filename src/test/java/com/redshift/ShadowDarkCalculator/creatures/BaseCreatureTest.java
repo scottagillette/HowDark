@@ -69,7 +69,7 @@ public class BaseCreatureTest {
 
     @Test
     void testWounded() {
-        monster.takeDamage(5, false, false, false, false);
+        monster.takeDamage(5, false, false, false, false, false);
         assertTrue(monster.isWounded());
 
         monster.healDamage(5);
@@ -78,7 +78,7 @@ public class BaseCreatureTest {
 
     @Test
     void testBloodied() {
-        monster.takeDamage(5, false, false, false, false);
+        monster.takeDamage(5, false, false, false, false, false);
         assertTrue(monster.isBloodied());
 
         monster.healDamage(1);
@@ -89,14 +89,14 @@ public class BaseCreatureTest {
     void testTakingDamageWakesUpCreature() {
         monster.addCondition(new SleepingCondition());
 
-        monster.takeDamage(1, false, false, false, false);
+        monster.takeDamage(1, false, false, false, false, false);
         assertFalse(monster.hasCondition(SleepingCondition.class.getName()));
         assertTrue(monster.canAct());
     }
 
     @Test
     void testTakingDamageKillsMonster() {
-        monster.takeDamage(10, false, false, false, false);
+        monster.takeDamage(10, false, false, false, false, false);
         assertTrue(monster.isDead());
         assertTrue(monster.isBloodied());
         assertFalse(monster.canAct());
@@ -104,7 +104,7 @@ public class BaseCreatureTest {
 
     @Test
     void testTakingDamageDoesNotKillPlayer() {
-        player.takeDamage(10, false, false, false, false);
+        player.takeDamage(10, false, false, false, false, false);
         assertFalse(player.isDead());
         assertTrue(player.hasCondition(UnconsciousCondition.class.getName()));
         assertFalse(player.canAct());

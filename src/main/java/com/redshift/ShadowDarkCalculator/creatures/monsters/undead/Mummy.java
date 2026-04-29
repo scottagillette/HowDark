@@ -41,15 +41,15 @@ public class Mummy extends UndeadMonster {
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold) {
+    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing) {
         // Damage for fire or magical only.
         if (fire) {
             // Double damage for fire!
             log.info("{} takes DOUBLE damage from fire!", getName());
-            super.takeDamage(amount + amount, silvered, magical, fire, cold);
+            super.takeDamage(amount + amount, silvered, magical, fire, cold, piercing);
         } else {
             if (magical) {
-                super.takeDamage(amount, silvered, magical, fire, cold);
+                super.takeDamage(amount, silvered, magical, fire, cold, piercing);
             } else {
                 log.info("{} takes no damage from non-magical, non-fire damage!", getName());
             }
@@ -60,7 +60,7 @@ public class Mummy extends UndeadMonster {
     private static class RotTouch extends Weapon {
 
         public RotTouch() {
-            super("Rot Touch", D10, RollModifier.STRENGTH);
+            super("Rot Touch", D10, RollModifier.STRENGTH, false);
             addAttackRollBonus(5);
         }
 
@@ -74,7 +74,7 @@ public class Mummy extends UndeadMonster {
                 } else {
                     // HP 0
                     log.info("{} is drained of health and drops to 0 hit points!", target.getName());
-                    target.takeDamage(999, false, false, false, false);
+                    target.takeDamage(999, false, false, false, false, false);
                 }
             }
 

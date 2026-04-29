@@ -40,7 +40,7 @@ public class Shadow extends UndeadMonster {
     public static class DraiingTouch extends Weapon {
 
         public DraiingTouch() {
-            super("Draining Touch", D4, RollModifier.DEXTERITY);
+            super("Draining Touch", D4, RollModifier.DEXTERITY, false);
         }
 
         @Override

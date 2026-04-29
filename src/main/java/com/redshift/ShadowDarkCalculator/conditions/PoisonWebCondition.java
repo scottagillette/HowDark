@@ -51,6 +51,6 @@ public class PoisonWebCondition implements Condition {
     public void perform(Creature creature) {
         final int damage = D4.roll();
         log.info("{} takes poison damage of {}", creature.getName(), damage);
-        creature.takeDamage(damage, false, false, false, false);
+        creature.takeDamage(damage, false, false, false, false, false);
     }
 }

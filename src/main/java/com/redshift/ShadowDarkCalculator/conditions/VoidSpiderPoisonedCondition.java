@@ -43,7 +43,7 @@ public class VoidSpiderPoisonedCondition implements Condition {
         if (rounds == 0) {
             hasEnded = true;
             log.info("{} is overcome by poison as it takes full effect!", creature.getName());
-            creature.takeDamage(creature.getCurrentHitPoints(), false, false, false, false);
+            creature.takeDamage(creature.getCurrentHitPoints(), false, false, false, false, false);
         }
     }
 }

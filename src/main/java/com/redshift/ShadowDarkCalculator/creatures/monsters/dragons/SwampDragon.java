@@ -36,9 +36,9 @@ public class SwampDragon extends Monster {
                 new MultipleDice(D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8).roll() + 4,
                 new PerformOneAction(
                         new PerformAllActions(
-                                new Weapon("Rend", new MultipleDice(D10, D10), RollModifier.STRENGTH).addAttackRollBonus(3),
-                                new Weapon("Rend", new MultipleDice(D10, D10), RollModifier.STRENGTH).addAttackRollBonus(3),
-                                new Weapon("Rend", new MultipleDice(D10, D10), RollModifier.STRENGTH).addAttackRollBonus(3)
+                                new Weapon("Rending Claws", new MultipleDice(D10, D10), RollModifier.STRENGTH, false).addAttackRollBonus(3),
+                                new Weapon("Rending Claws", new MultipleDice(D10, D10), RollModifier.STRENGTH, false).addAttackRollBonus(3),
+                                new Weapon("Rending Claws", new MultipleDice(D10, D10), RollModifier.STRENGTH, false).addAttackRollBonus(3)
                         ).setPriority(2),
                         new SmogBreath().setPriority(1) // Every third attack is smog breath!
                 )
@@ -79,7 +79,7 @@ public class SwampDragon extends Monster {
                     } else {
                         final int damage = new MultipleDice(D10, D10).roll();
                         log.info("{} is damaged by Smog Breath for {} damage and is blinded for 1 round!", creature.getName(), damage);
-                        creature.takeDamage(damage, false, false, true, false);
+                        creature.takeDamage(damage, false, false, true, false, false);
                         creature.addCondition(new BlindedCondition(1));
                     }
                 }

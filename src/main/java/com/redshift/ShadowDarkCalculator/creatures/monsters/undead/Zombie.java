@@ -29,17 +29,17 @@ public class Zombie extends UndeadMonster {
                 new Stats(14, 6, 14, 6, 6, 4),
                 8,
                 D8.roll() + D8.roll() + 2,
-                new Weapon("Slam", D6, RollModifier.STRENGTH)
+                new Weapon("Slam", D6, RollModifier.STRENGTH, false)
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
         getLabels().add(CreatureLabel.HUMANOID);
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold) {
+    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing) {
         // Does the Zombie get back up after taking damage!
 
-        super.takeDamage(amount, silvered, magical, fire, cold);
+        super.takeDamage(amount, silvered, magical, fire, cold, piercing);
 
         // If it is now dead from a non-magical source and has not already returned...
         if (isDead() && !magical && !returned) {

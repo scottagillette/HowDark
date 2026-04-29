@@ -27,8 +27,8 @@ public class Ogre extends Monster {
                 9,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 3,
                 new PerformAllActions(
-                        new Weapon("Great Club", new MultipleDice(D6, D6), RollModifier.STRENGTH).addAttackRollBonus(2),
-                        new Weapon("Great Club", new MultipleDice(D6, D6), RollModifier.STRENGTH).addAttackRollBonus(2)
+                        new Weapon("Great Club", new MultipleDice(D6, D6), RollModifier.STRENGTH, false).addAttackRollBonus(2),
+                        new Weapon("Great Club", new MultipleDice(D6, D6), RollModifier.STRENGTH, false).addAttackRollBonus(2)
                 )
         );
         getLabels().add(CreatureLabel.FRONT_LINE);

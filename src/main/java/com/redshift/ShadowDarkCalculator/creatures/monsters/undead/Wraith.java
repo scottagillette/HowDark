@@ -39,12 +39,12 @@ public class Wraith extends UndeadMonster {
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold) {
+    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing) {
         // Take only silvered or magical damage!
         final boolean takeDamage = silvered || magical;
 
         if (takeDamage) {
-            super.takeDamage(amount, silvered, magical, fire, cold);
+            super.takeDamage(amount, silvered, magical, fire, cold, piercing);
         } else {
             log.info("{} takes no damage from non-silvered, non-magical damage!", getName());
         }
@@ -53,7 +53,7 @@ public class Wraith extends UndeadMonster {
     private static class DeathTouch extends Weapon {
 
         public DeathTouch() {
-            super("Death Touch", D10, RollModifier.DEXTERITY);
+            super("Death Touch", D10, RollModifier.DEXTERITY, false);
             addAttackRollBonus(2);
         }
 

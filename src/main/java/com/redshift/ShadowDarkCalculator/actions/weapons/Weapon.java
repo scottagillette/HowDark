@@ -28,11 +28,13 @@ public class Weapon extends BaseAction implements Action {
     protected int damageRollBonus = 0;
     protected boolean magical;
     protected boolean silvered;
+    protected boolean piercing;
 
-    public Weapon(String name, Dice damageDice, RollModifier rollModifier) {
+    public Weapon(String name, Dice damageDice, RollModifier rollModifier, boolean piercing) {
         super(name);
         this.damageDice = damageDice;
         this.rollModifier = rollModifier;
+        this.piercing = piercing;
     }
 
     public Weapon addAttackRollBonus(int attackRollBonus) {
@@ -125,12 +127,12 @@ public class Weapon extends BaseAction implements Action {
         } else if (criticalSuccess) {
             int damage = damageDice.roll() + damageDice.roll() + tempDamageRollBonus;
             log.info("{} critically hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), weaponName, damage);
-            target.takeDamage(damage, silvered, tempMagical, false, false);
+            target.takeDamage(damage, silvered, tempMagical, false, false, piercing);
             return true;
         } else if (attackRoll + attackRollModifier + attackRollBonus >= target.getAC()) {
             int damage = damageDice.roll() + tempDamageRollBonus;
             log.info("{} hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), weaponName, damage);
-            target.takeDamage(damage, silvered, tempMagical, false, false);
+            target.takeDamage(damage, silvered, tempMagical, false, false, piercing);
             return true;
         } else {
             // Miss

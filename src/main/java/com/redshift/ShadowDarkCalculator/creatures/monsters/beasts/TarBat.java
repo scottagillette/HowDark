@@ -26,16 +26,16 @@ public class TarBat extends Monster {
                 new Stats(4,16,10,4,12,4),
                 13,
                 D6.roll(), // Usually use a D8 for random first level mob.
-                new Weapon("Bite", D4, RollModifier.DEXTERITY)
+                new Weapon("Bite", D4, RollModifier.DEXTERITY, true)
         );
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold) {
+    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing) {
         if (fire) {
             log.info("{} takes no damage from fire!", getName());
         } else {
-            super.takeDamage(amount, silvered, magical, false, cold);
+            super.takeDamage(amount, silvered, magical, false, cold, piercing);
         }
     }
 

@@ -45,14 +45,12 @@ public class Ghast extends UndeadMonster {
     private static class ParalyzingClaw extends Weapon {
 
         public ParalyzingClaw() {
-            super("Paralyzing Claw", D8, RollModifier.STRENGTH);
+            super("Paralyzing Claw", D8, RollModifier.STRENGTH, false);
         }
 
         @Override
         protected boolean performSingleTargetAttack(Creature actor, Creature target, String weaponName, Dice damageDice, RollModifier rollModifier) {
             final boolean attackHits = super.performSingleTargetAttack(actor, target, weaponName, damageDice, rollModifier);
-
-            // TODO: Note - The Carrion Stench ability is not implemented...
 
             if (attackHits) {
                 if (!target.hasCondition(ParalyzedCondition.class.getName())) {

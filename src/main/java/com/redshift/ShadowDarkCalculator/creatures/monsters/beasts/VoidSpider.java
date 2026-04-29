@@ -41,13 +41,13 @@ public class VoidSpider extends Monster {
     }
 
     @Override
-    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold) {
+    public void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing) {
         // Impervious. Immune to cold.
 
         if (cold) {
             log.info("{} resists all cold damage!", this.getName());
         } else {
-            super.takeDamage(amount, silvered, magical, fire, cold);
+            super.takeDamage(amount, silvered, magical, fire, cold, piercing);
         }
     }
 
@@ -55,7 +55,7 @@ public class VoidSpider extends Monster {
     private static class PoisonBite extends Weapon {
 
         private PoisonBite() {
-            super("Bite", D8, RollModifier.DEXTERITY);
+            super("Bite", D8, RollModifier.DEXTERITY, true);
             addAttackRollBonus(1);
         }
 

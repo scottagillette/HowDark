@@ -41,7 +41,7 @@ public class OwlBear extends Monster {
         private static boolean priorAttack = false;
 
         public Claw() {
-            super("Claw", D10, RollModifier.STRENGTH);
+            super("Claw", D10, RollModifier.STRENGTH, true);
             addAttackRollBonus(1);
         }
 
@@ -54,7 +54,7 @@ public class OwlBear extends Monster {
                     // Take extra dice of damage
                     int extraDamage = D10.roll();
                     log.info("{} takes extra crushing damage of {}", target.getName(), extraDamage);
-                    target.takeDamage(extraDamage, false, false, false, false);
+                    target.takeDamage(extraDamage, false, false, false, false, false);
                 }
                 priorAttack = false; // Reset
                 priorAttackHits = false;

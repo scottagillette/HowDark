@@ -28,9 +28,9 @@ public class Dralech extends Monster {
                 13,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll(),
                 new PerformAllActions(
-                        new Weapon("Bone Axe", new MultipleDice(D6, D6), RollModifier.STRENGTH).addAttackRollBonus(1),
-                        new Weapon("Bone Axe", new MultipleDice(D6, D6), RollModifier.STRENGTH).addAttackRollBonus(1),
-                        new Weapon("Bone Axe", new MultipleDice(D6, D6), RollModifier.STRENGTH).addAttackRollBonus(1)
+                        new Weapon("Bone Axe", new MultipleDice(D6, D6), RollModifier.STRENGTH, false).addAttackRollBonus(1),
+                        new Weapon("Bone Axe", new MultipleDice(D6, D6), RollModifier.STRENGTH, false).addAttackRollBonus(1),
+                        new Weapon("Bone Axe", new MultipleDice(D6, D6), RollModifier.STRENGTH, false).addAttackRollBonus(1)
                 )
         );
         getLabels().add(CreatureLabel.FRONT_LINE);

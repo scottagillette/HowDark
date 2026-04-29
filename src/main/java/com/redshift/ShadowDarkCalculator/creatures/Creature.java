@@ -156,7 +156,7 @@ public interface Creature {
      * Instructs the creature to take an amount of damage silvered or magical.
      */
 
-    void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold);
+    void takeDamage(int amount, boolean silvered, boolean magical, boolean fire, boolean cold, boolean piercing);
 
     /**
      * Triggers any begin of turn triggers... count down timers, etc.
