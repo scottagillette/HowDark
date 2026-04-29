@@ -4,11 +4,9 @@ import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.UndeadMonster;
+import com.redshift.ShadowDarkCalculator.dice.Dice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
@@ -44,26 +42,22 @@ public class Ghoul extends UndeadMonster {
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-            final Creature target = actor.getSingleTargetSelector().get(enemies);
+        protected boolean performSingleTargetAttack(Creature actor, Creature target, String weaponName, Dice damageDice, RollModifier rollModifier) {
+            final boolean attackHits = super.performSingleTargetAttack(actor, target, weaponName, damageDice, rollModifier);
 
-            if (target == null) {
-                log.info("{} is skipping their turn... no target!", actor.getName());
-            } else {
-                boolean attackHits = performSingleTargetAttack(actor, target, getName(), damageDice, rollModifier);
-
-                if (attackHits) {
-                    if (!target.hasCondition(ParalyzedCondition.class.getName())) {
-                        if (!target.getStats().constitutionSave(12)) {
-                            int rounds = D4.roll();
-                            log.info("{} is paralyzed for {} rounds!", target.getName(), rounds);
-                            target.addCondition(new ParalyzedCondition(rounds));
-                        } else {
-                            log.info("{} SAVES and is NOT paralyzed!", target.getName());
-                        }
+            if (attackHits) {
+                if (!target.hasCondition(ParalyzedCondition.class.getName())) {
+                    if (!target.getStats().constitutionSave(12)) {
+                        int rounds = D4.roll();
+                        log.info("{} is paralyzed for {} rounds!", target.getName(), rounds);
+                        target.addCondition(new ParalyzedCondition(rounds));
+                    } else {
+                        log.info("{} SAVES and is NOT paralyzed!", target.getName());
                     }
                 }
             }
+
+            return attackHits;
         }
     }
 

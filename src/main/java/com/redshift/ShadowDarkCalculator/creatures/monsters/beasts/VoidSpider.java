@@ -61,9 +61,9 @@ public class VoidSpider extends Monster {
 
         @Override
         protected boolean performSingleTargetAttack(Creature actor, Creature target, String weaponName, Dice damageDice, RollModifier rollModifier) {
-            final boolean targetHit = super.performSingleTargetAttack(actor, target, weaponName, damageDice, rollModifier);
+            final boolean attackHits = super.performSingleTargetAttack(actor, target, weaponName, damageDice, rollModifier);
 
-            if (targetHit) {
+            if (attackHits) {
                 if (target.getCurrentHitPoints() != 0) {
                     if (!target.hasCondition(VoidSpiderPoisonedCondition.class.getName())) {
                         final boolean constitutionSave = target.getStats().constitutionSave(12);
@@ -77,7 +77,7 @@ public class VoidSpider extends Monster {
                 }
             }
 
-            return targetHit;
+            return attackHits;
         }
     }
 }

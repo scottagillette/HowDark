@@ -5,12 +5,10 @@ import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.UndeadMonster;
+import com.redshift.ShadowDarkCalculator.dice.Dice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.ZeroDice;
-import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
@@ -61,24 +59,20 @@ public class Wight extends UndeadMonster {
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-            final Creature target = actor.getSingleTargetSelector().get(enemies);
+        protected boolean performSingleTargetAttack(Creature actor, Creature target, String weaponName, Dice damageDice, RollModifier rollModifier) {
+            final boolean attackHits = super.performSingleTargetAttack(actor, target, weaponName, damageDice, rollModifier);
 
-            if (target == null) {
-                log.info("{} is skipping their turn... no target!", actor.getName());
-            } else {
-                boolean attackHits = performSingleTargetAttack(actor, target, getName(), damageDice, rollModifier);
-
-                if (attackHits) {
-                    int constitutionRemaining = target.getStats().constitutionDrain(D4);
-                    if (constitutionRemaining == 0) {
-                        log.info("{} is drained of constitution to {} and DIES!", target.getName(), constitutionRemaining);
-                        target.setDead(true);
-                    } else {
-                        log.info("{} is drained of constitution to {}", target.getName(), constitutionRemaining);
-                    }
+            if (attackHits) {
+                int constitutionRemaining = target.getStats().constitutionDrain(D4);
+                if (constitutionRemaining == 0) {
+                    log.info("{} is drained of constitution to {} and DIES!", target.getName(), constitutionRemaining);
+                    target.setDead(true);
+                } else {
+                    log.info("{} is drained of constitution to {}", target.getName(), constitutionRemaining);
                 }
             }
+
+            return attackHits;
         }
     }
 
