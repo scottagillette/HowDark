@@ -1,14 +1,22 @@
 package com.redshift.ShadowDarkCalculator.creatures.monsters.demons;
 
+import com.redshift.ShadowDarkCalculator.actions.Action;
+import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
-import com.redshift.ShadowDarkCalculator.actions.misc.Devour;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
+import com.redshift.ShadowDarkCalculator.conditions.DevouredCondition;
+import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
+import com.redshift.ShadowDarkCalculator.encounter.Encounter;
+import com.redshift.ShadowDarkCalculator.targets.DeadCreatureTargetSelector;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
@@ -21,6 +29,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
  * Sap. DC 15 DEX check or stuck in place. Repeat check on turn to escape. // TODO: Sap not implemented
  */
 
+@Slf4j
 public class MarrowFiend extends Monster {
 
     public MarrowFiend(String name) {
@@ -39,5 +48,41 @@ public class MarrowFiend extends Monster {
                 )
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+    }
+
+    public static class Devour extends BaseAction implements Action {
+
+        public Devour() {
+            super("Devour");
+        }
+
+        @Override
+        public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+            // Must have a dead target and this creature is wounded.
+            final Creature deadEnemy = new DeadCreatureTargetSelector().get(enemies);
+            return actor.isWounded() && deadEnemy != null;
+        }
+
+        @Override
+        public boolean isMagicalWeapon() {
+            return false;
+        }
+
+        @Override
+        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
+            final Creature deadEnemy = new DeadCreatureTargetSelector().get(enemies);
+
+            deadEnemy.addCondition(new DevouredCondition());
+
+            int healingAmount = D8.roll() + D8.roll() + D8.roll();
+            actor.healDamage(healingAmount);
+            log.info(
+                    "{} is devoured by {} that is healed by {} hit points.",
+                    deadEnemy.getName(),
+                    actor.getName(),
+                    healingAmount
+            );
+        }
+
     }
 }

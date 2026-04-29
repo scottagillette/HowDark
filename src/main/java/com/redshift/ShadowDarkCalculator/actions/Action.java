@@ -35,7 +35,7 @@ public interface Action {
     int getPriority();
 
     /**
-     * True if this is a magical weapon.
+     * True if this is a magical weapon action.
      */
 
     boolean isMagicalWeapon();
