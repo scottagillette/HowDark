@@ -133,15 +133,17 @@ public class Weapon extends BaseAction implements Action {
             throw new IllegalStateException("Invalid roll modifier: " + rollModifier.getClass().getName());
         }
 
+        int tempAttackRollBonus = attackRollBonus; // May get boosted up based on Holy Weapon
         int tempDamageRollBonus = damageRollBonus; // May get boosted up based on Holy Weapon
-        boolean tempMagical = damageType.isMagical(); // The item maybe magical already...
+        final DamageType tempDamageType = damageType.copy();
 
-        // Enable holy weapon attack bonus and damage bonus if the actor has this condition AD this weapon isn't
-        // magical already.
+        // Enable holy weapon attack bonus and damage bonus if the actor has this condition
+        // AND this weapon isn't magical already.
+
         if (actor.hasCondition(HolyWeaponCondition.class.getName()) && !damageType.isMagical()) {
-            attackRollModifier = attackRollModifier + 1;
-            tempDamageRollBonus = tempDamageRollBonus + 1;
-            tempMagical = true; // The weapon is magical while holy weapon is enabled.
+            tempAttackRollBonus = attackRollBonus + 1;
+            tempDamageRollBonus = damageRollBonus + 1;
+            tempDamageType.addMagical();
         }
 
         if (criticalFailure) {
@@ -150,12 +152,12 @@ public class Weapon extends BaseAction implements Action {
         } else if (criticalSuccess) {
             int damage = damageDice.roll() + damageDice.roll() + tempDamageRollBonus;
             log.info("{} critically hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), weaponName, damage);
-            target.takeDamage(damage, damageType);
+            target.takeDamage(damage, tempDamageType);
             return true;
-        } else if (attackRoll + attackRollModifier + attackRollBonus >= target.getAC()) {
+        } else if (attackRoll + attackRollModifier + tempAttackRollBonus >= target.getAC()) {
             int damage = damageDice.roll() + tempDamageRollBonus;
             log.info("{} hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), weaponName, damage);
-            target.takeDamage(damage, damageType);
+            target.takeDamage(damage, tempDamageType);
             return true;
         } else {
             // Miss

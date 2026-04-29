@@ -76,4 +76,23 @@ public class DamageType {
         slashing = true;
         return this;
     }
+
+    public DamageType copy() {
+        final DamageType newCopy = new DamageType();
+
+        if (silvered) newCopy.addSilvered();
+        if (magical) newCopy.addMagical();
+
+        if (acid) newCopy.addAcid();
+        if (cold) newCopy.addCold();
+        if (fire) newCopy.addFire();
+        if (poison) newCopy.addPoison();
+        if (lightning) newCopy.addLightning();
+
+        if (slashing) newCopy.addSlashing();
+        if (piercing) newCopy.addPiercing();
+        if (crushing) newCopy.addCrushing();
+
+        return newCopy;
+    }
 }
