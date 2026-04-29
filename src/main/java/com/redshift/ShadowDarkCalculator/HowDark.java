@@ -1,7 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.humanoid.Bittermold;
-import com.redshift.ShadowDarkCalculator.creatures.monsters.undead.VampireSpawn;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.VoidSpider;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
 
@@ -31,6 +30,7 @@ public class HowDark {
 //                    new TheWolfPackBuilder().build(),
 //                    new TheCrabCrushersBuilderv1().build(),
                     new DiableriePartyBuilder().build(),
+                    List.of(new VoidSpider("Void Spider of the Deep"))
 //                    List.of(new TheWillowMan("The Willow Man"))
 //                    List.of(new MarrowFiend("Death Fiend"))
 //                    List.of(new Dralech("Death Bringer"))
@@ -77,7 +77,7 @@ public class HowDark {
 //                    List.of(new Bugbear("Bugbear 1"), new Bugbear("Bugbear 2"))
 //                    List.of(new Wraith("Wraith"))
 //                    List.of(new Mummy("Mummy of Death"))
-                    List.of(new VampireSpawn("Vampire Spawn"))
+//                    List.of(new VampireSpawn("Vampire Spawn"))
 //                    List.of(new OwlBear("Rabid Owlbear"))
 //                    List.of(new Ankheg("Ankheg of Death"))
 //                    List.of(new FireDragon("Red Fire Dragon of death"))
