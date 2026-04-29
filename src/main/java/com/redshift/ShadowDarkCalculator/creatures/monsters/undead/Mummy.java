@@ -19,6 +19,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
  * Supreme Undead. Immune to morale checks. Only damaged by magical sources.
  * Desiccated. Can be damaged by fire. Takes x2 damage from it.
  * Necrosis. DC 15 CON or drop to 0 HP. Healing spells are DC 15 to cast on target while at 0 HP due to this effect.
+ * // TODO: Casting on a Necrosis target is not implemented
  */
 
 @Slf4j
@@ -32,7 +33,7 @@ public class Mummy extends UndeadMonster {
                 13,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 2,
                 new PerformAllActions(
-                        new RotTouch(),
+                        new RotTouch(), // +5 bonus added in constructor.
                         new RotTouch(),
                         new RotTouch()
                 )
@@ -52,7 +53,7 @@ public class Mummy extends UndeadMonster {
             if (damageType.isMagical()) {
                 super.takeDamage(amount, damageType);
             } else {
-                log.info("{} takes no damage from non-magical, non-fire damage!", getName());
+                log.info("{} seems to take no damage!", getName());
             }
         }
 
