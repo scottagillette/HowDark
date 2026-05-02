@@ -14,6 +14,8 @@ import java.util.*;
 @Slf4j
 public class EncounterSimulator implements Encounter {
 
+    private int delaySeconds;
+
     private final List<Creature> group1;
     private final List<Creature> group2;
 
@@ -37,6 +39,11 @@ public class EncounterSimulator implements Encounter {
         this.group2 = new ArrayList<>(group2);
     }
 
+    @Override
+    public int getDelay() {
+        return delaySeconds;
+    }
+
     /**
      * Simulate an encounter between two groups of creatures.
      */
@@ -58,6 +65,10 @@ public class EncounterSimulator implements Encounter {
 
         while (continueBattle) {
             log.info("[ Round: {} ]", round);
+
+            //log.info("Enter Something:");
+            //Scanner myObj = new Scanner(System.in);
+            //myObj.nextLine();
 
             // Sort creatures each turn since creatures may have been added
             sortedCreaturesInitiative = initiativeMap.keySet()
@@ -95,6 +106,12 @@ public class EncounterSimulator implements Encounter {
 
         initiativeMap.put(nextNewCreatureInitiative, newCreature); // Creature will act next round!
         nextNewCreatureInitiative = nextNewCreatureInitiative - 1; // Decrement the next new creature initiative value.
+    }
+
+    @Override
+    public int setDelay(int delaySeconds) {
+        this.delaySeconds = delaySeconds;
+        return delaySeconds;
     }
 
     private void calculateDead() {

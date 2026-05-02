@@ -18,4 +18,16 @@ public interface Encounter {
      */
 
     void addFriendlyCreature(Creature actor, Creature newCreature);
+
+    /**
+     * Returns the amount of seconds of delay between each creature's action.
+     */
+
+    int getDelay();
+
+    /**
+     * Add a delay between creature actions so output can be read slowly or fast, etc.
+     */
+
+    int setDelay(int delaySeconds);
 }

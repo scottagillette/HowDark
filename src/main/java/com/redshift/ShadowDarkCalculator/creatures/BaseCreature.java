@@ -268,6 +268,12 @@ public abstract class BaseCreature implements Creature {
         // Have each condition perform its effect.
         conditions.values().forEach(condition -> condition.perform(this));
 
+        try {
+            Thread.sleep(encounter.getDelay() * 1000L);
+        } catch (InterruptedException e) {
+            // Nothing
+        }
+
         if (canAct()) {
             getAction().perform(this, enemies, allies, encounter);
         }
