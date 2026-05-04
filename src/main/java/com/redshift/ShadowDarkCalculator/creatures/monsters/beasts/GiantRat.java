@@ -31,7 +31,6 @@ public class GiantRat extends Monster {
                 D8.roll() + 1,
                 new DiseasedBite()
         );
-
     }
 
     private static class DiseasedBite extends Weapon {
