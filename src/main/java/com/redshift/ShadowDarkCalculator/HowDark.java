@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.GiantSnake;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.GiantRat;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
 
@@ -30,7 +30,8 @@ public class HowDark {
 //                    new TheWolfPackBuilder().build(),
 //                    new TheCrabCrushersBuilderv1().build(),
                     new DiableriePartyBuilder().build(),
-                    List.of(new GiantSnake("Snake of Doom"))
+                    List.of(new GiantRat("Giant Rat 1"), new GiantRat("Giant Rat 2"), new GiantRat("Giant Rat 3"), new GiantRat("Giant Rat 4"))
+//                    List.of(new GiantSnake("Snake of Doom"))
 //                    List.of(new GiantSpider("Giant Black Widow Spider"))
 //                    List.of(new Troll("Green Troll"))
 //                    List.of(new Orc("Orc 1"), new Orc("Orc 2"), new Orc("Orc 3"), new Orc("Orc 4"))
