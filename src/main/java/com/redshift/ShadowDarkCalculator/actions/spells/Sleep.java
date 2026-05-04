@@ -77,6 +77,7 @@ public class Sleep extends MultiTargetSpell {
                     log.info("{} hits a spell on {} with a {}", actor.getName(), target.getName(), getName());
                 } else {
                     log.info("{} hits a spell on {} with a {} but doesn't affect the creature.", actor.getName(), target.getName(), getName());
+                    lost = true; // Doesn't affect at least one creature... stop casting Sleep!
                 }
             });
         } else {
