@@ -28,7 +28,7 @@ public class VoidSpider extends Monster {
 
     public VoidSpider(String name) {
         super(
-                "Void Spider",
+                name,
                 5,
                 new Stats(16,16,12,8,12,6),
                 13,
