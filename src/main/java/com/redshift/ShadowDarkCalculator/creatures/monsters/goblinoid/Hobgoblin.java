@@ -16,9 +16,9 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
 public class Hobgoblin extends Monster {
 
-    public Hobgoblin() {
+    public Hobgoblin(String name) {
         super(
-                "Hobgoblin",
+                name,
                 2,
                 new Stats(16,10,12,14,12,12),
                 15,
