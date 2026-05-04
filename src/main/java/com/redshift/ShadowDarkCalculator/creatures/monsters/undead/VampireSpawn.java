@@ -84,7 +84,7 @@ public class VampireSpawn extends UndeadMonster {
                     // Loose 1d4 CON
                     int constitutionRemaining = target.getStats().constitutionDrain(D4);
                     if (constitutionRemaining == 0) {
-                        log.info("{} is drained of constitution to {} and DIES! A new vampire spawn rises!", target.getName(), constitutionRemaining);
+                        log.info("{} is drained of constitution and DIES! A new vampire spawn rises!", target.getName());
                         target.setDead(true);
                         encounter.addFriendlyCreature(actor, new VampireSpawn("Vampire Spawn " + target.getName()));
                     } else {

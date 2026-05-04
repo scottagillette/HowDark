@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.humanoid.Bittermold;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.demons.Hexling;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
 
@@ -30,20 +30,21 @@ public class HowDark {
 //                    new TheWolfPackBuilder().build(),
 //                    new TheCrabCrushersBuilderv1().build(),
                     new DiableriePartyBuilder().build(),
+                    List.of(new Hexling("Hexling 1"), new Hexling("Hexling 2"), new Hexling("Hexling 3"), new Hexling("Hexling 4"))
 //                    List.of(new VoidSpider("Void Spider of the Deep"))
 //                    List.of(new TheWillowMan("The Willow Man"))
 //                    List.of(new MarrowFiend("Death Fiend"))
 //                    List.of(new Dralech("Death Bringer"))
 //                    new NewbiesPartyBuilder().build(),
-                    List.of(
-                            new Bittermold("Bittermold 1"),
-                            new Bittermold("Bittermold 2"),
-                            new Bittermold("Bittermold 3"),
-                            new Bittermold("Bittermold 4"),
-                            new Bittermold("Bittermold 5"),
-                            new Bittermold("Bittermold 6"),
-                            new Bittermold("Bittermold 7")
-                    )
+//                    List.of(
+//                            new Bittermold("Bittermold 1"),
+//                            new Bittermold("Bittermold 2"),
+//                            new Bittermold("Bittermold 3"),
+//                            new Bittermold("Bittermold 4"),
+//                            new Bittermold("Bittermold 5"),
+//                            new Bittermold("Bittermold 6"),
+//                            new Bittermold("Bittermold 7")
+//                    )
 //                    List.of(new Mimic("Mimic"))
 //                    List.of(new Ogre("'Ulak The Crusher' Ogre"))
 //                    List.of(new CaveCreeper("Cave Creeper"))
@@ -87,7 +88,7 @@ public class HowDark {
 //                    List.of(new Apprentice("Apprentice 1"), new Apprentice("Apprentice 2"), new Apprentice("Apprentice 3"), new Apprentice("Apprentice 4"))
                     );
 
-            simulator.setDelay(4);
+            simulator.setDelay(0);
             simulator.simulateEncounter();
 
             group1Wins = group1Wins + simulator.getGroup1Wins();

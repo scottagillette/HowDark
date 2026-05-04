@@ -56,7 +56,7 @@ public class Shadow extends UndeadMonster {
                 if (attackHits) {
                     final int currentStrength = target.getStats().strengthDrain(D1);
                     if (currentStrength == 0) {
-                        log.info("{} is drained of strength to {} and DIES! A shadow rises from the corpse!", target.getName(), currentStrength);
+                        log.info("{} is drained of strength and DIES! A shadow rises from the corpse!", target.getName());
                         target.setDead(true);
                         encounter.addFriendlyCreature(actor, new Shadow("Shadow of " + target.getName()));
                     } else {
