@@ -18,21 +18,21 @@ public enum WeaponBuilder {
     DAGGER_DEX("Dagger (DEX)", D4, RollModifier.DEXTERITY, WeaponType.PIERCING),
     DAGGER_STR("Dagger (STR)", D4, RollModifier.STRENGTH, WeaponType.PIERCING),
     FIST("Fist", D1, RollModifier.STRENGTH, WeaponType.PIERCING),
-    GREATAXE_1H("Greataxe 1h", D8, RollModifier.STRENGTH, WeaponType.SLASHING),
-    GREATAXE_2H("Greataxe 2h", D10, RollModifier.STRENGTH, WeaponType.SLASHING),
-    GREATSWORD("Greatsword 2h", D12, RollModifier.STRENGTH, WeaponType.SLASHING),
+    GREAT_AXE_1H("Greataxe 1h", D8, RollModifier.STRENGTH, WeaponType.SLASHING),
+    GREAT_AXE_2H("Greataxe 2h", D10, RollModifier.STRENGTH, WeaponType.SLASHING),
+    GREAT_SWORD("Greatsword 2h", D12, RollModifier.STRENGTH, WeaponType.SLASHING),
     JAVELIN_STR("Javelin", D4, RollModifier.STRENGTH, WeaponType.PIERCING),
     JAVELIN_DEX("Javelin", D4, RollModifier.DEXTERITY, WeaponType.PIERCING),
     LONGBOW("Longbow", D8, RollModifier.DEXTERITY, WeaponType.PIERCING),
     LONGSWORD("Longsword", D8, RollModifier.STRENGTH, WeaponType.SLASHING),
     MACE("Mace", D6, RollModifier.STRENGTH, WeaponType.CRUSHING),
-    SHORTBOW("Short Bow", D4, RollModifier.DEXTERITY, WeaponType.PIERCING),
-    SHORTSWORD("Shortsword", D6, RollModifier.STRENGTH, WeaponType.SLASHING),
+    SHORT_BOW("Short Bow", D4, RollModifier.DEXTERITY, WeaponType.PIERCING),
+    SHORT_SWORD("Shortsword", D6, RollModifier.STRENGTH, WeaponType.SLASHING),
     SLING("Sling", D4, RollModifier.DEXTERITY, WeaponType.CRUSHING),
     SPEAR_STR("Spear (STR)", D6, RollModifier.STRENGTH, WeaponType.PIERCING),
     SPEAR_DEX("Spear (DEX)", D6, RollModifier.DEXTERITY, WeaponType.PIERCING),
     STAFF("Staff", D4, RollModifier.STRENGTH, WeaponType.CRUSHING),
-    WARHAMMER("Warhammer", D10, RollModifier.STRENGTH, WeaponType.CRUSHING);
+    WAR_HAMMER("Warhammer", D10, RollModifier.STRENGTH, WeaponType.CRUSHING);
 
     private final String name;
     private final Dice dice;

@@ -28,7 +28,7 @@ public class Bittermold extends Monster {
                 12,
                 D8.roll() + 1,
                 new PerformOneAction(
-                    WeaponBuilder.SHORTSWORD.build(),
+                    WeaponBuilder.SHORT_SWORD.build(),
                     WeaponBuilder.SLING.build()
                 )
         );

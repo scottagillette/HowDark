@@ -52,7 +52,7 @@ public class TheWolfPackBuilder implements PartyBuilder {
                 15,
                 4,
                 new PerformOneAction(
-                        WeaponBuilder.SHORTBOW.build(),
+                        WeaponBuilder.SHORT_BOW.build(),
                         WeaponBuilder.DAGGER_DEX.build()
                 )
         );

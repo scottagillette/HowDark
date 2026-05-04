@@ -103,7 +103,7 @@ public class FunnelPartyBuilder implements PartyBuilder {
                 new Stats(10, 12, 10, 10, 10, 17),
                 10,
                 1,
-                WeaponBuilder.SHORTBOW.build()
+                WeaponBuilder.SHORT_BOW.build()
         );
         slogyark.getLabels().add(CreatureLabel.FRONT_LINE);
         creatures.add(slogyark);

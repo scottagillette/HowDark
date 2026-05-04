@@ -23,7 +23,7 @@ public class DiableriePartyBuilder implements PartyBuilder {
                 new Stats(16, 14, 12, 8, 11, 3),
                 15,
                 8,
-                WeaponBuilder.GREATAXE_1H.build().addAttackRollBonus(2).addDamageRollBonus(2)
+                WeaponBuilder.GREAT_AXE_1H.build().addAttackRollBonus(2).addDamageRollBonus(2)
         );
         creatures.add(clank);
 

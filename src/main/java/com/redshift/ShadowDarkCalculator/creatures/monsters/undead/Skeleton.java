@@ -25,8 +25,8 @@ public class Skeleton extends UndeadMonster {
                 13,
                 D8.roll() + D8.roll() + 2,
                 new PerformOneAction(
-                        WeaponBuilder.SHORTSWORD.build(),
-                        WeaponBuilder.SHORTBOW.build()
+                        WeaponBuilder.SHORT_SWORD.build(),
+                        WeaponBuilder.SHORT_BOW.build()
                 )
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
