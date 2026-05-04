@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.humanoid.Bandit;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.goblinoid.Orc;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
 
@@ -30,7 +30,8 @@ public class HowDark {
 //                    new TheWolfPackBuilder().build(),
 //                    new TheCrabCrushersBuilderv1().build(),
                     new DiableriePartyBuilder().build(),
-                    List.of(new Bandit("Bandit 1"), new Bandit("Bandit 2"), new Bandit("Bandit 3"), new Bandit("Bandit 4"))
+                    List.of(new Orc("Orc 1"), new Orc("Orc 2"), new Orc("Orc 3"), new Orc("Orc 4"))
+//                    List.of(new Bandit("Bandit 1"), new Bandit("Bandit 2"), new Bandit("Bandit 3"), new Bandit("Bandit 4"))
 //                    List.of(new Hexling("Hexling 1"), new Hexling("Hexling 2"), new Hexling("Hexling 3"), new Hexling("Hexling 4"))
 //                    List.of(new VoidSpider("Void Spider of the Deep"))
 //                    List.of(new TheWillowMan("The Willow Man"))

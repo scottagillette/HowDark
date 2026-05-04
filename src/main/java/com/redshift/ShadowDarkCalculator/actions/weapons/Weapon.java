@@ -5,6 +5,7 @@ import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.HolyWeaponCondition;
+import com.redshift.ShadowDarkCalculator.conditions.RageCondition;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 
 /**
  * An action that attempts to attack with a melee or ranged weapon.
@@ -144,6 +146,10 @@ public class Weapon extends BaseAction implements Action {
             tempAttackRollBonus = attackRollBonus + 1;
             tempDamageRollBonus = damageRollBonus + 1;
             tempDamageType.addMagical();
+        }
+
+        if (actor.hasCondition(RageCondition.class.getName())) {
+            tempDamageRollBonus = damageRollBonus + D4.roll();
         }
 
         if (criticalFailure) {
