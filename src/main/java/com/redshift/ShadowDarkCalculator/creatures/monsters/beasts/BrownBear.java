@@ -1,35 +1,37 @@
-package com.redshift.ShadowDarkCalculator.creatures.monsters.monstrosities;
+package com.redshift.ShadowDarkCalculator.creatures.monsters.beasts;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
-import com.redshift.ShadowDarkCalculator.creatures.*;
+import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
+import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import lombok.extern.slf4j.Slf4j;
 
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
 /**
- * Cantankerous bears with owl eyes, beaks, and feathers.
- * AC 13, HP 30, ATK 2 claw +5 (1d10), MV near (climb)
- * S +4, D +1, C +3, I -2, W +2, Ch -3, AL N, LV 6
+ * A hulking, swaying brute with claws as long as a finger.
+ * AC 13, HP 25, ATK 2 claw +4 (1d8), MV near (climb)
+ * S +4, D +1, C +3, I -2, W +1, Ch -2, AL N, LV 5
  * Crush. Deals an extra die of damage if it hits the same target with both claws.
  */
 
 @Slf4j
-public class OwlBear extends Monster {
+public class BrownBear extends Monster {
 
-    public OwlBear(String name) {
+    public BrownBear(String name) {
         super(
                 name,
-                6,
-                new Stats(18,12,17,7,14,5),
+                5,
+                new Stats(18,12,17,6,12,5),
                 13,
-                D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 3,
+                D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 3,
                 new PerformAllActions(
-                        new OwlBear.Claw(),
-                        new OwlBear.Claw()
+                        new BrownBear.Claw(),
+                        new BrownBear.Claw()
                 )
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
@@ -41,8 +43,8 @@ public class OwlBear extends Monster {
         private static boolean priorAttackHits = false;
 
         public Claw() {
-            super("Claw", D10, RollModifier.STRENGTH);
-            addSlashing().addAttackRollBonus(1);
+            super("Claw", D8, RollModifier.STRENGTH);
+            addSlashing();
         }
 
         @Override
@@ -54,7 +56,7 @@ public class OwlBear extends Monster {
             if (attackNumber == 2) {
                 if (attackHits && priorAttackHits) {
                     // Take extra dice of damage
-                    int extraDamage = D10.roll();
+                    int extraDamage = D8.roll();
                     log.info("{} takes extra crushing damage of {}", target.getName(), extraDamage);
                     target.takeDamage(extraDamage, damageType);
                 }
