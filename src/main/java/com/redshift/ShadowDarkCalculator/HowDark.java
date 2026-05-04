@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.GiantSpider;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.GiantSnake;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
 
@@ -30,7 +30,8 @@ public class HowDark {
 //                    new TheWolfPackBuilder().build(),
 //                    new TheCrabCrushersBuilderv1().build(),
                     new DiableriePartyBuilder().build(),
-                    List.of(new GiantSpider("Giant Black Widow Spider"))
+                    List.of(new GiantSnake("Snake of Doom"))
+//                    List.of(new GiantSpider("Giant Black Widow Spider"))
 //                    List.of(new Troll("Green Troll"))
 //                    List.of(new Orc("Orc 1"), new Orc("Orc 2"), new Orc("Orc 3"), new Orc("Orc 4"))
 //                    List.of(new Bandit("Bandit 1"), new Bandit("Bandit 2"), new Bandit("Bandit 3"), new Bandit("Bandit 4"))
@@ -92,7 +93,7 @@ public class HowDark {
 //                    List.of(new Apprentice("Apprentice 1"), new Apprentice("Apprentice 2"), new Apprentice("Apprentice 3"), new Apprentice("Apprentice 4"))
                     );
 
-            simulator.setDelay(4);
+            simulator.setDelay(0);
             simulator.simulateEncounter();
 
             group1Wins = group1Wins + simulator.getGroup1Wins();
