@@ -28,7 +28,7 @@ public class Orc extends Monster {
     public Orc(String name) {
         super(
                 name,
-                2,
+                1,
                 new Stats(14, 10, 10, 8,10, 8),
                 15,
                 D8.roll(),
