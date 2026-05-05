@@ -6,7 +6,13 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
 
 /**
- * Randomly burns D4 enemies.
+ * Tier 1, wizard
+ * Duration: Instant
+ * Range: Close
+ *
+ * You spread your fingers with thumbs touching, unleashing a circle of flame that
+ * roars out to a close area around where you stand. Creatures within the area of
+ * effect take 1d6 damage, and flammable objects catch fire.
  */
 
 public class BurningHands extends MultiTargetDamageSpell {

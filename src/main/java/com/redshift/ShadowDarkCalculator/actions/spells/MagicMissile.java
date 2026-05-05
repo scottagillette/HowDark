@@ -5,7 +5,12 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 
 /**
- * Magic missile D4 damage; and always has Advantage for the spell check.
+ * Tier 1, wizard
+ * Duration: Instant
+ * Range: Far
+ *
+ * You have advantage on your check to cast this spell. A glowing bolt of force streaks
+ * from your open hand, dealing 1d4 damage to one target.
  */
 
 public class MagicMissile extends SingleTargetDamageSpell {

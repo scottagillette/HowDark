@@ -13,7 +13,12 @@ import java.util.List;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
 
 /**
- * Heals D6 health of a friendly target that is damaged.
+ * Tier 1, priest
+ * Duration: Instant
+ * Range: Close
+ *
+ * Your touch restores ebbing life. Roll a number of d6s equal to 1 + half your
+ * level (rounded down). One target you touch regains that many hit points.
  */
 
 @Slf4j

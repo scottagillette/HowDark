@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.monstrosities.Werewolf;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.BrownBear;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
 
@@ -30,7 +30,8 @@ public class HowDark {
 //                    new TheWolfPackBuilder().build(),
 //                    new TheCrabCrushersBuilderv1().build(),
                     new DiableriePartyBuilder().build(),
-                    List.of(new Werewolf("Dark Werewolf"))
+                    List.of(new BrownBear("Brown Bear"))
+//                    List.of(new Werewolf("Dark Werewolf"))
 //                    List.of(new Knight("Knight 1"), new Knight("Knight 2"))
 //                    List.of(new Reaver("Reaver 1"))
 //                    List.of(new GiantRat("Giant Rat 1"), new GiantRat("Giant Rat 2"), new GiantRat("Giant Rat 3"), new GiantRat("Giant Rat 4"))

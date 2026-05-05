@@ -14,8 +14,13 @@ import java.util.List;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 
 /**
+ * Tier 1, necromancer
+ * Duration: Instant
+ * Range: Far
+ *
  * You fling a dark rune of necrotic energy at a target in range. The target takes 1d4 damage.
- * This damage increases to 2d4 when you reach 5th level. Undead creatures are unharmed by this spell.
+ * This damage increases to 2d4 when you reach 5th level. Undead creatures are unharmed by
+ * this spell.
  */
 
 @Slf4j

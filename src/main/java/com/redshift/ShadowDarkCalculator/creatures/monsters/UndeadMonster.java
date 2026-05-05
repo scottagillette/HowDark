@@ -5,6 +5,10 @@ import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 
+/**
+ * You guessed it... a monster that is undead!
+ */
+
 public class UndeadMonster extends Monster {
 
     public UndeadMonster(

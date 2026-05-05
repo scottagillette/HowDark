@@ -21,7 +21,7 @@ import java.util.List;
  * You can only create one undead creature with this spell at a time. When the spell ends, the
  * corpse collapses into grave dust.
  *
- * TODO: Skeleton added doesn't go away after 5 rounds. Randomly generate a Zombie?
+ * TODO: Skeleton added doesn't go away after 5 rounds. TODO: Randomly generate a Zombie?
  */
 
 @Slf4j

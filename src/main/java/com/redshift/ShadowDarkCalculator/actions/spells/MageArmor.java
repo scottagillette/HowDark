@@ -14,6 +14,7 @@ import java.util.List;
  * Tier 1, wizard
  * Duration: 10 rounds
  * Range: Self
+ *
  * An invisible layer of magical force protects your vitals. Your armor class becomes 14
  * (18 on a critical spell casting roll)
  */
