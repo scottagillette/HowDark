@@ -1,6 +1,8 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
+import com.redshift.ShadowDarkCalculator.dice.Dice;
+import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
@@ -48,15 +50,18 @@ public class CureWounds extends Spell {
 
         final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
 
+        // Healing dice is 1d6 plus 1d6 dice per caster level divided by 2 rounded down.
+        final Dice dice = new MultipleDice(D6, actor.getLevel() + (actor.getLevel() / 2));
+
         if (criticalFailure) {
             lost = true; // Failed spell check!
             log.info("{} critically MISSES the spell check on {}", actor.getName(), getName());
         } else if (criticalSuccess) {
-            int hitPoints = D6.roll() + D6.roll();
+            int hitPoints = dice.roll() + dice.roll();
             log.info("{} critically heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, getName());
             target.healDamage(hitPoints);
         } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-            int hitPoints = D6.roll();
+            int hitPoints = dice.roll();
             log.info("{} heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, getName());
             target.healDamage(hitPoints);
         } else {

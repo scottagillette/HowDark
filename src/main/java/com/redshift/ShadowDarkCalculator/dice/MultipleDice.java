@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.dice;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +13,16 @@ public class MultipleDice implements Dice {
 
     public MultipleDice(SingleDie... dice) {
         this.diceSet = List.of(dice);
+    }
+
+    public MultipleDice(SingleDie dice, int number) {
+        List<Dice> multipleDice = new ArrayList<>();
+
+        for (int i = 0; i < number; i++) {
+            multipleDice.add(dice);
+        }
+
+        diceSet = multipleDice;
     }
 
     @Override
