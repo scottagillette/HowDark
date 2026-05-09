@@ -1,7 +1,8 @@
-package com.redshift.ShadowDarkCalculator.targets;
+package com.redshift.ShadowDarkCalculator.targets.single;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.SingleDie;
+import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 
 import java.util.List;
 

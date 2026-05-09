@@ -3,7 +3,7 @@ package com.redshift.ShadowDarkCalculator.creatures.players;
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
-import com.redshift.ShadowDarkCalculator.targets.FocusFireTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.single.FocusFireTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 
 public class Ranger extends Player {

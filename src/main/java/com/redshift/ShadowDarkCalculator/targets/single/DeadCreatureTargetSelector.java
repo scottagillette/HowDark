@@ -1,7 +1,8 @@
-package com.redshift.ShadowDarkCalculator.targets;
+package com.redshift.ShadowDarkCalculator.targets.single;
 
 import com.redshift.ShadowDarkCalculator.conditions.DevouredCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 
 import java.util.Collections;
 import java.util.List;

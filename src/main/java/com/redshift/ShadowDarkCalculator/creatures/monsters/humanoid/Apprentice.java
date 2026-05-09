@@ -14,7 +14,7 @@ import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.targets.RandomTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.single.RandomTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;

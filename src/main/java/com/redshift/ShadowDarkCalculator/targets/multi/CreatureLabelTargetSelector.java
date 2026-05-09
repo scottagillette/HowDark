@@ -1,7 +1,8 @@
-package com.redshift.ShadowDarkCalculator.targets;
+package com.redshift.ShadowDarkCalculator.targets.multi;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
+import com.redshift.ShadowDarkCalculator.targets.MultiTargetSelector;
 
 import java.util.Collections;
 import java.util.List;

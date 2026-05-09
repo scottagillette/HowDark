@@ -8,8 +8,8 @@ import com.redshift.ShadowDarkCalculator.creatures.monsters.undead.Skeleton;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.targets.CreatureLabelTargetSelector;
-import com.redshift.ShadowDarkCalculator.targets.DeadCreatureTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.multi.CreatureLabelTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.single.DeadCreatureTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;

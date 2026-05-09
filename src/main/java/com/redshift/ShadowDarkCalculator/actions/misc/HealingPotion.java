@@ -4,7 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.targets.HealTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.single.HealTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;

@@ -13,7 +13,7 @@ import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.targets.DeadCreatureTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.single.DeadCreatureTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
