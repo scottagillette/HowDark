@@ -5,7 +5,6 @@ import com.redshift.ShadowDarkCalculator.actions.spells.SingleTargetDamageSpell;
 import com.redshift.ShadowDarkCalculator.actions.spells.Spell;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.conditions.DazedAndConfusedCondition;
-import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.SpellFocusCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
@@ -77,22 +76,19 @@ public class Apprentice extends Monster {
         public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
             final Creature target = new RandomTargetSelector().get(enemies);
 
-            boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
-            actor.removeCondition(DisadvantagedCondition.class.getName());
-
-            final int spellCheckRoll = getSpellCheckRoll(disadvantage);
-
-            final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
-            final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
-
             final int spellCheckModifier = actor.getStats().getIntelligenceModifier(); // Always uses INT!
+
+            final int d20Roll = getSpellCheckRoll(actor, spellCheckModifier);
+
+            final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
+            final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;
 
             if (target.getLevel() <= 2) { // Only affects level 2 and below!
                 if (criticalFailure) {
                     lost = true; // Failed spell check!
-                    log.info("{} critically MISSES the spell check on {}", actor.getName(), getName());
+                    log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
                 } else if (criticalSuccess) {
-                    log.info("{} critically casts {} on {}", actor.getName(), getName(), target.getName());
+                    log.info("{} critically casts {} on {}", actor.getName(), name, target.getName());
                     actor.addCondition(new SpellFocusCondition(
                             11,
                             RollModifier.INTELLIGENCE,
@@ -101,8 +97,8 @@ public class Apprentice extends Monster {
                             new RemoveDazedAndConfusedCondition(target)
                     ));
                     target.addCondition(new DazedAndConfusedCondition()); // Until focus lost or attacked
-                } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-                    log.info("{} casts {} on {}", actor.getName(), getName(), target.getName());
+                } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
+                    log.info("{} casts {} on {}", actor.getName(), name, target.getName());
                     actor.addCondition(new SpellFocusCondition(
                             11,
                             RollModifier.INTELLIGENCE,
@@ -113,10 +109,10 @@ public class Apprentice extends Monster {
                     target.addCondition(new DazedAndConfusedCondition()); //  Until focus lost or attacked
                 } else {
                     lost = true; // Failed spell check!
-                    log.info("{} MISSES the spell check with a {}", actor.getName(), getName());
+                    log.info("{} MISSES the spell check with a {}", actor.getName(), name);
                 }
             } else {
-                log.info("{} casts {} on {} with no effect!", actor.getName(), getName(), target.getName());
+                log.info("{} casts {} on {} with no effect!", actor.getName(), name, target.getName());
             }
         }
     }

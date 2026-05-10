@@ -7,7 +7,6 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.UndeadMonster;
-import com.redshift.ShadowDarkCalculator.dice.Dice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import lombok.extern.slf4j.Slf4j;
 
@@ -50,8 +49,8 @@ public class Ghast extends UndeadMonster {
         }
 
         @Override
-        protected boolean performSingleTargetAttack(Creature actor, Creature target, String weaponName, Dice damageDice, RollModifier rollModifier) {
-            final boolean attackHits = super.performSingleTargetAttack(actor, target, weaponName, damageDice, rollModifier);
+        protected boolean performSingleTargetAttack(Creature actor, Creature target) {
+            final boolean attackHits = super.performSingleTargetAttack(actor, target);
 
             if (attackHits) {
                 if (!target.hasCondition(ParalyzedCondition.class.getName())) {

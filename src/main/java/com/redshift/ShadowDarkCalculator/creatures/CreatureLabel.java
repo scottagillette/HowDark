@@ -1,5 +1,9 @@
 package com.redshift.ShadowDarkCalculator.creatures;
 
+/**
+ * Labels creatures can be tagged with.
+ */
+
 public enum CreatureLabel {
     // Position Types
     BACKLINE,

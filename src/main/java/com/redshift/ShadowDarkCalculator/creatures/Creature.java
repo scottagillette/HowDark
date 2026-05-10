@@ -64,12 +64,6 @@ public interface Creature {
     SingleTargetSelector getSingleTargetSelector();
 
     /**
-     * Returns a new initiative roll.
-     */
-
-    int rollInitiative();
-
-    /**
      * Returns the level of the creature.
      */
 
@@ -100,6 +94,12 @@ public interface Creature {
     int getWoundedAmount();
 
     /**
+     * Gives the creature a luck token; to a maximum of 1.
+     */
+
+    void giveLuckToken();
+
+    /**
      * Returns true if the creature already has the same type of condition.
      */
 
@@ -110,6 +110,12 @@ public interface Creature {
      */
 
     boolean hasCondition(Condition condition);
+
+    /**
+     * Returns true if the creature has a luck token to spend.
+     */
+
+    boolean hasLuckToken();
 
     /**
      * Heals the target for the specified amount.
@@ -148,10 +154,22 @@ public interface Creature {
     Condition removeCondition(String conditionName);
 
     /**
+     * Returns a new initiative roll.
+     */
+
+    int rollInitiative();
+
+    /**
      * Sets whether the creature is dead or not.
      */
 
     void setDead(boolean dead);
+
+    /**
+     * Spends the creatures luck token if they have one; throws an exception if they don't.
+     */
+
+    void spendLuckToken();
 
     /**
      * Instructs the creature to take an amount of damage  and various aspects of damage types.

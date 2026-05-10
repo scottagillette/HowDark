@@ -3,7 +3,6 @@ package com.redshift.ShadowDarkCalculator.creatures.monsters.monstrosities;
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
-import com.redshift.ShadowDarkCalculator.dice.Dice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
@@ -44,10 +43,10 @@ public class CaveCreeper extends Monster {
         }
 
         @Override
-        protected boolean performSingleTargetAttack(Creature actor, Creature target, String weaponName, Dice damageDice, RollModifier rollModifier) {
-            final boolean targetHit = super.performSingleTargetAttack(actor, target, getName(), damageDice, rollModifier);
+        protected boolean performSingleTargetAttack(Creature actor, Creature target) {
+            final boolean targetHits = super.performSingleTargetAttack(actor, target);
 
-            if (targetHit) {
+            if (targetHits) {
                 if (!target.hasCondition(ParalyzedCondition.class.getName())) {
                     if (!target.getStats().constitutionSave(12)) {
                         int rounds = D4.roll();
@@ -58,7 +57,7 @@ public class CaveCreeper extends Monster {
                     }
                 }
             }
-            return targetHit;
+            return targetHits;
         }
 
     }

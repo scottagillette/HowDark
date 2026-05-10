@@ -75,7 +75,7 @@ public class VampireSpawn extends UndeadMonster {
             if (target == null) {
                 log.info("{} is skipping their turn... no target!", actor.getName());
             } else {
-                boolean attackHits = performSingleTargetAttack(actor, target, getName(), damageDice, rollModifier);
+                boolean attackHits = performSingleTargetAttack(actor, target);
 
                 if (attackHits) {
                     // Heal 2d6

@@ -6,6 +6,10 @@ import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.targets.single.FocusFireTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 
+/**
+ * Class specific player; Ranger.
+ */
+
 public class Ranger extends Player {
 
     public Ranger(

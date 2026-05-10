@@ -6,13 +6,14 @@ package com.redshift.ShadowDarkCalculator.actions;
 
 public abstract class BaseAction implements Action {
 
+    protected final String name;
+    protected int priority = 1; // All actions default to priority 1.
+
     public BaseAction(String name) {
         if (name == null || name.isEmpty()) throw new UnsupportedOperationException("An action name must specified.");
         this.name = name;
     }
 
-    private final String name;
-    private int priority = 1; // All actions default to priority 1.
 
     @Override
     public String getName() {

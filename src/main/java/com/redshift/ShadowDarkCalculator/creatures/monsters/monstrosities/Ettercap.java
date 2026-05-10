@@ -8,7 +8,6 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
-import com.redshift.ShadowDarkCalculator.dice.Dice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.ZeroDice;
 import lombok.extern.slf4j.Slf4j;
@@ -51,14 +50,14 @@ public class Ettercap extends Monster {
         }
 
         @Override
-        protected boolean performSingleTargetAttack(Creature actor, Creature target, String weaponName, Dice damageDice, RollModifier rollModifier) {
-            final boolean targetHit = super.performSingleTargetAttack(actor, target, weaponName, damageDice, rollModifier);
+        protected boolean performSingleTargetAttack(Creature actor, Creature target) {
+            final boolean targetHits = super.performSingleTargetAttack(actor, target);
 
-            if (targetHit) {
+            if (targetHits) {
                 target.addCondition(new PoisonWebCondition());
             }
 
-            return targetHit;
+            return targetHits;
         }
     }
 

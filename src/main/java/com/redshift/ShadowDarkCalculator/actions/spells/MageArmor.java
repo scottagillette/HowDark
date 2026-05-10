@@ -1,6 +1,5 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
-import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.MageArmorCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -35,29 +34,26 @@ public class MageArmor extends Spell {
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-        final boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
-        actor.removeCondition(DisadvantagedCondition.class.getName());
+        final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
 
         // See if they pass the spell check!
-        final int spellCheckRoll = getSpellCheckRoll(disadvantage);
+        final int spellCheckRoll = getSpellCheckRoll(actor, spellCheckModifier);
 
         final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
 
-        final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
-
         if (criticalFailure) {
             lost = true;
-            log.info("{} critically MISSES the spell check on {}", actor.getName(), getName());
+            log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
         } else if (criticalSuccess) {
             actor.addCondition(new MageArmorCondition(10, 18));
-            log.info("{} critically casts {} for 18 AC!", actor.getName(), getName());
+            log.info("{} critically casts {} for 18 AC!", actor.getName(), name);
         } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             actor.addCondition(new MageArmorCondition(10, 14));
-            log.info("{} casts {} for 14 AC.", actor.getName(), getName());
+            log.info("{} casts {} for 14 AC.", actor.getName(), name);
         } else {
             lost = true;
-            log.info("{} MISSES the spell check with a {}", actor.getName(), getName());
+            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
         }
     }
 

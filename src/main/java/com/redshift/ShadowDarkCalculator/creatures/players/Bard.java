@@ -6,6 +6,10 @@ import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.targets.single.FocusFireTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 
+/**
+ * Class specific player; Bard.
+ */
+
 public class Bard extends Player {
 
     public Bard(

@@ -1,7 +1,6 @@
 package com.redshift.ShadowDarkCalculator.actions;
 
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * List various types of damage that are used in game effects.

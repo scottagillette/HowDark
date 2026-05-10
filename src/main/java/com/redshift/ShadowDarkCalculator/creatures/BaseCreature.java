@@ -25,6 +25,7 @@ public abstract class BaseCreature implements Creature {
     private final Map<String, Condition> conditions = new ConcurrentHashMap<>();
     private int currentHitPoints;
     private boolean dead = false;
+    private boolean hasLuckToken = false;
     private final int hitPoints;
     private final int level;
     private final String name;
@@ -157,6 +158,11 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
+    public void giveLuckToken() {
+        hasLuckToken = true;
+    }
+
+    @Override
     public boolean hasCondition(String conditionName) {
         return (conditions.get(conditionName) != null);
     }
@@ -164,6 +170,11 @@ public abstract class BaseCreature implements Creature {
     @Override
     public boolean hasCondition(Condition condition) {
         return (conditions.containsValue(condition));
+    }
+
+    @Override
+    public boolean hasLuckToken() {
+        return hasLuckToken;
     }
 
     @Override
@@ -215,6 +226,12 @@ public abstract class BaseCreature implements Creature {
         } else {
             conditions.clear(); // Rise from the dead... have no conditions!
         }
+    }
+
+    @Override
+    public void spendLuckToken() {
+        if (!hasLuckToken) throw new IllegalStateException("No luck token!");
+        hasLuckToken = false;
     }
 
     @Override

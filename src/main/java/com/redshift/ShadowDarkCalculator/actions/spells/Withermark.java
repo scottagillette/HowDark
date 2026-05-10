@@ -1,7 +1,6 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
 import com.redshift.ShadowDarkCalculator.actions.DamageType;
-import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
@@ -38,16 +37,7 @@ public class Withermark extends Spell {
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         final List<Creature> livingCreatures = new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size());
-
         final Creature target = actor.getSingleTargetSelector().get(livingCreatures);
-
-        boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
-        actor.removeCondition(DisadvantagedCondition.class.getName());
-
-        final int spellCheckRoll = getSpellCheckRoll(disadvantage);
-
-        final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
-        final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
 
         int spellCheckModifier = 0;
 
@@ -59,20 +49,25 @@ public class Withermark extends Spell {
             spellCheckModifier = actor.getStats().getCharismaModifier();
         }
 
+        final int d20Roll = getSpellCheckRoll(actor, spellCheckModifier);
+
+        final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
+        final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;
+
         if (criticalFailure) {
             lost = true; // Failed spell check!
-            log.info("{} critically MISSES the spell check with a {}", actor.getName(), getName());
+            log.info("{} critically MISSES the spell check with a {}", actor.getName(), name);
         } else if (criticalSuccess) {
             int damage = D4.roll() + D4.roll();
-            log.info("{} critically hits a spell on {} with a {} for {} damage", actor.getName(), target.getName(), getName(), damage);
+            log.info("{} critically hits a spell on {} with a {} for {} damage", actor.getName(), target.getName(), name, damage);
             target.takeDamage(damage, new DamageType().addMagical());
-        } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
+        } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             int damage = D4.roll();
-            log.info("{} hits a spell on {} with a {} for {} damage", actor.getName(), target.getName(), getName(), damage);
+            log.info("{} hits a spell on {} with a {} for {} damage", actor.getName(), target.getName(), name, damage);
             target.takeDamage(damage, new DamageType().addMagical());
         } else {
             lost = true; // Failed spell check!
-            log.info("{} MISSES the spell check with a {}", actor.getName(), getName());
+            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
         }
     }
 }
