@@ -52,13 +52,13 @@ public class Ettercap extends Monster {
 
         @Override
         protected boolean performSingleTargetAttack(Creature actor, Creature target) {
-            final boolean targetHit = super.performSingleTargetAttack(actor, target);
+            final boolean targetHits = super.performSingleTargetAttack(actor, target);
 
-            if (targetHit) {
+            if (targetHits) {
                 target.addCondition(new PoisonWebCondition());
             }
 
-            return targetHit;
+            return targetHits;
         }
     }
 

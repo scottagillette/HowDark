@@ -45,9 +45,9 @@ public class CaveCreeper extends Monster {
 
         @Override
         protected boolean performSingleTargetAttack(Creature actor, Creature target) {
-            final boolean targetHit = super.performSingleTargetAttack(actor, target);
+            final boolean targetHits = super.performSingleTargetAttack(actor, target);
 
-            if (targetHit) {
+            if (targetHits) {
                 if (!target.hasCondition(ParalyzedCondition.class.getName())) {
                     if (!target.getStats().constitutionSave(12)) {
                         int rounds = D4.roll();
@@ -58,7 +58,7 @@ public class CaveCreeper extends Monster {
                     }
                 }
             }
-            return targetHit;
+            return targetHits;
         }
 
     }
