@@ -7,7 +7,7 @@ import com.redshift.ShadowDarkCalculator.targets.single.FocusFireTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 
 /**
- * Class specific player; Fighter.
+ * Class specific player; Knight of St Ydris.
  */
 
 public class KnightOfStYdris  extends Player {
