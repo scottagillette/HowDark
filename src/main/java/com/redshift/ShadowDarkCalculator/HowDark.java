@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.BrownBear;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.undead.VampireSpawn;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
 
@@ -30,7 +30,7 @@ public class HowDark {
 //                    new TheWolfPackBuilder().build(),
 //                    new TheCrabCrushersBuilderv1().build(),
                     new DiableriePartyBuilder().build(),
-                    List.of(new BrownBear("Brown Bear"))
+//                    List.of(new BrownBear("Brown Bear"))
 //                    List.of(new Werewolf("Dark Werewolf"))
 //                    List.of(new Knight("Knight 1"), new Knight("Knight 2"))
 //                    List.of(new Reaver("Reaver 1"))
@@ -88,7 +88,7 @@ public class HowDark {
 //                    List.of(new Bugbear("Bugbear 1"), new Bugbear("Bugbear 2"))
 //                    List.of(new Wraith("Wraith"))
 //                    List.of(new Mummy("Mummy of Death"))
-//                    List.of(new VampireSpawn("Vampire Spawn"))
+                    List.of(new VampireSpawn("Vampire Spawn"))
 //                    List.of(new OwlBear("Rabid Owlbear"))
 //                    List.of(new Ankheg("Ankheg of Death"))
 //                    List.of(new FireDragon("Red Fire Dragon of death"))

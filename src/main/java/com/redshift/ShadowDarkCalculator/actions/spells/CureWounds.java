@@ -1,6 +1,5 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
-import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -39,34 +38,31 @@ public class CureWounds extends Spell {
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         final Creature target = new HealTargetSelector().get(allies); // Shouldn't get null since Spell.canPerform() returned true
 
-        boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
-        actor.removeCondition(DisadvantagedCondition.class.getName());
+        final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
 
         // See if they pass the spell check!
-        final int spellCheckRoll = getSpellCheckRoll(disadvantage);
+        final int d20Roll = getSpellCheckRoll(actor, spellCheckModifier);
 
-        final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
-        final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
-
-        final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
+        final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
+        final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;
 
         // Healing dice is 1d6 plus 1d6 dice per caster level divided by 2 rounded down.
         final Dice dice = new MultipleDice(D6, actor.getLevel() + (actor.getLevel() / 2));
 
         if (criticalFailure) {
             lost = true; // Failed spell check!
-            log.info("{} critically MISSES the spell check on {}", actor.getName(), getName());
+            log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
         } else if (criticalSuccess) {
             int hitPoints = dice.roll() + dice.roll();
-            log.info("{} critically heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, getName());
+            log.info("{} critically heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, name);
             target.healDamage(hitPoints);
-        } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
+        } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             int hitPoints = dice.roll();
-            log.info("{} heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, getName());
+            log.info("{} heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, name);
             target.healDamage(hitPoints);
         } else {
             lost = true; // Failed spell check!
-            log.info("{} MISSES the spell check with a {}", actor.getName(), getName());
+            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
         }
     }
 

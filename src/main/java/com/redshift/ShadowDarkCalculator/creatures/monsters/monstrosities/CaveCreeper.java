@@ -44,8 +44,8 @@ public class CaveCreeper extends Monster {
         }
 
         @Override
-        protected boolean performSingleTargetAttack(Creature actor, Creature target, String weaponName, Dice damageDice, RollModifier rollModifier) {
-            final boolean targetHit = super.performSingleTargetAttack(actor, target, getName(), damageDice, rollModifier);
+        protected boolean performSingleTargetAttack(Creature actor, Creature target) {
+            final boolean targetHit = super.performSingleTargetAttack(actor, target);
 
             if (targetHit) {
                 if (!target.hasCondition(ParalyzedCondition.class.getName())) {

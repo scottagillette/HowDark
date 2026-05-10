@@ -1,7 +1,6 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
 import com.redshift.ShadowDarkCalculator.conditions.DevouredCondition;
-import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.undead.Skeleton;
@@ -52,33 +51,30 @@ public class Undeath extends Spell {
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         final Creature deadCreature = getTarget(enemies, allies);
 
-        boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
-        actor.removeCondition(DisadvantagedCondition.class.getName());
+        final int spellCheckModifier = actor.getStats().getCharismaModifier(); // Always uses Charisma!
 
         // See if they pass the spell check!
-        final int spellCheckRoll = getSpellCheckRoll(disadvantage);
+        final int d20Roll = getSpellCheckRoll(actor, spellCheckModifier);
 
-        final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
-        final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
-
-        final int spellCheckModifier = actor.getStats().getCharismaModifier(); // Always uses Charisma!
+        final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
+        final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;
 
         if (criticalFailure) {
             lost = true; // Failed spell check!
-            log.info("{} critically MISSES the spell check on {}", actor.getName(), getName());
+            log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
         } else if (criticalSuccess) {
-            log.info("{} critically succeeds on raising a skeleton for 10 rounds with {}", actor.getName(), getName());
+            log.info("{} critically succeeds on raising a skeleton for 10 rounds with {}", actor.getName(), name);
             encounter.addFriendlyCreature(actor, new Skeleton("Undeath Skeleton"));
             lost = true; // Single per combat use.
             deadCreature.addCondition(new DevouredCondition()); // Mark corpse as devoured so it can't be used again.
-        } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-            log.info("{} succeeds on raising a skeleton for 5 rounds with {}", actor.getName(), getName());
+        } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
+            log.info("{} succeeds on raising a skeleton for 5 rounds with {}", actor.getName(), name);
             encounter.addFriendlyCreature(actor, new Skeleton("Undeath Skeleton"));
             lost = true; // Single per combat use.
             deadCreature.addCondition(new DevouredCondition()); // Mark corpse as devoured so it can't be used again.
         } else {
             lost = true; // Failed spell check!
-            log.info("{} MISSES the spell check with a {}", actor.getName(), getName());
+            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
         }
     }
 

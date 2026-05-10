@@ -61,8 +61,8 @@ public class Wight extends UndeadMonster {
         }
 
         @Override
-        protected boolean performSingleTargetAttack(Creature actor, Creature target, String weaponName, Dice damageDice, RollModifier rollModifier) {
-            final boolean attackHits = super.performSingleTargetAttack(actor, target, weaponName, damageDice, rollModifier);
+        protected boolean performSingleTargetAttack(Creature actor, Creature target) {
+            final boolean attackHits = super.performSingleTargetAttack(actor, target);
 
             if (attackHits) {
                 int constitutionRemaining = target.getStats().constitutionDrain(D4);

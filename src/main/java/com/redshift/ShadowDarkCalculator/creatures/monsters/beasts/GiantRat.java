@@ -41,8 +41,8 @@ public class GiantRat extends Monster {
         }
 
         @Override
-        protected boolean performSingleTargetAttack(Creature actor, Creature target, String weaponName, Dice damageDice, RollModifier rollModifier) {
-            final boolean attackHits = super.performSingleTargetAttack(actor, target, weaponName, damageDice, rollModifier);
+        protected boolean performSingleTargetAttack(Creature actor, Creature target) {
+            final boolean attackHits = super.performSingleTargetAttack(actor, target);
 
             if (attackHits) {
                 if (target.getStats().constitutionSave(12)) {

@@ -48,8 +48,8 @@ public class BrownBear extends Monster {
         }
 
         @Override
-        protected boolean performSingleTargetAttack(Creature actor, Creature target, String weaponName, Dice damageDice, RollModifier rollModifier) {
-            boolean attackHits = super.performSingleTargetAttack(actor, target, weaponName, damageDice, rollModifier);
+        protected boolean performSingleTargetAttack(Creature actor, Creature target) {
+            boolean attackHits = super.performSingleTargetAttack(actor, target);
 
             attackNumber = attackNumber + 1;
 

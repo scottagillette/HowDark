@@ -3,7 +3,6 @@ package com.redshift.ShadowDarkCalculator.creatures.monsters.humanoid;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.Spell;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
-import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
@@ -63,31 +62,28 @@ public class Acolyte extends Monster {
             final SingleTargetSelector selector = new HealTargetSelector();
             final Creature target = selector.get(allies);
 
-            boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
-            actor.removeCondition(DisadvantagedCondition.class.getName());
+            final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom!
 
             // See if they pass the spell check!
-            final int spellCheckRoll = getSpellCheckRoll(disadvantage);
+            final int d20Roll = getSpellCheckRoll(actor, spellCheckModifier);
 
-            final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
-            final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
-
-            final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom!
+            final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
+            final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;
 
             if (criticalFailure) {
                 lost = true; // Failed spell check!
-                log.info("{} critically MISSES the spell check on {}", actor.getName(), getName());
+                log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
             } else if (criticalSuccess) {
                 int hitPoints = D4.roll() + D4.roll();
-                log.info("{} critically heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, getName());
+                log.info("{} critically heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, name);
                 target.healDamage(hitPoints);
-            } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
+            } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
                 int hitPoints = D4.roll();
-                log.info("{} heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, getName());
+                log.info("{} heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, name);
                 target.healDamage(hitPoints);
             } else {
                 lost = true; // Failed spell check!
-                log.info("{} MISSES the spell check with a {}", actor.getName(), getName());
+                log.info("{} MISSES the spell check with a {}", actor.getName(), name);
             }
         }
     }

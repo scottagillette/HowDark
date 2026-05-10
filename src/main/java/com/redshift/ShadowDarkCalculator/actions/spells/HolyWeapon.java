@@ -1,6 +1,5 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
-import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.HolyWeaponCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -38,29 +37,26 @@ public class HolyWeapon extends Spell {
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         final Creature target = new HolyWeaponTargetSelector().get(allies);
 
-        boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
-        actor.removeCondition(DisadvantagedCondition.class.getName());
+        final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
 
         // See if they pass the spell check!
-        final int spellCheckRoll = getSpellCheckRoll(disadvantage);
+        final int spellCheckRoll = getSpellCheckRoll(actor, spellCheckModifier);
 
         final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
 
-        final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
-
         if (criticalFailure) {
             lost = true; // Failed spell check!
-            log.info("{} critically MISSES the spell check on {}", actor.getName(), getName());
+            log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
         } else if (criticalSuccess) {
             target.addCondition(new HolyWeaponCondition(10));
-            log.info("{} critically succeeds casting {} on {}", actor.getName(), getName(), target.getName());
+            log.info("{} critically succeeds casting {} on {}", actor.getName(), name, target.getName());
         } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             target.addCondition(new HolyWeaponCondition());
-            log.info("{} casts {} on {}", actor.getName(), getName(), target.getName());
+            log.info("{} casts {} on {}", actor.getName(), name, target.getName());
         } else {
             lost = true; // Failed spell check!
-            log.info("{} MISSES the spell check with a {}", actor.getName(), getName());
+            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
         }
     }
 }

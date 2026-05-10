@@ -48,7 +48,7 @@ public class Hexling extends Monster {
             if (target == null) {
                 log.info("{} is skipping their turn... no target!", actor.getName());
             } else {
-                boolean attackHits = performSingleTargetAttack(actor, target, getName(), damageDice, rollModifier);
+                boolean attackHits = performSingleTargetAttack(actor, target);
 
                 if (attackHits) {
                     // Loose 1d4 CON

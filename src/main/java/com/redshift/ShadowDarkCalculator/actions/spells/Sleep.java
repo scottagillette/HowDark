@@ -1,6 +1,5 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
-import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.conditions.SleepingCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
@@ -51,43 +50,40 @@ public class Sleep extends MultiTargetSpell {
         Collections.shuffle(targets);
         targets = targets.subList(0, numberOfTargets);
 
-        boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
-        actor.removeCondition(DisadvantagedCondition.class.getName());
+        int spellCheckModifier = actor.getStats().getIntelligenceModifier(); // Always uses INT modifier!
 
         // See if they pass the spell check!
-        final int spellCheckRoll = getSpellCheckRoll(disadvantage);
+        final int d20Roll = getSpellCheckRoll(actor, spellCheckModifier);
 
-        final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
-        final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
-
-        int spellCheckModifier = actor.getStats().getIntelligenceModifier(); // Always uses INT modifier!
+        final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
+        final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;
 
         if (criticalFailure) {
             lost = true; // Failed spell check!
-            log.info("{} critically MISSES the spell check on {}", actor.getName(), getName());
+            log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
         } else if (criticalSuccess) {
             targets.forEach(target -> {
                 if (target.getLevel() <= 2) {
                     target.addCondition(new SleepingCondition());
-                    log.info("{} critically hits a spell on {} with a {}", actor.getName(), target.getName(), getName());
+                    log.info("{} critically hits a spell on {} with a {}", actor.getName(), target.getName(), name);
                 } else {
-                    log.info("{} critically hits a spell on {} with a {} but doesn't affect the creature.", actor.getName(), target.getName(), getName());
+                    log.info("{} critically hits a spell on {} with a {} but doesn't affect the creature.", actor.getName(), target.getName(), name);
                     lost = true; // Doesn't affect at least one creature... stop casting Sleep!
                 }
             });
-        } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
+        } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             targets.forEach(target -> {
                 if (target.getLevel() <= 2) {
                     target.addCondition(new SleepingCondition());
-                    log.info("{} hits a spell on {} with a {}", actor.getName(), target.getName(), getName());
+                    log.info("{} hits a spell on {} with a {}", actor.getName(), target.getName(), name);
                 } else {
-                    log.info("{} hits a spell on {} with a {} but doesn't affect the creature.", actor.getName(), target.getName(), getName());
+                    log.info("{} hits a spell on {} with a {} but doesn't affect the creature.", actor.getName(), target.getName(), name);
                     lost = true; // Doesn't affect at least one creature... stop casting Sleep!
                 }
             });
         } else {
             lost = true; // Failed spell check!
-            log.info("{} MISSES the spell check with a {}", actor.getName(), getName());
+            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
         }
     }
 }

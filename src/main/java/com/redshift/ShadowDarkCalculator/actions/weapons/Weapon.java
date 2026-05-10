@@ -88,15 +88,34 @@ public class Weapon extends BaseAction implements Action {
     }
 
     /**
-     * Returns the spell check roll... which does not include the spell check bonus if any.
+     * Returns the attack roll... which does not include the spell check bonus if any.
      */
 
-    protected int getAttackRoll(boolean disadvantaged) {
-        if (disadvantaged) {
-            return Math.min(D20.roll(), D20.roll());
-        } else {
-            return D20.roll();
+    protected int getAttackRoll(Creature actor, int rollBonus, int armorClass) {
+        boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
+        actor.removeCondition(DisadvantagedCondition.class.getName());
+
+        int d20Roll = D20.roll();
+
+        if (disadvantage) {
+            d20Roll = Math.min(D20.roll(), D20.roll());
         }
+
+        if (d20Roll == RollOutcome.CRITICAL_SUCCESS) {
+            return d20Roll;
+        }
+
+        if (d20Roll + rollBonus >= armorClass && d20Roll != RollOutcome.CRITICAL_FAILURE) {
+            return d20Roll;
+        } else {
+            if (actor.hasLuckToken()) {
+                log.info("{} uses their luck token to re-roll!", actor.getName());
+                actor.spendLuckToken();
+                return getAttackRoll(actor, rollBonus, armorClass); // Can't be disadvantaged on a luck re-roll is my guess.
+            }
+        }
+
+        return d20Roll;
     }
 
     @Override
@@ -112,35 +131,16 @@ public class Weapon extends BaseAction implements Action {
         if (target == null) {
             log.info("{} is skipping their turn... no target!", actor.getName());
         } else {
-            performSingleTargetAttack(actor, target, getName(), damageDice, rollModifier);
+            performSingleTargetAttack(actor, target);
         }
     }
 
-    protected boolean performSingleTargetAttack(Creature actor, Creature target, String weaponName, Dice damageDice, RollModifier rollModifier) {
-        boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
-        actor.removeCondition(DisadvantagedCondition.class.getName());
+    protected boolean performSingleTargetAttack(Creature actor, Creature target) {
+        // Check for any attack roll and damage roll bonuses like Holy Weapon
 
-        final int attackRoll = getAttackRoll(disadvantage);
-
-        final boolean criticalSuccess = attackRoll == RollOutcome.CRITICAL_SUCCESS;
-        final boolean criticalFailure = attackRoll == RollOutcome.CRITICAL_FAILURE;
-
-        int attackRollModifier = 0;
-
-        if (rollModifier.equals(RollModifier.STRENGTH)) {
-            attackRollModifier = attackRollModifier + actor.getStats().getStrengthModifier();
-        } else if (rollModifier.equals(RollModifier.DEXTERITY)) {
-            attackRollModifier = attackRollModifier + actor.getStats().getDexterityModifier();
-        } else {
-            throw new IllegalStateException("Invalid roll modifier: " + rollModifier.getClass().getName());
-        }
-
-        int tempAttackRollBonus = attackRollBonus; // May get boosted up based on Holy Weapon
-        int tempDamageRollBonus = damageRollBonus; // May get boosted up based on Holy Weapon
+        int tempAttackRollBonus = attackRollBonus;
+        int tempDamageRollBonus = damageRollBonus;
         final DamageType tempDamageType = damageType.copy();
-
-        // Enable holy weapon attack bonus and damage bonus if the actor has this condition
-        // AND this weapon isn't magical already.
 
         if (actor.hasCondition(HolyWeaponCondition.class.getName()) && !damageType.isMagical()) {
             tempAttackRollBonus = attackRollBonus + 1;
@@ -148,26 +148,44 @@ public class Weapon extends BaseAction implements Action {
             tempDamageType.addMagical();
         }
 
+        // Add extra damage if they have the Rage condition!
+
         if (actor.hasCondition(RageCondition.class.getName())) {
             tempDamageRollBonus = damageRollBonus + D4.roll();
         }
 
+        // Calculate the attack roll modifier based on STR or DEX only.
+
+        int attackRollModifier = 0;
+
+        if (rollModifier.equals(RollModifier.STRENGTH)) {
+            attackRollModifier = actor.getStats().getStrengthModifier();
+        } else if (rollModifier.equals(RollModifier.DEXTERITY)) {
+            attackRollModifier = actor.getStats().getDexterityModifier();
+        }
+
+        // Roll the attack!
+
+        int d20Result = getAttackRoll(actor, attackRollModifier + tempAttackRollBonus, target.getAC());
+
+        final boolean criticalSuccess = d20Result == RollOutcome.CRITICAL_SUCCESS;
+        final boolean criticalFailure = d20Result == RollOutcome.CRITICAL_FAILURE;
+
         if (criticalFailure) {
-            log.info("{} critically MISSES an attack on {} with a {}", actor.getName(), target.getName(), weaponName);
+            log.info("{} critically MISSES an attack on {} with a {}", actor.getName(), target.getName(), name);
             return false;
         } else if (criticalSuccess) {
             int damage = damageDice.roll() + damageDice.roll() + tempDamageRollBonus;
-            log.info("{} critically hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), weaponName, damage);
+            log.info("{} critically hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), name, damage);
             target.takeDamage(damage, tempDamageType);
             return true;
-        } else if (attackRoll + attackRollModifier + tempAttackRollBonus >= target.getAC()) {
+        } else if (d20Result + attackRollModifier + tempAttackRollBonus >= target.getAC()) {
             int damage = damageDice.roll() + tempDamageRollBonus;
-            log.info("{} hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), weaponName, damage);
+            log.info("{} hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), name, damage);
             target.takeDamage(damage, tempDamageType);
             return true;
         } else {
-            // Miss
-            log.info("{} MISSES the attack on {} with a {}", actor.getName(), target.getName(), weaponName);
+            log.info("{} MISSES the attack on {} with a {}", actor.getName(), target.getName(), name);
             return false;
         }
     }

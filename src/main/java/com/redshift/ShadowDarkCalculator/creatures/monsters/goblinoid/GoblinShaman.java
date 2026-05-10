@@ -30,7 +30,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
  * S +0, D +1, C +1, I +0, W +2, Ch +1, AL C, LV 4
  * Keen Senses. Can't be surprised.
  * Bug Brain (WIS Spell). DC 13. Near range, one target. Target's INT drops to 1 for 1d4 rounds.
- * Skitter (WIS Spell). DC 12. Self. Climb like a spider for 5 rounds.
+ * Skitter (WIS Spell). DC 12. Self. Climb like a spider for 5 rounds. // TODO: Not implemented
  * Stink Bomb (WIS Spell). DC 12. One target within far 2d4 damage and DC 12 CON or DISADV on next check/attack.
  */
 
@@ -83,30 +83,27 @@ public class GoblinShaman extends Monster {
 
             final Creature target = wizards.getFirst();
 
-            boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
-            actor.removeCondition(DisadvantagedCondition.class.getName());
-
-            final int spellCheckRoll = getSpellCheckRoll(disadvantage);
-
-            final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
-            final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
-
             int spellCheckModifier = actor.getStats().getWisdomModifier();
+
+            final int d20Roll = getSpellCheckRoll(actor, spellCheckModifier);
+
+            final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
+            final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;
 
             if (criticalFailure) {
                 lost = true; // Failed spell check!
-                log.info("{} critically MISSES the spell check with a {}", actor.getName(), getName());
+                log.info("{} critically MISSES the spell check with a {}", actor.getName(), name);
             } else if (criticalSuccess) {
                 lost = true; // Use bug brain Once
-                log.info("{} critically hits a spell on {} with a {}", actor.getName(), target.getName(), getName());
+                log.info("{} critically hits a spell on {} with a {}", actor.getName(), target.getName(), name);
                 target.addCondition(new StupefiedCondition(D4.roll() + D4.roll()));
-            } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
+            } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
                 lost = true; // Use bug brain Once
-                log.info("{} hits a spell on {} with a {}", actor.getName(), target.getName(), getName());
+                log.info("{} hits a spell on {} with a {}", actor.getName(), target.getName(), name);
                 target.addCondition(new StupefiedCondition(D4.roll()));
             } else {
                 lost = true; // Failed spell check!
-                log.info("{} MISSES the spell check with a {}", actor.getName(), getName());
+                log.info("{} MISSES the spell check with a {}", actor.getName(), name);
             }
         }
     }
@@ -124,13 +121,15 @@ public class GoblinShaman extends Monster {
             if (target == null) {
                 log.info("{} is skipping their turn... no target!", actor.getName());
             } else {
-                performSingleTargetSpellAttack(actor, target, this, difficultyClass, damageDice, rollModifier);
+                final boolean spellLWorks = performSingleTargetSpellAttack(actor, target, this, difficultyClass, damageDice, rollModifier);
 
-                if (!target.getStats().constitutionSave(12)) {
-                    log.info("{} is disadvantaged on their next attack/check!", target.getName());
-                    target.addCondition(new DisadvantagedCondition());
-                } else {
-                    log.info("{} SAVES and is NOT disadvantaged!", target.getName());
+                if (spellLWorks) {
+                    if (!target.getStats().constitutionSave(12)) {
+                        log.info("{} is disadvantaged on their next attack/check!", target.getName());
+                        target.addCondition(new DisadvantagedCondition());
+                    } else {
+                        log.info("{} SAVES and is NOT disadvantaged!", target.getName());
+                    }
                 }
             }
         }
