@@ -67,13 +67,12 @@ public class Apprentice extends Monster {
 
         @Override
         public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+            final boolean canPerform = super.canPerform(actor, enemies, allies);
             final Creature target = new RandomTargetSelector().get(enemies);
+            final boolean hasTarget = target != null && !target.hasCondition(DazedAndConfusedCondition.class.getName());
+            final boolean hasFocus = actor.hasCondition(SpellFocusCondition.class.getName());
 
-            final boolean actorIsAlreadyFocusing = actor.hasCondition(SpellFocusCondition.class.getName());
-
-            final boolean targetIsBeguiled = target.hasCondition(DazedAndConfusedCondition.class.getName());
-
-            return !lost && !actorIsAlreadyFocusing && !targetIsBeguiled && target != null;
+            return canPerform && hasTarget && !hasFocus;
         }
 
         @Override
