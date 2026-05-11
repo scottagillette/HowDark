@@ -33,6 +33,7 @@ public class CaveCreeper extends Monster {
                 )
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.NEUTRAL);
     }
 
     public static class Tentacles extends Weapon {

@@ -3,6 +3,7 @@ package com.redshift.ShadowDarkCalculator.creatures.monsters.beasts;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -31,7 +32,7 @@ public class GiantSpider extends Monster {
                 D8.roll() + D8.roll() + D8.roll(),
                 new PoisonBite()
         );
-
+        getLabels().add(CreatureLabel.NEUTRAL);
     }
 
     private static class PoisonBite extends Weapon {

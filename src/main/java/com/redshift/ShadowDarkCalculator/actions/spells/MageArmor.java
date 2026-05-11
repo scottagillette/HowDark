@@ -27,8 +27,8 @@ public class MageArmor extends Spell {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        // Don't perform if you already have the mage armor condition!
         boolean canPerform = super.canPerform(actor, enemies, allies);
+        // Don't perform if you already have the mage armor condition!
         return canPerform && !actor.hasCondition(MageArmorCondition.class.getName());
     }
 
@@ -37,7 +37,7 @@ public class MageArmor extends Spell {
         final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
 
         // See if they pass the spell check!
-        final int spellCheckRoll = getSpellCheckRoll(actor, spellCheckModifier);
+        final int spellCheckRoll = getSpellCheckRoll(actor, List.of(), spellCheckModifier);
 
         final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;

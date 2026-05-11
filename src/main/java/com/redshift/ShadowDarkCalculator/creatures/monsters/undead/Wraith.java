@@ -36,6 +36,7 @@ public class Wraith extends UndeadMonster {
                 )
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.CHAOTIC);
     }
 
     @Override

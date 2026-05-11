@@ -38,6 +38,7 @@ public class Cultist extends Monster {
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
         getLabels().add(CreatureLabel.HUMANOID);
+        getLabels().add(CreatureLabel.CHAOTIC);
     }
 
     private static class DeathTouch extends SingleTargetDamageSpell {

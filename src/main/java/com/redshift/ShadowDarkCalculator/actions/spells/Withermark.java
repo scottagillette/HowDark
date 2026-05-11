@@ -31,7 +31,9 @@ public class Withermark extends Spell {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        return (!lost && !new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size()).isEmpty());
+        final boolean canPerform = super.canPerform(actor, enemies, allies);
+        final boolean hasTarget = !new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size()).isEmpty();
+        return (canPerform && hasTarget);
     }
 
     @Override
@@ -49,7 +51,7 @@ public class Withermark extends Spell {
             spellCheckModifier = actor.getStats().getCharismaModifier();
         }
 
-        final int d20Roll = getSpellCheckRoll(actor, spellCheckModifier);
+        final int d20Roll = getSpellCheckRoll(actor, List.of(target), spellCheckModifier);
 
         final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;

@@ -28,9 +28,10 @@ public class HolyWeapon extends Spell {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        // Need an ally that does not have a holy weapon.
-        final Creature target = new HolyWeaponTargetSelector().get(allies);
-        return (!lost && target != null);
+        final boolean canPerform = super.canPerform(actor, enemies, allies);
+        final boolean hasTarget = new HolyWeaponTargetSelector().get(allies) != null;
+
+        return (canPerform && hasTarget);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class HolyWeapon extends Spell {
         final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
 
         // See if they pass the spell check!
-        final int spellCheckRoll = getSpellCheckRoll(actor, spellCheckModifier);
+        final int spellCheckRoll = getSpellCheckRoll(actor, List.of(), spellCheckModifier);
 
         final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;

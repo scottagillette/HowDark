@@ -32,8 +32,9 @@ public class Undeath extends Spell {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        final Creature deadCreature = getTarget(enemies, allies);
-        return !lost && deadCreature != null;
+        final boolean canPerform = super.canPerform(actor, enemies, allies);
+        final boolean hasTarget = getTarget(enemies, allies) != null;
+        return (canPerform && hasTarget);
     }
 
     private Creature getTarget(List<Creature> enemies, List<Creature> allies) {
@@ -54,7 +55,7 @@ public class Undeath extends Spell {
         final int spellCheckModifier = actor.getStats().getCharismaModifier(); // Always uses Charisma!
 
         // See if they pass the spell check!
-        final int d20Roll = getSpellCheckRoll(actor, spellCheckModifier);
+        final int d20Roll = getSpellCheckRoll(actor, List.of(deadCreature), spellCheckModifier);
 
         final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;

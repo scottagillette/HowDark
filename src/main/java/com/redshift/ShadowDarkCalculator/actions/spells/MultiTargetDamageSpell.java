@@ -71,7 +71,7 @@ public abstract class MultiTargetDamageSpell extends Spell {
         }
 
         // See if they pass the spell check!
-        final int d20Roll = getSpellCheckRoll(actor, spellCheckModifier);
+        final int d20Roll = getSpellCheckRoll(actor, null, spellCheckModifier);
 
         final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;

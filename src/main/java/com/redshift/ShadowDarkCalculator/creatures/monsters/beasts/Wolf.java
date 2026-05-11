@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.creatures.monsters.beasts;
 
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -26,5 +27,6 @@ public class Wolf extends Monster {
                 D8.roll() + D8.roll() + 1,
                 new Weapon("Bite", D6, RollModifier.STRENGTH).addPiercing()
         );
+        getLabels().add(CreatureLabel.NEUTRAL);
     }
 }

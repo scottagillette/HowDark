@@ -34,6 +34,7 @@ public class GelatinousCube extends Monster {
                 new GelatinousCube.AcidTouch()
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.NEUTRAL);
     }
 
     @Override

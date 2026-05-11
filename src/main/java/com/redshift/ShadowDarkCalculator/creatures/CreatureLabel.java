@@ -5,6 +5,11 @@ package com.redshift.ShadowDarkCalculator.creatures;
  */
 
 public enum CreatureLabel {
+    // Alignment types
+    CHAOTIC,
+    NEUTRAL,
+    LAWFUL,
+
     // Position Types
     BACKLINE,
     FRONT_LINE,

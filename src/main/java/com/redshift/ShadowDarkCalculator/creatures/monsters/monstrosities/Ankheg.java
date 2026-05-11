@@ -33,6 +33,7 @@ public class Ankheg extends Monster {
                 )
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.NEUTRAL);
     }
 
 }

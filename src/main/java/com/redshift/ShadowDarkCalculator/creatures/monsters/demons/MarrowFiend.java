@@ -48,6 +48,7 @@ public class MarrowFiend extends Monster {
                 )
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.CHAOTIC);
     }
 
     public static class Devour extends BaseAction implements Action {

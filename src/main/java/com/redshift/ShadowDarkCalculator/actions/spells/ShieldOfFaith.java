@@ -36,7 +36,7 @@ public class ShieldOfFaith extends Spell {
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
 
-        final int d20Roll = getSpellCheckRoll(actor, spellCheckModifier);
+        final int d20Roll = getSpellCheckRoll(actor, null, spellCheckModifier);
 
         final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;

@@ -39,6 +39,7 @@ public class Orc extends Monster {
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
         getLabels().add(CreatureLabel.HUMANOID);
+        getLabels().add(CreatureLabel.CHAOTIC);
     }
 
     private static class Rage extends BaseAction {

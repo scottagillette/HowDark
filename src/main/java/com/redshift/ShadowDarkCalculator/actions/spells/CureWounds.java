@@ -7,6 +7,7 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.single.HealTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.single.HolyWeaponTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -31,7 +32,10 @@ public class CureWounds extends Spell {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        return !lost && new HealTargetSelector().get(allies) != null;
+        final boolean canPerform = super.canPerform(actor, enemies, allies);
+        final boolean hasTarget = new HealTargetSelector().get(allies) != null;
+
+        return (canPerform && hasTarget);
     }
 
     @Override
@@ -41,7 +45,7 @@ public class CureWounds extends Spell {
         final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
 
         // See if they pass the spell check!
-        final int d20Roll = getSpellCheckRoll(actor, spellCheckModifier);
+        final int d20Roll = getSpellCheckRoll(actor, List.of(), spellCheckModifier);
 
         final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;

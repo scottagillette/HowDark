@@ -31,6 +31,7 @@ public class Goblin extends Monster {
         );
         getLabels().add(CreatureLabel.BACKLINE);
         getLabels().add(CreatureLabel.HUMANOID);
+        getLabels().add(CreatureLabel.CHAOTIC);
     }
 
 }

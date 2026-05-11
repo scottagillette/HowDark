@@ -2,6 +2,7 @@ package com.redshift.ShadowDarkCalculator.creatures.monsters.beasts;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -30,6 +31,6 @@ public class GiantSnake extends Monster {
                         new Weapon("Bite", D6, RollModifier.STRENGTH).addPiercing().addAttackRollBonus(1)
                 )
         );
-
+        getLabels().add(CreatureLabel.NEUTRAL);
     }
 }

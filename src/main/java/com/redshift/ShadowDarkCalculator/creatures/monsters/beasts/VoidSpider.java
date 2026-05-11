@@ -5,6 +5,7 @@ import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.VoidSpiderPoisonedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -37,7 +38,7 @@ public class VoidSpider extends Monster {
                         new PoisonBite()
                 )
             );
-
+        getLabels().add(CreatureLabel.CHAOTIC);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.redshift.ShadowDarkCalculator.creatures.monsters.beasts;
 
 import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -29,6 +30,7 @@ public class TarBat extends Monster {
                 D6.roll(), // Usually use a D8 for random first level mob.
                 new Weapon("Bite", D4, RollModifier.DEXTERITY).addPiercing()
         );
+        getLabels().add(CreatureLabel.NEUTRAL);
     }
 
     @Override

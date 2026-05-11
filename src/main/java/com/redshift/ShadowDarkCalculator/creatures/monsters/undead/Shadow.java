@@ -35,6 +35,7 @@ public class Shadow extends UndeadMonster {
                 )
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.CHAOTIC);
     }
 
     public static class DraiingTouch extends Weapon {

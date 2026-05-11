@@ -5,7 +5,9 @@ import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.HolyWeaponCondition;
+import com.redshift.ShadowDarkCalculator.conditions.ProtectionFromEvilCondition;
 import com.redshift.ShadowDarkCalculator.conditions.RageCondition;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
@@ -82,6 +84,22 @@ public class Weapon extends BaseAction implements Action {
         return this;
     }
 
+    private boolean checkDisadvantage(Creature actor, Creature target) {
+        // Check for disadvantage condition and then remove it.
+        boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
+        actor.removeCondition(DisadvantagedCondition.class.getName());
+
+        // Check for protection from evil giving disadvantage.
+        if (target.hasCondition(ProtectionFromEvilCondition.class.getName())) {
+            if (!disadvantage && actor.getLabels().contains(CreatureLabel.CHAOTIC)) {
+                disadvantage = true;
+                log.info("{} has disadvantage attacking {} because of protection from evil!", actor.getName(), target.getName());
+            }
+        }
+
+        return disadvantage;
+    }
+
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         return true; // Melee and ranged attacks by default can always be performed.
@@ -91,17 +109,14 @@ public class Weapon extends BaseAction implements Action {
      * Returns the attack roll... which does not include the spell check bonus if any.
      */
 
-    protected int getAttackRoll(Creature actor, int rollBonus, int armorClass) {
-        boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
-        actor.removeCondition(DisadvantagedCondition.class.getName());
+    protected int getAttackRoll(Creature actor, Creature target, int rollBonus, int armorClass) {
+        final boolean disadvantage = checkDisadvantage(actor, target);
 
         int d20Roll = D20.roll();
 
         if (disadvantage) {
             d20Roll = Math.min(D20.roll(), D20.roll());
-        }
-
-        if (d20Roll == RollOutcome.CRITICAL_SUCCESS) {
+        } else if (d20Roll == RollOutcome.CRITICAL_SUCCESS) {
             return d20Roll;
         }
 
@@ -111,7 +126,7 @@ public class Weapon extends BaseAction implements Action {
             if (actor.hasLuckToken()) {
                 log.info("{} uses their luck token to re-roll!", actor.getName());
                 actor.spendLuckToken();
-                return getAttackRoll(actor, rollBonus, armorClass); // Can't be disadvantaged on a luck re-roll is my guess.
+                return getAttackRoll(actor, target, rollBonus, armorClass); // Can't be disadvantaged on a luck re-roll is my guess.
             }
         }
 
@@ -166,7 +181,7 @@ public class Weapon extends BaseAction implements Action {
 
         // Roll the attack!
 
-        int d20Result = getAttackRoll(actor, attackRollModifier + tempAttackRollBonus, target.getAC());
+        int d20Result = getAttackRoll(actor, target, attackRollModifier + tempAttackRollBonus, target.getAC());
 
         final boolean criticalSuccess = d20Result == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = d20Result == RollOutcome.CRITICAL_FAILURE;

@@ -54,6 +54,7 @@ public class TheWillowMan extends Monster {
                 )
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.CHAOTIC);
     }
 
     private static class Terrify extends BaseAction implements Action {

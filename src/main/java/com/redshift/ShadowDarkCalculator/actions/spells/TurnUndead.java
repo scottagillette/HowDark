@@ -6,6 +6,7 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
+import com.redshift.ShadowDarkCalculator.targets.multi.AliveAwakeNotUndeadTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.multi.UndeadTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,8 +34,9 @@ public class TurnUndead extends MultiTargetSpell {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        final List<Creature> undeadEnemies = new UndeadTargetSelector().getTargets(enemies, enemies.size());
-        return (!lost && !undeadEnemies.isEmpty());
+        final boolean canPerform = super.canPerform(actor, enemies, allies);
+        final boolean hasTarget = !new UndeadTargetSelector().getTargets(enemies, enemies.size()).isEmpty();
+        return (canPerform && hasTarget);
     }
 
     @Override
@@ -44,7 +46,7 @@ public class TurnUndead extends MultiTargetSpell {
         int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
 
         // See if they pass the spell check!
-        final int d20Roll = getSpellCheckRoll(actor, spellCheckModifier);
+        final int d20Roll = getSpellCheckRoll(actor, targets, spellCheckModifier);
 
         final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;

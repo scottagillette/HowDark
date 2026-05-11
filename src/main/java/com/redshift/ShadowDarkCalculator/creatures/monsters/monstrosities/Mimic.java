@@ -4,6 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.StuckToCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -43,6 +44,7 @@ public class Mimic extends Monster {
                         new Bite()
                 )
         );
+        getLabels().add(CreatureLabel.NEUTRAL);
     }
 
     private static class Bite extends Weapon {

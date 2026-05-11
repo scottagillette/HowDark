@@ -52,6 +52,7 @@ public class GoblinShaman extends Monster {
         getLabels().add(CreatureLabel.BACKLINE);
         getLabels().add(CreatureLabel.CASTER);
         getLabels().add(CreatureLabel.HUMANOID);
+        getLabels().add(CreatureLabel.CHAOTIC);
     }
 
     /**
@@ -85,7 +86,7 @@ public class GoblinShaman extends Monster {
 
             int spellCheckModifier = actor.getStats().getWisdomModifier();
 
-            final int d20Roll = getSpellCheckRoll(actor, spellCheckModifier);
+            final int d20Roll = getSpellCheckRoll(actor, List.of(target), spellCheckModifier);
 
             final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
             final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;

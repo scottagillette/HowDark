@@ -32,6 +32,7 @@ public class OwlBear extends Monster {
                 )
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.NEUTRAL);
     }
 
     private static class Claw extends Weapon {

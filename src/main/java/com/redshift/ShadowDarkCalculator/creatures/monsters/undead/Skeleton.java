@@ -31,5 +31,6 @@ public class Skeleton extends UndeadMonster {
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
         getLabels().add(CreatureLabel.HUMANOID); // Not a humanoid?
+        getLabels().add(CreatureLabel.CHAOTIC);
     }
 }

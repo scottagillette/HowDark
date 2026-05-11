@@ -40,6 +40,7 @@ public class Ettercap extends Monster {
                 )
         );
         getLabels().add(CreatureLabel.BACKLINE);
+        getLabels().add(CreatureLabel.CHAOTIC);
     }
 
     public static class PoisonWeb extends Weapon {

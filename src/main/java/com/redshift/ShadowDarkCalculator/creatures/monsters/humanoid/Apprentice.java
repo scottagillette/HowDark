@@ -48,6 +48,7 @@ public class Apprentice extends Monster {
         getLabels().add(CreatureLabel.BACKLINE);
         getLabels().add(CreatureLabel.HUMANOID);
         getLabels().add(CreatureLabel.WIZARD);
+        getLabels().add(CreatureLabel.NEUTRAL);
     }
 
     private static class MagicBolt extends SingleTargetDamageSpell {
@@ -67,9 +68,12 @@ public class Apprentice extends Monster {
         @Override
         public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
             final Creature target = new RandomTargetSelector().get(enemies);
-            final boolean hasFocusAlready = actor.hasCondition(SpellFocusCondition.class.getName());
-            // TODO: Could avoid anyone that is already Dazed and Confused...
-            return !lost && !hasFocusAlready && target != null;
+
+            final boolean actorIsAlreadyFocusing = actor.hasCondition(SpellFocusCondition.class.getName());
+
+            final boolean targetIsBeguiled = target.hasCondition(DazedAndConfusedCondition.class.getName());
+
+            return !lost && !actorIsAlreadyFocusing && !targetIsBeguiled && target != null;
         }
 
         @Override
@@ -78,7 +82,7 @@ public class Apprentice extends Monster {
 
             final int spellCheckModifier = actor.getStats().getIntelligenceModifier(); // Always uses INT!
 
-            final int d20Roll = getSpellCheckRoll(actor, spellCheckModifier);
+            final int d20Roll = getSpellCheckRoll(actor, List.of(target), spellCheckModifier);
 
             final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
             final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;

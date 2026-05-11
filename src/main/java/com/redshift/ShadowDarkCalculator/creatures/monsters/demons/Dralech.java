@@ -34,6 +34,7 @@ public class Dralech extends Monster {
                 )
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.CHAOTIC);
     }
 
 }

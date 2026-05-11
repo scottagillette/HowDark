@@ -3,6 +3,8 @@ package com.redshift.ShadowDarkCalculator.actions.spells;
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
+import com.redshift.ShadowDarkCalculator.conditions.ProtectionFromEvilCondition;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
@@ -41,6 +43,27 @@ public abstract class Spell extends BaseAction implements Action {
         return this;
     }
 
+    private boolean checkDisadvantage(Creature actor, List<Creature> targets) {
+        // Check for disadvantage condition and then remove it.
+        boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
+        actor.removeCondition(DisadvantagedCondition.class.getName());
+
+        // Check for protection from evil giving disadvantage, unless they already have it.
+        if (!disadvantage && targets != null) {
+            if (actor.getLabels().contains(CreatureLabel.CHAOTIC)) {
+                final List<Creature> targetsWithProtection = targets.stream()
+                        .filter(creature -> creature.hasCondition(ProtectionFromEvilCondition.class.getName()))
+                        .toList();
+                if (!targetsWithProtection.isEmpty()) {
+                    disadvantage = true;
+                    log.info("{} has disadvantage casting a spell because {} has protection from evil!", actor.getName(), targets.getFirst());
+                }
+            }
+        }
+
+        return disadvantage;
+    }
+
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         return !lost;
@@ -50,9 +73,8 @@ public abstract class Spell extends BaseAction implements Action {
      * Returns the spell check roll... which does not include the spell check bonus if any.
      */
 
-    protected int getSpellCheckRoll(Creature actor, int spellCheckModifier) {
-        boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
-        actor.removeCondition(DisadvantagedCondition.class.getName());
+    protected int getSpellCheckRoll(Creature actor, List<Creature> targets, int spellCheckModifier) {
+        boolean disadvantage = checkDisadvantage(actor, targets);
 
         boolean checkWithAdvantaged = spellCheckAdvantage && !disadvantage;
         boolean checkWithDisadvantaged = !spellCheckAdvantage && disadvantage;
@@ -61,8 +83,7 @@ public abstract class Spell extends BaseAction implements Action {
 
         if (checkWithAdvantaged) {
             d20Result = Math.max(D20.roll(), D20.roll());
-        }
-        if (checkWithDisadvantaged) {
+        } else if (checkWithDisadvantaged) {
             d20Result = Math.min(D20.roll(), D20.roll());
         }
 
@@ -72,7 +93,7 @@ public abstract class Spell extends BaseAction implements Action {
             if (actor.hasLuckToken()) {
                 log.info("{} uses their luck token to re-roll!", actor.getName());
                 actor.spendLuckToken();
-                return getSpellCheckRoll(actor, spellCheckModifier); // Can't be disadvantaged on a luck re-roll is my guess.
+                return getSpellCheckRoll(actor, targets, spellCheckModifier); // Can't be disadvantaged on a luck re-roll is my guess.
             }
         }
 

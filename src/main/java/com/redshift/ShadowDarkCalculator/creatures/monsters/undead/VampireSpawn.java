@@ -47,6 +47,7 @@ public class VampireSpawn extends UndeadMonster {
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
         getLabels().add(CreatureLabel.HUMANOID);
+        getLabels().add(CreatureLabel.CHAOTIC);
     }
 
     @Override

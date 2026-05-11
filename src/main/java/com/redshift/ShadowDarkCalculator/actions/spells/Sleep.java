@@ -6,6 +6,7 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.multi.AliveAwakeNotUndeadTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.single.HealTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -35,7 +36,9 @@ public class Sleep extends MultiTargetSpell {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        return (!lost && !new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size()).isEmpty());
+        final boolean canPerform = super.canPerform(actor, enemies, allies);
+        final boolean hasTarget = !new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size()).isEmpty();
+        return (canPerform && hasTarget);
     }
 
     @Override
@@ -53,7 +56,7 @@ public class Sleep extends MultiTargetSpell {
         int spellCheckModifier = actor.getStats().getIntelligenceModifier(); // Always uses INT modifier!
 
         // See if they pass the spell check!
-        final int d20Roll = getSpellCheckRoll(actor, spellCheckModifier);
+        final int d20Roll = getSpellCheckRoll(actor, targets, spellCheckModifier);
 
         final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
         final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;

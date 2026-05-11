@@ -43,6 +43,7 @@ public class Acolyte extends Monster {
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
         getLabels().add(CreatureLabel.HUMANOID);
+        getLabels().add(CreatureLabel.LAWFUL);
     }
 
     private static class HealingTouch extends Spell {
@@ -65,7 +66,7 @@ public class Acolyte extends Monster {
             final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom!
 
             // See if they pass the spell check!
-            final int d20Roll = getSpellCheckRoll(actor, spellCheckModifier);
+            final int d20Roll = getSpellCheckRoll(actor, List.of(target), spellCheckModifier);
 
             final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
             final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;

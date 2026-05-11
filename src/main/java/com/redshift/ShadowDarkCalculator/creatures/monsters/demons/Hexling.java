@@ -33,6 +33,7 @@ public class Hexling extends Monster {
                 new ChillTouch()
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.CHAOTIC);
     }
 
     private static class ChillTouch extends Weapon {

@@ -6,6 +6,7 @@ import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
@@ -45,6 +46,7 @@ public class FireDragon extends Monster {
                         new FireBreath().setPriority(1) // Every third attack is fire breath!
                 )
         );
+        getLabels().add(CreatureLabel.CHAOTIC);
     }
 
     @Override

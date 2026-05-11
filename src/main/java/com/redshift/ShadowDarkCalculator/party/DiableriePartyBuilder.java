@@ -78,7 +78,8 @@ public class DiableriePartyBuilder implements PartyBuilder {
                 8,
                 new PerformOneAction(
                         WeaponBuilder.LONGSWORD.build().setPriority(1),
-                        new HolyWeapon().setPriority(3),
+                        new HolyWeapon().setPriority(5),
+                        //new ProtectionFromEvil().setPriority(10),
                         new CureWounds().setPriority(10),
                         new TurnUndead().setPriority(10)
                 )
