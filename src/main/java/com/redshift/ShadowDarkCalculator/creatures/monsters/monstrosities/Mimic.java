@@ -89,7 +89,7 @@ public class Mimic extends Monster {
                     perform(actor, enemies, allies, encounter);
                 } else {
                     if (mimic.getCurrentStuckTarget().hasCondition(mimic.currentStuckCondition)) {
-                        final int damage = D8.roll();
+                        final int damage = damageDice.roll();
                         log.info("{} AUTO-HITS on stuck target {} for {} damage!", actor.getName(), mimic.getCurrentStuckTarget().getName(), damage);
                         mimic.getCurrentStuckTarget().takeDamage(damage, damageType);
                     } else {
