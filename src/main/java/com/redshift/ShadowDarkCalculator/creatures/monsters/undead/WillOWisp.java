@@ -6,6 +6,7 @@ import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
+import com.redshift.ShadowDarkCalculator.dice.ZeroDice;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
@@ -35,7 +36,7 @@ public class WillOWisp extends UndeadMonster {
     private static class LifeDrain extends Weapon {
 
         public LifeDrain() {
-            super("Life Drain", D0, RollModifier.DEXTERITY);
+            super("Life Drain", new ZeroDice(), RollModifier.DEXTERITY);
         }
 
         @Override
