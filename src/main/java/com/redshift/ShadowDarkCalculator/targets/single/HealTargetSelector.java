@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.targets.single;
 
+import com.redshift.ShadowDarkCalculator.conditions.DiseasedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.SingleDie;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
@@ -17,12 +18,16 @@ public class HealTargetSelector implements SingleTargetSelector {
         final List<Creature> unconsciousNotDead = targetOptions.stream()
                 .filter(Creature::isUnconscious)
                 .filter(creature -> !creature.isDead())
+                // Don't bother healing someone with diseased condition!
+                .filter(creature -> !creature.hasCondition(DiseasedCondition.class.getName()))
                 .toList();
 
         if (unconsciousNotDead.isEmpty()) {
             final List<Creature> woundedAndNotDead = targetOptions.stream()
                     .filter(Creature::isWounded)
                     .filter(creature -> !creature.isDead())
+                    // Don't bother healing someone with diseased condition!
+                    .filter(creature -> !creature.hasCondition(DiseasedCondition.class.getName()))
                     .toList();
 
             if (woundedAndNotDead.isEmpty()) return null;

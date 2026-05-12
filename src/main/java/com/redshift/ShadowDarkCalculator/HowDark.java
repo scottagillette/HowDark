@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.undead.VampireSpawn;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.GiantRat;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
 
@@ -34,7 +34,7 @@ public class HowDark {
 //                    List.of(new Werewolf("Dark Werewolf"))
 //                    List.of(new Knight("Knight 1"), new Knight("Knight 2"))
 //                    List.of(new Reaver("Reaver 1"))
-//                    List.of(new GiantRat("Giant Rat 1"), new GiantRat("Giant Rat 2"), new GiantRat("Giant Rat 3"), new GiantRat("Giant Rat 4"))
+                    List.of(new GiantRat("Giant Rat 1"), new GiantRat("Giant Rat 2"), new GiantRat("Giant Rat 3"), new GiantRat("Giant Rat 4"))
 //                    List.of(new GiantSnake("Snake of Doom"))
 //                    List.of(new GiantSpider("Giant Black Widow Spider"))
 //                    List.of(new Troll("Green Troll"))
@@ -88,7 +88,7 @@ public class HowDark {
 //                    List.of(new Bugbear("Bugbear 1"), new Bugbear("Bugbear 2"))
 //                    List.of(new Wraith("Wraith"))
 //                    List.of(new Mummy("Mummy of Death"))
-                    List.of(new VampireSpawn("Vampire Spawn"))
+//                    List.of(new VampireSpawn("Vampire Spawn"))
 //                    List.of(new OwlBear("Rabid Owlbear"))
 //                    List.of(new Ankheg("Ankheg of Death"))
 //                    List.of(new FireDragon("Red Fire Dragon of death"))

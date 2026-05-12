@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.creatures.monsters.beasts;
 
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
+import com.redshift.ShadowDarkCalculator.conditions.DiseasedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
@@ -45,7 +46,8 @@ public class GiantRat extends Monster {
         protected boolean performSingleTargetAttack(Creature actor, Creature target) {
             final boolean attackHits = super.performSingleTargetAttack(actor, target);
 
-            if (attackHits) {
+            // Can not apply diseased condition if they already have it.
+            if (attackHits && !target.hasCondition(DiseasedCondition.class.getName())) {
                 if (target.getStats().constitutionSave(12)) {
                     log.info("{} resists the disease.", target.getName());
                 } else {
@@ -54,6 +56,7 @@ public class GiantRat extends Monster {
                         log.info("{} is drained of constitution and DIES!", target.getName());
                         target.setDead(true);
                     } else {
+                        target.addCondition(new DiseasedCondition());
                         log.info("{} is drained of constitution to {}", target.getName(), constitutionRemaining);
                     }
                 }
