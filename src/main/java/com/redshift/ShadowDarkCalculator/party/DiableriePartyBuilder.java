@@ -25,7 +25,6 @@ public class DiableriePartyBuilder implements PartyBuilder {
                 8,
                 WeaponBuilder.GREAT_AXE_1H.build().addAttackRollBonus(2).addDamageRollBonus(2)
         );
-        clank.giveLuckToken();
         creatures.add(clank);
 
         final Creature borlin = new Paladin(
@@ -36,7 +35,6 @@ public class DiableriePartyBuilder implements PartyBuilder {
                 6,
                 WeaponBuilder.BASTARD_SWORD_1H.build().addMagical()
         );
-        borlin.giveLuckToken();
         creatures.add(borlin);
 
         final Creature mal = new Necromancer(
@@ -51,7 +49,6 @@ public class DiableriePartyBuilder implements PartyBuilder {
                         new Undeath().addSpellCheckBonus(1).setPriority(10)
                 )
         );
-        mal.giveLuckToken();
         creatures.add(mal);
 
         final Creature alaric = new Wizard(
@@ -67,7 +64,6 @@ public class DiableriePartyBuilder implements PartyBuilder {
                         new BurningHands().addAdvantage().setPriority(5)
                 )
         );
-        alaric.giveLuckToken();
         creatures.add(alaric);
 
         final Creature torvin = new Priest(
@@ -84,8 +80,13 @@ public class DiableriePartyBuilder implements PartyBuilder {
                         new TurnUndead().setPriority(10)
                 )
         );
-        torvin.giveLuckToken();
         creatures.add(torvin);
+
+//        clank.giveLuckToken();
+//        borlin.giveLuckToken();
+//        mal.giveLuckToken();
+//        alaric.giveLuckToken();
+//        torvin.giveLuckToken();
 
         return creatures;
     }
