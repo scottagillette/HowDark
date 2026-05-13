@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.GiantLeech;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.monstrosities.BogThorn;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
 
@@ -30,7 +30,8 @@ public class HowDark {
 //                    new TheWolfPackBuilder().build(),
 //                    new TheCrabCrushersBuilderv1().build(),
                     new DiableriePartyBuilder().build(),
-                    List.of(new GiantLeech("Leech 1"), new GiantLeech("Leech 2"))
+                    List.of(new BogThorn("Bog Thorn 1"), new BogThorn("Bog Thorn 2"), new BogThorn("Bog Thorn 3"), new BogThorn("Bog Thorn 4"))
+//                    List.of(new GiantLeech("Leech 1"), new GiantLeech("Leech 2"))
 //                    List.of(new WillOWisp("Wisp 1"), new WillOWisp("Wisp 1"))
 //                    List.of(new Crocodile("Croc of Death"), new Crocodile("Croc of Pain"))
 //                    List.of(new StingBat("Sting Bat 1"), new StingBat("Sting Bat 2"), new StingBat("Sting Bat 3"), new StingBat("Sting Bat 4"))
