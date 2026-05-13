@@ -1,14 +1,20 @@
 package com.redshift.ShadowDarkCalculator.creatures.monsters.undead;
 
+import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
+import com.redshift.ShadowDarkCalculator.conditions.DiseasedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
+import com.redshift.ShadowDarkCalculator.encounter.Encounter;
+import com.redshift.ShadowDarkCalculator.targets.multi.AliveAwakeNotUndeadTargetSelector;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
@@ -18,7 +24,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
  * S +3, D +1, C +2, I +0, W +0, Ch +2, AL C, LV 4
  * Undead. Immune to morale checks.
  * Carrion Stench. Living creatures DC 12 CON the first time within near or DISADV on attacks and spellcasting
- * for 5 rounds. // TODO: Not Implemented
+ * for 5 rounds.
  * Paralyze. DC 12 CON or paralyzed 1d4 rounds.
  */
 
@@ -34,7 +40,8 @@ public class Ghast extends UndeadMonster {
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + 2,
                 new PerformAllActions(
                         new ParalyzingClaw(),
-                        new ParalyzingClaw()
+                        new ParalyzingClaw(),
+                        new CarrionStench()
                 )
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
@@ -68,4 +75,44 @@ public class Ghast extends UndeadMonster {
             return attackHits;
         }
     }
+
+    private static class CarrionStench extends BaseAction {
+
+        // TODO: Only use only once per encounter; affects all enemies.
+        private boolean used = false;
+
+        private CarrionStench() {
+            super("Carrion Stench");
+        }
+
+        @Override
+        public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+            return !used;
+        }
+
+        @Override
+        public boolean isMagicalWeapon() {
+            return false;
+        }
+
+        @Override
+        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
+            // Affects only living, awake creatures!
+            final List<Creature> targets =new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size());
+
+            targets.forEach(target -> {
+                final boolean saved = target.getStats().constitutionSave(12);
+
+                if (saved) {
+                    log.info("{} SAVES against the {} Carrion Stench!", target.getName(), actor.getName());
+                } else {
+                    log.info("{} failed the save against the {} Carrion Stench and has disadvantage!", target.getName(), actor.getName());
+                    target.addCondition(new DiseasedCondition());
+                }
+            });
+
+            used = true;
+        }
+    }
+
 }
