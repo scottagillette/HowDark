@@ -15,17 +15,17 @@ public class UndeadTargetSelector implements MultiTargetSelector {
 
     @Override
     public List<Creature> getTargets(List<Creature> targetOptions, int maxTargets) {
-        final List<Creature> undead = new java.util.ArrayList<>(targetOptions.stream()
+        final List<Creature> targets = new java.util.ArrayList<>(targetOptions.stream()
                 .filter(creature -> creature.getLabels().contains(CreatureLabel.UNDEAD))
                 .filter(creature -> !creature.isUnconscious())
                 .filter(creature -> !creature.isDead())
                 .toList());
 
-        if (undead.isEmpty()) {
-            return undead; // Return empty list.
+        if (targets.isEmpty()) {
+            return targets; // Return empty list.
         } else {
-            Collections.shuffle(undead);
-            return undead.subList(0, Math.min(undead.size(), maxTargets));
+            Collections.shuffle(targets);
+            return targets.subList(0, Math.min(targets.size(), maxTargets));
         }
     }
 

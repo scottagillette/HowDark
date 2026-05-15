@@ -1,28 +1,22 @@
 package com.redshift.ShadowDarkCalculator.targets.multi;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.targets.MultiTargetSelector;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
- * Select from the target options creatures with the given label.
+ * Returns a randomized list of alive and awake creatures to a maximum number.
  */
 
-public class CreatureLabelTargetSelector implements MultiTargetSelector {
-
-    private final CreatureLabel label;
-
-    public CreatureLabelTargetSelector(CreatureLabel label) {
-        this.label = label;
-    }
+public class AliveAwakeTargetSelector implements MultiTargetSelector {
 
     @Override
     public List<Creature> getTargets(List<Creature> targetOptions, int maxTargets) {
-        final List<Creature> targets = new java.util.ArrayList<>(targetOptions.stream()
-                .filter(creature -> creature.getLabels().contains(label))
+        final List<Creature> targets = new java.util.ArrayList<>(targetOptions.stream()// Awake
+                .filter(creature -> !creature.isUnconscious()) // Awake
+                .filter(creature -> !creature.isDead()) // Alive
                 .toList());
 
         if (targets.isEmpty()) {
@@ -32,4 +26,5 @@ public class CreatureLabelTargetSelector implements MultiTargetSelector {
             return targets.subList(0, Math.min(targets.size(), maxTargets));
         }
     }
+
 }

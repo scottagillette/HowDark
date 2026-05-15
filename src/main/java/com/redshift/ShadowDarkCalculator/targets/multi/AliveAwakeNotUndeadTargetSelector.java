@@ -16,18 +16,18 @@ public class AliveAwakeNotUndeadTargetSelector implements MultiTargetSelector {
 
     @Override
     public List<Creature> getTargets(List<Creature> targetOptions, int maxTargets) {
-        final List<Creature> livingCreatures = new java.util.ArrayList<>(targetOptions.stream()
+        final List<Creature> targets = new java.util.ArrayList<>(targetOptions.stream()
                 .filter(creature -> !creature.getLabels().contains(CreatureLabel.UNDEAD)) // Not undead
                 .filter(creature -> !creature.hasCondition(SleepingCondition.class.getName())) // Awake
                 .filter(creature -> !creature.isUnconscious()) // Awake
                 .filter(creature -> !creature.isDead()) // Alive
                 .toList());
 
-        if (livingCreatures.isEmpty()) {
-            return livingCreatures; // Return empty list.
+        if (targets.isEmpty()) {
+            return targets; // Return empty list.
         } else {
-            Collections.shuffle(livingCreatures);
-            return livingCreatures.subList(0, Math.min(livingCreatures.size(), maxTargets));
+            Collections.shuffle(targets);
+            return targets.subList(0, Math.min(targets.size(), maxTargets));
         }
     }
 

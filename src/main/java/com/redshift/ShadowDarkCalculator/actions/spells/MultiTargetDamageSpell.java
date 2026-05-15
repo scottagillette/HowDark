@@ -6,10 +6,9 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
+import com.redshift.ShadowDarkCalculator.targets.multi.AliveAwakeTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static java.lang.Math.min;
@@ -43,11 +42,7 @@ public abstract class MultiTargetDamageSpell extends Spell {
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         final int numberOfTargets = min(enemies.size(), totalTargets.roll());
 
-        // Get list of targets...
-
-        List<Creature> targets = new ArrayList<>(enemies);
-        Collections.shuffle(targets);
-        targets = targets.subList(0, numberOfTargets);
+        final List<Creature> targets = new AliveAwakeTargetSelector().getTargets(enemies, numberOfTargets);
 
         performMultiTargetSpellAttack(actor, targets, this, difficultyClass, damageDice, rollModifier);
     }
