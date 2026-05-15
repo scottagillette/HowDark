@@ -50,7 +50,7 @@ public abstract class BaseCreature implements Creature {
         this.level = level;
         this.stats = stats;
         this.armorClass = armorClass;
-        this.hitPoints = hitPoints;
+        this.hitPoints = Math.max(hitPoints, 1); // Some creature roll negative CON.
         this.currentHitPoints = hitPoints;
         this.action = action;
         this.singleTargetSelector = singleTargetSelector;

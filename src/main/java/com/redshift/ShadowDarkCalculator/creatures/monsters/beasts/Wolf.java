@@ -22,7 +22,7 @@ public class Wolf extends Monster {
         super(
                 name,
                 2,
-                new Stats(14,114,12,6,12,10),
+                new Stats(14,14,12,6,12,10),
                 12,
                 D8.roll() + D8.roll() + 1,
                 new Weapon("Bite", D6, RollModifier.STRENGTH).addPiercing()

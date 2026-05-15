@@ -30,7 +30,7 @@ public class Cultist extends Monster {
                 2,
                 new Stats(12, 8, 10, 8,14, 10),
                 14,
-                D8.roll() + D8.roll(),
+                D8.roll() + D8.roll() - 1,
                 new PerformOneAction(
                         WeaponBuilder.LONGSWORD.build().setPriority(1),
                         new DeathTouch().setPriority(2)

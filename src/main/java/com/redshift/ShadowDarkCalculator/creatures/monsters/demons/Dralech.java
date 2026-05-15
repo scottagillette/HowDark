@@ -26,7 +26,7 @@ public class Dralech extends Monster {
                 6,
                 new Stats(18,12,14,10,10,12),
                 13,
-                D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll(),
+                D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 2,
                 new PerformAllActions(
                         new Weapon("Bone Axe", new MultipleDice(D6, D6), RollModifier.STRENGTH).addSlashing().addAttackRollBonus(1),
                         new Weapon("Bone Axe", new MultipleDice(D6, D6), RollModifier.STRENGTH).addSlashing().addAttackRollBonus(1),

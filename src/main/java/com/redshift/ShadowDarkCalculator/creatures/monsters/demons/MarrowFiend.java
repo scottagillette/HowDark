@@ -38,7 +38,7 @@ public class MarrowFiend extends Monster {
                 8,
                 new Stats(18,18,16,14,16,16),
                 15,
-                D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll(),
+                D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() + 3,
                 new PerformOneAction(
                         new PerformAllActions(
                                 new Weapon("Claw", new MultipleDice(D10), RollModifier.STRENGTH).addSlashing().addAttackRollBonus(3),

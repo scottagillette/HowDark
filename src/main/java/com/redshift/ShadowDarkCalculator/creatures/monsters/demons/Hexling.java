@@ -26,13 +26,14 @@ public class Hexling extends Monster {
     public Hexling(String name) {
         super(
                 name,
-                1,
+                2,
                 new Stats(10,14,14,10,12,10),
                 12,
                 D8.roll() + D8.roll() + 2,
                 new ChillTouch()
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.UNDEAD);
         getLabels().add(CreatureLabel.CHAOTIC);
     }
 

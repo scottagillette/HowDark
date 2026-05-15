@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
 /**
  * A cloaked magician with a thin, freshly bound spell book.
@@ -38,7 +39,7 @@ public class Apprentice extends Monster {
                 1,
                 new Stats(8, 12, 8, 14,10, 10),
                 11,
-                3,
+                D8.roll() - 1,
                 new PerformOneAction(
                         WeaponBuilder.DAGGER_DEX.build().setPriority(1),
                         new Beguile().setPriority(2),
