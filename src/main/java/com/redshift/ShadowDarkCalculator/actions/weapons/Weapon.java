@@ -3,10 +3,7 @@ package com.redshift.ShadowDarkCalculator.actions.weapons;
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.actions.DamageType;
-import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
-import com.redshift.ShadowDarkCalculator.conditions.HolyWeaponCondition;
-import com.redshift.ShadowDarkCalculator.conditions.ProtectionFromEvilCondition;
-import com.redshift.ShadowDarkCalculator.conditions.RageCondition;
+import com.redshift.ShadowDarkCalculator.conditions.*;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
@@ -17,8 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 /**
  * An action that attempts to attack with a melee or ranged weapon.
@@ -31,8 +27,8 @@ public class Weapon extends BaseAction implements Action {
     protected final RollModifier rollModifier;
     protected int attackRollBonus = 0;
     protected int damageRollBonus = 0;
-
     protected DamageType damageType = new DamageType();
+    protected boolean destroyed;
 
     public Weapon(String name, Dice damageDice, RollModifier rollModifier) {
         super(name);
@@ -102,7 +98,7 @@ public class Weapon extends BaseAction implements Action {
 
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        return true; // Melee and ranged attacks by default can always be performed.
+        return !destroyed; // Sometimes weapons can be broken, melted, destroyed, etc.
     }
 
     /**
@@ -193,11 +189,13 @@ public class Weapon extends BaseAction implements Action {
             int damage = damageDice.roll() + damageDice.roll() + tempDamageRollBonus;
             log.info("{} critically hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), name, damage);
             target.takeDamage(damage, tempDamageType);
+            checkWeaponBreaks(actor, target, tempDamageType.isMagical());
             return true;
         } else if (d20Result + attackRollModifier + tempAttackRollBonus >= target.getAC()) {
             int damage = damageDice.roll() + tempDamageRollBonus;
             log.info("{} hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), name, damage);
             target.takeDamage(damage, tempDamageType);
+            checkWeaponBreaks(actor, target, tempDamageType.isMagical());
             return true;
         } else {
             log.info("{} MISSES the attack on {} with a {}", actor.getName(), target.getName(), name);
@@ -205,4 +203,14 @@ public class Weapon extends BaseAction implements Action {
         }
     }
 
+    private void checkWeaponBreaks(Creature actor, Creature target, boolean magical) {
+        if (target.hasCondition(CosticToWeaponsCondition.class.getName()) && !magical) {
+            int roll = D6.roll();
+
+            if (roll == 1) {
+                log.info("{} has their weapon break!", actor.getName());
+                destroyed = true;
+            }
+        }
+    }
 }

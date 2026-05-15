@@ -296,7 +296,12 @@ public abstract class BaseCreature implements Creature {
         }
 
         if (canAct()) {
-            getAction().perform(this, enemies, allies, encounter);
+            final Action action = getAction();
+            if (action.canPerform(this, enemies, allies)) {
+                action.perform(this, enemies, allies, encounter);
+            } else {
+                log.info("{} has no action to perform!", name);
+            }
         }
     }
 }

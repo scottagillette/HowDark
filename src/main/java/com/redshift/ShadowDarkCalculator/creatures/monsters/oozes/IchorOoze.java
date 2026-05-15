@@ -3,6 +3,7 @@ package com.redshift.ShadowDarkCalculator.creatures.monsters.oozes;
 import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
+import com.redshift.ShadowDarkCalculator.conditions.CosticToWeaponsCondition;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
@@ -17,7 +18,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
  * AC 12, HP 15, ATK 2 tendril +3 (1d6), MV near (climb)
  * S +3, D +2, C +2, I -3, W +1, Ch -3, AL N, LV 3
  * Rubbery. Half damage from stabbing weapons.
- * TODO: Corrosive. Metal or wood that touches the ooze is destroyed on a d6 roll of 1.
+ * Corrosive. Metal or wood that touches the ooze is destroyed on a d6 roll of 1.
  */
 
 @Slf4j
@@ -37,6 +38,8 @@ public class IchorOoze extends Monster {
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
         getLabels().add(CreatureLabel.NEUTRAL);
+
+        addCondition(new CosticToWeaponsCondition()); // Damages weapons!
     }
 
     @Override
