@@ -6,6 +6,7 @@ import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
+import com.redshift.ShadowDarkCalculator.resistance.FireImmunityResistance;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
@@ -35,11 +36,7 @@ public class TarBat extends Monster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        if (damageType.isFire()) {
-            log.info("{} takes no damage from fire!", getName());
-        } else {
-            super.takeDamage(amount, damageType);
-        }
+        new FireImmunityResistance().takeDamage(this, amount, damageType);
     }
 
 }

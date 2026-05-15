@@ -6,6 +6,7 @@ import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
+import com.redshift.ShadowDarkCalculator.resistance.MagicalOnlyResistance;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
@@ -50,13 +51,8 @@ public class Mummy extends UndeadMonster {
             log.info("{} takes DOUBLE damage from fire!", getName());
             super.takeDamage(amount + amount, damageType);
         } else {
-            if (damageType.isMagical()) {
-                super.takeDamage(amount, damageType);
-            } else {
-                log.info("{} seems to take no damage!", getName());
-            }
+            new MagicalOnlyResistance().takeDamage(this, amount, damageType);
         }
-
     }
 
     private static class RotTouch extends Weapon {

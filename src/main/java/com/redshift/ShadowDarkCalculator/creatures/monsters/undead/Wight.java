@@ -8,6 +8,7 @@ import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.ZeroDice;
+import com.redshift.ShadowDarkCalculator.resistance.SilveredOrMagicalOnlyResistance;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
@@ -42,14 +43,7 @@ public class Wight extends UndeadMonster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        // Take only silvered or magical damage!
-        final boolean takeDamage = damageType.isSilvered() || damageType.isMagical();
-
-        if (takeDamage) {
-            super.takeDamage(amount, damageType);
-        } else {
-            log.info("{} takes no damage from non-silvered, non-magical damage!", getName());
-        }
+        new SilveredOrMagicalOnlyResistance().takeDamage(this, amount, damageType);
     }
 
     private static class LifeDrain extends Weapon {

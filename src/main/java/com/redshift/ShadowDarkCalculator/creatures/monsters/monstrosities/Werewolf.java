@@ -7,6 +7,7 @@ import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
+import com.redshift.ShadowDarkCalculator.resistance.SilveredOrMagicalOnlyResistance;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
@@ -42,13 +43,6 @@ public class Werewolf extends Monster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        // Take only silvered or magical damage!
-        final boolean takeDamage = damageType.isSilvered() || damageType.isMagical();
-
-        if (takeDamage) {
-            super.takeDamage(amount, damageType);
-        } else {
-            log.info("{} takes no damage from non-silvered, non-magical damage!", getName());
-        }
+        new SilveredOrMagicalOnlyResistance().takeDamage(this, amount, damageType);
     }
 }

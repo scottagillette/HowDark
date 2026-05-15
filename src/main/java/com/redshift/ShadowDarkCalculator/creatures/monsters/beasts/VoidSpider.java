@@ -9,6 +9,7 @@ import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
+import com.redshift.ShadowDarkCalculator.resistance.ColdImmunityResistance;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
@@ -43,13 +44,7 @@ public class VoidSpider extends Monster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        // Impervious. Immune to cold.
-
-        if (damageType.isCold()) {
-            log.info("{} resists all cold damage!", this.getName());
-        } else {
-            super.takeDamage(amount, damageType);
-        }
+        new ColdImmunityResistance().takeDamage(this, amount, damageType);
     }
 
 

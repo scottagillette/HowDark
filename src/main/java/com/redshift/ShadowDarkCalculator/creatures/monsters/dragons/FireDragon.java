@@ -12,6 +12,7 @@ import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
+import com.redshift.ShadowDarkCalculator.resistance.FireImmunityResistance;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -51,15 +52,8 @@ public class FireDragon extends Monster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        // Fireblood. Fire immune.
-
-        if (damageType.isFire()) {
-            log.info("{} resists all fire damage!", this.getName());
-        } else {
-            super.takeDamage(amount, damageType);
-        }
+        new FireImmunityResistance().takeDamage(this, amount, damageType);
     }
-
 
     /**
      * Fire Breath. Fills a double near-sized cube extending from dragon. DC 15 DEX or 6d10 damage.

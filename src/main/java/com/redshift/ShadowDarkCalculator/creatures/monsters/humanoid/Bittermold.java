@@ -6,6 +6,7 @@ import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
+import com.redshift.ShadowDarkCalculator.resistance.PiercingResistance;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
@@ -39,11 +40,6 @@ public class Bittermold extends Monster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        if (damageType.isPiercing()) {
-            log.info("{} seems to take less damage than normal from piercing!", getName());
-            super.takeDamage((amount / 2), damageType);
-        } else {
-            super.takeDamage(amount, damageType);
-        }
+        new PiercingResistance().takeDamage(this, amount, damageType);
     }
 }
