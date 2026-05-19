@@ -6,11 +6,11 @@ import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
-import com.redshift.ShadowDarkCalculator.creatures.monsters.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
 /**
  * Human-faced lions with bat wings and cruelly spiked tails. They speak halting Thanian and
