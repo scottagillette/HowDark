@@ -11,7 +11,8 @@ I'm working on a programming project based on Shadow Dark rules. It's a combat s
 
 # Assumptions & Key Points
 
-1. No surprise implemented.
+1. Monsters roll hit points using standard rules (level + CON mod)
+2. No surprise implemented.
 2. All creatures in near distance.
 3. Mobs randomly choose a target Players focus fire .
 4. Heal spells only go off if someone is hurt! 
@@ -28,6 +29,57 @@ I'm working on a programming project based on Shadow Dark rules. It's a combat s
 # Example Simulation Results
 4 level 1 characters against 1 Ogre... 1,000 fights...
 
-`Group 1: wins=456, winsWithDeath=123`
+'[Outcome - 1,000 Simulated Fights]'
+'Players: wins=816, winsWithDeath=240'
+'Monsters: wins=184, winsWithDeath=0'
 
-`Group 2: wins=544, winsWithDeath=0`
+Example Combat Simulation
+
+[ Round: 1 ]
+Brother Torvin MISSES the spell check with a Turn Undead
+Bone Naga hits an attack on Malady Blackhand with a Bite: damage=7
+Malady Blackhand is unconscious and dying in 2 rounds!
+Bone Naga hits an attack on Borlin Little Digger with a Bite: damage=8
+Borlin Little Digger is unconscious and dying in 4 rounds!
+Malady Blackhand has their death timer tick down: roundsRemaining=2
+Malady Blackhand is unconscious and skipping their turn.
+Borlin Little Digger has their death timer tick down: roundsRemaining=4
+Borlin Little Digger is unconscious and skipping their turn.
+Clank Smashfist hits an attack on Bone Naga with a Greataxe 1h: damage=3
+Alaric hits a spell on Bone Naga with a Burning Hands: damage=1
+
+[ Round: 2 ]
+Brother Torvin MISSES the spell check with a Cure Wounds
+Bone Naga hits an attack on Brother Torvin with a Bite: damage=12
+Brother Torvin is unconscious and dying in 3 rounds!
+Bone Naga critically hits an attack on Clank Smashfist with a Bite: damage=12
+Clank Smashfist is unconscious and dying in 2 rounds!
+Malady Blackhand has their death timer tick down: roundsRemaining=1
+Malady Blackhand is unconscious and skipping their turn.
+Borlin Little Digger has their death timer tick down: roundsRemaining=3
+Borlin Little Digger is unconscious and skipping their turn.
+Clank Smashfist has their death timer tick down: roundsRemaining=2
+Clank Smashfist is unconscious and skipping their turn.
+Alaric hits an attack on Bone Naga with a Staff: damage=3
+
+[ Round: 3 ]
+Brother Torvin has their death timer tick down: roundsRemaining=3
+Brother Torvin is unconscious and skipping their turn.
+Bone Naga hits an attack on Alaric with a Bite: damage=8
+Alaric is unconscious and dying in 1 rounds!
+Bone Naga hits an attack on Borlin Little Digger with a Bite: damage=4
+Borlin Little Digger is dead!
+Malady Blackhand has died!
+Clank Smashfist has their death timer tick down: roundsRemaining=1
+Clank Smashfist is unconscious and skipping their turn.
+Alaric has their death timer tick down: roundsRemaining=1
+Alaric is unconscious and skipping their turn.
+
+---------------------------------------------------------------
+Clank Smashfist: status=Dead, hitPoints=0/8
+Borlin Little Digger: status=Dead, hitPoints=0/6
+Malady Blackhand: status=Dead, hitPoints=0/4
+Alaric: status=Dead, hitPoints=0/5
+Brother Torvin: status=Dead, hitPoints=0/8
+Bone Naga: status=Alive, hitPoints=20/27
+---------------------------------------------------------------
