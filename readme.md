@@ -29,7 +29,7 @@ I'm working on a programming project based on Shadow Dark rules. It's a combat s
 # Example Simulation Results
 5 level 1 characters against 1 Bone Naga
 
-'''
+```
 [Outcome - 1,000 Simulated Fights]
 Players: wins=816, winsWithDeath=240
 Monsters: wins=184, winsWithDeath=0
@@ -84,4 +84,4 @@ Alaric: status=Dead, hitPoints=0/5
 Brother Torvin: status=Dead, hitPoints=0/8
 Bone Naga: status=Alive, hitPoints=20/27
 ---------------------------------------------------------------
-'''
+```
