@@ -27,11 +27,12 @@ I'm working on a programming project based on Shadow Dark rules. It's a combat s
 13. Shadows and Vampire Spawns raise dead players in combat too!
 
 # Example Simulation Results
-4 level 1 characters against 1 Ogre... 1,000 fights...
+5 level 1 characters against 1 Bone Naga
 
-'[Outcome - 1,000 Simulated Fights]'
-'Players: wins=816, winsWithDeath=240'
-'Monsters: wins=184, winsWithDeath=0'
+'''
+[Outcome - 1,000 Simulated Fights]
+Players: wins=816, winsWithDeath=240
+Monsters: wins=184, winsWithDeath=0
 
 Example Combat Simulation
 
@@ -83,3 +84,4 @@ Alaric: status=Dead, hitPoints=0/5
 Brother Torvin: status=Dead, hitPoints=0/8
 Bone Naga: status=Alive, hitPoints=20/27
 ---------------------------------------------------------------
+'''
