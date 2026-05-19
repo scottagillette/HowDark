@@ -6,8 +6,7 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.targets.multi.AliveAwakeNotUndeadTargetSelector;
-import com.redshift.ShadowDarkCalculator.targets.multi.UndeadTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.multi.TurnUndeadTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -35,13 +34,13 @@ public class TurnUndead extends MultiTargetSpell {
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         final boolean canPerform = super.canPerform(actor, enemies, allies);
-        final boolean hasTarget = !new UndeadTargetSelector().getTargets(enemies, enemies.size()).isEmpty();
+        final boolean hasTarget = !new TurnUndeadTargetSelector().getTargets(enemies, enemies.size()).isEmpty();
         return (canPerform && hasTarget);
     }
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-        final List<Creature> targets = new UndeadTargetSelector().getTargets(enemies, enemies.size()); // Turn Undead can affect all near enemies.
+        final List<Creature> targets = new TurnUndeadTargetSelector().getTargets(enemies, enemies.size()); // Turn Undead can affect all near enemies.
 
         int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
 
