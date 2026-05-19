@@ -6,6 +6,7 @@ import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
  */
 
 @Slf4j
-public class BogThorn extends UndeadMonster {
+public class BogThorn extends Monster {
 
     public BogThorn(String name) {
         super(
