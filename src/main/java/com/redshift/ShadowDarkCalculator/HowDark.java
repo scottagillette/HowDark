@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.monstrosities.Manticore;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.undead.BoneNaga;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
 
@@ -30,7 +30,8 @@ public class HowDark {
 //                    new TheWolfPackBuilder().build(),
 //                    new TheCrabCrushersBuilderv1().build(),
                     new DiableriePartyBuilder().build(),
-                    List.of(new Manticore("Manticore"))
+                    List.of(new BoneNaga("Bone Naga"))
+//                    List.of(new Manticore("Manticore"))
 //                    List.of(new Minotaur("Bull of Death"))
 //                    List.of(new Mage("Red Wizard Mekel"), new Mage("Red Wizard Mekel's Boss"))
 //                    List.of(new IchorOoze("Ooze 1"), new IchorOoze("Ooze 2"), new IchorOoze("Ooze 3"))
