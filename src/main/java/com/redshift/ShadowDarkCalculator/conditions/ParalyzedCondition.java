@@ -36,7 +36,7 @@ public class ParalyzedCondition implements Condition {
     public boolean hasEnded(Creature creature) {
         rounds = Math.max(0, rounds - 1);
         if (rounds == 0) {
-            log.info("{} is no longer paralyzed and can act!", creature.getName());
+            log.info("{} is no longer paralyzed!", creature.getName());
         }
         return (rounds == 0);
     }
