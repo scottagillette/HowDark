@@ -103,7 +103,7 @@ public class Hypnotize extends Spell {
     }
 
     /**
-     * Runnable to remove the Stupified condition on spell focus loss.
+     * Runnable to remove the Stupefied condition on spell focus loss.
      */
 
     private static class RemoveStupifiedCondition implements Runnable {
@@ -116,7 +116,7 @@ public class Hypnotize extends Spell {
 
         @Override
         public void run() {
-            log.info("{} is no longer stupified!", creature.getName());
+            log.info("{} is no longer stupefied!", creature.getName());
             creature.removeCondition(ProtectionFromEvilCondition.class.getName());
         }
     }
