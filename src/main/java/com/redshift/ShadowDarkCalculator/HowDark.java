@@ -1,9 +1,11 @@
 package com.redshift.ShadowDarkCalculator;
 
+import com.redshift.ShadowDarkCalculator.creatures.monsters.monstrosities.CaveCreeper;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.undead.BoneNaga;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
 
+import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -29,8 +31,10 @@ public class HowDark {
             final EncounterSimulator simulator = new EncounterSimulator(
 //                    new TheWolfPackBuilder().build(),
 //                    new TheCrabCrushersBuilderv1().build(),
-                    new DiableriePartyBuilder().build(),
-                    List.of(new BoneNaga("Bone Naga"))
+//                    new DiableriePartyBuilder().build(),
+                    new LostCitadelPartyBuilder().build(),
+                    List.of(new CaveCreeper("Cave Creeper"))
+//                    List.of(new BoneNaga("Bone Naga"))
 //                    List.of(new Manticore("Manticore"))
 //                    List.of(new Minotaur("Bull of Death"))
 //                    List.of(new Mage("Red Wizard Mekel"), new Mage("Red Wizard Mekel's Boss"))
