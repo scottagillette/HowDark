@@ -1,7 +1,10 @@
 package com.redshift.ShadowDarkCalculator.conditions;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import lombok.extern.slf4j.Slf4j;
+
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
 
 /**
  * Dying and can't act!
@@ -34,8 +37,16 @@ public class DyingCondition implements Condition {
 
     @Override
     public boolean hasEnded(Creature creature) {
-        rounds = Math.max(0, rounds - 1);
-        return false; // Only healing stops dying.
+        // On a dying creatures turn roll a D20, on a 20 heal 1 hp and rise!
+        if (D20.roll() == RollOutcome.CRITICAL_SUCCESS) {
+            // Heal to 1 HP
+            log.info("{} is no longer dying and heals 1 hp!", creature.getName());
+            creature.healDamage(1); // Healing removes the dying condition
+            return true;
+        } else {
+            rounds = Math.max(0, rounds - 1);
+            return false;
+        }
     }
 
     @Override
