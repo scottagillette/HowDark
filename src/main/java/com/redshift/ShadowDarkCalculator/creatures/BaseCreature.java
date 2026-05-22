@@ -255,7 +255,7 @@ public abstract class BaseCreature implements Creature {
             } else {
                 if (conditions.get(DyingCondition.class.getName()) == null) {
                     // Death time D4 + CON mod (min 1)
-                    int deathRounds = Math.min(D4.roll() + getStats().getConstitutionModifier(), 1);
+                    int deathRounds = Math.max(D4.roll() + getStats().getConstitutionModifier(), 1);
 
                     // Zero hp give them the unconscious and dying condition!
                     conditions.put(UnconsciousCondition.class.getName(), new UnconsciousCondition());
