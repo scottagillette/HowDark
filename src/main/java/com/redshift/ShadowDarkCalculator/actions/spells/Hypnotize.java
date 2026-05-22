@@ -1,8 +1,7 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
-import com.redshift.ShadowDarkCalculator.conditions.ProtectionFromEvilCondition;
+import com.redshift.ShadowDarkCalculator.conditions.DazedAndConfusedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.SpellFocusCondition;
-import com.redshift.ShadowDarkCalculator.conditions.StupefiedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
@@ -52,25 +51,33 @@ public class Hypnotize extends Spell {
             lost = true; // Failed spell check!
             log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
         } else if (criticalSuccess) {
-            log.info("{} critically succeeds on the spell {} and {} is stupified!", actor.getName(), name, target.getName());
-            target.addCondition(new StupefiedCondition(999));
-            actor.addCondition(new SpellFocusCondition(
-                    11,
-                    RollModifier.CHARISMA,
-                    spellCheckAdvantage,
-                    spellCheckBonus,
-                    new RemoveStupifiedCondition(target)
-            ));
+            if (target.getLevel() <= 3) {
+                log.info("{} critically succeeds on the spell {} and {} is hypnotized!", actor.getName(), name, target.getName());
+                target.addCondition(new DazedAndConfusedCondition());
+                actor.addCondition(new SpellFocusCondition(
+                        11,
+                        RollModifier.CHARISMA,
+                        spellCheckAdvantage,
+                        spellCheckBonus,
+                        new RemoveDazedAndConfusedCondition(target)
+                ));
+            } else {
+                log.info("{} casts {} but {} is not affected", actor.getName(), name, target.getName());
+            }
         } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-            log.info("{} succeeds on the spell {} and {} is stupified!", actor.getName(), name, target.getName());
-            actor.addCondition(new SpellFocusCondition(
-                    11,
-                    RollModifier.CHARISMA,
-                    spellCheckAdvantage,
-                    spellCheckBonus,
-                    new RemoveStupifiedCondition(target)
-            ));
-            target.addCondition(new StupefiedCondition(999));
+            if (target.getLevel() <= 3) {
+                log.info("{} succeeds on the spell {} and {} is hypnotized!", actor.getName(), name, target.getName());
+                actor.addCondition(new SpellFocusCondition(
+                        11,
+                        RollModifier.CHARISMA,
+                        spellCheckAdvantage,
+                        spellCheckBonus,
+                        new RemoveDazedAndConfusedCondition(target)
+                ));
+                target.addCondition(new DazedAndConfusedCondition());
+            } else {
+                log.info("{} casts {} but {} is not affected", actor.getName(), name, target.getName());
+            }
         } else {
             lost = true; // Failed spell check!
             log.info("{} MISSES the spell check with a {}", actor.getName(), name);
@@ -87,8 +94,7 @@ public class Hypnotize extends Spell {
                 return null; // No Targets.
             } else {
                 final List<Creature> actualTargets = new java.util.ArrayList<>(aliveTargets.stream()
-                        .filter(creature -> !creature.hasCondition(StupefiedCondition.class.getName()))
-                        .filter(creature -> creature.getLevel() <= 3)
+                        .filter(creature -> !creature.hasCondition(DazedAndConfusedCondition.class.getName()))
                         .toList());
 
                 if (actualTargets.isEmpty()) {
@@ -103,21 +109,21 @@ public class Hypnotize extends Spell {
     }
 
     /**
-     * Runnable to remove the Stupefied condition on spell focus loss.
+     * Runnable to remove the Dazed and Confused condition on spell focus loss.
      */
 
-    private static class RemoveStupifiedCondition implements Runnable {
+    private static class RemoveDazedAndConfusedCondition implements Runnable {
 
         private final Creature creature;
 
-        private RemoveStupifiedCondition(Creature creature) {
+        private RemoveDazedAndConfusedCondition(Creature creature) {
             this.creature = creature;
         }
 
         @Override
         public void run() {
             log.info("{} is no longer stupefied!", creature.getName());
-            creature.removeCondition(ProtectionFromEvilCondition.class.getName());
+            creature.removeCondition(DazedAndConfusedCondition.class.getName());
         }
     }
 }
