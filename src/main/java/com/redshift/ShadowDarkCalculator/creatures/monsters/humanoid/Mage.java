@@ -213,8 +213,10 @@ public class Mage extends Monster {
 
         @Override
         public void run() {
-            log.info("{} is no longer paralyzed!", creature.getName());
-            creature.removeCondition(ParalyzedCondition.class.getName());
+            if (creature.hasCondition(ParalyzedCondition.class.getName())) {
+                log.info("{} is no longer paralyzed!", creature.getName());
+                creature.removeCondition(ParalyzedCondition.class.getName());
+            }
         }
     }
 }

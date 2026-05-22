@@ -95,8 +95,10 @@ public class ProtectionFromEvil extends Spell {
 
         @Override
         public void run() {
-            log.info("{} is no longer protected from evil!", creature.getName());
-            creature.removeCondition(ProtectionFromEvilCondition.class.getName());
+            if (creature.hasCondition(ProtectionFromEvilCondition.class.getName())) {
+                log.info("{} is no longer protected from evil!", creature.getName());
+                creature.removeCondition(ProtectionFromEvilCondition.class.getName());
+            }
         }
     }
 

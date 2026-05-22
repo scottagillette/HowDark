@@ -8,11 +8,11 @@ import lombok.extern.slf4j.Slf4j;
  */
 
 @Slf4j
-public class StupefiedCondition implements Condition {
+public class BugBrainedCondition implements Condition {
 
     private int rounds;
 
-    public StupefiedCondition(int rounds) {
+    public BugBrainedCondition(int rounds) {
         this.rounds = rounds + 1; // Since we check at the beginning of the creatures turn... add 1.
     }
 
@@ -36,7 +36,7 @@ public class StupefiedCondition implements Condition {
     public boolean hasEnded(Creature creature) {
         rounds = Math.max(0, rounds - 1);
         if (rounds == 0) {
-            log.info("{} is no longer stupefied.", creature.getName());
+            log.info("{} is no longer bug brained!", creature.getName());
             creature.getStats().setCurrentIntelligence(creature.getStats().getIntelligence());
         }
         return (rounds == 0);
@@ -44,7 +44,7 @@ public class StupefiedCondition implements Condition {
 
     @Override
     public void perform(Creature creature) {
-        log.info("{} is still stupefied!", creature.getName());
+        log.info("{} is still bug brained!", creature.getName());
         creature.getStats().setCurrentIntelligence(1);
 
         // Loose any spell focus while stupefied!

@@ -5,7 +5,7 @@ import com.redshift.ShadowDarkCalculator.actions.spells.SingleTargetDamageSpell;
 import com.redshift.ShadowDarkCalculator.actions.spells.Spell;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
-import com.redshift.ShadowDarkCalculator.conditions.StupefiedCondition;
+import com.redshift.ShadowDarkCalculator.conditions.BugBrainedCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
@@ -97,11 +97,11 @@ public class GoblinShaman extends Monster {
             } else if (criticalSuccess) {
                 lost = true; // Use bug brain Once
                 log.info("{} critically hits a spell on {} with a {}", actor.getName(), target.getName(), name);
-                target.addCondition(new StupefiedCondition(D4.roll() + D4.roll()));
+                target.addCondition(new BugBrainedCondition(D4.roll() + D4.roll()));
             } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
                 lost = true; // Use bug brain Once
                 log.info("{} hits a spell on {} with a {}", actor.getName(), target.getName(), name);
-                target.addCondition(new StupefiedCondition(D4.roll()));
+                target.addCondition(new BugBrainedCondition(D4.roll()));
             } else {
                 lost = true; // Failed spell check!
                 log.info("{} MISSES the spell check with a {}", actor.getName(), name);

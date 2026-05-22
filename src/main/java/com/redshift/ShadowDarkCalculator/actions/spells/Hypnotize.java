@@ -122,8 +122,10 @@ public class Hypnotize extends Spell {
 
         @Override
         public void run() {
-            log.info("{} is no longer stupefied!", creature.getName());
-            creature.removeCondition(DazedAndConfusedCondition.class.getName());
+            if (creature.hasCondition(DazedAndConfusedCondition.class.getName())) {
+                log.info("{} is no longer stupefied!", creature.getName());
+                creature.removeCondition(DazedAndConfusedCondition.class.getName());
+            }
         }
     }
 }
