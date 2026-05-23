@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
-import com.redshift.ShadowDarkCalculator.conditions.DazedAndConfusedCondition;
+import com.redshift.ShadowDarkCalculator.conditions.StupefiedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.SpellFocusCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -53,7 +53,7 @@ public class Hypnotize extends Spell {
         } else if (criticalSuccess) {
             if (target.getLevel() <= 3) {
                 log.info("{} critically succeeds on the spell {} and {} is hypnotized!", actor.getName(), name, target.getName());
-                target.addCondition(new DazedAndConfusedCondition());
+                target.addCondition(new StupefiedCondition());
                 actor.addCondition(new SpellFocusCondition(
                         11,
                         RollModifier.CHARISMA,
@@ -74,7 +74,7 @@ public class Hypnotize extends Spell {
                         spellCheckBonus,
                         new RemoveDazedAndConfusedCondition(target)
                 ));
-                target.addCondition(new DazedAndConfusedCondition());
+                target.addCondition(new StupefiedCondition());
             } else {
                 log.info("{} casts {} but {} is not affected", actor.getName(), name, target.getName());
             }
@@ -94,7 +94,7 @@ public class Hypnotize extends Spell {
                 return null; // No Targets.
             } else {
                 final List<Creature> actualTargets = new java.util.ArrayList<>(aliveTargets.stream()
-                        .filter(creature -> !creature.hasCondition(DazedAndConfusedCondition.class.getName()))
+                        .filter(creature -> !creature.hasCondition(StupefiedCondition.class.getName()))
                         .toList());
 
                 if (actualTargets.isEmpty()) {
@@ -122,9 +122,9 @@ public class Hypnotize extends Spell {
 
         @Override
         public void run() {
-            if (creature.hasCondition(DazedAndConfusedCondition.class.getName())) {
+            if (creature.hasCondition(StupefiedCondition.class.getName())) {
                 log.info("{} is no longer stupefied!", creature.getName());
-                creature.removeCondition(DazedAndConfusedCondition.class.getName());
+                creature.removeCondition(StupefiedCondition.class.getName());
             }
         }
     }

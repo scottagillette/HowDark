@@ -4,11 +4,11 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Dazed and confused, cant act, removed when damaged.
+ * In a stupor, can't act, removed when damaged.
  */
 
 @Slf4j
-public class DazedAndConfusedCondition implements Condition {
+public class StupefiedCondition implements Condition {
 
     @Override
     public boolean appliesToDeadCreatures() {

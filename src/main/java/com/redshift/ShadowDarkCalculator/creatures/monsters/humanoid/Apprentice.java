@@ -4,7 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.SingleTargetDamageSpell;
 import com.redshift.ShadowDarkCalculator.actions.spells.Spell;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
-import com.redshift.ShadowDarkCalculator.conditions.DazedAndConfusedCondition;
+import com.redshift.ShadowDarkCalculator.conditions.StupefiedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.SpellFocusCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
@@ -70,7 +70,7 @@ public class Apprentice extends Monster {
         public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
             final boolean canPerform = super.canPerform(actor, enemies, allies);
             final Creature target = new RandomTargetSelector().get(enemies);
-            final boolean hasTarget = target != null && !target.hasCondition(DazedAndConfusedCondition.class.getName());
+            final boolean hasTarget = target != null && !target.hasCondition(StupefiedCondition.class.getName());
             final boolean hasFocus = actor.hasCondition(SpellFocusCondition.class.getName());
 
             return canPerform && hasTarget && !hasFocus;
@@ -100,7 +100,7 @@ public class Apprentice extends Monster {
                             spellCheckBonus,
                             new RemoveDazedAndConfusedCondition(target)
                     ));
-                    target.addCondition(new DazedAndConfusedCondition()); // Until focus lost or attacked
+                    target.addCondition(new StupefiedCondition()); // Until focus lost or attacked
                 } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
                     log.info("{} casts {} on {}", actor.getName(), name, target.getName());
                     actor.addCondition(new SpellFocusCondition(
@@ -110,7 +110,7 @@ public class Apprentice extends Monster {
                             spellCheckBonus,
                             new RemoveDazedAndConfusedCondition(target)
                     ));
-                    target.addCondition(new DazedAndConfusedCondition()); //  Until focus lost or attacked
+                    target.addCondition(new StupefiedCondition()); //  Until focus lost or attacked
                 } else {
                     lost = true; // Failed spell check!
                     log.info("{} MISSES the spell check with a {}", actor.getName(), name);
@@ -135,9 +135,9 @@ public class Apprentice extends Monster {
 
         @Override
         public void run() {
-            if (creature.hasCondition(DazedAndConfusedCondition.class.getName())) {
+            if (creature.hasCondition(StupefiedCondition.class.getName())) {
                 log.info("{} is no longer stupefied!", creature.getName());
-                creature.removeCondition(DazedAndConfusedCondition.class.getName());
+                creature.removeCondition(StupefiedCondition.class.getName());
             }
         }
     }
