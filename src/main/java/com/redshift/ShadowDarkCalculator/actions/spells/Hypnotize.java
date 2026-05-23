@@ -64,7 +64,8 @@ public class Hypnotize extends Spell {
                         new RemoveStupefiedCondition(target)
                 ));
             } else {
-                log.info("{} casts {} but {} is not affected", actor.getName(), name, target.getName());
+                log.info("{} casts {} but doesn't affect the creature.", actor.getName(), name);
+                lost = true; // Doesn't affect the creature... stop casting Hypnotize!
             }
         } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
             if (target.getLevel() <= 3) {
@@ -78,7 +79,8 @@ public class Hypnotize extends Spell {
                 ));
                 target.addCondition(new StupefiedCondition());
             } else {
-                log.info("{} casts {} but {} is not affected", actor.getName(), name, target.getName());
+                log.info("{} casts {} but doesn't affect the creature.", actor.getName(), name);
+                lost = true; // Doesn't affect the creature... stop casting Hypnotize!
             }
         } else {
             lost = true; // Failed spell check!

@@ -15,7 +15,6 @@ import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.multi.AliveAwakeTargetSelector;
-import com.redshift.ShadowDarkCalculator.targets.single.RandomTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collections;
@@ -80,7 +79,7 @@ public class Apprentice extends Monster {
 
         @Override
         public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-            final Creature target = new RandomTargetSelector().get(enemies);
+            final Creature target = new BeguileTargetSelector().get(enemies);
 
             final int spellCheckModifier = actor.getStats().getIntelligenceModifier(); // Always uses INT!
 
@@ -94,25 +93,35 @@ public class Apprentice extends Monster {
                     lost = true; // Failed spell check!
                     log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
                 } else if (criticalSuccess) {
-                    log.info("{} critically casts {} on {}", actor.getName(), name, target.getName());
-                    actor.addCondition(new SpellFocusCondition(
-                            11,
-                            RollModifier.INTELLIGENCE,
-                            spellCheckAdvantage,
-                            spellCheckBonus,
-                            new RemoveStupefiedCondition(target)
-                    ));
-                    target.addCondition(new StupefiedCondition()); // Until focus lost or attacked
+                    if (target.getLevel() <=2) {
+                        log.info("{} critically casts {} on {}", actor.getName(), name, target.getName());
+                        actor.addCondition(new SpellFocusCondition(
+                                11,
+                                RollModifier.INTELLIGENCE,
+                                spellCheckAdvantage,
+                                spellCheckBonus,
+                                new RemoveStupefiedCondition(target)
+                        ));
+                        target.addCondition(new StupefiedCondition()); // Until focus lost or attacked
+                    } else {
+                        log.info("{} casts {} but doesn't affect the creature.", actor.getName(), name);
+                        lost = true; // Doesn't affect the creature... stop casting Beguile!
+                    }
                 } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-                    log.info("{} casts {} on {}", actor.getName(), name, target.getName());
-                    actor.addCondition(new SpellFocusCondition(
-                            11,
-                            RollModifier.INTELLIGENCE,
-                            spellCheckAdvantage,
-                            spellCheckBonus,
-                            new RemoveStupefiedCondition(target)
-                    ));
-                    target.addCondition(new StupefiedCondition()); //  Until focus lost or attacked
+                    if (target.getLevel() <=2) {
+                        log.info("{} casts {} on {}", actor.getName(), name, target.getName());
+                        actor.addCondition(new SpellFocusCondition(
+                                11,
+                                RollModifier.INTELLIGENCE,
+                                spellCheckAdvantage,
+                                spellCheckBonus,
+                                new RemoveStupefiedCondition(target)
+                        ));
+                        target.addCondition(new StupefiedCondition()); //  Until focus lost or attacked
+                    } else {
+                        log.info("{} casts {} but doesn't affect the creature.", actor.getName(), name);
+                        lost = true; // Doesn't affect the creature... stop casting Beguile!
+                    }
                 } else {
                     lost = true; // Failed spell check!
                     log.info("{} MISSES the spell check with a {}", actor.getName(), name);
