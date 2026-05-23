@@ -11,7 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 /**
- * A spell that can affect a single targets and does damage to it... i.e. magic missile, etc.
+ * A spell that can affect a single targets and does damage to it. Note this
+ * uses the actors assigned target selection; not a specialized one.
  */
 
 @Slf4j

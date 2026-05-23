@@ -38,6 +38,7 @@ public class Withermark extends Spell {
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
+        // Custom target selection; custom spell.
         final List<Creature> livingCreatures = new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size());
         final Creature target = actor.getSingleTargetSelector().get(livingCreatures);
 

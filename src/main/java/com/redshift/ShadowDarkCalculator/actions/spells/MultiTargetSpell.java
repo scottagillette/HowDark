@@ -4,7 +4,7 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
 
 /**
- * A spell that can affect multiple targets but has a very specific effect.... sleep, etc... see subclasses.
+ * A spell that can affect multiple targets but has a custom effect.
  */
 
 public abstract class MultiTargetSpell extends Spell {

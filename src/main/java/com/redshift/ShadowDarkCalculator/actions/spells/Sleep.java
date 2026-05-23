@@ -6,7 +6,6 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.multi.AliveAwakeNotUndeadTargetSelector;
-import com.redshift.ShadowDarkCalculator.targets.single.HealTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;

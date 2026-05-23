@@ -6,9 +6,12 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.targets.multi.TurnUndeadTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.MultiTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.multi.UndeadTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
@@ -79,6 +82,29 @@ public class TurnUndead extends MultiTargetSpell {
         } else {
             lost = true; // Failed spell check!
             log.info("{} MISSES the spell check with a {}", actor.getName(), name);
+        }
+    }
+
+    /**
+     * Selects undead creatures that are not already feared.
+     */
+
+    private static class TurnUndeadTargetSelector implements MultiTargetSelector {
+
+        @Override
+        public List<Creature> getTargets(List<Creature> targetOptions, int maxTargets) {
+            final List<Creature> possibleTargets = new UndeadTargetSelector().getTargets(targetOptions, maxTargets);
+
+            final ArrayList<Creature> actualTargets = new ArrayList<>(possibleTargets.stream()
+                    .filter(creature -> !creature.hasCondition(FearCondition.class.getName()))
+                    .toList());
+
+            if (actualTargets.isEmpty()) {
+                return actualTargets; // Return empty list.
+            } else {
+                Collections.shuffle(actualTargets);
+                return actualTargets.subList(0, Math.min(actualTargets.size(), maxTargets));
+            }
         }
     }
 }

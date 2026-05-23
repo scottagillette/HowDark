@@ -102,6 +102,6 @@ public abstract class Spell extends BaseAction implements Action {
 
     @Override
     public boolean isMagicalWeapon() {
-        return false;
+        return false; // Magical, but not specifically magical weapon.
     }
 }

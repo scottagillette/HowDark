@@ -1,7 +1,7 @@
 package com.redshift.ShadowDarkCalculator.creatures.monsters.goblinoid;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
-import com.redshift.ShadowDarkCalculator.actions.spells.SingleTargetDamageSpell;
+import com.redshift.ShadowDarkCalculator.actions.spells.SingleTargetDamageWithEffectSpell;
 import com.redshift.ShadowDarkCalculator.actions.spells.Spell;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
@@ -109,31 +109,22 @@ public class GoblinShaman extends Monster {
         }
     }
 
-    public static class StinkBomb extends SingleTargetDamageSpell {
+    public static class StinkBomb extends SingleTargetDamageWithEffectSpell {
 
         public StinkBomb() {
             super("Stink Bomb", 12, RollModifier.WISDOM, new MultipleDice(D4, D4), false);
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-            final Creature target = actor.getSingleTargetSelector().get(enemies);
-
-            if (target == null) {
-                log.info("{} is skipping their turn... no target!", actor.getName());
+        public void performEffect(Creature actor, Creature target, List<Creature> allies, Encounter encounter) {
+            if (!target.getStats().constitutionSave(12)) {
+                log.info("{} is disadvantaged on their next attack/check!", target.getName());
+                target.addCondition(new DisadvantagedCondition());
             } else {
-                final boolean spellLWorks = performSingleTargetSpellAttack(actor, target, this, difficultyClass, damageDice, rollModifier);
-
-                if (spellLWorks) {
-                    if (!target.getStats().constitutionSave(12)) {
-                        log.info("{} is disadvantaged on their next attack/check!", target.getName());
-                        target.addCondition(new DisadvantagedCondition());
-                    } else {
-                        log.info("{} SAVES and is NOT disadvantaged!", target.getName());
-                    }
-                }
+                log.info("{} SAVES and is NOT disadvantaged!", target.getName());
             }
         }
+
     }
 
 }
