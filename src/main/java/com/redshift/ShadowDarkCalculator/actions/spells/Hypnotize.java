@@ -31,8 +31,10 @@ public class Hypnotize extends Spell {
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         final boolean canPerform = super.canPerform(actor, enemies, allies);
-        final Creature target = new HypnotizeTargetSelector().get(enemies);
-        return (canPerform && target != null);
+        final boolean hasTarget = new HypnotizeTargetSelector().get(enemies) != null;
+        final boolean hasFocus = actor.hasCondition(SpellFocusCondition.class.getName());
+
+        return (canPerform && hasTarget && !hasFocus);
     }
 
     @Override
@@ -59,7 +61,7 @@ public class Hypnotize extends Spell {
                         RollModifier.CHARISMA,
                         spellCheckAdvantage,
                         spellCheckBonus,
-                        new RemoveDazedAndConfusedCondition(target)
+                        new RemoveStupefiedCondition(target)
                 ));
             } else {
                 log.info("{} casts {} but {} is not affected", actor.getName(), name, target.getName());
@@ -72,7 +74,7 @@ public class Hypnotize extends Spell {
                         RollModifier.CHARISMA,
                         spellCheckAdvantage,
                         spellCheckBonus,
-                        new RemoveDazedAndConfusedCondition(target)
+                        new RemoveStupefiedCondition(target)
                 ));
                 target.addCondition(new StupefiedCondition());
             } else {
@@ -112,11 +114,11 @@ public class Hypnotize extends Spell {
      * Runnable to remove the Dazed and Confused condition on spell focus loss.
      */
 
-    private static class RemoveDazedAndConfusedCondition implements Runnable {
+    private static class RemoveStupefiedCondition implements Runnable {
 
         private final Creature creature;
 
-        private RemoveDazedAndConfusedCondition(Creature creature) {
+        private RemoveStupefiedCondition(Creature creature) {
             this.creature = creature;
         }
 

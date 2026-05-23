@@ -13,9 +13,12 @@ import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
+import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.multi.AliveAwakeTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.single.RandomTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Collections;
 import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
@@ -69,8 +72,7 @@ public class Apprentice extends Monster {
         @Override
         public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
             final boolean canPerform = super.canPerform(actor, enemies, allies);
-            final Creature target = new RandomTargetSelector().get(enemies);
-            final boolean hasTarget = target != null && !target.hasCondition(StupefiedCondition.class.getName());
+            final boolean hasTarget = new BeguileTargetSelector().get(enemies) != null;
             final boolean hasFocus = actor.hasCondition(SpellFocusCondition.class.getName());
 
             return canPerform && hasTarget && !hasFocus;
@@ -98,7 +100,7 @@ public class Apprentice extends Monster {
                             RollModifier.INTELLIGENCE,
                             spellCheckAdvantage,
                             spellCheckBonus,
-                            new RemoveDazedAndConfusedCondition(target)
+                            new RemoveStupefiedCondition(target)
                     ));
                     target.addCondition(new StupefiedCondition()); // Until focus lost or attacked
                 } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
@@ -108,7 +110,7 @@ public class Apprentice extends Monster {
                             RollModifier.INTELLIGENCE,
                             spellCheckAdvantage,
                             spellCheckBonus,
-                            new RemoveDazedAndConfusedCondition(target)
+                            new RemoveStupefiedCondition(target)
                     ));
                     target.addCondition(new StupefiedCondition()); //  Until focus lost or attacked
                 } else {
@@ -121,15 +123,39 @@ public class Apprentice extends Monster {
         }
     }
 
+    private static class BeguileTargetSelector implements SingleTargetSelector {
+
+        @Override
+        public Creature get(List<Creature> targetOptions) {
+            final List<Creature> aliveTargets = new AliveAwakeTargetSelector().getTargets(targetOptions, targetOptions.size());
+
+            if (aliveTargets.isEmpty()) {
+                return null; // No Targets.
+            } else {
+                final List<Creature> actualTargets = new java.util.ArrayList<>(aliveTargets.stream()
+                        .filter(creature -> !creature.hasCondition(StupefiedCondition.class.getName()))
+                        .toList());
+
+                if (actualTargets.isEmpty()) {
+                    return null; // No Targets!
+                } else {
+                    Collections.shuffle(actualTargets);
+                    return actualTargets.getFirst();
+                }
+            }
+        }
+
+    }
+
     /**
      * Runnable to remove the Stupefied Condition on spell focus loss.
      */
 
-    private static class RemoveDazedAndConfusedCondition implements Runnable {
+    private static class RemoveStupefiedCondition implements Runnable {
 
         private final Creature creature;
 
-        private RemoveDazedAndConfusedCondition(Creature creature) {
+        private RemoveStupefiedCondition(Creature creature) {
             this.creature = creature;
         }
 
