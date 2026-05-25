@@ -2,12 +2,14 @@ package com.redshift.ShadowDarkCalculator.actions.spells;
 
 import com.redshift.ShadowDarkCalculator.conditions.HolyWeaponCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.targets.single.HolyWeaponTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,34 +32,50 @@ public class HolyWeapon extends Spell {
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         final boolean canPerform = super.canPerform(actor, enemies, allies);
         final boolean hasTarget = new HolyWeaponTargetSelector().get(allies) != null;
-
         return (canPerform && hasTarget);
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-        final Creature target = new HolyWeaponTargetSelector().get(allies);
+    public List<Creature> getTargets(Creature actor, List<Creature> enemies, List<Creature> allies) {
+        final List<Creature> targets = new ArrayList<>();
+        targets.add(new HolyWeaponTargetSelector().get(allies));
+        return targets;
+    }
 
-        final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
+    @Override
+    public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+        final Creature target = targets.getFirst(); // Always uses single target.
+        target.addCondition(new HolyWeaponCondition(10));
+        log.info("{} critically succeeds casting {} on {}", actor.getName(), name, target.getName());
+    }
 
-        // See if they pass the spell check!
-        final int spellCheckRoll = getSpellCheckRoll(actor, List.of(), spellCheckModifier);
+    @Override
+    public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+        final Creature target = targets.getFirst(); // Always uses single target.
+        target.addCondition(new HolyWeaponCondition());
+        log.info("{} casts {} on {}", actor.getName(), name, target.getName());
+    }
 
-        final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
-        final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
+    private static class HolyWeaponTargetSelector implements SingleTargetSelector {
 
-        if (criticalFailure) {
-            lost = true; // Failed spell check!
-            log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
-        } else if (criticalSuccess) {
-            target.addCondition(new HolyWeaponCondition(10));
-            log.info("{} critically succeeds casting {} on {}", actor.getName(), name, target.getName());
-        } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-            target.addCondition(new HolyWeaponCondition());
-            log.info("{} casts {} on {}", actor.getName(), name, target.getName());
-        } else {
-            lost = true; // Failed spell check!
-            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
+        @Override
+        public Creature get(List<Creature> targetOptions) {
+            final List<Creature> creaturesWithoutHolyWeapon = new java.util.ArrayList<>(targetOptions
+                    .stream()
+                    .filter(creature -> !creature.isUnconscious())
+                    .filter(creature -> !creature.isDead())
+                    .filter(creature -> !creature.getAction().isMagicalWeapon())
+                    .filter(creature -> creature.getLabels().contains(CreatureLabel.FRONT_LINE))
+                    .filter(creature -> !creature.hasCondition(HolyWeaponCondition.class.getName()))
+                    .toList());
+
+            if (creaturesWithoutHolyWeapon.isEmpty()) {
+                return null;
+            } else {
+                Collections.shuffle(creaturesWithoutHolyWeapon);
+                return creaturesWithoutHolyWeapon.getFirst();
+            }
         }
+
     }
 }

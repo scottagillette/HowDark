@@ -7,8 +7,8 @@ import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import java.util.List;
 
 /**
- * Returns a single target that has been damaged for it to be focused on otherwise a random target. Skips all
- * unconscious and dead targets.
+ * Returns a single target that has been damaged for it to be focused on otherwise a random target.
+ * Skips all unconscious and dead targets.
  */
 
 public class FocusFireTargetSelector implements SingleTargetSelector {

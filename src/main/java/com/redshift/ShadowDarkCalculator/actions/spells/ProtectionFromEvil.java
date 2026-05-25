@@ -4,11 +4,12 @@ import com.redshift.ShadowDarkCalculator.conditions.ProtectionFromEvilCondition;
 import com.redshift.ShadowDarkCalculator.conditions.SpellFocusCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.targets.single.ProtectionFromEvilTargetSelector;
+import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,51 +36,64 @@ public class ProtectionFromEvil extends Spell {
         final boolean canPerform = super.canPerform(actor, enemies, allies);
         final boolean hasTarget = new ProtectionFromEvilTargetSelector().get(allies) != null;
         final boolean hasFocus = actor.hasCondition(SpellFocusCondition.class.getName());
-
         return canPerform && hasTarget && !hasFocus;
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-        final Creature target = new ProtectionFromEvilTargetSelector().get(allies);
-
-        final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
-
-        // See if they pass the spell check!
-        final int spellCheckRoll = getSpellCheckRoll(actor, List.of(), spellCheckModifier);
-
-        final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
-        final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
-
-        if (criticalFailure) {
-            lost = true; // Failed spell check!
-            log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
-        } else if (criticalSuccess) {
-            actor.addCondition(new SpellFocusCondition(
-                    11,
-                    RollModifier.WISDOM,
-                    spellCheckAdvantage,
-                    spellCheckBonus,
-                    new RemoveProtectionFromEvilCondition(target)
-            ));
-            target.addCondition(new ProtectionFromEvilCondition());
-            log.info("{} critically succeeds casting {} on {}", actor.getName(), name, target.getName());
-        } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-            actor.addCondition(new SpellFocusCondition(
-                    11,
-                    RollModifier.WISDOM,
-                    spellCheckAdvantage,
-                    spellCheckBonus,
-                    new RemoveProtectionFromEvilCondition(target)
-            ));
-            target.addCondition(new ProtectionFromEvilCondition());
-            log.info("{} casts {} on {}", actor.getName(), name, target.getName());
-        } else {
-            lost = true; // Failed spell check!
-            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
-        }
+    public List<Creature> getTargets(Creature actor, List<Creature> enemies, List<Creature> allies) {
+        final List<Creature> targets = new ArrayList<>();
+        targets.add(new ProtectionFromEvilTargetSelector().get(allies));
+        return targets;
     }
 
+    @Override
+    public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+        final Creature target = targets.getFirst();
+        actor.addCondition(new SpellFocusCondition(
+                11,
+                RollModifier.WISDOM,
+                spellCheckAdvantage,
+                spellCheckBonus,
+                new RemoveProtectionFromEvilCondition(target)
+        ));
+        target.addCondition(new ProtectionFromEvilCondition());
+        log.info("{} critically succeeds casting {} on {}", actor.getName(), name, target.getName());
+    }
+
+    @Override
+    public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+        final Creature target = targets.getFirst();
+        actor.addCondition(new SpellFocusCondition(
+                11,
+                RollModifier.WISDOM,
+                spellCheckAdvantage,
+                spellCheckBonus,
+                new RemoveProtectionFromEvilCondition(target)
+        ));
+        target.addCondition(new ProtectionFromEvilCondition());
+        log.info("{} casts {} on {}", actor.getName(), name, target.getName());
+    }
+
+    private static class ProtectionFromEvilTargetSelector implements SingleTargetSelector {
+
+        @Override
+        public Creature get(List<Creature> targetOptions) {
+            final List<Creature> creaturesWithoutProtection = new java.util.ArrayList<>(targetOptions
+                    .stream()
+                    .filter(creature -> !creature.isUnconscious())
+                    .filter(creature -> !creature.isDead())
+                    .filter(creature -> !creature.hasCondition(ProtectionFromEvil.class.getName()))
+                    .toList());
+
+            if (creaturesWithoutProtection.isEmpty()) {
+                return null;
+            } else {
+                Collections.shuffle(creaturesWithoutProtection);
+                return creaturesWithoutProtection.getFirst();
+            }
+        }
+
+    }
 
     /**
      * Runnable to remove the Protection from Evil Condition on spell focus loss.

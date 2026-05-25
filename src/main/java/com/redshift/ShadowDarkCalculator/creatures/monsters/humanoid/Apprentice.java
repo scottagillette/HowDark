@@ -11,7 +11,6 @@ import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.multi.AliveAwakeTargetSelector;
@@ -62,6 +61,10 @@ public class Apprentice extends Monster {
 
     }
 
+    /**
+     * Beguile (INT Spell). DC 11. Focus. One target in near of LV 2 or less is stupefied for the duration.
+     */
+
     private static class Beguile extends Spell {
 
         private Beguile() {
@@ -73,64 +76,59 @@ public class Apprentice extends Monster {
             final boolean canPerform = super.canPerform(actor, enemies, allies);
             final boolean hasTarget = new BeguileTargetSelector().get(enemies) != null;
             final boolean hasFocus = actor.hasCondition(SpellFocusCondition.class.getName());
-
             return canPerform && hasTarget && !hasFocus;
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-            final Creature target = new BeguileTargetSelector().get(enemies);
-
-            final int spellCheckModifier = actor.getStats().getIntelligenceModifier(); // Always uses INT!
-
-            final int d20Roll = getSpellCheckRoll(actor, List.of(target), spellCheckModifier);
-
-            final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
-            final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;
-
-            if (target.getLevel() <= 2) { // Only affects level 2 and below!
-                if (criticalFailure) {
-                    lost = true; // Failed spell check!
-                    log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
-                } else if (criticalSuccess) {
-                    if (target.getLevel() <=2) {
-                        log.info("{} critically casts {} on {}", actor.getName(), name, target.getName());
-                        actor.addCondition(new SpellFocusCondition(
-                                11,
-                                RollModifier.INTELLIGENCE,
-                                spellCheckAdvantage,
-                                spellCheckBonus,
-                                new RemoveStupefiedCondition(target)
-                        ));
-                        target.addCondition(new StupefiedCondition()); // Until focus lost or attacked
-                    } else {
-                        log.info("{} casts {} but doesn't affect the creature.", actor.getName(), name);
-                        lost = true; // Doesn't affect the creature... stop casting Beguile!
-                    }
-                } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-                    if (target.getLevel() <=2) {
-                        log.info("{} casts {} on {}", actor.getName(), name, target.getName());
-                        actor.addCondition(new SpellFocusCondition(
-                                11,
-                                RollModifier.INTELLIGENCE,
-                                spellCheckAdvantage,
-                                spellCheckBonus,
-                                new RemoveStupefiedCondition(target)
-                        ));
-                        target.addCondition(new StupefiedCondition()); //  Until focus lost or attacked
-                    } else {
-                        log.info("{} casts {} but doesn't affect the creature.", actor.getName(), name);
-                        lost = true; // Doesn't affect the creature... stop casting Beguile!
-                    }
-                } else {
-                    lost = true; // Failed spell check!
-                    log.info("{} MISSES the spell check with a {}", actor.getName(), name);
-                }
-            } else {
-                log.info("{} casts {} on {} with no effect!", actor.getName(), name, target.getName());
-            }
+        public List<Creature> getTargets(Creature actor, List<Creature> enemies, List<Creature> allies) {
+            return List.of(new BeguileTargetSelector().get(enemies));
         }
+
+        @Override
+        public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+            final Creature target = targets.getFirst();
+            if (target.getLevel() <= 4) { // Increase the level for critical!
+                log.info("{} critically casts {} on {}", actor.getName(), name, target.getName());
+                actor.addCondition(new SpellFocusCondition(
+                        11,
+                        RollModifier.INTELLIGENCE,
+                        spellCheckAdvantage,
+                        spellCheckBonus,
+                        new RemoveStupefiedCondition(target)
+                ));
+                target.addCondition(new StupefiedCondition()); // Until focus lost or attacked
+            } else {
+                log.info("{} casts {} but doesn't affect the creature.", actor.getName(), name);
+                lost = true; // Doesn't affect the creature... stop casting Beguile!
+            }
+
+        }
+
+        @Override
+        public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+            final Creature target = targets.getFirst();
+            if (target.getLevel() <=2) {
+                log.info("{} casts {} on {}", actor.getName(), name, target.getName());
+                actor.addCondition(new SpellFocusCondition(
+                        11,
+                        RollModifier.INTELLIGENCE,
+                        spellCheckAdvantage,
+                        spellCheckBonus,
+                        new RemoveStupefiedCondition(target)
+                ));
+                target.addCondition(new StupefiedCondition()); //  Until focus lost or attacked
+            } else {
+                log.info("{} casts {} but doesn't affect the creature.", actor.getName(), name);
+                lost = true; // Doesn't affect the creature... stop casting Beguile!
+            }
+
+        }
+
     }
+
+    /**
+     * A single target selector for creatures not already with the stupefied condition.
+     */
 
     private static class BeguileTargetSelector implements SingleTargetSelector {
 

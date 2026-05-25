@@ -187,13 +187,13 @@ public class Weapon extends BaseAction implements Action {
             return false;
         } else if (criticalSuccess) {
             int damage = damageDice.roll() + damageDice.roll() + tempDamageRollBonus;
-            log.info("{} critically hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), name, damage);
+            log.info("{} critically hits an attack on {} with a {} for {} damage", actor.getName(), target.getName(), name, damage);
             target.takeDamage(damage, tempDamageType);
             checkWeaponBreaks(actor, target, tempDamageType.isMagical());
             return true;
         } else if (d20Result + attackRollModifier + tempAttackRollBonus >= target.getAC()) {
             int damage = damageDice.roll() + tempDamageRollBonus;
-            log.info("{} hits an attack on {} with a {}: damage={}", actor.getName(), target.getName(), name, damage);
+            log.info("{} hits an attack on {} with a {} for {} damage", actor.getName(), target.getName(), name, damage);
             target.takeDamage(damage, tempDamageType);
             checkWeaponBreaks(actor, target, tempDamageType.isMagical());
             return true;

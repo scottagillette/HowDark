@@ -1,13 +1,13 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
 import com.redshift.ShadowDarkCalculator.actions.DamageType;
-import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
-import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
+import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,63 +24,39 @@ public abstract class SingleTargetDamageSpell extends Spell {
     public SingleTargetDamageSpell(String name, int difficultyClass, RollModifier rollModifier, Dice damageDice, boolean advantage) {
         super(name, difficultyClass, rollModifier);
         this.damageDice = damageDice;
-        this.spellCheckAdvantage = advantage;
-
         damageType.addMagical(); // All damage spells should be magical.
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-        final Creature target = actor.getSingleTargetSelector().get(enemies);
-
-        if (target == null) {
-            log.info("{} is skipping their turn... no target!", actor.getName());
-        } else {
-            performSingleTargetSpellAttack(actor, target, this, difficultyClass, damageDice, rollModifier);
-        }
+    public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+        final boolean canPerform = super.canPerform(actor, enemies, allies);
+        final boolean hasTarget = !getTargets(actor, enemies, allies).isEmpty();
+        return (canPerform && hasTarget);
     }
 
-    protected boolean performSingleTargetSpellAttack(
-            Creature actor,
-            Creature target,
-            Spell spell,
-            int difficultyClass,
-            Dice damageDice,
-            RollModifier rollModifier) {
+    @Override
+    public List<Creature> getTargets(Creature actor, List<Creature> enemies, List<Creature> allies) {
+        // Default implementation; get a single target based on the creatures specific
+        // target selection algorithm.
+        final List<Creature> targets = new ArrayList<>();
+        final Creature target = actor.getSingleTargetSelector().get(enemies);
+        if (target != null) targets.add(target);
+        return targets;
+    }
 
-        int spellCheckModifier = 0;
+    @Override
+    public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+        final Creature target = targets.getFirst(); // Always uses single target.
+        int damage = damageDice.roll() + damageDice.roll();
+        log.info("{} critically hits a spell on {} with a {} for {} damage", actor.getName(), target.getName(), name, damage);
+        target.takeDamage(damage, damageType);
+    }
 
-        if (rollModifier.equals(RollModifier.INTELLIGENCE)) {
-            spellCheckModifier = actor.getStats().getIntelligenceModifier();
-        } else if (rollModifier.equals(RollModifier.WISDOM)) {
-            spellCheckModifier = actor.getStats().getWisdomModifier();
-        } else if (rollModifier.equals(RollModifier.CHARISMA)) {
-            spellCheckModifier = actor.getStats().getCharismaModifier();
-        }
-
-        final int d20Roll = getSpellCheckRoll(actor, List.of(target), spellCheckModifier);
-
-        final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
-        final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;
-
-        if (criticalFailure) {
-            lost = true; // Failed spell check!
-            log.info("{} critically MISSES the spell check with a {}", actor.getName(), spell.getName());
-            return false;
-        } else if (criticalSuccess) {
-            int damage = damageDice.roll() + damageDice.roll();
-            log.info("{} critically hits a spell on {} with a {}: damage={}", actor.getName(), target.getName(), spell.getName(), damage);
-            target.takeDamage(damage, damageType);
-            return true;
-        } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-            int damage = damageDice.roll();
-            log.info("{} hits a spell on {} with a {}: damage={}", actor.getName(), target.getName(), spell.getName(), damage);
-            target.takeDamage(damage, damageType);
-            return true;
-        } else {
-            lost = true; // Failed spell check!
-            log.info("{} MISSES the spell check with a {}", actor.getName(), spell.getName());
-            return false;
-        }
+    @Override
+    public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+        final Creature target = targets.getFirst(); // Always uses single target.
+        int damage = damageDice.roll();
+        log.info("{} hits a spell on {} with a {} for {} damage", actor.getName(), target.getName(), name, damage);
+        target.takeDamage(damage, damageType);
     }
 }

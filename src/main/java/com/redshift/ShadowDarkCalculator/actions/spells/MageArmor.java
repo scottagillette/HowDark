@@ -3,10 +3,10 @@ package com.redshift.ShadowDarkCalculator.actions.spells;
 import com.redshift.ShadowDarkCalculator.conditions.MageArmorCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,33 +28,27 @@ public class MageArmor extends Spell {
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         boolean canPerform = super.canPerform(actor, enemies, allies);
-        // Don't perform if you already have the mage armor condition!
-        return canPerform && !actor.hasCondition(MageArmorCondition.class.getName());
+        boolean hasMageArmor = actor.hasCondition(MageArmorCondition.class.getName());
+        return canPerform && !hasMageArmor;
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-        final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
+    public List<Creature> getTargets(Creature actor, List<Creature> enemies, List<Creature> allies) {
+        final List<Creature> targets = new ArrayList<>();
+        targets.add(actor);
+        return targets;
+    }
 
-        // See if they pass the spell check!
-        final int spellCheckRoll = getSpellCheckRoll(actor, List.of(), spellCheckModifier);
+    @Override
+    public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+        actor.addCondition(new MageArmorCondition(10, 18));
+        log.info("{} critically casts {} for 18 AC!", actor.getName(), name);
+    }
 
-        final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
-        final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
-
-        if (criticalFailure) {
-            lost = true;
-            log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
-        } else if (criticalSuccess) {
-            actor.addCondition(new MageArmorCondition(10, 18));
-            log.info("{} critically casts {} for 18 AC!", actor.getName(), name);
-        } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-            actor.addCondition(new MageArmorCondition(10, 14));
-            log.info("{} casts {} for 14 AC.", actor.getName(), name);
-        } else {
-            lost = true;
-            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
-        }
+    @Override
+    public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+        actor.addCondition(new MageArmorCondition(10, 14));
+        log.info("{} casts {} for 14 AC.", actor.getName(), name);
     }
 
 }

@@ -67,8 +67,7 @@ public abstract class BaseCreature implements Creature {
 
     @Override
     public boolean canAct() {
-        final List<Condition> cantActConditions = conditions.values()
-                .stream()
+        final List<Condition> cantActConditions = conditions.values().stream()
                 .filter(condition -> !condition.canAct())
                 .toList();
 
@@ -294,7 +293,7 @@ public abstract class BaseCreature implements Creature {
 
         try {
             Thread.sleep(encounter.getDelay() * 1000L);
-        } catch (InterruptedException e) {
+        } catch (InterruptedException ignored) {
             // Nothing
         }
 

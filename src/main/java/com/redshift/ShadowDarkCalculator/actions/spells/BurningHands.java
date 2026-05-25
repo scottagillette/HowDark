@@ -15,7 +15,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
  * effect take 1d6 damage, and flammable objects catch fire.
  */
 
-public class BurningHands extends MultiTargetDamageSpell {
+public class BurningHands extends MultipleTargetDamageSpell {
 
     public BurningHands() {
         super("Burning Hands", 11, RollModifier.INTELLIGENCE, D6, D4);

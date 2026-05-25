@@ -3,10 +3,10 @@ package com.redshift.ShadowDarkCalculator.actions.spells;
 import com.redshift.ShadowDarkCalculator.conditions.ShieldOfFaithCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,28 +33,22 @@ public class ShieldOfFaith extends Spell {
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-        final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
+    public List<Creature> getTargets(Creature actor, List<Creature> enemies, List<Creature> allies) {
+        final List<Creature> targets = new ArrayList<>();
+        targets.add(actor);
+        return targets;
+    }
 
-        final int d20Roll = getSpellCheckRoll(actor, null, spellCheckModifier);
+    @Override
+    public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+        actor.addCondition(new ShieldOfFaithCondition(4)); // Double AC for critical success
+        log.info("{} critically adds 4 AC on {} with a {}", actor.getName(), actor.getName(), name);
+    }
 
-        final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
-        final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;
-
-        if (criticalFailure) {
-            lost = true;
-            log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
-        } else if (criticalSuccess) {
-            actor.addCondition(new ShieldOfFaithCondition(4)); // Double AC for critical success
-            log.info("{} critically adds 4 AC on {} with a {}", actor.getName(), actor.getName(), name);
-        } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-            actor.addCondition(new ShieldOfFaithCondition());
-            log.info("{} adds 2 AC on {} with a {}", actor.getName(), actor.getName(), name);
-        } else {
-            lost = true;
-            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
-        }
-
+    @Override
+    public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+        actor.addCondition(new ShieldOfFaithCondition());
+        log.info("{} adds 2 AC on {} with a {}", actor.getName(), actor.getName(), name);
     }
 
 }

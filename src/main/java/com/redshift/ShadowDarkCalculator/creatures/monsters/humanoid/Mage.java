@@ -13,7 +13,6 @@ import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.single.FocusFireTargetSelector;
@@ -79,28 +78,20 @@ public class Mage extends Monster {
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-            final int spellCheckModifier = actor.getStats().getIntelligenceModifier(); // Always uses INT modifier!
+        public List<Creature> getTargets(Creature actor, List<Creature> enemies, List<Creature> allies) {
+            return List.of(actor);
+        }
 
-            // See if they pass the spell check!
-            final int spellCheckRoll = getSpellCheckRoll(actor, List.of(), spellCheckModifier);
+        @Override
+        public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+            actor.addCondition(new MageArmorCondition(D4.roll() + D4.roll() + D4.roll() + D4.roll(), 16));
+            log.info("{} critically casts {} for 16 AC for extended rounds!!", actor.getName(), name);
+        }
 
-            final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
-            final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
-
-            if (criticalFailure) {
-                lost = true;
-                log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
-            } else if (criticalSuccess) {
-                actor.addCondition(new MageArmorCondition(D4.roll() + D4.roll() + D4.roll() + D4.roll(), 16));
-                log.info("{} critically casts {} for 16 AC for extended rounds!!", actor.getName(), name);
-            } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-                actor.addCondition(new MageArmorCondition(D4.roll() + D4.roll(), 16));
-                log.info("{} casts {} for 16 AC.", actor.getName(), name);
-            } else {
-                lost = true;
-                log.info("{} MISSES the spell check with a {}", actor.getName(), name);
-            }
+        @Override
+        public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+            actor.addCondition(new MageArmorCondition(D4.roll() + D4.roll(), 16));
+            log.info("{} casts {} for 16 AC.", actor.getName(), name);
         }
 
     }
@@ -130,52 +121,48 @@ public class Mage extends Monster {
         @Override
         public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
             final boolean canPerform = super.canPerform(actor, enemies, allies);
-            final Creature target = new SnareTargetSelector().get(enemies);
-            return canPerform && target != null;
+            final boolean hasTarget = new SnareTargetSelector().get(enemies) != null;
+            return canPerform && hasTarget;
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-            final Creature target = new SnareTargetSelector().get(enemies);
+        public List<Creature> getTargets(Creature actor, List<Creature> enemies, List<Creature> allies) {
+            return List.of(new SnareTargetSelector().get(enemies));
+        }
 
-            final int spellCheckModifier = actor.getStats().getIntelligenceModifier(); // Always uses INT modifier!
+        @Override
+        public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+            final Creature target = targets.getFirst();
+            log.info("{} casts {} on {} and is paralyzed!", actor.getName(), name, target.getName());
+            target.addCondition(new ParalyzedCondition(999));
+            actor.addCondition(new SpellFocusCondition(
+                    13,
+                    RollModifier.INTELLIGENCE,
+                    spellCheckAdvantage,
+                    spellCheckBonus,
+                    new RemoveParalyzedCondition(target)
+            ));
+        }
 
-            // See if they pass the spell check!
-            final int spellCheckRoll = getSpellCheckRoll(actor, List.of(), spellCheckModifier);
-
-            final boolean criticalSuccess = spellCheckRoll == RollOutcome.CRITICAL_SUCCESS;
-            final boolean criticalFailure = spellCheckRoll == RollOutcome.CRITICAL_FAILURE;
-
-            if (criticalFailure) {
-                lost = true;
-                log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
-            } else if (criticalSuccess) {
-                log.info("{} casts {} on {} and is paralyzed!", actor.getName(), name, target.getName());
-                target.addCondition(new ParalyzedCondition(999));
-                actor.addCondition(new SpellFocusCondition(
-                        13,
-                        RollModifier.INTELLIGENCE,
-                        spellCheckAdvantage,
-                        spellCheckBonus,
-                        new RemoveParalyzedCondition(target)
-                ));
-            } else if (spellCheckRoll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-                log.info("{} casts {} on {} and is paralyzed!", actor.getName(), name, target.getName());
-                target.addCondition(new ParalyzedCondition(999));
-                actor.addCondition(new SpellFocusCondition(
-                        13,
-                        RollModifier.INTELLIGENCE,
-                        spellCheckAdvantage,
-                        spellCheckBonus,
-                        new RemoveParalyzedCondition(target)
-                ));
-            } else {
-                lost = true;
-                log.info("{} MISSES the spell check with a {}", actor.getName(), name);
-            }
+        @Override
+        public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+            final Creature target = targets.getFirst();
+            log.info("{} casts {} on {} and is paralyzed!", actor.getName(), name, target.getName());
+            target.addCondition(new ParalyzedCondition(999));
+            actor.addCondition(new SpellFocusCondition(
+                    13,
+                    RollModifier.INTELLIGENCE,
+                    spellCheckAdvantage,
+                    spellCheckBonus,
+                    new RemoveParalyzedCondition(target)
+            ));
         }
 
     }
+
+    /**
+     * A single target selector specifically targeting humanoids not already paralyzed.
+     */
 
     private static class SnareTargetSelector implements SingleTargetSelector {
 

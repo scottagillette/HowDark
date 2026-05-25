@@ -19,16 +19,25 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
  */
 
 @Slf4j
-public class Eyebite extends SingleTargetDamageWithEffectSpell {
+public class Eyebite extends SingleTargetDamageSpell {
 
     public Eyebite() {
         super("Eyebite", 11, RollModifier.CHARISMA, D4, false);
     }
 
     @Override
-    public void performEffect(Creature actor, Creature target, List<Creature> allies, Encounter encounter) {
+    public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+        super.performSpell(actor, targets, encounter, spellCheckRoll);
+        final Creature target = targets.getFirst();
         log.info("{} is blinded from {}", target.getName(), name);
         target.addCondition(new BlindedCondition(1)); //TODO: Blinded for just casting creature
     }
 
+    @Override
+    public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+        super.performCriticalSpell(actor, targets, encounter, spellCheckRoll);
+        final Creature target = targets.getFirst();
+        log.info("{} is blinded from {}", target.getName(), name);
+        target.addCondition(new BlindedCondition(1)); //TODO: Blinded for just casting creature
+    }
 }

@@ -28,7 +28,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
  */
 
 @Slf4j
-public class TurnUndead extends MultiTargetSpell {
+public class TurnUndead extends MultipleTargetSpell {
 
     public TurnUndead() {
         super("Turn Undead", 11, RollModifier.WISDOM, D4);
@@ -42,47 +42,56 @@ public class TurnUndead extends MultiTargetSpell {
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-        final List<Creature> targets = new TurnUndeadTargetSelector().getTargets(enemies, enemies.size()); // Turn Undead can affect all near enemies.
+    public List<Creature> getTargets(Creature actor, List<Creature> enemies, List<Creature> allies) {
+        return new TurnUndeadTargetSelector().getTargets(enemies, enemies.size());
+    }
 
-        int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom modifier!
+    @Override
+    public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+        targets.forEach(target -> {
+            int save = target.getStats().charismaSave();
 
-        // See if they pass the spell check!
-        final int d20Roll = getSpellCheckRoll(actor, targets, spellCheckModifier);
-
-        final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
-        final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;
-
-        if (criticalFailure) {
-            lost = true; // Failed spell check!
-            log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
-        } else if (criticalSuccess || d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-            targets.forEach(target -> {
-
-                int save = target.getStats().charismaSave();
-
-                if (save < d20Roll + spellCheckModifier + spellCheckBonus) {
-                    if ((d20Roll + spellCheckModifier + spellCheckBonus) - save >= 10) {
-                        if (actor.getLevel() >= target.getLevel()) {
-                            log.info("{} hits a spell on {} with {} and is destroyed!", actor.getName(), target.getName(), name);
-                            target.takeDamage(999, new DamageType().addMagical()); // Destroyed!
-                        } else {
-                            target.addCondition(new FearCondition()); // Just feared
-                            log.info("{} hits a spell on {} with {} and feared!", actor.getName(), target.getName(), name);
-                        }
+            if (save < spellCheckRoll + spellCheckBonus) {
+                if (spellCheckRoll - save >= 10) {
+                    if (actor.getLevel() >= target.getLevel()) {
+                        log.info("{} hits a spell on {} with {} and is destroyed!", actor.getName(), target.getName(), name);
+                        target.takeDamage(999, new DamageType().addMagical()); // Destroyed!
                     } else {
-                        target.addCondition(new FearCondition()); // Just feared
+                        target.addCondition(new FearCondition(10)); // Critical success 10 rounds!
                         log.info("{} hits a spell on {} with {} and feared!", actor.getName(), target.getName(), name);
                     }
                 } else {
-                    log.info("{} has their spell {} resisted by {}", actor.getName(), name, target.getName());
+                    target.addCondition(new FearCondition()); // Just feared
+                    log.info("{} hits a spell on {} with {} and feared!", actor.getName(), target.getName(), name);
                 }
+            } else {
+                log.info("{} has their spell {} resisted by {}", actor.getName(), name, target.getName());
+            }
+        });
+    }
 
-            });
-        } else {
-            lost = true; // Failed spell check!
-            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
-        }
+    @Override
+    public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+        targets.forEach(target -> {
+            int save = target.getStats().charismaSave();
+
+            if (save < spellCheckRoll) {
+                if (spellCheckRoll - save >= 10) {
+                    if (actor.getLevel() >= target.getLevel()) {
+                        log.info("{} hits a spell on {} with {} and is destroyed!", actor.getName(), target.getName(), name);
+                        target.takeDamage(999, new DamageType().addMagical()); // Destroyed!
+                    } else {
+                        target.addCondition(new FearCondition(5)); // Just feared for 5 rounds
+                        log.info("{} hits a spell on {} with {} and feared!", actor.getName(), target.getName(), name);
+                    }
+                } else {
+                    target.addCondition(new FearCondition()); // Just feared
+                    log.info("{} hits a spell on {} with {} and feared!", actor.getName(), target.getName(), name);
+                }
+            } else {
+                log.info("{} has their spell {} resisted by {}", actor.getName(), name, target.getName());
+            }
+        });
     }
 
     /**

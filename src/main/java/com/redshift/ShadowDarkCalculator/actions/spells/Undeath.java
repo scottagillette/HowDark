@@ -5,7 +5,6 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.undead.Skeleton;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.multi.CreatureLabelTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.single.DeadCreatureTargetSelector;
@@ -33,11 +32,14 @@ public class Undeath extends Spell {
     @Override
     public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         final boolean canPerform = super.canPerform(actor, enemies, allies);
-        final boolean hasTarget = getTarget(enemies, allies) != null;
+        final boolean hasTarget = !getTargets(actor, enemies, allies).isEmpty();
         return (canPerform && hasTarget);
     }
 
-    private Creature getTarget(List<Creature> enemies, List<Creature> allies) {
+    @Override
+    public List<Creature> getTargets(Creature actor, List<Creature> enemies, List<Creature> allies) {
+        final List<Creature> targets = new ArrayList<>();
+
         final List<Creature> allCreatures = new ArrayList<>();
         allCreatures.addAll(enemies);
         allCreatures.addAll(allies); // Might as well summon a dead ally!
@@ -45,38 +47,27 @@ public class Undeath extends Spell {
         final List<Creature> humanoidCreatures = new CreatureLabelTargetSelector(CreatureLabel.HUMANOID)
                 .getTargets(allCreatures, allCreatures.size());
 
-        return new DeadCreatureTargetSelector().get(humanoidCreatures);
+        targets.add(new DeadCreatureTargetSelector().get(humanoidCreatures));
+
+        return targets;
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-        final Creature deadCreature = getTarget(enemies, allies);
+    public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+        final Creature target = targets.getFirst();
+        log.info("{} critically succeeds on raising a skeleton for 10 rounds with {}", actor.getName(), name);
+        encounter.addFriendlyCreature(actor, new Skeleton("Undeath Skeleton"));
+        lost = true; // Single per combat use.
+        target.addCondition(new DevouredCondition()); // Mark corpse as devoured so it can't be used again.
+    }
 
-        final int spellCheckModifier = actor.getStats().getCharismaModifier(); // Always uses Charisma!
-
-        // See if they pass the spell check!
-        final int d20Roll = getSpellCheckRoll(actor, List.of(deadCreature), spellCheckModifier);
-
-        final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
-        final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;
-
-        if (criticalFailure) {
-            lost = true; // Failed spell check!
-            log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
-        } else if (criticalSuccess) {
-            log.info("{} critically succeeds on raising a skeleton for 10 rounds with {}", actor.getName(), name);
-            encounter.addFriendlyCreature(actor, new Skeleton("Undeath Skeleton"));
-            lost = true; // Single per combat use.
-            deadCreature.addCondition(new DevouredCondition()); // Mark corpse as devoured so it can't be used again.
-        } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-            log.info("{} succeeds on raising a skeleton for 5 rounds with {}", actor.getName(), name);
-            encounter.addFriendlyCreature(actor, new Skeleton("Undeath Skeleton"));
-            lost = true; // Single per combat use.
-            deadCreature.addCondition(new DevouredCondition()); // Mark corpse as devoured so it can't be used again.
-        } else {
-            lost = true; // Failed spell check!
-            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
-        }
+    @Override
+    public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+        final Creature target = targets.getFirst();
+        log.info("{} succeeds on raising a skeleton for 5 rounds with {}", actor.getName(), name);
+        encounter.addFriendlyCreature(actor, new Skeleton("Undeath Skeleton"));
+        lost = true; // Single per combat use.
+        target.addCondition(new DevouredCondition()); // Mark corpse as devoured so it can't be used again.
     }
 
 }

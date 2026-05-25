@@ -1,7 +1,7 @@
 package com.redshift.ShadowDarkCalculator.creatures.monsters.goblinoid;
 
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
-import com.redshift.ShadowDarkCalculator.actions.spells.SingleTargetDamageWithEffectSpell;
+import com.redshift.ShadowDarkCalculator.actions.spells.SingleTargetDamageSpell;
 import com.redshift.ShadowDarkCalculator.actions.spells.Spell;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
@@ -12,7 +12,6 @@ import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 
 import com.redshift.ShadowDarkCalculator.targets.multi.AliveAwakeNotUndeadTargetSelector;
@@ -30,7 +29,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
  * S +0, D +1, C +1, I +0, W +2, Ch +1, AL C, LV 4
  * Keen Senses. Can't be surprised.
  * Bug Brain (WIS Spell). DC 13. Near range, one target. Target's INT drops to 1 for 1d4 rounds.
- * Skitter (WIS Spell). DC 12. Self. Climb like a spider for 5 rounds. // TODO: Not implemented
+ * TODO: Skitter (WIS Spell). DC 12. Self. Climb like a spider for 5 rounds.
  * Stink Bomb (WIS Spell). DC 12. One target within far 2d4 damage and DC 12 CON or DISADV on next check/attack.
  */
 
@@ -56,7 +55,7 @@ public class GoblinShaman extends Monster {
     }
 
     /**
-     * INT drops to 1 for 1d4 rounds
+     * Bug Brain (WIS Spell). DC 13. Near range, one target. Target's INT drops to 1 for 1d4 rounds.
      */
 
     public static class BugBrain extends Spell {
@@ -68,55 +67,61 @@ public class GoblinShaman extends Monster {
         @Override
         public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
             final List<Creature> candidateTargets = new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size());
-
             final CreatureLabelTargetSelector wizardSelector = new CreatureLabelTargetSelector(CreatureLabel.WIZARD);
             final List<Creature> wizards = wizardSelector.getTargets(candidateTargets, candidateTargets.size());
-
             return (!lost && !wizards.isEmpty());
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
+        public List<Creature> getTargets(Creature actor, List<Creature> enemies, List<Creature> allies) {
             final List<Creature> candidateTargets = new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size());
-
-            final CreatureLabelTargetSelector wizardSelector = new CreatureLabelTargetSelector(CreatureLabel.WIZARD);
-            final List<Creature> wizards = wizardSelector.getTargets(candidateTargets, candidateTargets.size());
-
-            final Creature target = wizards.getFirst();
-
-            int spellCheckModifier = actor.getStats().getWisdomModifier();
-
-            final int d20Roll = getSpellCheckRoll(actor, List.of(target), spellCheckModifier);
-
-            final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
-            final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;
-
-            if (criticalFailure) {
-                lost = true; // Failed spell check!
-                log.info("{} critically MISSES the spell check with a {}", actor.getName(), name);
-            } else if (criticalSuccess) {
-                lost = true; // Use bug brain Once
-                log.info("{} critically hits a spell on {} with a {}", actor.getName(), target.getName(), name);
-                target.addCondition(new BugBrainedCondition(D4.roll() + D4.roll()));
-            } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-                lost = true; // Use bug brain Once
-                log.info("{} hits a spell on {} with a {}", actor.getName(), target.getName(), name);
-                target.addCondition(new BugBrainedCondition(D4.roll()));
-            } else {
-                lost = true; // Failed spell check!
-                log.info("{} MISSES the spell check with a {}", actor.getName(), name);
-            }
+            final List<Creature> targets = new CreatureLabelTargetSelector(CreatureLabel.WIZARD).getTargets(candidateTargets, candidateTargets.size());
+            return List.of(actor.getSingleTargetSelector().get(targets));
         }
+
+        @Override
+        public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+            final Creature target = targets.getFirst();
+            lost = true; // Use bug brain Once
+            log.info("{} critically hits a spell on {} with a {}", actor.getName(), target.getName(), name);
+            target.addCondition(new BugBrainedCondition(D4.roll() + D4.roll()));
+        }
+
+        @Override
+        public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+            final Creature target = targets.getFirst();
+            lost = true; // Use bug brain Once
+            log.info("{} hits a spell on {} with a {}", actor.getName(), target.getName(), name);
+            target.addCondition(new BugBrainedCondition(D4.roll()));
+        }
+
     }
 
-    public static class StinkBomb extends SingleTargetDamageWithEffectSpell {
+    /**
+     * Stink Bomb (WIS Spell). DC 12. One target within far 2d4 damage and DC 12 CON or DISADV on next check/attack.
+     */
+
+    public static class StinkBomb extends SingleTargetDamageSpell {
 
         public StinkBomb() {
             super("Stink Bomb", 12, RollModifier.WISDOM, new MultipleDice(D4, D4), false);
         }
 
         @Override
-        public void performEffect(Creature actor, Creature target, List<Creature> allies, Encounter encounter) {
+        public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+            super.performCriticalSpell(actor, targets, encounter, spellCheckRoll);
+            final Creature target = targets.getFirst();
+            performEffect(target);
+        }
+
+        @Override
+        public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+            super.performSpell(actor, targets, encounter, spellCheckRoll);
+            final Creature target = targets.getFirst();
+            performEffect(target);
+        }
+
+        private void performEffect(Creature target) {
             if (!target.getStats().constitutionSave(12)) {
                 log.info("{} is disadvantaged on their next attack/check!", target.getName());
                 target.addCondition(new DisadvantagedCondition());

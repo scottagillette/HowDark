@@ -7,7 +7,7 @@ import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import java.util.List;
 
 /**
- * Random target selector of a conscious alive targets, if any otherwise unconscious.
+ * Random target selector of a conscious alive targets, if any, otherwise unconscious.
  */
 
 public class RandomTargetSelector implements SingleTargetSelector {

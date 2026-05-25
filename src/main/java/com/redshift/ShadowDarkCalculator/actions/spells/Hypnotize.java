@@ -4,12 +4,12 @@ import com.redshift.ShadowDarkCalculator.conditions.StupefiedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.SpellFocusCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.multi.AliveAwakeTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -33,58 +33,51 @@ public class Hypnotize extends Spell {
         final boolean canPerform = super.canPerform(actor, enemies, allies);
         final boolean hasTarget = new HypnotizeTargetSelector().get(enemies) != null;
         final boolean hasFocus = actor.hasCondition(SpellFocusCondition.class.getName());
-
         return (canPerform && hasTarget && !hasFocus);
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-        final Creature target = new HypnotizeTargetSelector().get(enemies);
+    public List<Creature> getTargets(Creature actor, List<Creature> enemies, List<Creature> allies) {
+        final List<Creature> targets = new ArrayList<>();
+        targets.add(new HypnotizeTargetSelector().get(enemies));
+        return targets;
+    }
 
-        final int spellCheckModifier = actor.getStats().getCharismaModifier(); // Always uses Charisma!
-
-        // See if they pass the spell check!
-        final int d20Roll = getSpellCheckRoll(actor, List.of(target), spellCheckModifier);
-
-        final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
-        final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;
-
-        if (criticalFailure) {
-            lost = true; // Failed spell check!
-            log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
-        } else if (criticalSuccess) {
-            if (target.getLevel() <= 3) {
-                log.info("{} critically succeeds on the spell {} and {} is hypnotized!", actor.getName(), name, target.getName());
-                target.addCondition(new StupefiedCondition());
-                actor.addCondition(new SpellFocusCondition(
-                        11,
-                        RollModifier.CHARISMA,
-                        spellCheckAdvantage,
-                        spellCheckBonus,
-                        new RemoveStupefiedCondition(target)
-                ));
-            } else {
-                log.info("{} casts {} but doesn't affect the creature.", actor.getName(), name);
-                lost = true; // Doesn't affect the creature... stop casting Hypnotize!
-            }
-        } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-            if (target.getLevel() <= 3) {
-                log.info("{} succeeds on the spell {} and {} is hypnotized!", actor.getName(), name, target.getName());
-                actor.addCondition(new SpellFocusCondition(
-                        11,
-                        RollModifier.CHARISMA,
-                        spellCheckAdvantage,
-                        spellCheckBonus,
-                        new RemoveStupefiedCondition(target)
-                ));
-                target.addCondition(new StupefiedCondition());
-            } else {
-                log.info("{} casts {} but doesn't affect the creature.", actor.getName(), name);
-                lost = true; // Doesn't affect the creature... stop casting Hypnotize!
-            }
+    @Override
+    public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+        final Creature target = targets.getFirst(); // Always uses single target.
+        if (target.getLevel() <= 6) { // Double 1 numeric value!
+            log.info("{} critically succeeds on the spell {} and {} is hypnotized!", actor.getName(), name, target.getName());
+            target.addCondition(new StupefiedCondition());
+            actor.addCondition(new SpellFocusCondition(
+                    11,
+                    RollModifier.CHARISMA,
+                    spellCheckAdvantage,
+                    spellCheckBonus,
+                    new RemoveStupefiedCondition(target)
+            ));
         } else {
-            lost = true; // Failed spell check!
-            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
+            log.info("{} casts {} but doesn't affect the creature.", actor.getName(), name);
+            lost = true; // Doesn't affect the creature... stop casting Hypnotize!
+        }
+    }
+
+    @Override
+    public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+        final Creature target = targets.getFirst(); // Always uses single target.
+        if (target.getLevel() <= 3) {
+            log.info("{} succeeds on the spell {} and {} is hypnotized!", actor.getName(), name, target.getName());
+            actor.addCondition(new SpellFocusCondition(
+                    11,
+                    RollModifier.CHARISMA,
+                    spellCheckAdvantage,
+                    spellCheckBonus,
+                    new RemoveStupefiedCondition(target)
+            ));
+            target.addCondition(new StupefiedCondition());
+        } else {
+            log.info("{} casts {} but doesn't affect the creature.", actor.getName(), name);
+            lost = true; // Doesn't affect the creature... stop casting Hypnotize!
         }
     }
 

@@ -2,12 +2,15 @@ package com.redshift.ShadowDarkCalculator.actions.spells;
 
 import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
+import com.redshift.ShadowDarkCalculator.dice.SingleDie;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.multi.AliveAwakeNotUndeadTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
@@ -23,10 +26,10 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
  */
 
 @Slf4j
-public class Withermark extends Spell {
+public class Withermark extends SingleTargetDamageSpell {
 
     public Withermark() {
-        super("Withermark", 11, RollModifier.CHARISMA);
+        super("Withermark", 11, RollModifier.CHARISMA, new MultipleDice(D4, D4), false);
     }
 
     @Override
@@ -37,40 +40,10 @@ public class Withermark extends Spell {
     }
 
     @Override
-    public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-        // Custom target selection; custom spell.
-        final List<Creature> livingCreatures = new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size());
-        final Creature target = actor.getSingleTargetSelector().get(livingCreatures);
-
-        int spellCheckModifier = 0;
-
-        if (rollModifier.equals(RollModifier.INTELLIGENCE)) {
-            spellCheckModifier = actor.getStats().getIntelligenceModifier();
-        } else if (rollModifier.equals(RollModifier.WISDOM)) {
-            spellCheckModifier = actor.getStats().getWisdomModifier();
-        } else if (rollModifier.equals(RollModifier.CHARISMA)) {
-            spellCheckModifier = actor.getStats().getCharismaModifier();
-        }
-
-        final int d20Roll = getSpellCheckRoll(actor, List.of(target), spellCheckModifier);
-
-        final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
-        final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;
-
-        if (criticalFailure) {
-            lost = true; // Failed spell check!
-            log.info("{} critically MISSES the spell check with a {}", actor.getName(), name);
-        } else if (criticalSuccess) {
-            int damage = D4.roll() + D4.roll();
-            log.info("{} critically hits a spell on {} with a {} for {} damage", actor.getName(), target.getName(), name, damage);
-            target.takeDamage(damage, new DamageType().addMagical());
-        } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-            int damage = D4.roll();
-            log.info("{} hits a spell on {} with a {} for {} damage", actor.getName(), target.getName(), name, damage);
-            target.takeDamage(damage, new DamageType().addMagical());
-        } else {
-            lost = true; // Failed spell check!
-            log.info("{} MISSES the spell check with a {}", actor.getName(), name);
-        }
+    public List<Creature> getTargets(Creature actor, List<Creature> enemies, List<Creature> allies) {
+        final List<Creature> targets = new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size());
+        int selectionIndex = new SingleDie(targets.size()).roll();
+        return List.of(targets.get(selectionIndex - 1));
     }
+
 }

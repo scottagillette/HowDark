@@ -1,9 +1,8 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.monstrosities.CaveCreeper;
-import com.redshift.ShadowDarkCalculator.creatures.monsters.undead.BoneNaga;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.goblinoid.Goblin;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.goblinoid.GoblinShaman;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
-import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
 
 import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +32,7 @@ public class HowDark {
 //                    new TheCrabCrushersBuilderv1().build(),
 //                    new DiableriePartyBuilder().build(),
                     new LostCitadelPartyBuilder().build(),
-                    List.of(new CaveCreeper("Cave Creeper"))
+//                    List.of(new CaveCreeper("Cave Creeper"))
 //                    List.of(new BoneNaga("Bone Naga"))
 //                    List.of(new Manticore("Manticore"))
 //                    List.of(new Minotaur("Bull of Death"))
@@ -77,7 +76,7 @@ public class HowDark {
 //                    List.of(new HillGiant("Brundo the Crusher")
 //                    List.of(new HillGiant("Brundo the Crusher"), new HillGiant("Gunda the Smasher"))
 //                    List.of(new Goblin("Grek"), new Goblin("Pek"), new Goblin("Mek"), new Goblin("Rek"))
-//                    List.of(new GoblinBoss("Boss Grek"), new Goblin("Pek"), new Goblin("Mek"), new GoblinShaman("Rek the shaman"))
+                    List.of(new Goblin("Goblin Grek"), new Goblin("Goblin Pek"), new Goblin("Goblin Mek"), new GoblinShaman("Goblin Shaman Zek"))
 //                    List.of(new Ettercap("Ettercap 1"), new Ettercap("Ettercap 2"))
 //                    List.of(
 //                            new Skeleton("Skeleton 1"),

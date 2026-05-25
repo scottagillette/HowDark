@@ -8,10 +8,8 @@ import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.single.HealTargetSelector;
-import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -46,6 +44,10 @@ public class Acolyte extends Monster {
         getLabels().add(CreatureLabel.LAWFUL);
     }
 
+    /**
+     * Healing Touch (WIS Spell). DC 11. Heal one creature within close for 1d4 HP.
+     */
+
     private static class HealingTouch extends Spell {
 
         public HealingTouch() {
@@ -54,38 +56,32 @@ public class Acolyte extends Monster {
 
         @Override
         public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
-            final SingleTargetSelector selector = new HealTargetSelector();
-            return !lost && selector.get(allies) != null;
+            final boolean canPerform = super.canPerform(actor, enemies, allies);
+            final boolean hasTarget = new HealTargetSelector().get(allies) != null;
+            return canPerform && hasTarget;
         }
 
         @Override
-        public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-            final SingleTargetSelector selector = new HealTargetSelector();
-            final Creature target = selector.get(allies);
-
-            final int spellCheckModifier = actor.getStats().getWisdomModifier(); // Always uses Wisdom!
-
-            // See if they pass the spell check!
-            final int d20Roll = getSpellCheckRoll(actor, List.of(target), spellCheckModifier);
-
-            final boolean criticalSuccess = d20Roll == RollOutcome.CRITICAL_SUCCESS;
-            final boolean criticalFailure = d20Roll == RollOutcome.CRITICAL_FAILURE;
-
-            if (criticalFailure) {
-                lost = true; // Failed spell check!
-                log.info("{} critically MISSES the spell check on {}", actor.getName(), name);
-            } else if (criticalSuccess) {
-                int hitPoints = D4.roll() + D4.roll();
-                log.info("{} critically heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, name);
-                target.healDamage(hitPoints);
-            } else if (d20Roll + spellCheckModifier + spellCheckBonus >= difficultyClass) {
-                int hitPoints = D4.roll();
-                log.info("{} heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, name);
-                target.healDamage(hitPoints);
-            } else {
-                lost = true; // Failed spell check!
-                log.info("{} MISSES the spell check with a {}", actor.getName(), name);
-            }
+        public List<Creature> getTargets(Creature actor, List<Creature> enemies, List<Creature> allies) {
+            return List.of(new HealTargetSelector().get(allies));
         }
+
+        @Override
+        public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+            final Creature target = targets.getFirst();
+            int hitPoints = D4.roll() + D4.roll();
+            log.info("{} critically heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, name);
+            target.healDamage(hitPoints);
+        }
+
+        @Override
+        public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+            final Creature target = targets.getFirst();
+            int hitPoints = D4.roll();
+            log.info("{} heals on {} for {} with a {}", actor.getName(), target.getName(), hitPoints, name);
+            target.healDamage(hitPoints);
+        }
+
     }
+
 }
