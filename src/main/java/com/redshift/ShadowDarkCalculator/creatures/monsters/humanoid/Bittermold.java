@@ -21,6 +21,8 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 @Slf4j
 public class Bittermold extends Monster {
 
+    private final PiercingResistance piercingResistance = new PiercingResistance();
+
     public Bittermold(String name) {
         super(
                 name,
@@ -40,6 +42,9 @@ public class Bittermold extends Monster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        new PiercingResistance().takeDamage(this, amount, damageType);
+        super.takeDamage(
+                piercingResistance.calculateDamage(this, amount, damageType),
+                damageType
+        );
     }
 }

@@ -13,6 +13,7 @@ import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.resistance.FireImmunityResistance;
+import com.redshift.ShadowDarkCalculator.resistance.PiercingResistance;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -29,6 +30,8 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 @Slf4j
 public class FireDragon extends Monster {
+
+    private final FireImmunityResistance fireImmunityResistance = new FireImmunityResistance();
 
     public FireDragon(String name) {
         super(
@@ -52,7 +55,13 @@ public class FireDragon extends Monster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        new FireImmunityResistance().takeDamage(this, amount, damageType);
+        final int damage = fireImmunityResistance.calculateDamage(this, amount, damageType);
+        if (damage != 0) {
+            super.takeDamage(
+                    fireImmunityResistance.calculateDamage(this, amount, damageType),
+                    damageType
+            );
+        }
     }
 
     /**

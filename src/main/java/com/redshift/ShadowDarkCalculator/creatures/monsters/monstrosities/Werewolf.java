@@ -24,6 +24,8 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 @Slf4j
 public class Werewolf extends Monster {
 
+    private final SilveredOrMagicalOnlyResistance silveredOrMagicalOnlyResistance = new SilveredOrMagicalOnlyResistance();
+
     public Werewolf(String name) {
         super(
                 name,
@@ -43,6 +45,9 @@ public class Werewolf extends Monster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        new SilveredOrMagicalOnlyResistance().takeDamage(this, amount, damageType);
+        final int damage = silveredOrMagicalOnlyResistance.calculateDamage(this, amount, damageType);
+        if (damage != 0) {
+            super.takeDamage(amount, damageType);
+        }
     }
 }

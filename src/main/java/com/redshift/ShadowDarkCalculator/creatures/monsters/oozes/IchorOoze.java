@@ -25,6 +25,8 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 @Slf4j
 public class IchorOoze extends Monster {
 
+    private final PiercingResistance piercingResistance = new PiercingResistance();
+
     public IchorOoze(String name) {
         super(
                 name,
@@ -45,7 +47,10 @@ public class IchorOoze extends Monster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        new PiercingResistance().takeDamage(this, amount, damageType);
+        super.takeDamage(
+                piercingResistance.calculateDamage(this, amount, damageType),
+                damageType
+        );
     }
 
 }

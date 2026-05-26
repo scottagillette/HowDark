@@ -13,5 +13,5 @@ public interface Resistance {
      * Given the creature determine how much damage, if any, is applied.
      */
 
-    void takeDamage(Creature creature, int amount, DamageType damageType);
+    int calculateDamage(Creature creature, int amount, DamageType damageType);
 }

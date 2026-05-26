@@ -33,6 +33,8 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 @Slf4j
 public class VampireSpawn extends UndeadMonster {
 
+    private final SilveredOrMagicalOnlyResistance silveredOrMagicalOnlyResistance = new SilveredOrMagicalOnlyResistance();
+
     public VampireSpawn(String name) {
         super(
                 name,
@@ -52,7 +54,10 @@ public class VampireSpawn extends UndeadMonster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        new SilveredOrMagicalOnlyResistance().takeDamage(this, amount, damageType);
+        final int damage = silveredOrMagicalOnlyResistance.calculateDamage(this, amount, damageType);
+        if (damage != 0) {
+            super.takeDamage(amount, damageType);
+        }
     }
 
     private static class Bite extends Weapon {

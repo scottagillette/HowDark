@@ -25,6 +25,8 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 @Slf4j
 public class Mummy extends UndeadMonster {
 
+    private final MagicalOnlyResistance magicalOnlyResistance = new MagicalOnlyResistance();
+
     public Mummy(String name) {
         super(
                 name,
@@ -45,13 +47,17 @@ public class Mummy extends UndeadMonster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
+
         // Damage for fire or magical only.
         if (damageType.isFire()) {
             // Double damage for fire!
             log.info("{} takes DOUBLE damage from fire!", getName());
             super.takeDamage(amount + amount, damageType);
         } else {
-            new MagicalOnlyResistance().takeDamage(this, amount, damageType);
+            final int damage = magicalOnlyResistance.calculateDamage(this, amount, damageType);
+            if (damage != 0) {
+                super.takeDamage(damage, damageType);
+            }
         }
     }
 

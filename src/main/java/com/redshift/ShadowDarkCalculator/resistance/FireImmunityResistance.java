@@ -12,11 +12,13 @@ import lombok.extern.slf4j.Slf4j;
 public class FireImmunityResistance implements Resistance {
 
     @Override
-    public void takeDamage(Creature creature, int amount, DamageType damageType) {
+    public int calculateDamage(Creature creature, int amount, DamageType damageType) {
         if (damageType.isFire()) {
             log.info("{} seems to take no damage from fire!", creature.getName());
+            return 0;
         } else {
-            creature.takeDamage(amount, damageType);
+            return amount;
         }
     }
+
 }

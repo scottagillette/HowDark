@@ -23,6 +23,8 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 @Slf4j
 public class Wraith extends UndeadMonster {
 
+    private final SilveredOrMagicalOnlyResistance silveredOrMagicalOnlyResistance = new SilveredOrMagicalOnlyResistance();
+
     public Wraith(String name) {
         super(
                 name,
@@ -42,7 +44,10 @@ public class Wraith extends UndeadMonster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        new SilveredOrMagicalOnlyResistance().takeDamage(this, amount, damageType);
+        final int damage = silveredOrMagicalOnlyResistance.calculateDamage(this, amount, damageType);
+        if (damage != 0) {
+            super.takeDamage(amount, damageType);
+        }
     }
 
     private static class DeathTouch extends Weapon {

@@ -1,7 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.goblinoid.Goblin;
-import com.redshift.ShadowDarkCalculator.creatures.monsters.goblinoid.GoblinShaman;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.oozes.GelatinousCube;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyBuilder;
@@ -29,9 +28,15 @@ public class HowDark {
 
             final EncounterSimulator simulator = new EncounterSimulator(
 //                    new TheWolfPackBuilder().build(),
-//                    new TheCrabCrushersBuilderv1().build(),
+//                    new TheCrabCrushersBuilder().build(),
 //                    new DiableriePartyBuilder().build(),
                     new LostCitadelPartyBuilder().build(),
+//                    List.of(
+//                            new Zombie("Zombie 1"),
+//                            new Zombie("Zombie 2"),
+//                            new Zombie("Zombie 3"),
+//                            new Ghoul("Ghoul")
+//                    )
 //                    List.of(new CaveCreeper("Cave Creeper"))
 //                    List.of(new BoneNaga("Bone Naga"))
 //                    List.of(new Manticore("Manticore"))
@@ -72,11 +77,11 @@ public class HowDark {
 //                    List.of(new Ogre("'Ulak The Crusher' Ogre"))
 //                    List.of(new CaveCreeper("Cave Creeper"))
 //                    List.of(new CaveCreeper("Cave Creeper 1"), new CaveCreeper("Cave Creeper 2"))
-//                    List.of(new GelatinousCube("Gelatinous Cube"))
+                    List.of(new GelatinousCube("Gelatinous Cube"))
 //                    List.of(new HillGiant("Brundo the Crusher")
 //                    List.of(new HillGiant("Brundo the Crusher"), new HillGiant("Gunda the Smasher"))
 //                    List.of(new Goblin("Grek"), new Goblin("Pek"), new Goblin("Mek"), new Goblin("Rek"))
-                    List.of(new Goblin("Goblin Grek"), new Goblin("Goblin Pek"), new Goblin("Goblin Mek"), new GoblinShaman("Goblin Shaman Zek"))
+//                    List.of(new Goblin("Goblin Grek"), new Goblin("Goblin Pek"), new Goblin("Goblin Mek"), new GoblinShaman("Goblin Shaman Zek"))
 //                    List.of(new Ettercap("Ettercap 1"), new Ettercap("Ettercap 2"))
 //                    List.of(
 //                            new Skeleton("Skeleton 1"),

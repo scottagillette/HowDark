@@ -12,11 +12,13 @@ import lombok.extern.slf4j.Slf4j;
 public class MagicalOnlyResistance implements Resistance {
 
     @Override
-    public void takeDamage(Creature creature, int amount, DamageType damageType) {
+    public int calculateDamage(Creature creature, int amount, DamageType damageType) {
         if (damageType.isMagical()) {
-            creature.takeDamage(amount, damageType);
+            return amount;
         } else {
             log.info("{} takes no damage from non-magical damage!", creature.getName());
+            return 0;
         }
     }
+
 }

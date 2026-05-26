@@ -12,14 +12,15 @@ import lombok.extern.slf4j.Slf4j;
 public class SilveredOrMagicalOnlyResistance implements Resistance {
 
     @Override
-    public void takeDamage(Creature creature, int amount, DamageType damageType) {
+    public int calculateDamage(Creature creature, int amount, DamageType damageType) {
         // Take only silvered or magical damage!
         final boolean takeDamage = damageType.isSilvered() || damageType.isMagical();
 
         if (takeDamage) {
-            creature.takeDamage(amount, damageType);
+            return amount;
         } else {
             log.info("{} takes no damage from non-silvered, non-magical damage!", creature.getName());
+            return 0;
         }
     }
 
