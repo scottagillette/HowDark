@@ -14,7 +14,6 @@ public abstract class BaseAction implements Action {
         this.name = name;
     }
 
-
     @Override
     public String getName() {
         return name;

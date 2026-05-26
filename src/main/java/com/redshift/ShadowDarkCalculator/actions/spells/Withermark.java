@@ -1,16 +1,12 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
-import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.dice.SingleDie;
-import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.multi.AliveAwakeNotUndeadTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;

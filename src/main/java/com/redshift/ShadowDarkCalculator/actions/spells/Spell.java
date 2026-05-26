@@ -74,7 +74,7 @@ public abstract class Spell extends BaseAction implements Action {
      * Returns the spell check roll... which does not include the spell check bonus if any.
      */
 
-    protected int getSpellCheckRoll(Creature actor, List<Creature> targets, int spellCheckModifier) {
+    private int getSpellCheckRoll(Creature actor, List<Creature> targets, int spellCheckModifier) {
         boolean disadvantage = checkDisadvantage(actor, targets);
 
         boolean checkWithAdvantaged = spellCheckAdvantage && !disadvantage;
@@ -108,7 +108,7 @@ public abstract class Spell extends BaseAction implements Action {
     public abstract List<Creature> getTargets(Creature actor, List<Creature> enemies, List<Creature> allies);
 
     @Override
-    public boolean isMagicalWeapon() {
+    public final boolean isMagicalWeapon() {
         return false; // Magical, but not specifically magical weapon.
     }
 
@@ -162,6 +162,5 @@ public abstract class Spell extends BaseAction implements Action {
      */
 
     public abstract void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll);
-
 
 }

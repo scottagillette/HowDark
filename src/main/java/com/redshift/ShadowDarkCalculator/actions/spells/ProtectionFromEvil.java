@@ -19,7 +19,7 @@ import java.util.List;
  *
  * For the spell’s duration, chaotic beings have disadvantage on attack rolls and hostile
  * spell casting checks against the target.
- * TODO: These beings also can’t possess, compel, or beguile it.
+ * These beings also can’t possess , compel , or beguile it.
  * TODO: When cast on an already-possessed target, the possessing entity makes a CHA
  * TODO: check vs. the last spell casting check. On a failure, the entity is expelled.
  */

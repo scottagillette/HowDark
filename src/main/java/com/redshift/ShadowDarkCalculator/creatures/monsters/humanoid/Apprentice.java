@@ -4,6 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.SingleTargetDamageSpell;
 import com.redshift.ShadowDarkCalculator.actions.spells.Spell;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
+import com.redshift.ShadowDarkCalculator.conditions.ProtectionFromEvilCondition;
 import com.redshift.ShadowDarkCalculator.conditions.StupefiedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.SpellFocusCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
@@ -141,6 +142,7 @@ public class Apprentice extends Monster {
             } else {
                 final List<Creature> actualTargets = new java.util.ArrayList<>(aliveTargets.stream()
                         .filter(creature -> !creature.hasCondition(StupefiedCondition.class.getName()))
+                        .filter(creature -> !creature.hasCondition(ProtectionFromEvilCondition.class.getName())) // Prevents spell effect
                         .toList());
 
                 if (actualTargets.isEmpty()) {

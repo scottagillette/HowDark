@@ -9,7 +9,7 @@ import java.util.List;
  * A composite action that performs all actions in sequence that can be performed.
  */
 
-public class PerformAllActions extends BaseAction implements Action {
+public final class PerformAllActions extends BaseAction implements Action {
 
     private final List<Action> actions;
 

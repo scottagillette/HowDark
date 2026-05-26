@@ -36,8 +36,8 @@ public abstract class SingleTargetDamageSpell extends Spell {
 
     @Override
     public List<Creature> getTargets(Creature actor, List<Creature> enemies, List<Creature> allies) {
-        // Default implementation; get a single target based on the creatures specific
-        // target selection algorithm.
+        // Default implementation; get a single target based on the creatures
+        // specific target selection algorithm.
         final List<Creature> targets = new ArrayList<>();
         final Creature target = actor.getSingleTargetSelector().get(enemies);
         if (target != null) targets.add(target);

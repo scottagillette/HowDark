@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 @Slf4j
-public class PerformOneAction extends BaseAction implements Action {
+public final class PerformOneAction extends BaseAction implements Action {
 
     private final List<Action> actions;
 

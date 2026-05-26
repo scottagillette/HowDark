@@ -81,6 +81,10 @@ public class Hypnotize extends Spell {
         }
     }
 
+    /**
+     * A target selector for the Hypnotize spell.
+     */
+
     private static class HypnotizeTargetSelector implements SingleTargetSelector {
 
         @Override
@@ -106,7 +110,7 @@ public class Hypnotize extends Spell {
     }
 
     /**
-     * Runnable to remove the Dazed and Confused condition on spell focus loss.
+     * Runnable to remove the Stupefied condition on spell focus loss.
      */
 
     private static class RemoveStupefiedCondition implements Runnable {

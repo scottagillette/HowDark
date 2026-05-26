@@ -56,6 +56,10 @@ public class HolyWeapon extends Spell {
         log.info("{} casts {} on {}", actor.getName(), name, target.getName());
     }
 
+    /**
+     * A target selector for the Holy Weapon spell.
+     */
+
     private static class HolyWeaponTargetSelector implements SingleTargetSelector {
 
         @Override
@@ -78,4 +82,5 @@ public class HolyWeapon extends Spell {
         }
 
     }
+
 }

@@ -36,46 +36,46 @@ public class Weapon extends BaseAction implements Action {
         this.rollModifier = rollModifier;
     }
 
-    public Weapon addAcid() {
+    public final Weapon addAcid() {
         this.damageType.addAcid();
         return this;
     }
-    public Weapon addAttackRollBonus(int attackRollBonus) {
+    public final Weapon addAttackRollBonus(int attackRollBonus) {
         this.attackRollBonus = this.attackRollBonus + attackRollBonus;
         return this;
     }
 
-    public Weapon addCrushing() {
+    public final Weapon addCrushing() {
         damageType.addCrushing();
         return this;
     }
 
-    public Weapon addDamageRollBonus(int damageRollBonus) {
+    public final Weapon addDamageRollBonus(int damageRollBonus) {
         this.damageRollBonus = this.damageRollBonus + damageRollBonus;
         return this;
     }
 
-    public Weapon addMagical() {
+    public final Weapon addMagical() {
         damageType.addMagical();
         return this;
     }
 
-    public Weapon addPiercing() {
+    public final Weapon addPiercing() {
         damageType.addPiercing();
         return this;
     }
 
-    public Weapon addPoison() {
+    public final Weapon addPoison() {
         damageType.addPoison();
         return this;
     }
 
-    public Weapon addSilvered() {
+    public final Weapon addSilvered() {
         damageType.addSilvered();
         return this;
     }
 
-    public Weapon addSlashing() {
+    public final Weapon addSlashing() {
         damageType.addSlashing();
         return this;
     }
@@ -97,7 +97,7 @@ public class Weapon extends BaseAction implements Action {
     }
 
     @Override
-    public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+    public final boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
         return !destroyed; // Sometimes weapons can be broken, melted, destroyed, etc.
     }
 
@@ -105,7 +105,7 @@ public class Weapon extends BaseAction implements Action {
      * Returns the attack roll... which does not include the spell check bonus if any.
      */
 
-    protected int getAttackRoll(Creature actor, Creature target, int rollBonus, int armorClass) {
+    private int getAttackRoll(Creature actor, Creature target, int rollBonus, int armorClass) {
         final boolean disadvantage = checkDisadvantage(actor, target);
 
         int d20Roll = D20.roll();
@@ -130,7 +130,7 @@ public class Weapon extends BaseAction implements Action {
     }
 
     @Override
-    public boolean isMagicalWeapon() {
+    public final boolean isMagicalWeapon() {
         return damageType.isMagical();
     }
 

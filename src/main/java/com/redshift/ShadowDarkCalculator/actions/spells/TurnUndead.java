@@ -4,7 +4,6 @@ import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.conditions.FearCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.MultiTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.multi.UndeadTargetSelector;
@@ -116,4 +115,5 @@ public class TurnUndead extends MultipleTargetSpell {
             }
         }
     }
+
 }

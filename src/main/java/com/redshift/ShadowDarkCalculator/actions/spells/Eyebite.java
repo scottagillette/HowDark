@@ -26,6 +26,14 @@ public class Eyebite extends SingleTargetDamageSpell {
     }
 
     @Override
+    public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+        super.performCriticalSpell(actor, targets, encounter, spellCheckRoll);
+        final Creature target = targets.getFirst();
+        log.info("{} is blinded from {}", target.getName(), name);
+        target.addCondition(new BlindedCondition(1)); //TODO: Blinded for just casting creature
+    }
+
+    @Override
     public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
         super.performSpell(actor, targets, encounter, spellCheckRoll);
         final Creature target = targets.getFirst();
@@ -33,11 +41,4 @@ public class Eyebite extends SingleTargetDamageSpell {
         target.addCondition(new BlindedCondition(1)); //TODO: Blinded for just casting creature
     }
 
-    @Override
-    public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
-        super.performCriticalSpell(actor, targets, encounter, spellCheckRoll);
-        final Creature target = targets.getFirst();
-        log.info("{} is blinded from {}", target.getName(), name);
-        target.addCondition(new BlindedCondition(1)); //TODO: Blinded for just casting creature
-    }
 }

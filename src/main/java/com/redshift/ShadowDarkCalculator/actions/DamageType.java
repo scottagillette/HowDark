@@ -8,7 +8,7 @@ import lombok.Getter;
 
 @Getter
 //@Setter
-public class DamageType {
+public final class DamageType {
 
     private boolean silvered = false;
 
