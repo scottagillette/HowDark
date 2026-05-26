@@ -1,7 +1,6 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
-import com.redshift.ShadowDarkCalculator.conditions.StupefiedCondition;
-import com.redshift.ShadowDarkCalculator.conditions.SpellFocusCondition;
+import com.redshift.ShadowDarkCalculator.conditions.*;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
@@ -96,6 +95,9 @@ public class Hypnotize extends Spell {
             } else {
                 final List<Creature> actualTargets = new java.util.ArrayList<>(aliveTargets.stream()
                         .filter(creature -> !creature.hasCondition(StupefiedCondition.class.getName()))
+                        .filter(creature -> !creature.hasCondition(SleepingCondition.class.getName()))
+                        .filter(creature -> !creature.hasCondition(ParalyzedCondition.class.getName()))
+                        .filter(creature -> !creature.hasCondition(FearCondition.class.getName()))
                         .toList());
 
                 if (actualTargets.isEmpty()) {
