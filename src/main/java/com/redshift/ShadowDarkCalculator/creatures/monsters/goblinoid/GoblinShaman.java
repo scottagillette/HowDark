@@ -122,11 +122,13 @@ public class GoblinShaman extends Monster {
         }
 
         private void performEffect(Creature target) {
-            if (!target.getStats().constitutionSave(12)) {
-                log.info("{} is disadvantaged on their next attack/check!", target.getName());
-                target.addCondition(new DisadvantagedCondition());
-            } else {
-                log.info("{} SAVES and is NOT disadvantaged!", target.getName());
+            if (!target.isDead()) {
+                if (!target.getStats().constitutionSave(12)) {
+                    log.info("{} is disadvantaged on their next attack/check!", target.getName());
+                    target.addCondition(new DisadvantagedCondition());
+                } else {
+                    log.info("{} SAVES and is NOT disadvantaged!", target.getName());
+                }
             }
         }
 
