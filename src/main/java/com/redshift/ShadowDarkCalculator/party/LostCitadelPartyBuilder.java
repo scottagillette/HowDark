@@ -39,7 +39,22 @@ public class LostCitadelPartyBuilder implements PartyBuilder {
                         new Hypnotize().setPriority(6)
                 )
         );
-        creatures.add(pebble);
+        // TODO: Not in party ATM
+        //creatures.add(pebble);
+
+        final Creature mal = new Necromancer(
+                "Malady Blackhand",
+                1,
+                new Stats(13, 10, 10, 13, 5, 15),
+                12,
+                4,
+                new PerformOneAction(
+                        WeaponBuilder.LONGSWORD.build().addAttackRollBonus(1).setPriority(2),
+                        new Withermark().addSpellCheckBonus(1).setPriority(1),
+                        new Undeath().addSpellCheckBonus(1).setPriority(10)
+                )
+        );
+        creatures.add(mal);
 
         final Creature alaric = new Wizard(
                 "Alaric",
