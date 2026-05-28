@@ -47,7 +47,8 @@ public class Undeath extends Spell {
         final List<Creature> humanoidCreatures = new CreatureLabelTargetSelector(CreatureLabel.HUMANOID)
                 .getTargets(allCreatures, allCreatures.size());
 
-        targets.add(new DeadCreatureTargetSelector().get(humanoidCreatures));
+        final Creature target = new DeadCreatureTargetSelector().get(humanoidCreatures);
+        if (target != null) targets.add(target);
 
         return targets;
     }

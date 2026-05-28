@@ -42,7 +42,8 @@ public class ProtectionFromEvil extends Spell {
     @Override
     public List<Creature> getTargets(Creature actor, List<Creature> enemies, List<Creature> allies) {
         final List<Creature> targets = new ArrayList<>();
-        targets.add(new ProtectionFromEvilTargetSelector().get(allies));
+        final Creature target = new ProtectionFromEvilTargetSelector().get(allies);
+        if (target != null) targets.add(target);
         return targets;
     }
 

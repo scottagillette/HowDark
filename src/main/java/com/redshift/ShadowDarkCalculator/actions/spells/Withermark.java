@@ -38,6 +38,8 @@ public class Withermark extends SingleTargetDamageSpell {
     @Override
     public List<Creature> getTargets(Creature actor, List<Creature> enemies, List<Creature> allies) {
         final List<Creature> targets = new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size());
+        if (targets.isEmpty()) return List.of(); // Called by canPerform...
+
         int selectionIndex = new SingleDie(targets.size()).roll();
         return List.of(targets.get(selectionIndex - 1));
     }
