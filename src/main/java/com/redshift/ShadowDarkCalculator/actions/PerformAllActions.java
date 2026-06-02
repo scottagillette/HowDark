@@ -39,13 +39,13 @@ public final class PerformAllActions extends BaseAction implements Action {
 
     @Override
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-        // Choose all actions; but can't be lost and can be performed.
-
-        final List<Action> canPerformActions = actions.stream()
-                .filter(action -> action.canPerform(actor, enemies, allies))
-                .toList();
-
-        canPerformActions.forEach(action -> action.perform(actor, enemies, allies, encounter));
+        actions.forEach(action -> {
+            // Some actions can be lost as other actions are performed so don't
+            // filter, just execute if you can.
+            if (action.canPerform(actor, enemies, allies)) {
+                action.perform(actor, enemies, allies, encounter);
+            }
+        });
     }
 
 }
