@@ -38,9 +38,9 @@ public class SwampDragon extends Monster {
                 new MultipleDice(D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8).roll() + 4,
                 new PerformOneAction(
                         new PerformAllActions(
-                                new Weapon("Rending Claws", new MultipleDice(D10, D10), RollModifier.STRENGTH).addSlashing().addAttackRollBonus(3),
-                                new Weapon("Rending Claws", new MultipleDice(D10, D10), RollModifier.STRENGTH).addSlashing().addAttackRollBonus(3),
-                                new Weapon("Rending Claws", new MultipleDice(D10, D10), RollModifier.STRENGTH).addSlashing().addAttackRollBonus(3)
+                                new Weapon("Rending Claws", new MultipleDice(D10, D10), RollModifier.STRENGTH).addMagical().addSlashing().addAttackRollBonus(3),
+                                new Weapon("Rending Claws", new MultipleDice(D10, D10), RollModifier.STRENGTH).addMagical().addSlashing().addAttackRollBonus(3),
+                                new Weapon("Rending Claws", new MultipleDice(D10, D10), RollModifier.STRENGTH).addMagical().addSlashing().addAttackRollBonus(3)
                         ).setPriority(2),
                         new SmogBreath().setPriority(1) // Every third attack is smog breath!
                 )
@@ -74,15 +74,20 @@ public class SwampDragon extends Monster {
             log.info("{} breaths acrid smog across the battle field!", actor.getName());
 
             enemies.forEach(creature -> {
-                if (creature.isUnconscious() || creature.isDead()) {
-                    // No damage
+                if (creature.isUnconscious()) {
+                    final int damage = new MultipleDice(D10, D10).roll();
+                    log.info("{} is damaged by Smog Breath for {} damage and is blinded for 1 round!", creature.getName(), damage);
+                    creature.takeDamage(damage, new DamageType().addMagical());
+                    creature.addCondition(new BlindedCondition(1));
+                } else if (creature.isDead()) {
+                    // Ignore damage for dead cretures
                 } else {
                     if (creature.getStats().constitutionSave(15)) {
                         log.info("{} makes a CON save and takes no damage from Smog Breath!", creature.getName());
                     } else {
                         final int damage = new MultipleDice(D10, D10).roll();
                         log.info("{} is damaged by Smog Breath for {} damage and is blinded for 1 round!", creature.getName(), damage);
-                        creature.takeDamage(damage, new DamageType()); // No special damage type
+                        creature.takeDamage(damage, new DamageType().addMagical());
                         creature.addCondition(new BlindedCondition(1));
                     }
                 }
