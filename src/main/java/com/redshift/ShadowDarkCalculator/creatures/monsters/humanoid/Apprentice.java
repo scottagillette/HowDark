@@ -102,7 +102,6 @@ public class Apprentice extends Monster {
                 log.info("{} casts {} but doesn't affect the creature.", actor.getName(), name);
                 lost = true; // Doesn't affect the creature... stop casting Beguile!
             }
-
         }
 
         @Override
@@ -122,7 +121,6 @@ public class Apprentice extends Monster {
                 log.info("{} casts {} but doesn't affect the creature.", actor.getName(), name);
                 lost = true; // Doesn't affect the creature... stop casting Beguile!
             }
-
         }
 
     }

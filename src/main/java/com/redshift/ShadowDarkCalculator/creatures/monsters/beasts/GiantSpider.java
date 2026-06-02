@@ -47,12 +47,14 @@ public class GiantSpider extends Monster {
             final boolean attackHits = super.performSingleTargetAttack(actor, target);
 
             if (attackHits) {
-                final boolean constitutionSave = target.getStats().constitutionSave(12);
-                if (constitutionSave) {
-                    log.info("{} resists the effects of poison.", target.getName());
-                } else {
-                    log.info("{} is poisoned and is paralyzed!", target.getName());
-                    target.addCondition(new ParalyzedCondition(999)); // Technically D4 hours.
+                if (!target.hasCondition(ParalyzedCondition.class.getName())) {
+                    final boolean constitutionSave = target.getStats().constitutionSave(12);
+                    if (constitutionSave) {
+                        log.info("{} resists the effects of poison.", target.getName());
+                    } else {
+                        log.info("{} is poisoned and is paralyzed!", target.getName());
+                        target.addCondition(new ParalyzedCondition(999)); // Technically D4 hours.
+                    }
                 }
             }
 
