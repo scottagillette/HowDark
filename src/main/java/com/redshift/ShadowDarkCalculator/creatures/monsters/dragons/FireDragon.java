@@ -13,7 +13,6 @@ import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.resistance.FireImmunityResistance;
-import com.redshift.ShadowDarkCalculator.resistance.PiercingResistance;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -42,12 +41,12 @@ public class FireDragon extends Monster {
                 new MultipleDice(D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8).roll() + 4,
                 new PerformOneAction(
                         new PerformAllActions(
-                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH).addSlashing().addAttackRollBonus(5),
-                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH).addSlashing().addAttackRollBonus(5),
-                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH).addSlashing().addAttackRollBonus(5),
-                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH).addSlashing().addAttackRollBonus(5)
+                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH).addMagical().addSlashing().addAttackRollBonus(5),
+                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH).addMagical().addSlashing().addAttackRollBonus(5),
+                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH).addMagical().addSlashing().addAttackRollBonus(5),
+                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH).addMagical().addSlashing().addAttackRollBonus(5)
                         ).setPriority(2),
-                        new FireBreath().setPriority(1) // Every third attack is fire breath!
+                        new FireBreath().setPriority(2) // Every third attack is fire breath!
                 )
         );
         getLabels().add(CreatureLabel.CHAOTIC);
@@ -90,7 +89,7 @@ public class FireDragon extends Monster {
                 if (creature.isUnconscious()) {
                     final int damage = new MultipleDice(D6, D6, D6, D6, D6, D6, D6, D6, D6, D6).roll();
                     log.info("{} is unconscious and is burned by Fire Breath for {} damage!", creature.getName(), damage);
-                    creature.takeDamage(damage, new DamageType().addFire());
+                    creature.takeDamage(damage, new DamageType().addFire().addMagical());
                 } else if (creature.isDead()) {
                     // Ignore damage for dead cretures
                 } else {
@@ -99,7 +98,7 @@ public class FireDragon extends Monster {
                     } else {
                         final int damage = new MultipleDice(D6, D6, D6, D6, D6, D6, D6, D6, D6, D6).roll();
                         log.info("{} is burned by Fire Breath for {} damage!", creature.getName(), damage);
-                        creature.takeDamage(damage, new DamageType().addFire());
+                        creature.takeDamage(damage, new DamageType().addFire().addMagical());
                     }
                 }
             });
