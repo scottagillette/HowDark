@@ -78,7 +78,7 @@ public class Mummy extends UndeadMonster {
                 } else {
                     // HP 0
                     log.info("{} is drained of health and drops to 0 hit points!", target.getName());
-                    target.takeDamage(999, damageType.addMagical());
+                    target.takeDamage(target.getCurrentHitPoints(), damageType.addMagical());
                 }
             }
 

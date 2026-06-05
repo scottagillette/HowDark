@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.oozes.GelatinousCube;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.giants.HillGiant;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyBuilder;
@@ -31,6 +31,7 @@ public class HowDark {
 //                    new TheCrabCrushersBuilder().build(),
 //                    new DiableriePartyBuilder().build(),
                     new LostCitadelPartyBuilder().build(),
+//                    List.of(new Lich("Lich of Undeath"))
 //                    List.of(
 //                            new Zombie("Zombie 1"),
 //                            new Zombie("Zombie 2"),
@@ -77,12 +78,12 @@ public class HowDark {
 //                    List.of(new Ogre("'Ulak The Crusher' Ogre"))
 //                    List.of(new CaveCreeper("Cave Creeper"))
 //                    List.of(new CaveCreeper("Cave Creeper 1"), new CaveCreeper("Cave Creeper 2"))
-                    List.of(new GelatinousCube("Gelatinous Cube"))
-//                    List.of(new HillGiant("Brundo the Crusher")
+//                    List.of(new GelatinousCube("Gelatinous Cube"))
+                    List.of(new HillGiant("Brundo the Crusher"))
 //                    List.of(new HillGiant("Brundo the Crusher"), new HillGiant("Gunda the Smasher"))
 //                    List.of(new Goblin("Grek"), new Goblin("Pek"), new Goblin("Mek"), new Goblin("Rek"))
 //                    List.of(new Goblin("Goblin Grek"), new Goblin("Goblin Pek"), new Goblin("Goblin Mek"), new GoblinShaman("Goblin Shaman Zek"))
-//                    List.of(new Ettercap("Ettercap 1"), new Ettercap("Ettercap 2"))
+//                    List.of(new Ettercap("Ettercap 1"), new Ettercap("Ettercap 2"), new Ettercap("Ettercap 2"))
 //                    List.of(
 //                            new Skeleton("Skeleton 1"),
 //                            new Skeleton("Skeleton 2"),
@@ -100,7 +101,7 @@ public class HowDark {
 //                            new Ghoul("Foul smell Ghoul"),
 //                            new Ghoul("Faceless Ghoul")
 //                    )
-//                    List.of(new Wight("Armored Wight"))
+//                    List.of(new Wight("Armored Undead Warrior"))
 //                    List.of(new Ghast("Ghast"))
 //                    List.of(new Shadow("Shadow 1"), new Shadow("Shadow 2"))
 //                    List.of(new Bugbear("Bugbear 1"), new Bugbear("Bugbear 2"))
@@ -109,7 +110,7 @@ public class HowDark {
 //                    List.of(new VampireSpawn("Vampire Spawn"))
 //                    List.of(new OwlBear("Rabid Owlbear"))
 //                    List.of(new Ankheg("Ankheg of Death"))
-//                    List.of(new FireDragon("Red Fire Dragon of death"))
+//                    List.of(new FireDragon("Red Fire Dragon"))
 //                    List.of(new TarBat("Bat 1"), new TarBat("Bat 2"), new TarBat("Bat 3"), new TarBat("Bat 4"))
 //                    List.of(new SwampDragon("Black dragon of death"))
 //                    List.of(new Cultist("Cultist 1"), new Cultist("Cultist 2"), new Cultist("Cultist 3"), new Cultist("Cultist 4"), new Cultist("Cultist 5"))
