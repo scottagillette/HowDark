@@ -36,7 +36,7 @@ public class CaveCreeper extends Monster {
         getLabels().add(CreatureLabel.NEUTRAL);
     }
 
-    public static class Tentacles extends Weapon {
+    private static class Tentacles extends Weapon {
 
         public Tentacles() {
             super("Tentacles", D8, RollModifier.STRENGTH);
