@@ -2,10 +2,12 @@ package com.redshift.ShadowDarkCalculator.creatures.monsters.undead;
 
 import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
+import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.MultipleTargetDamageSpell;
 import com.redshift.ShadowDarkCalculator.actions.spells.Spell;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
+import com.redshift.ShadowDarkCalculator.conditions.SpellResilience;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
@@ -30,8 +32,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
  * TODO: Phylactery. Can't be killed while spirit vessel (an object) is intact.
  * Paralysis. DC 15 CON or paralyzed 1d4 rounds.
  * TODO: Flight (INT Spell). Self. DC 13. Fly double near for 5 rounds.
- * TODO: Null (INT Spell). Self. DC 14. Hostile spells targeting lich are DC 18 to cast.
- *  Lasts 1d4 rounds.
+ * Null (INT Spell). Self. DC 14. Hostile spells targeting lich are DC 18 to cast. Lasts 1d4 rounds.
  * TODO: Shadow Leap (INT Spell). Self. DC 14. Teleport up to 100 miles.
  * Sigil of Doom (INT Spell). DC 15. One target of LV 9 or less within near DC 15 CON or
  * go to 0 HP.
@@ -55,7 +56,10 @@ public class Lich extends UndeadMonster {
                 new PerformAllActions(
                         new ParalyzingTouch(),
                         new ParalyzingTouch(),
-                        new Wither(),
+                        new PerformOneAction( // Perform one of each; prioritize Null first.
+                                new Wither().setPriority(1),
+                                new Null().setPriority(5)
+                        ),
                         new SigilOfDoom()
                 )
         );
@@ -113,6 +117,7 @@ public class Lich extends UndeadMonster {
 
         private Wither() {
             super("Wither", 14, RollModifier.INTELLIGENCE, new MultipleDice(D8, D8, D8, D8), D4);
+            addSpellCheckBonus(3); // +7, 4 from int, +3
         }
 
     }
@@ -125,6 +130,7 @@ public class Lich extends UndeadMonster {
 
         private SigilOfDoom() {
             super("Sigil of Doom", 15, RollModifier.INTELLIGENCE);
+            addSpellCheckBonus(3); // +7, 4 from int, +3
         }
 
         @Override
@@ -166,6 +172,46 @@ public class Lich extends UndeadMonster {
                 log.info("{} casts {} but doesn't affect the creature.", actor.getName(), name);
                 lost = true; // Doesn't affect the creature... stop casting Beguile!
             }
+        }
+    }
+
+    /**
+     * Null (INT Spell). Self. DC 14. Hostile spells targeting lich are DC 18 to cast. Lasts 1d4 rounds.
+     */
+
+    private static class Null extends Spell {
+
+        private Null() {
+            super("Null", 14, RollModifier.INTELLIGENCE);
+            addSpellCheckBonus(3); // +7, 4 from int, +3
+        }
+
+        @Override
+        public boolean canPerform(Creature actor, List<Creature> enemies, List<Creature> allies) {
+            final boolean canPerform = super.canPerform(actor, enemies, allies);
+            final boolean hasAlready = actor.hasCondition(SpellResilience.class.getName());
+            return canPerform && !hasAlready;
+        }
+
+        @Override
+        public List<Creature> getTargets(Creature actor, List<Creature> enemies, List<Creature> allies) {
+            return List.of(actor);
+        }
+
+        @Override
+        public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+            final Creature target = targets.getFirst(); // Self
+            log.info("{} critically casts {}", actor.getName(), name);
+            target.addCondition(new SpellResilience(18, D8.roll())); // Increase duration!
+            lost = true; // Just case this once.
+        }
+
+        @Override
+        public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
+            final Creature target = targets.getFirst();
+            log.info("{} casts {}", actor.getName(), name);
+            target.addCondition(new SpellResilience(18, D4.roll()));
+            lost = true; // Just case this once.
         }
     }
 }

@@ -93,6 +93,12 @@ public class Weapon extends BaseAction implements Action {
             }
         }
 
+        // Check for the Disadvantage To Attack Condition.
+        if (target.hasCondition(DisadvantageToAttackCondition.class.getName())) {
+            disadvantage = true;
+            log.info("{} has disadvantage attacking {} ", actor.getName(), target.getName());
+        }
+
         return disadvantage;
     }
 

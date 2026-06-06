@@ -4,6 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.ProtectionFromEvilCondition;
+import com.redshift.ShadowDarkCalculator.conditions.SpellResilience;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -70,6 +71,23 @@ public abstract class Spell extends BaseAction implements Action {
         return disadvantage;
     }
 
+    private int getDifficultyClass(int baseDifficultyClass, List<Creature> targets) {
+        int[] overrideDifficultyClass = { baseDifficultyClass };
+
+        // Use the highest DC of any creature that has spell resistances.
+
+        targets.forEach(target -> {
+            if (target.hasCondition(SpellResilience.class.getName())) {
+                final SpellResilience spellResilience = (SpellResilience) target.getCondition(SpellResilience.class.getName());
+                if (spellResilience.getDifficultyClass() > overrideDifficultyClass[0]) {
+                    overrideDifficultyClass[0] = (spellResilience.getDifficultyClass());
+                }
+            }
+        });
+
+        return overrideDifficultyClass[0];
+    }
+
     /**
      * Returns the spell check roll... which does not include the spell check bonus if any.
      */
@@ -88,7 +106,9 @@ public abstract class Spell extends BaseAction implements Action {
             d20Result = Math.min(D20.roll(), D20.roll());
         }
 
-        if (d20Result + spellCheckModifier + spellCheckBonus >= difficultyClass && d20Result != RollOutcome.CRITICAL_FAILURE) {
+        final int actualDifficultyClass = getDifficultyClass(difficultyClass, targets);
+
+        if (d20Result + spellCheckModifier + spellCheckBonus >= actualDifficultyClass && d20Result != RollOutcome.CRITICAL_FAILURE) {
             return d20Result; // Return the raw result to check for critical success or failure.
         } else {
             if (actor.hasLuckToken()) {

@@ -105,6 +105,11 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
+    public Condition getCondition(String conditionName) {
+        return conditions.get(conditionName);
+    }
+
+    @Override
     public int getCurrentHitPoints() {
         return currentHitPoints;
     }
@@ -273,6 +278,11 @@ public abstract class BaseCreature implements Creature {
                 spellFocusCondition.hasEnded(this);
             }
         }
+    }
+
+    @Override
+    public void takePreCombatTurn(List<Creature> enemies, List<Creature> allies, Encounter encounter) {
+        // No default pre-combat action to take.
     }
 
     @Override

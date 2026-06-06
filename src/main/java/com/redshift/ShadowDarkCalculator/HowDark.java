@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator;
 
 import com.redshift.ShadowDarkCalculator.creatures.monsters.giants.HillGiant;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.monstrosities.Medusa;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyBuilder;
@@ -31,6 +32,7 @@ public class HowDark {
 //                    new TheCrabCrushersBuilder().build(),
 //                    new DiableriePartyBuilder().build(),
                     new LostCitadelPartyBuilder().build(),
+                    List.of(new Medusa("Medusa of Snakes"))
 //                    List.of(new Lich("Lich of Undeath"))
 //                    List.of(
 //                            new Zombie("Zombie 1"),
@@ -79,7 +81,7 @@ public class HowDark {
 //                    List.of(new CaveCreeper("Cave Creeper"))
 //                    List.of(new CaveCreeper("Cave Creeper 1"), new CaveCreeper("Cave Creeper 2"))
 //                    List.of(new GelatinousCube("Gelatinous Cube"))
-                    List.of(new HillGiant("Brundo the Crusher"))
+//                    List.of(new HillGiant("Brundo the Crusher"))
 //                    List.of(new HillGiant("Brundo the Crusher"), new HillGiant("Gunda the Smasher"))
 //                    List.of(new Goblin("Grek"), new Goblin("Pek"), new Goblin("Mek"), new Goblin("Rek"))
 //                    List.of(new Goblin("Goblin Grek"), new Goblin("Goblin Pek"), new Goblin("Goblin Mek"), new GoblinShaman("Goblin Shaman Zek"))

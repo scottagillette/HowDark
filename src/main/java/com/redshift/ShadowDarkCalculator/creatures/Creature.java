@@ -40,6 +40,12 @@ public interface Creature {
     Action getAction();
 
     /**
+     * Returns the condition if the creature has it.
+     */
+
+    Condition getCondition(String conditionName);
+
+    /**
      * Returns the creatures current hit points.
      */
 
@@ -176,6 +182,12 @@ public interface Creature {
      */
 
     void takeDamage(int amount, DamageType damageType);
+
+    /**
+     * Allows creature to take a pre-combat turn for special effects, etc.
+     */
+
+    void takePreCombatTurn(List<Creature> enemies, List<Creature> allies, Encounter encounter);
 
     /**
      * Triggers any begin of turn triggers... count down timers, etc.
