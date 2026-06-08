@@ -48,10 +48,10 @@ public class TurnUndead extends MultipleTargetSpell {
     @Override
     public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
         targets.forEach(target -> {
-            int save = target.getStats().charismaSave();
+            int roll = target.getStats().charismaRoll();
 
-            if (save < spellCheckRoll + spellCheckBonus) {
-                if (spellCheckRoll - save >= 10) {
+            if (roll < spellCheckRoll + spellCheckBonus) {
+                if (spellCheckRoll - roll >= 10) {
                     if (actor.getLevel() >= target.getLevel()) {
                         log.info("{} hits a spell on {} with {} and is destroyed!", actor.getName(), target.getName(), name);
                         target.takeDamage(target.getCurrentHitPoints(), new DamageType().addMagical()); // Destroyed!
@@ -72,7 +72,7 @@ public class TurnUndead extends MultipleTargetSpell {
     @Override
     public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
         targets.forEach(target -> {
-            int save = target.getStats().charismaSave();
+            int save = target.getStats().charismaRoll();
 
             if (save < spellCheckRoll) {
                 if (spellCheckRoll - save >= 10) {

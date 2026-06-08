@@ -68,10 +68,11 @@ public class Stats {
     }
 
     public boolean strengthSave(int difficultyCheck) {
-        return D20.roll() + getModifier(currentStrength) >= difficultyCheck;
+        return strengthRoll() >= difficultyCheck;
     }
 
-    public int strengthSave() {
+    // Some checks may need to review the actual roll.
+    public int strengthRoll() {
         return D20.roll() + getModifier(currentStrength);
     }
 
@@ -86,10 +87,11 @@ public class Stats {
     }
 
     public boolean dexteritySave(int difficultyCheck) {
-        return D20.roll() + getModifier(currentDexterity) >= difficultyCheck;
+        return dexterityRoll() >= difficultyCheck;
     }
 
-    public int dexteritySave() {
+    // Some checks may need to review the actual roll.
+    public int dexterityRoll() {
         return D20.roll() + getModifier(currentDexterity);
     }
 
@@ -98,10 +100,11 @@ public class Stats {
     }
 
     public boolean constitutionSave(int difficultyCheck) {
-        return D20.roll() + getModifier(currentConstitution) >= difficultyCheck;
+        return constitutionRoll() >= difficultyCheck;
     }
 
-    public int constitutionSave() {
+    // Some checks may need to review the actual roll.
+    public int constitutionRoll() {
         return D20.roll() + getModifier(currentConstitution);
     }
 
@@ -116,10 +119,11 @@ public class Stats {
     }
 
     public boolean intelligenceSave(int difficultyCheck) {
-        return D20.roll() + getModifier(currentIntelligence) >= difficultyCheck;
+        return intelligenceRoll() >= difficultyCheck;
     }
 
-    public int intelligenceSave() {
+    // Some checks may need to review the actual roll.
+    public int intelligenceRoll() {
         return D20.roll() + getModifier(currentIntelligence);
     }
 
@@ -128,10 +132,11 @@ public class Stats {
     }
 
     public boolean wisdomSave(int difficultyCheck) {
-        return D20.roll() + getModifier(currentWisdom) >= difficultyCheck;
+        return wisdomRoll() >= difficultyCheck;
     }
 
-    public int wisdomSave() {
+    // Some checks may need to review the actual roll.
+    public int wisdomRoll() {
         return D20.roll() + getModifier(currentWisdom);
     }
 
@@ -140,10 +145,11 @@ public class Stats {
     }
 
     public boolean charismaSave(int difficultyCheck) {
-        return D20.roll() + getModifier(currentCharisma) >= difficultyCheck;
+        return charismaRoll() >= difficultyCheck;
     }
 
-    public int charismaSave() {
+    // Some checks may need to review the actual roll.
+    public int charismaRoll() {
         return D20.roll() + getModifier(currentCharisma);
     }
 }
