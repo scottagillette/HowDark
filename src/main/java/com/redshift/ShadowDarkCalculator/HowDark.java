@@ -5,6 +5,7 @@ import com.redshift.ShadowDarkCalculator.creatures.monsters.monstrosities.Medusa
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyBuilder;
+import com.redshift.ShadowDarkCalculator.party.TheWolfPackBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -28,10 +29,10 @@ public class HowDark {
             log.info("[ Fight: {} ]", i + 1);
 
             final EncounterSimulator simulator = new EncounterSimulator(
-//                    new TheWolfPackBuilder().build(),
+                    new TheWolfPackBuilder().build(),
 //                    new TheCrabCrushersBuilder().build(),
 //                    new DiableriePartyBuilder().build(),
-                    new LostCitadelPartyBuilder().build(),
+//                    new LostCitadelPartyBuilder().build(),
                     List.of(new Medusa("Medusa of Snakes"))
 //                    List.of(new Lich("Lich of Undeath"))
 //                    List.of(

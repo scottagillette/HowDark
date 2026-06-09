@@ -2,6 +2,7 @@ package com.redshift.ShadowDarkCalculator.actions.spells;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.BaseAction;
+import com.redshift.ShadowDarkCalculator.conditions.AdvantageCondition;
 import com.redshift.ShadowDarkCalculator.conditions.DisadvantagedCondition;
 import com.redshift.ShadowDarkCalculator.conditions.ProtectionFromEvilCondition;
 import com.redshift.ShadowDarkCalculator.conditions.SpellResilience;
@@ -50,6 +51,14 @@ public abstract class Spell extends BaseAction implements Action {
         return !lost;
     }
 
+    private boolean checkAdvantage(Creature actor, List<Creature> targets) {
+        // Check for disadvantage condition and then remove it.
+        boolean advantage = actor.hasCondition(AdvantageCondition.class.getName());
+        actor.removeCondition(AdvantageCondition.class.getName());
+
+        return advantage || spellCheckAdvantage;
+    }
+
     private boolean checkDisadvantage(Creature actor, List<Creature> targets) {
         // Check for disadvantage condition and then remove it.
         boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
@@ -94,23 +103,30 @@ public abstract class Spell extends BaseAction implements Action {
 
     private int getSpellCheckRoll(Creature actor, List<Creature> targets, int spellCheckModifier) {
         boolean disadvantage = checkDisadvantage(actor, targets);
+        boolean advantage = checkAdvantage(actor, targets);
 
-        boolean checkWithAdvantaged = spellCheckAdvantage && !disadvantage;
-        boolean checkWithDisadvantaged = !spellCheckAdvantage && disadvantage;
+        // Check to see if they negate.
+        if (disadvantage && advantage) {
+            disadvantage = false;
+            advantage = false;
+        }
 
-        int d20Result = D20.roll();
+        int d20Roll = D20.roll();
 
-        if (checkWithAdvantaged) {
-            d20Result = Math.max(D20.roll(), D20.roll());
-        } else if (checkWithDisadvantaged) {
-            d20Result = Math.min(D20.roll(), D20.roll());
+        if (advantage) {
+            d20Roll = Math.max(D20.roll(), D20.roll());
+        } else if (disadvantage) {
+            d20Roll = Math.min(D20.roll(), D20.roll());
+        } else if (d20Roll == RollOutcome.CRITICAL_SUCCESS) {
+            return d20Roll; // 20 is always success!
         }
 
         final int actualDifficultyClass = getDifficultyClass(difficultyClass, targets);
 
-        if (d20Result + spellCheckModifier + spellCheckBonus >= actualDifficultyClass && d20Result != RollOutcome.CRITICAL_FAILURE) {
-            return d20Result; // Return the raw result to check for critical success or failure.
+        if (d20Roll + spellCheckModifier + spellCheckBonus >= actualDifficultyClass && d20Roll != RollOutcome.CRITICAL_FAILURE) {
+            return d20Roll; // Return if it's a successful spell check!
         } else {
+            // Re-roll with luck token if they have it.
             if (actor.hasLuckToken()) {
                 log.info("{} uses their luck token to re-roll!", actor.getName());
                 actor.spendLuckToken();
@@ -118,7 +134,7 @@ public abstract class Spell extends BaseAction implements Action {
             }
         }
 
-        return d20Result; // Return the raw result to check for critical success or failure.
+        return d20Roll; // Return the raw result.
     }
 
     /**

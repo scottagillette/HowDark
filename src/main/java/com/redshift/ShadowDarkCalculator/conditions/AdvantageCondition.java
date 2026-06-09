@@ -1,0 +1,37 @@
+package com.redshift.ShadowDarkCalculator.conditions;
+
+import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import lombok.Getter;
+
+/**
+ * The targets next attack or spell check is with advantage.
+ */
+
+@Getter
+public class AdvantageCondition implements Condition {
+
+    @Override
+    public boolean appliesToDeadCreatures() {
+        return false;
+    }
+
+    @Override
+    public boolean canAct() {
+        return true;
+    }
+
+    @Override
+    public void end() {
+        // No specific behavior
+    }
+
+    @Override
+    public boolean hasEnded(Creature creature) {
+        return false;
+    }
+
+    @Override
+    public void perform(Creature creature) {
+        // does nothing... removed once a spell is cast or an attack is made.
+    }
+}

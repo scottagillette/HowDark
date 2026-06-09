@@ -56,12 +56,12 @@ public class EncounterSimulator implements Encounter {
         group1.forEach(creature -> alliesMap.put(creature, group1));
         group2.forEach(creature -> alliesMap.put(creature, group2));
 
+        // Sort all by initiative
+        initiativeMap = InitiativeBuilder.build(group1, group2);
+
         // Give each creature a pre-combat phase.
         group1.forEach(creature -> creature.takePreCombatTurn(group2, group1, this));
         group2.forEach(creature -> creature.takePreCombatTurn(group1, group2, this));
-
-        // Sort all by initiative
-        initiativeMap = InitiativeBuilder.build(group1, group2);
 
         int round = 1;
 

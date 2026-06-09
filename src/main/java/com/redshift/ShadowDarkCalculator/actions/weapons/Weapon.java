@@ -80,6 +80,14 @@ public class Weapon extends BaseAction implements Action {
         return this;
     }
 
+    private boolean checkAdvantage(Creature actor, Creature target) {
+        // Check for disadvantage condition and then remove it.
+        boolean advantage = actor.hasCondition(AdvantageCondition.class.getName());
+        actor.removeCondition(AdvantageCondition.class.getName());
+
+        return advantage;
+    }
+
     private boolean checkDisadvantage(Creature actor, Creature target) {
         // Check for disadvantage condition and then remove it.
         boolean disadvantage = actor.hasCondition(DisadvantagedCondition.class.getName());
@@ -108,23 +116,33 @@ public class Weapon extends BaseAction implements Action {
     }
 
     /**
-     * Returns the attack roll... which does not include the spell check bonus if any.
+     * Returns the attack roll; using the luck token if can and needed.
      */
 
     private int getAttackRoll(Creature actor, Creature target, int rollBonus, int armorClass) {
-        final boolean disadvantage = checkDisadvantage(actor, target);
+        boolean disadvantage = checkDisadvantage(actor, target);
+        boolean advantage = checkAdvantage(actor, target);
+
+        // Check to see if they negate.
+        if (disadvantage && advantage) {
+            disadvantage = false;
+            advantage = false;
+        }
 
         int d20Roll = D20.roll();
 
-        if (disadvantage) {
+        if (advantage) {
+            d20Roll = Math.max(D20.roll(), D20.roll());
+        } else if (disadvantage) {
             d20Roll = Math.min(D20.roll(), D20.roll());
         } else if (d20Roll == RollOutcome.CRITICAL_SUCCESS) {
-            return d20Roll;
+            return d20Roll; // 20 is always success!
         }
 
         if (d20Roll + rollBonus >= armorClass && d20Roll != RollOutcome.CRITICAL_FAILURE) {
-            return d20Roll;
+            return d20Roll; // Return if it's a successful attack roll!
         } else {
+            // Re-roll with luck token if they have it.
             if (actor.hasLuckToken()) {
                 log.info("{} uses their luck token to re-roll!", actor.getName());
                 actor.spendLuckToken();
@@ -132,7 +150,7 @@ public class Weapon extends BaseAction implements Action {
             }
         }
 
-        return d20Roll;
+        return d20Roll; // Return the raw result.
     }
 
     @Override
@@ -154,25 +172,29 @@ public class Weapon extends BaseAction implements Action {
 
     protected boolean performSingleTargetAttack(Creature actor, Creature target) {
         // Check for any attack roll and damage roll bonuses like Holy Weapon
-
         int tempAttackRollBonus = attackRollBonus;
         int tempDamageRollBonus = damageRollBonus;
         final DamageType tempDamageType = damageType.copy();
 
         if (actor.hasCondition(HolyWeaponCondition.class.getName()) && !damageType.isMagical()) {
-            tempAttackRollBonus = attackRollBonus + 1;
-            tempDamageRollBonus = damageRollBonus + 1;
+            tempAttackRollBonus += 1;
+            tempDamageRollBonus += 1;
             tempDamageType.addMagical();
         }
 
         // Add extra damage if they have the Rage condition!
-
         if (actor.hasCondition(RageCondition.class.getName())) {
-            tempDamageRollBonus = damageRollBonus + D4.roll();
+            tempDamageRollBonus += D4.roll();
+        }
+
+        // Add any extra damage from special conditions.
+        if (actor.hasCondition(ExtraDamageDiceCondition.class.getName())) {
+            ExtraDamageDiceCondition extraDamageDiceCondition = (ExtraDamageDiceCondition) actor.getCondition(ExtraDamageDiceCondition.class.getName());
+            tempDamageRollBonus += extraDamageDiceCondition.getExtraDamage(damageDice);
+            actor.removeCondition((ExtraDamageDiceCondition.class.getName())); // Single use.
         }
 
         // Calculate the attack roll modifier based on STR or DEX only.
-
         int attackRollModifier = 0;
 
         if (rollModifier.equals(RollModifier.STRENGTH)) {
