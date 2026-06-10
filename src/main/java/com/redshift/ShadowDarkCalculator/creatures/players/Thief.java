@@ -48,7 +48,6 @@ public class Thief extends Player {
 
     @Override
     public void takePreCombatTurn(List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-
         // Thieves can attempt to hide before combat.
         final int dexRoll = getStats().dexterityRoll();
 
@@ -57,13 +56,12 @@ public class Thief extends Player {
             addCondition(new AdvantageCondition()); // Advantage when attacking once!
             addCondition(new ExtraDamageDiceCondition(1 + getLevel() / 2));
             takeTurn(enemies, allies, encounter); // Free attack
-            // TODO: Bonus damage!
         } else {
             log.info("{} has failed to hide from their enemies before combat.", getName());
         }
 
+        // Rules:
         // Those with Surprise take a turn before the combats Initiate Roll
-
         // A creature starting its turn undetected has Advantage on attack rolls
 
         // Backstab. If you hit a creature who is unaware of your attack,
