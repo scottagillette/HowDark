@@ -67,6 +67,7 @@ public class Hypnotize extends Spell {
         final Creature target = targets.getFirst(); // Always uses single target.
         if (target.getLevel() <= 3) {
             log.info("{} succeeds on the spell {} and {} is hypnotized!", actor.getName(), name, target.getName());
+            target.addCondition(new StupefiedCondition());
             actor.addCondition(new SpellFocusCondition(
                     11,
                     RollModifier.CHARISMA,
@@ -74,7 +75,6 @@ public class Hypnotize extends Spell {
                     spellCheckBonus,
                     new RemoveStupefiedCondition(target)
             ));
-            target.addCondition(new StupefiedCondition());
         } else {
             log.info("{} casts {} but doesn't affect the creature.", actor.getName(), name);
             lost = true; // Doesn't affect the creature... stop casting Hypnotize!

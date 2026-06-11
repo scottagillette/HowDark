@@ -163,7 +163,7 @@ public class Lich extends UndeadMonster {
         @Override
         public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
             final Creature target = targets.getFirst();
-            if (target.getLevel() <=9) {
+            if (target.getLevel() <= 9) {
                 log.info("{} casts {} on {}", actor.getName(), name, target.getName());
                 final DamageType damageType = new DamageType();
                 damageType.addMagical();

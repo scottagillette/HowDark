@@ -3,6 +3,7 @@ package com.redshift.ShadowDarkCalculator.actions;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,11 +12,19 @@ import java.util.List;
 
 public final class PerformAllActions extends BaseAction implements Action {
 
-    private final List<Action> actions;
+    private final List<Action> actions = new ArrayList<>();
 
     public PerformAllActions(Action... actions) {
         super("Perform All Actions");
-        this.actions = List.of(actions);
+        this.actions.addAll(List.of(actions));
+    }
+
+    /**
+     * Add the specified action to the set of actions already defined.
+     */
+
+    public void addAction(Action action) {
+        this.actions.add(action);
     }
 
     @Override

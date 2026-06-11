@@ -252,6 +252,7 @@ public abstract class BaseCreature implements Creature {
         if (currentHitPoints == 0) {
             if (spellFocusCondition != null) {
                 spellFocusCondition.end(); // Spell focus ends when you die or unconscious!
+                conditions.remove(SpellFocusCondition.class.getName());
             }
             if (creatureLabels.contains(CreatureLabel.MONSTER)) {
                 log.info("{} is dead!", name);
@@ -275,7 +276,10 @@ public abstract class BaseCreature implements Creature {
         } else {
             if (spellFocusCondition != null) {
                 // Check on damage if the spell focus is lost or maintained.
-                spellFocusCondition.hasEnded(this);
+                if (spellFocusCondition.hasEnded(this)) {
+                    spellFocusCondition.end();
+                    conditions.remove(SpellFocusCondition.class.getName());
+                }
             }
         }
     }
