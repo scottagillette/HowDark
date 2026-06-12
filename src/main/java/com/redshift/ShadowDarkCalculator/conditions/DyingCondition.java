@@ -63,7 +63,7 @@ public class DyingCondition implements Condition {
             log.info("{} has died!", creature.getName());
             creature.setDead(true);
         } else {
-            log.info("{} has their death timer tick down: roundsRemaining={}", creature.getName(), rounds);
+            log.info("{} has their death timer tick down; {} remaining", creature.getName(), rounds);
 
             // Loose any spell focus while dying!
             final SpellFocusCondition spellFocusCondition = (SpellFocusCondition) creature.removeCondition(SpellFocusCondition.class.getName());
