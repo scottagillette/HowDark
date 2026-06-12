@@ -23,6 +23,8 @@ public class Monster extends BaseCreature {
 
         super(name, level, stats, armorClass, hitPoints, action, new RandomTargetSelector());
         getLabels().add(CreatureLabel.MONSTER);
+
+        setWillFlee(true); // Monsters in general flee!
     }
 
     public Monster(

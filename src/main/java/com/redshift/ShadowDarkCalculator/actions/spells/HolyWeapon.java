@@ -69,6 +69,7 @@ public class HolyWeapon extends Spell {
                     .stream()
                     .filter(creature -> !creature.isUnconscious())
                     .filter(creature -> !creature.isDead())
+                    .filter(creature -> !creature.hasFled())
                     .filter(creature -> !creature.getAction().isMagicalWeapon())
                     .filter(creature -> creature.getLabels().contains(CreatureLabel.FRONT_LINE))
                     .filter(creature -> !creature.hasCondition(HolyWeaponCondition.class.getName()))

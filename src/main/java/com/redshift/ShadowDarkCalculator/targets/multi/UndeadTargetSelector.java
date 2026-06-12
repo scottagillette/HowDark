@@ -19,6 +19,7 @@ public class UndeadTargetSelector implements MultiTargetSelector {
                 .filter(creature -> creature.getLabels().contains(CreatureLabel.UNDEAD))
                 .filter(creature -> !creature.isUnconscious())
                 .filter(creature -> !creature.isDead())
+                .filter(creature -> !creature.hasFled())
                 .toList());
 
         if (targets.isEmpty()) {

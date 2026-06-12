@@ -7,7 +7,7 @@ import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import java.util.List;
 
 /**
- * Random target selector of a conscious alive targets, if any, otherwise unconscious.
+ * Random target selector of a conscious alive targets, not fled, if any, otherwise unconscious.
  */
 
 public class RandomTargetSelector implements SingleTargetSelector {
@@ -19,11 +19,13 @@ public class RandomTargetSelector implements SingleTargetSelector {
         final List<Creature> consciousNotDeadTargets = targetOptions.stream()
                 .filter(creature -> !creature.isUnconscious())
                 .filter(creature -> !creature.isDead())
+                .filter(creature -> !creature.hasFled())
                 .toList();
 
         if (consciousNotDeadTargets.isEmpty()) {
             final List<Creature> notDeadTargets = targetOptions.stream()
                     .filter(creature -> !creature.isDead())
+                    .filter(creature -> !creature.hasFled())
                     .toList();
 
             if (!notDeadTargets.isEmpty()) {

@@ -21,6 +21,8 @@ public class UndeadMonster extends Monster {
 
         super(name, level, stats, armorClass, hitPoints, action);
         getLabels().add(CreatureLabel.UNDEAD);
+
+        setWillFlee(false); // Undead monsters don't flee!
     }
 
     public UndeadMonster(

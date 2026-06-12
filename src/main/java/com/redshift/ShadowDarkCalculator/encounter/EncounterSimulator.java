@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
+
 /**
  * Given two groups of creatures; roll initiative and proceed with combat until one group remains!
  */
@@ -82,8 +84,16 @@ public class EncounterSimulator implements Encounter {
 
             for (Double initiative : sortedCreaturesInitiative) {
                 final Creature creature = initiativeMap.get(initiative);
-                if (!creature.isDead()) {
-                    creature.takeTurn(enemiesMap.get(creature), alliesMap.get(creature), this);
+
+                if (!creature.isDead() && !creature.hasFled()) {
+                    // Check Morale
+                    final boolean creatureFlees = creatureFlees(creature, alliesMap.get(creature), D20.roll());
+
+                    if (creatureFlees) {
+                        creature.flee();
+                    } else {
+                        creature.takeTurn(enemiesMap.get(creature), alliesMap.get(creature), this);
+                    }
                 }
             }
 
@@ -138,6 +148,36 @@ public class EncounterSimulator implements Encounter {
         }
     }
 
+    private boolean creatureFlees(Creature creature, List<Creature> allies, int roll) {
+        // Enemies who are half their number OR half HP single monster…
+        // Flee if fail a DC 15 WIS check (highest WIS modifier)
+
+        if (creature.willFlee()) {
+            int wisdomModifier = -999;
+
+            if (allies.size() == 1) {
+                wisdomModifier = creature.getStats().getWisdomModifier();
+
+                if (creature.isBloodied()) {
+                    return (roll + wisdomModifier < 15);
+                } else {
+                    return false;
+                }
+            } else {
+                int deadOrFledCount = 0;
+                for (Creature ally : allies) {
+                    wisdomModifier = Math.max(wisdomModifier, ally.getStats().getWisdomModifier());
+                    if (ally.isDead() || ally.hasFled()) {
+                        deadOrFledCount++;
+                    }
+                }
+                return deadOrFledCount >= allies.size();
+            }
+        } else {
+            return false;
+        }
+    }
+
     private void reportSummary() {
         log.info("---------------------------------------------------------------");
 
@@ -168,12 +208,14 @@ public class EncounterSimulator implements Encounter {
         int group1Remaining = group1.stream()
                 .filter(creature -> !creature.isUnconscious())
                 .filter(creature -> !creature.isDead())
+                .filter(creature -> !creature.hasFled())
                 .toList()
                 .size();
 
         int group2Remaining = group2.stream()
                 .filter(creature -> !creature.isUnconscious())
                 .filter(creature -> !creature.isDead())
+                .filter(creature -> !creature.hasFled())
                 .toList()
                 .size();
 

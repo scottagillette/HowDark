@@ -34,6 +34,8 @@ public abstract class BaseCreature implements Creature {
     private final Stats stats;
     private final Set<CreatureLabel> creatureLabels = new HashSet<>();
     private Dice dyingDice = D4;
+    private boolean fled = false;
+    private boolean willFlee = true; // Default all creatures will flee.
 
     /**
      * All argument constructor.
@@ -74,6 +76,13 @@ public abstract class BaseCreature implements Creature {
                 .toList();
 
         return cantActConditions.isEmpty() && !dead;
+    }
+
+    @Override
+    public void flee() {
+        fled = true;
+        log.info("{} has failed a moral check and has fled the battle field!", name);
+        // No other custom behavior.
     }
 
     @Override
@@ -122,11 +131,6 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
-    public int rollInitiative() {
-        return D20.roll() + stats.getDexterityModifier();
-    }
-
-    @Override
     public int getLevel() {
         return level;
     }
@@ -155,6 +159,7 @@ public abstract class BaseCreature implements Creature {
     public String getStatus() {
         if (dead) return "Dead";
         if (isUnconscious()) return "Unconscious";
+        if (hasFled()) return "Fled";
         return "Alive";
     }
 
@@ -176,6 +181,11 @@ public abstract class BaseCreature implements Creature {
     @Override
     public boolean hasCondition(Condition condition) {
         return (conditions.containsValue(condition));
+    }
+
+    @Override
+    public boolean hasFled() {
+        return fled;
     }
 
     @Override
@@ -224,6 +234,11 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
+    public int rollInitiative() {
+        return D20.roll() + stats.getDexterityModifier();
+    }
+
+    @Override
     public void setDead(boolean dead) {
         this.dead = dead; // Some undead can come back!
         if (dead) {
@@ -237,6 +252,11 @@ public abstract class BaseCreature implements Creature {
     @Override
     public void setDyingDice(Dice dice) {
         this.dyingDice = dice;
+    }
+
+    @Override
+    public void setWillFlee(boolean willFlee) {
+        this.willFlee = willFlee;
     }
 
     @Override
@@ -298,7 +318,9 @@ public abstract class BaseCreature implements Creature {
 
     @Override
     public void takeTurn(List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-        if (dead) throw new IllegalStateException("Dead creatures can't take a turn.. they are dead!");
+        if (dead) {
+            throw new IllegalStateException("Dead creatures can't take a turn.. they are dead!");
+        }
 
         // Check conditions and remove the ones that have ended.
         final List<Condition> remainingConditions = conditions.values().stream()
@@ -327,4 +349,10 @@ public abstract class BaseCreature implements Creature {
             }
         }
     }
+
+    @Override
+    public boolean willFlee() {
+        return willFlee;
+    }
+
 }

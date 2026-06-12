@@ -174,6 +174,7 @@ public class Mage extends Monster {
                     .filter(creature -> !creature.hasCondition(ParalyzedCondition.class.getName()))
                     .filter(creature -> !creature.isUnconscious())
                     .filter(creature -> !creature.isDead())
+                    .filter(creature -> !creature.hasFled())
                     .toList());
 
             if (targets.isEmpty()) {

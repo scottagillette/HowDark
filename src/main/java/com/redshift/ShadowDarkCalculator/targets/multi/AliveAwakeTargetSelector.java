@@ -17,6 +17,7 @@ public class AliveAwakeTargetSelector implements MultiTargetSelector {
         final List<Creature> targets = new java.util.ArrayList<>(targetOptions.stream()// Awake
                 .filter(creature -> !creature.isUnconscious()) // Awake
                 .filter(creature -> !creature.isDead()) // Alive
+                .filter(creature -> !creature.hasFled())
                 .toList());
 
         if (targets.isEmpty()) {

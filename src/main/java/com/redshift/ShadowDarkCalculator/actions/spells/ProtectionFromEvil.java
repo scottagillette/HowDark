@@ -83,6 +83,7 @@ public class ProtectionFromEvil extends Spell {
                     .stream()
                     .filter(creature -> !creature.isUnconscious())
                     .filter(creature -> !creature.isDead())
+                    .filter(creature -> !creature.hasFled())
                     .filter(creature -> !creature.hasCondition(ProtectionFromEvil.class.getName()))
                     .toList());
 

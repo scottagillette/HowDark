@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Returns a single target that has been damaged for it to be focused on otherwise a random target.
- * Skips all unconscious and dead targets.
+ * Skips all unconscious and dead targets or those that have fled.
  */
 
 public class FocusFireTargetSelector implements SingleTargetSelector {
@@ -19,6 +19,7 @@ public class FocusFireTargetSelector implements SingleTargetSelector {
 
         final List<Creature> consciousNotDeadTargets = targetOptions.stream()
                 .filter(creature -> !creature.isUnconscious())
+                .filter(creature -> !creature.hasFled())
                 .filter(creature -> !creature.isDead())
                 .toList();
 

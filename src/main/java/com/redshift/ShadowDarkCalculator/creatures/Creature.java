@@ -29,6 +29,12 @@ public interface Creature {
     boolean canAct();
 
     /**
+     * Marks the creature as fled the fight and any other custom behavior.
+     */
+
+    void flee();
+
+    /**
      * Returns the AC of the creature.
      */
 
@@ -119,6 +125,12 @@ public interface Creature {
     boolean hasCondition(Condition condition);
 
     /**
+     * Returns true if the creature has failed a morale check and has fled the battlefield.
+     */
+
+    boolean hasFled();
+
+    /**
      * Returns true if the creature has a luck token to spend.
      */
 
@@ -179,6 +191,12 @@ public interface Creature {
     void setDyingDice(Dice dyingDice);
 
     /**
+     * Sets if this creature will flee because of morale checks.
+     */
+
+    void setWillFlee(boolean willFlee);
+
+    /**
      * Spends the creatures luck token if they have one; throws an exception if they don't.
      */
 
@@ -202,4 +220,9 @@ public interface Creature {
 
     void takeTurn(List<Creature> enemies, List<Creature> allies, Encounter encounter);
 
+    /**
+     * Returns true if this creature has morale checks and will flee combat.
+     */
+
+    boolean willFlee();
 }

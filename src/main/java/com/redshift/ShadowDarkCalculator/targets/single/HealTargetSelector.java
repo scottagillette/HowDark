@@ -18,6 +18,7 @@ public class HealTargetSelector implements SingleTargetSelector {
         final List<Creature> unconsciousNotDead = targetOptions.stream()
                 .filter(Creature::isUnconscious)
                 .filter(creature -> !creature.isDead())
+                .filter(creature -> !creature.hasFled())
                 // Don't bother healing someone with diseased condition!
                 .filter(creature -> !creature.hasCondition(DiseasedCondition.class.getName()))
                 .toList();
@@ -26,6 +27,7 @@ public class HealTargetSelector implements SingleTargetSelector {
             final List<Creature> woundedAndNotDead = targetOptions.stream()
                     .filter(Creature::isWounded)
                     .filter(creature -> !creature.isDead())
+                    .filter(creature -> !creature.hasFled())
                     // Don't bother healing someone with diseased condition!
                     .filter(creature -> !creature.hasCondition(DiseasedCondition.class.getName()))
                     .toList();

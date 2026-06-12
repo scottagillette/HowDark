@@ -21,6 +21,7 @@ public class AliveAwakeNotUndeadTargetSelector implements MultiTargetSelector {
                 .filter(creature -> !creature.hasCondition(SleepingCondition.class.getName())) // Awake
                 .filter(creature -> !creature.isUnconscious()) // Awake
                 .filter(creature -> !creature.isDead()) // Alive
+                .filter(creature -> !creature.hasFled())
                 .toList());
 
         if (targets.isEmpty()) {
