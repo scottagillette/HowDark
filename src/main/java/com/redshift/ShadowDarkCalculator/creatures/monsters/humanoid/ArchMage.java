@@ -44,11 +44,11 @@ public class ArchMage extends Monster {
     public ArchMage(String name) {
         super(
                 name,
-                6,
+                10,
                 new Stats(8, 14, 8, 18, 14, 12),
                 12,
                 D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() +
-                        D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll(),
+                        D8.roll() + D8.roll() + D8.roll() + D8.roll() + D8.roll() - 1,
                 new PerformAllActions(), // Added post construction
                 new FocusFireTargetSelector() // Evil mages!
         );
