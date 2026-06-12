@@ -3,6 +3,7 @@ package com.redshift.ShadowDarkCalculator.creatures;
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.conditions.Condition;
+import com.redshift.ShadowDarkCalculator.dice.Dice;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 
@@ -170,6 +171,12 @@ public interface Creature {
      */
 
     void setDead(boolean dead);
+
+    /**
+     * Sets the dice used when rolling death saves (Default D4).
+     */
+
+    void setDyingDice(Dice dyingDice);
 
     /**
      * Spends the creatures luck token if they have one; throws an exception if they don't.

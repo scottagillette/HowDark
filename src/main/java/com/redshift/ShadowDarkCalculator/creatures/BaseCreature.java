@@ -3,6 +3,7 @@ package com.redshift.ShadowDarkCalculator.creatures;
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.conditions.*;
+import com.redshift.ShadowDarkCalculator.dice.Dice;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,7 @@ public abstract class BaseCreature implements Creature {
     private final SingleTargetSelector singleTargetSelector;
     private final Stats stats;
     private final Set<CreatureLabel> creatureLabels = new HashSet<>();
+    private Dice dyingDice = D4;
 
     /**
      * All argument constructor.
@@ -233,6 +235,11 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
+    public void setDyingDice(Dice dice) {
+        this.dyingDice = dice;
+    }
+
+    @Override
     public void spendLuckToken() {
         if (!hasLuckToken) throw new IllegalStateException("No luck token!");
         hasLuckToken = false;
@@ -260,7 +267,7 @@ public abstract class BaseCreature implements Creature {
             } else {
                 if (conditions.get(DyingCondition.class.getName()) == null) {
                     // Death time D4 + CON mod (min 1)
-                    int deathRounds = Math.max(D4.roll() + getStats().getConstitutionModifier(), 1);
+                    int deathRounds = Math.max(dyingDice.roll() + getStats().getConstitutionModifier(), 1);
 
                     // Zero hp give them the unconscious and dying condition!
                     conditions.put(UnconsciousCondition.class.getName(), new UnconsciousCondition());
