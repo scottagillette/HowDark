@@ -20,7 +20,7 @@ public class LostCitadelPartyBuilder implements PartyBuilder {
         final Creature borlin = new Paladin(
                 "Borlin Little Digger",
                 1,
-                new Stats(11, 9, 6, 5, 5, 19),
+                new Stats(18, 13, 13, 8, 7, 9),
                 14,
                 6,
                 WeaponBuilder.BASTARD_SWORD_1H.build().addMagical()
