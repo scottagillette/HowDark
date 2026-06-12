@@ -286,7 +286,7 @@ public abstract class BaseCreature implements Creature {
 
     @Override
     public void takePreCombatTurn(List<Creature> enemies, List<Creature> allies, Encounter encounter) {
-        // No default pre-combat action to take.
+        // No default pre-combat action; only specific classes or monsters have them.
     }
 
     @Override

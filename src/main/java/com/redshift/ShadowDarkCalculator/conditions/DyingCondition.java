@@ -37,11 +37,19 @@ public class DyingCondition implements Condition {
 
     @Override
     public boolean hasEnded(Creature creature) {
+        int requiredRoll = RollOutcome.CRITICAL_SUCCESS;
+        int hpHealed = 1;
+
+        final InspiredCondition inspiredCondition = (InspiredCondition) creature.getCondition(InspiredCondition.class.getName());
+        if (inspiredCondition != null) {
+            requiredRoll = 18;
+            hpHealed = inspiredCondition.getHpRecovered();
+        }
+
         // On a dying creatures turn roll a D20, on a 20 heal 1 hp and rise!
-        if (D20.roll() == RollOutcome.CRITICAL_SUCCESS) {
-            // Heal to 1 HP
-            log.info("{} is no longer dying and heals 1 hp!", creature.getName());
-            creature.healDamage(1); // Healing removes the dying condition
+        if (D20.roll() >= requiredRoll) {
+            log.info("{} is no longer dying and heals {} hp!", creature.getName(), hpHealed);
+            creature.healDamage(hpHealed); // Healing removes the dying condition
             return true;
         } else {
             rounds = Math.max(0, rounds - 1);
