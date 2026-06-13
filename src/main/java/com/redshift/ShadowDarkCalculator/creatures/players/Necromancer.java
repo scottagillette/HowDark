@@ -45,6 +45,9 @@ public class Necromancer extends Player {
         getLabels().add(CreatureLabel.NECROMANCER);
         getLabels().add(CreatureLabel.CASTER);
         getLabels().add(CreatureLabel.BACKLINE);
+
+        // River of Death ...and you roll a d6 for your death timer instead of a d4.
+        setDyingDice(D6);
     }
 
 }

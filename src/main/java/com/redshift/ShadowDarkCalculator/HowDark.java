@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.humanoid.ArchMage;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.golem.FleshGolem;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyBuilder;
@@ -31,7 +31,8 @@ public class HowDark {
 //                    new TheCrabCrushersBuilder().build(),
 //                    new DiableriePartyBuilder().build(),
                     new LostCitadelPartyBuilder().build(),
-                    List.of(new ArchMage("Fizban"))
+                List.of(new FleshGolem("Flesh Golem"))
+//                    List.of(new ArchMage("Fizban"))
 //                    List.of(new Medusa("Medusa of Snakes"))
 //                    List.of(new Lich("Lich of Undeath"))
 //                    List.of(

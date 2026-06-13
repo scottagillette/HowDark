@@ -19,10 +19,10 @@ I'm working on a programming project based on Shadow Dark rules. It's a combat s
 6. AOE spells randomly target a number of creatures... for example Burning Hands D4 targets.
 7. Dying, unconscious, paralyzed, fear, sleeping, engulfed and other conditions implemented! 
 8. All weapons implemented! 
-9. Magic Missile, Burning Hands, Sleep, Cure Wounds, Shield of Faith, Turn Undead, Healing potion, etc implemented so far.
+9. Magic Missile, Burning Hands, Sleep, Cure Wounds, Shield of Faith, Turn Undead, Healing potion and more implemented.
 10. Spell focus implemented!
 11. Morale implemented!
-12. Thief surprise attack implemented!
+12. Thief pre-combat hide and Backstab ability implemented!
 12. Magic Weapons, Silvered Weapons, Holy Weapon all implemented!
 13. Undeath spell implemented... raise up a skeleton or zombie from dead humanoids AND dead players!
 14. Shadows and Vampire Spawns raise dead players in combat too!
