@@ -47,7 +47,7 @@ public class GiantSpider extends Monster {
             final boolean attackHits = super.performSingleTargetAttack(actor, target);
 
             if (attackHits) {
-                if (!target.hasCondition(ParalyzedCondition.class.getName())) {
+                if (!target.isUnconscious() && !target.hasCondition(ParalyzedCondition.class.getName())) {
                     final boolean constitutionSave = target.getStats().constitutionSave(12);
                     if (constitutionSave) {
                         log.info("{} resists the effects of poison.", target.getName());

@@ -48,7 +48,7 @@ public class CaveCreeper extends Monster {
             final boolean targetHits = super.performSingleTargetAttack(actor, target);
 
             if (targetHits) {
-                if (!target.hasCondition(ParalyzedCondition.class.getName())) {
+                if (!target.isUnconscious() && !target.hasCondition(ParalyzedCondition.class.getName())) {
                     if (!target.getStats().constitutionSave(12)) {
                         int rounds = D4.roll();
                         log.info("{} is paralyzed for {} rounds!", target.getName(), rounds);

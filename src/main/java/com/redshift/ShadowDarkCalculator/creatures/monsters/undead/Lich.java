@@ -93,7 +93,7 @@ public class Lich extends UndeadMonster {
             final boolean attackHits = super.performSingleTargetAttack(actor, target);
 
             if (attackHits & target.getCurrentHitPoints() != 0) {
-                if (!target.hasCondition(ParalyzedCondition.class.getName())) {
+                if (!target.isUnconscious() && !target.hasCondition(ParalyzedCondition.class.getName())) {
                     if (target.getStats().constitutionSave(15)) {
                         log.info("{} SAVES and is NOT paralyzed.", target.getName());
                     } else {

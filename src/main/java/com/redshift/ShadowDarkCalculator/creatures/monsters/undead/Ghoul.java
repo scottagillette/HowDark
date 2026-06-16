@@ -47,7 +47,7 @@ public class Ghoul extends UndeadMonster {
             final boolean attackHits = super.performSingleTargetAttack(actor, target);
 
             if (attackHits) {
-                if (!target.hasCondition(ParalyzedCondition.class.getName())) {
+                if (!target.isUnconscious() && !target.hasCondition(ParalyzedCondition.class.getName())) {
                     if (!target.getStats().constitutionSave(12)) {
                         int rounds = D4.roll();
                         log.info("{} is paralyzed for {} rounds!", target.getName(), rounds);
