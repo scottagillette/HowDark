@@ -87,27 +87,21 @@ public abstract class BaseCreature implements Creature {
 
     @Override
     public int getAC() {
-        final List<Condition> cantActConditions = conditions.values()
-                .stream()
-                .filter(condition -> !condition.canAct())
-                .toList();
+        int finalArmorClass = armorClass; // Base armor class of creature, DEX mod, armor, shield.
 
-        if (cantActConditions.isEmpty()) {
-            final boolean hasShieldOfFaith = hasCondition(ShieldOfFaithCondition.class.getName());
-            final boolean hasMageArmor = hasCondition(MageArmorCondition.class.getName());
-
-            if (hasShieldOfFaith) {
-                final ShieldOfFaithCondition condition = (ShieldOfFaithCondition) conditions.get(ShieldOfFaithCondition.class.getName());
-                return armorClass + condition.getAcBonus();
-            } else if (hasMageArmor) {
-                final MageArmorCondition condition = (MageArmorCondition) conditions.get(MageArmorCondition.class.getName());
-                return condition.getAC();
-            } else {
-                return armorClass;
-            }
-        } else {
-            return 0; // No AC for creatures that can't act.
+        final boolean hasMageArmor = hasCondition(MageArmorCondition.class.getName());
+        if (hasMageArmor) {
+            final MageArmorCondition condition = (MageArmorCondition) conditions.get(MageArmorCondition.class.getName());
+            finalArmorClass = condition.getAC();
         }
+
+        final boolean hasShieldOfFaith = hasCondition(ShieldOfFaithCondition.class.getName());
+        if (hasShieldOfFaith) {
+            final ShieldOfFaithCondition condition = (ShieldOfFaithCondition) conditions.get(ShieldOfFaithCondition.class.getName());
+            finalArmorClass += condition.getAcBonus();
+        }
+
+        return finalArmorClass;
     }
 
     @Override

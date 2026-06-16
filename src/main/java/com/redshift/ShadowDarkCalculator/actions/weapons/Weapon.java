@@ -81,9 +81,16 @@ public class Weapon extends BaseAction implements Action {
     }
 
     private boolean checkAdvantage(Creature actor, Creature target) {
-        // Check for disadvantage condition and then remove it.
+        // Check for advantage condition and then remove it.
         boolean advantage = actor.hasCondition(AdvantageCondition.class.getName());
         actor.removeCondition(AdvantageCondition.class.getName());
+
+        // Advantage on attack if the target creature can't act; unconscious, paralyzed, etc.
+        if (!target.canAct()) {
+            advantage = true;
+        } else if (target.hasCondition(BlindedCondition.class.getName())) {
+            advantage = true;
+        }
 
         return advantage;
     }

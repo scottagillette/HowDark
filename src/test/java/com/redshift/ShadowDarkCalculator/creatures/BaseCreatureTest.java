@@ -49,22 +49,22 @@ public class BaseCreatureTest {
     @Test
     void testUnconsciousPlayer() {
         player.addCondition(new UnconsciousCondition());
-        player.addCondition(new MageArmorCondition(10, 14)); // Make sure it doesn't get AC from this...
+        player.addCondition(new MageArmorCondition(10, 14));
 
         assertTrue(player.isUnconscious());
         assertFalse(player.canAct());
-        assertEquals(player.getAC(), 0);
+        assertEquals(player.getAC(), 14); // AC not adjusted for unconscious players
         assertEquals(player.getStatus(), "Unconscious");
     }
 
     @Test
     void testUnconsciousMonster() {
         monster.addCondition(new UnconsciousCondition());
-        monster.addCondition(new ShieldOfFaithCondition()); // Make sure it doesn't get AC from this...
+        monster.addCondition(new ShieldOfFaithCondition());
 
         assertTrue(monster.isUnconscious());
         assertFalse(monster.canAct());
-        assertEquals(monster.getAC(), 0);
+        assertEquals(monster.getAC(), 12); // AC not adjusted for unconscious monsters
         assertEquals(monster.getStatus(), "Unconscious");
     }
 
@@ -117,7 +117,7 @@ public class BaseCreatureTest {
         monster.addCondition(new ShieldOfFaithCondition());
         assertEquals(monster.getAC(), 12);
         monster.addCondition(new UnconsciousCondition());
-        assertEquals(monster.getAC(), 0);
+        assertEquals(monster.getAC(), 12); // Not affected.
 
         player.addCondition(new MageArmorCondition(10, 14));
         assertEquals(player.getAC(), 14);
