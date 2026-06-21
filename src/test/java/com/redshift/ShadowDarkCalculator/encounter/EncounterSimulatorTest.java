@@ -53,10 +53,10 @@ class EncounterSimulatorTest {
         );
 
         boolean group1AllDead = fighter1.isDead() && fighter2.isDead();
-        boolean group2AllDead = goblin1.isDead() && goblin2.isDead();
+        boolean group2AllDeadOrFled = (goblin1.isDead() || goblin1.hasFled()) && (goblin2.isDead() || goblin2.hasFled());
 
         assertTrue(
-            group1AllDead || group2AllDead,
+            group1AllDead || group2AllDeadOrFled,
             "One group should be completely defeated"
         );
     }
