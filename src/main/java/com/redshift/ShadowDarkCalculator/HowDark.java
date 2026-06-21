@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.GiantCentipede;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.Worg;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.goblinoid.Goblin;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyBuilder;
@@ -32,15 +33,19 @@ public class HowDark {
 //                    new DiableriePartyBuilder().build(),
                     new LostCitadelPartyBuilder().build(),
                     List.of(
-                            new GiantCentipede("Giant Centipede"),
-                            new GiantCentipede("Giant Centipede"),
-                            new GiantCentipede("Giant Centipede"),
-                            new GiantCentipede("Giant Centipede"),
-                            new GiantCentipede("Giant Centipede"),
-                            new GiantCentipede("Giant Centipede"),
-                            new GiantCentipede("Giant Centipede"),
-                            new GiantCentipede("Giant Centipede")
+                            new Worg("Worg 1"), new Goblin("Goblin 1"),
+                            new Worg("Worg 2"), new Goblin("Goblin 2")
                     )
+//                    List.of(
+//                            new GiantCentipede("Giant Centipede"),
+//                            new GiantCentipede("Giant Centipede"),
+//                            new GiantCentipede("Giant Centipede"),
+//                            new GiantCentipede("Giant Centipede"),
+//                            new GiantCentipede("Giant Centipede"),
+//                            new GiantCentipede("Giant Centipede"),
+//                            new GiantCentipede("Giant Centipede"),
+//                            new GiantCentipede("Giant Centipede")
+//                    )
 //                    List.of(new WeldHag("Hag"))
 //                    List.of(new FleshGolem("Flesh Golem"))
 //                    List.of(new ArchMage("Fizban"))
