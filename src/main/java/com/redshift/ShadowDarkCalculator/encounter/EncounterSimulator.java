@@ -149,7 +149,7 @@ public class EncounterSimulator implements Encounter {
     }
 
     private boolean creatureFlees(Creature creature, List<Creature> allies, int roll) {
-        // Enemies who are half their number OR half HP single monster…
+        // Enemies who are half their number OR half HP single monster.
         // Flee if fail a DC 15 WIS check (highest WIS modifier)
 
         if (creature.willFlee()) {
@@ -165,13 +165,20 @@ public class EncounterSimulator implements Encounter {
                 }
             } else {
                 int deadOrFledCount = 0;
+
                 for (Creature ally : allies) {
-                    wisdomModifier = Math.max(wisdomModifier, ally.getStats().getWisdomModifier());
                     if (ally.isDead() || ally.hasFled()) {
                         deadOrFledCount++;
+                    } else {
+                        wisdomModifier = Math.max(wisdomModifier, ally.getStats().getWisdomModifier());
                     }
                 }
-                return deadOrFledCount >= allies.size();
+
+                if (deadOrFledCount >= (allies.size() / 2)) {
+                    return (roll + wisdomModifier < 15);
+                } else {
+                    return false;
+                }
             }
         } else {
             return false;
