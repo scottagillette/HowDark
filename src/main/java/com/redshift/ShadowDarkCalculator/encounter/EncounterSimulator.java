@@ -87,7 +87,7 @@ public class EncounterSimulator implements Encounter {
 
                 if (!creature.isDead() && !creature.hasFled()) {
                     // Check Morale
-                    final boolean creatureFlees = creatureFlees(creature, alliesMap.get(creature), D20.roll());
+                    final boolean creatureFlees = shouldCreatureFlee(creature, alliesMap.get(creature), D20.roll());
 
                     if (creatureFlees) {
                         creature.flee();
@@ -98,7 +98,7 @@ public class EncounterSimulator implements Encounter {
             }
 
             round++;
-            continueBattle = shouldContinueBattle();
+            continueBattle = shouldBattleContinue();
         }
 
         calculateDead();
@@ -148,43 +148,6 @@ public class EncounterSimulator implements Encounter {
         }
     }
 
-    private boolean creatureFlees(Creature creature, List<Creature> allies, int roll) {
-        // Enemies who are half their number OR half HP single monster.
-        // Flee if fail a DC 15 WIS check (highest WIS modifier)
-
-        if (creature.willFlee()) {
-            int wisdomModifier = -999;
-
-            if (allies.size() == 1) {
-                wisdomModifier = creature.getStats().getWisdomModifier();
-
-                if (creature.isBloodied()) {
-                    return (roll + wisdomModifier < 15);
-                } else {
-                    return false;
-                }
-            } else {
-                int deadOrFledCount = 0;
-
-                for (Creature ally : allies) {
-                    if (ally.isDead() || ally.hasFled()) {
-                        deadOrFledCount++;
-                    } else {
-                        wisdomModifier = Math.max(wisdomModifier, ally.getStats().getWisdomModifier());
-                    }
-                }
-
-                if (deadOrFledCount >= (allies.size() / 2)) {
-                    return (roll + wisdomModifier < 15);
-                } else {
-                    return false;
-                }
-            }
-        } else {
-            return false;
-        }
-    }
-
     private void reportSummary() {
         log.info("---------------------------------------------------------------");
 
@@ -211,7 +174,7 @@ public class EncounterSimulator implements Encounter {
         log.info("---------------------------------------------------------------");
     }
 
-    private boolean shouldContinueBattle() {
+    private boolean shouldBattleContinue() {
         int group1Remaining = group1.stream()
                 .filter(creature -> !creature.isUnconscious())
                 .filter(creature -> !creature.isDead())
@@ -250,4 +213,42 @@ public class EncounterSimulator implements Encounter {
 
         return continueBattle;
     }
+
+    private boolean shouldCreatureFlee(Creature creature, List<Creature> allies, int roll) {
+        // Enemies who are half their number OR half HP single monster.
+        // Flee if fail a DC 15 WIS check (highest WIS modifier)
+
+        if (creature.willFlee()) {
+            int wisdomModifier = -999;
+
+            if (allies.size() == 1) {
+                wisdomModifier = creature.getStats().getWisdomModifier();
+
+                if (creature.isBloodied()) {
+                    return (roll + wisdomModifier < 15);
+                } else {
+                    return false;
+                }
+            } else {
+                int deadOrFledCount = 0;
+
+                for (Creature ally : allies) {
+                    if (ally.isDead() || ally.hasFled()) {
+                        deadOrFledCount++;
+                    } else {
+                        wisdomModifier = Math.max(wisdomModifier, ally.getStats().getWisdomModifier());
+                    }
+                }
+
+                if (deadOrFledCount >= (allies.size() / 2)) {
+                    return (roll + wisdomModifier < 15);
+                } else {
+                    return false;
+                }
+            }
+        } else {
+            return false;
+        }
+    }
+
 }
