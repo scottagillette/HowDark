@@ -1,7 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.Worg;
-import com.redshift.ShadowDarkCalculator.creatures.monsters.goblinoid.Goblin;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.monstrosities.Bulette;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyBuilder;
@@ -32,10 +31,11 @@ public class HowDark {
 //                    new TheCrabCrushersBuilder().build(),
 //                    new DiableriePartyBuilder().build(),
                     new LostCitadelPartyBuilder().build(),
-                    List.of(
-                            new Worg("Worg 1"), new Goblin("Goblin 1"),
-                            new Worg("Worg 2"), new Goblin("Goblin 2")
-                    )
+                    List.of(new Bulette("Bulette"))
+//                    List.of(
+//                            new Worg("Worg 1"), new Goblin("Goblin 1"),
+//                            new Worg("Worg 2"), new Goblin("Goblin 2")
+//                    )
 //                    List.of(
 //                            new GiantCentipede("Giant Centipede"),
 //                            new GiantCentipede("Giant Centipede"),
