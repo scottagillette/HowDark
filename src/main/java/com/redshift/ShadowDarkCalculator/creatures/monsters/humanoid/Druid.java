@@ -54,16 +54,16 @@ public class Druid extends Monster {
         getLabels().add(CreatureLabel.LAWFUL);
 
         final Spell barkskin = new Barkskin();
-        barkskin.setPriority(5);
+        barkskin.setPriority(4);
 
         final Spell conjureFlames = new ConjureFlames();
         conjureFlames.setPriority(5);
 
         final Spell imbue = new Imbue();
-        imbue.setPriority(5);
+        imbue.setPriority(3);
 
         final Spell summonBear = new SummonBear();
-        summonBear.setPriority(5);
+        summonBear.setPriority(7);
 
         final Weapon staff = WeaponBuilder.STAFF.build();
         staff.setPriority(1);
