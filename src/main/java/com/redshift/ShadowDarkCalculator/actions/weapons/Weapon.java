@@ -184,8 +184,9 @@ public class Weapon extends BaseAction implements Action {
         final DamageType tempDamageType = damageType.copy();
 
         if (actor.hasCondition(HolyWeaponCondition.class.getName()) && !damageType.isMagical()) {
-            tempAttackRollBonus += 1;
-            tempDamageRollBonus += 1;
+            final HolyWeaponCondition holyWeaponCondition = (HolyWeaponCondition) actor.getCondition(HolyWeaponCondition.class.getName());
+            tempAttackRollBonus += holyWeaponCondition.getBonus();
+            tempDamageRollBonus += holyWeaponCondition.getBonus();
             tempDamageType.addMagical();
         }
 

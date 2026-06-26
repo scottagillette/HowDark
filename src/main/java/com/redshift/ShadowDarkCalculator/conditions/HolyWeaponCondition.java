@@ -1,23 +1,32 @@
 package com.redshift.ShadowDarkCalculator.conditions;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * A condition that indicates you have a holy weapon spell cast for 5 rounds.
  */
 
+@Getter
 @Slf4j
 public class HolyWeaponCondition implements Condition {
 
     private int rounds;
+    private int bonus;
 
     public HolyWeaponCondition() {
         this.rounds = 5 + 1; // Since we check at the beginning of the creatures turn... add 1.
+        this.bonus = 1;
     }
 
     public HolyWeaponCondition(int rounds) {
         this.rounds = rounds + 1; // Since we check at the beginning of the creatures turn... add 1.
+    }
+
+    public HolyWeaponCondition(int rounds, int bonus) {
+        this.rounds = rounds + 1;
+        this.bonus = bonus;
     }
 
     @Override

@@ -87,7 +87,7 @@ public class LostCitadelPartyBuilder implements PartyBuilder {
         );
         creatures.add(torvin);
 
-//        clank.giveLuckToken();
+        // Luck tokens!
 //        borlin.giveLuckToken();
 //        mal.giveLuckToken();
 //        alaric.giveLuckToken();

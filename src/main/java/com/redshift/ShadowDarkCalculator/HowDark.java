@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.giants.Cyclops;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.humanoid.Druid;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyBuilder;
@@ -31,10 +31,11 @@ public class HowDark {
 //                    new TheCrabCrushersBuilder().build(),
 //                    new DiableriePartyBuilder().build(),
                     new LostCitadelPartyBuilder().build(),
-                    List.of(
-                            new Cyclops("'Old One Eye' the Cyclops"),
-                            new Cyclops("'Bone Crusher' the Cyclops")
-                    )
+                    List.of(new Druid("Druid of the Moon"))
+//                    List.of(
+//                            new Cyclops("'Old One Eye' the Cyclops"),
+//                            new Cyclops("'Bone Crusher' the Cyclops")
+//                    )
 //                    List.of(new Bulette("Bulette"))
 //                    List.of(
 //                            new Worg("Worg 1"), new Goblin("Goblin 1"),
