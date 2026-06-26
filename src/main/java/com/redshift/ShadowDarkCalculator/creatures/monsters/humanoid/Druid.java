@@ -68,12 +68,16 @@ public class Druid extends Monster {
         final Weapon staff = WeaponBuilder.STAFF.build();
         staff.setPriority(1);
 
-        final PerformOneAction group1 = new PerformOneAction(staff, barkskin, conjureFlames, imbue, summonBear);
-        final PerformOneAction group2 = new PerformOneAction(staff, barkskin, conjureFlames, imbue, summonBear);
+        final PerformOneAction spellGroup1 = new PerformOneAction(barkskin, conjureFlames, imbue, summonBear);
+        final PerformOneAction spellGroup2 = new PerformOneAction(barkskin, conjureFlames, imbue, summonBear);
+
+        final PerformAllActions twoSpellsAction = new PerformAllActions(spellGroup1, spellGroup2);
+        twoSpellsAction.setPriority(10); // Two spells is a 10 to 1 ratio with staff.
+
+        final PerformOneAction staffOrSpells = new PerformOneAction(staff, twoSpellsAction);
 
         final PerformAllActions performAllActions = (PerformAllActions) getAction();
-        performAllActions.addAction(group1);
-        performAllActions.addAction(group2);
+        performAllActions.addAction(staffOrSpells);
     }
 
 
