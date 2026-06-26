@@ -184,12 +184,14 @@ public class Druid extends Monster {
         @Override
         public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
             // TODO: Disapear after 10 rounds!
+            log.info("{} summons a brown bear!", actor.getName());
             encounter.addFriendlyCreature(actor, new BrownBear("Brown Bear " + count++));
         }
 
         @Override
         public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
             // TODO: Disapear after 5 rounds!
+            log.info("{} summons a brown bear!", actor.getName());
             encounter.addFriendlyCreature(actor, new BrownBear("Brown Bear " + count++));
         }
     }
