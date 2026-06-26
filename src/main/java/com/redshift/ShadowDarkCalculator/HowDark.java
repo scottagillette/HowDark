@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.monstrosities.Bulette;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.giants.Cyclops;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyBuilder;
@@ -31,7 +31,11 @@ public class HowDark {
 //                    new TheCrabCrushersBuilder().build(),
 //                    new DiableriePartyBuilder().build(),
                     new LostCitadelPartyBuilder().build(),
-                    List.of(new Bulette("Bulette"))
+                    List.of(
+                            new Cyclops("'Old One Eye' the Cyclops"),
+                            new Cyclops("'Bone Crusher' the Cyclops")
+                    )
+//                    List.of(new Bulette("Bulette"))
 //                    List.of(
 //                            new Worg("Worg 1"), new Goblin("Goblin 1"),
 //                            new Worg("Worg 2"), new Goblin("Goblin 2")
@@ -101,7 +105,13 @@ public class HowDark {
 //                    List.of(new HillGiant("Brundo the Crusher"))
 //                    List.of(new HillGiant("Brundo the Crusher"), new HillGiant("Gunda the Smasher"))
 //                    List.of(new Goblin("Grek"), new Goblin("Pek"), new Goblin("Mek"), new Goblin("Rek"))
-//                    List.of(new Goblin("Goblin Grek"), new Goblin("Goblin Pek"), new Goblin("Goblin Mek"), new GoblinShaman("Goblin Shaman Zek"))
+//                    List.of(
+//                            new Goblin("Goblin Spek"),
+//                            new Goblin("Goblin Grek"),
+//                            new Goblin("Goblin Pek"),
+//                            new Goblin("Goblin Mek"),
+//                            new GoblinShaman("Goblin Shaman Zek")
+//                    )
 //                    List.of(new Ettercap("Ettercap 1"), new Ettercap("Ettercap 2"), new Ettercap("Ettercap 2"))
 //                    List.of(
 //                            new Skeleton("Skeleton 1"),
