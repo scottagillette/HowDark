@@ -40,6 +40,8 @@ public class Player extends BaseCreature {
         super(name, level, stats, armorClass, hitPoints, action, singleTargetSelector);
         getLabels().add(CreatureLabel.PLAYER);
         getLabels().add(CreatureLabel.HUMANOID);
+
+        setWillFlee(false); // Players do not flee!
     }
 
 }
