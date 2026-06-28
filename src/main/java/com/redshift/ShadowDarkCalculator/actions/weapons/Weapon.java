@@ -40,6 +40,7 @@ public class Weapon extends BaseAction implements Action {
         this.damageType.addAcid();
         return this;
     }
+
     public final Weapon addAttackRollBonus(int attackRollBonus) {
         this.attackRollBonus = this.attackRollBonus + attackRollBonus;
         return this;
@@ -52,6 +53,11 @@ public class Weapon extends BaseAction implements Action {
 
     public final Weapon addDamageRollBonus(int damageRollBonus) {
         this.damageRollBonus = this.damageRollBonus + damageRollBonus;
+        return this;
+    }
+
+    public final Weapon addFire() {
+        damageType.addFire();
         return this;
     }
 

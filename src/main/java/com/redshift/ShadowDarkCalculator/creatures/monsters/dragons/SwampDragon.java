@@ -53,9 +53,9 @@ public class SwampDragon extends Monster {
      * Smog Breath. Fills a near-sized cube extending from dragon. DC 15 CON or 2d10 damage and blinded for 1 round.
      */
 
-    public static class SmogBreath extends BaseAction {
+    private static class SmogBreath extends BaseAction {
 
-        public SmogBreath() {
+        private SmogBreath() {
             super("Smog Breath");
         }
 
@@ -76,17 +76,17 @@ public class SwampDragon extends Monster {
             enemies.forEach(creature -> {
                 if (creature.isUnconscious()) {
                     final int damage = new MultipleDice(D10, D10).roll();
-                    log.info("{} is damaged by Smog Breath for {} damage and is blinded for 1 round!", creature.getName(), damage);
+                    log.info("{} is damaged by {} for {} damage and is blinded for 1 round!", creature.getName(), name, damage);
                     creature.takeDamage(damage, new DamageType().addMagical());
                     creature.addCondition(new BlindedCondition(1));
                 } else if (creature.isDead()) {
                     // Ignore damage for dead cretures
                 } else {
                     if (creature.getStats().constitutionSave(15)) {
-                        log.info("{} makes a CON save and takes no damage from Smog Breath!", creature.getName());
+                        log.info("{} makes a CON save and takes no damage from {}!", creature.getName(), name);
                     } else {
                         final int damage = new MultipleDice(D10, D10).roll();
-                        log.info("{} is damaged by Smog Breath for {} damage and is blinded for 1 round!", creature.getName(), damage);
+                        log.info("{} is damaged by {} for {} damage and is blinded for 1 round!", creature.getName(), name, damage);
                         creature.takeDamage(damage, new DamageType().addMagical());
                         creature.addCondition(new BlindedCondition(1));
                     }

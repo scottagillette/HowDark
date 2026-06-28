@@ -1,4 +1,4 @@
-package com.redshift.ShadowDarkCalculator.creatures.monsters.dragons;
+package com.redshift.ShadowDarkCalculator.creatures.monsters.elementals;
 
 import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.actions.DamageType;
@@ -7,12 +7,13 @@ import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
-import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.resistance.FireImmunityResistance;
+import com.redshift.ShadowDarkCalculator.resistance.MagicalOnlyResistance;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -20,54 +21,65 @@ import java.util.List;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 /**
- * Blood-red scales cover the hide of this mighty, volcanic wyrm. Leaping flames glow at the back of its throat.
- * AC 18, HP 80, ATK 4 rend +11 (2d12) or 1 fire breath MV double near (fly)
- * S +6, D +5, C +4, I +4, W +4, Ch +5, AL C, LV 17
- * Fireblood. Fire immune.
- * Fire Breath. Fills a double near-sized cube extending from dragon. DC 15 DEX or 6d10 damage.
+ * A roaring column of flames.
+ * AC 15, HP 30/43, ATK 3 slam +6 (2d10/3d10) or 1 inferno, MV near (fly)
+ * S +4, D +3, C +3, I -2, W +1, Ch -2, AL N, LV 6/9
+ * Impervious. Only damaged by magical sources. Fire immune.
+ * Inferno. All within near DC 15 DEX or 3d8 damage.
  */
 
 @Slf4j
-public class FireDragon extends Monster {
+public class LesserFireElemental extends Monster {
 
     private final FireImmunityResistance fireImmunityResistance = new FireImmunityResistance();
+    private final MagicalOnlyResistance magicalOnlyResistance = new MagicalOnlyResistance();
 
-    public FireDragon(String name) {
+    public LesserFireElemental(String name) {
         super(
                 name,
-                17,
-                new Stats(22,20,18,18,18,20),
-                18,
-                new MultipleDice(D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8, D8).roll() + 4,
+                6,
+                new Stats(18, 16, 16, 6, 12, 6),
+                15,
+                D8.roll() + D8.roll() + D8.roll() +
+                        D8.roll() + D8.roll() + D8.roll() + 3,
                 new PerformOneAction(
                         new PerformAllActions(
-                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH).addMagical().addSlashing().addAttackRollBonus(5),
-                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH).addMagical().addSlashing().addAttackRollBonus(5),
-                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH).addMagical().addSlashing().addAttackRollBonus(5),
-                                new Weapon("Rending Claws", new MultipleDice(D12, D12), RollModifier.STRENGTH).addMagical().addSlashing().addAttackRollBonus(5)
+                                new Weapon("Slam", new MultipleDice(D10, D10), RollModifier.STRENGTH)
+                                        .addAttackRollBonus(2)
+                                        .addFire()
+                                        .addMagical(),
+                                new Weapon("Slam", new MultipleDice(D10, D10), RollModifier.STRENGTH)
+                                        .addAttackRollBonus(2)
+                                        .addFire()
+                                        .addMagical()
                         ).setPriority(2),
-                        new FireBreath().setPriority(2) // Every third attack is fire breath!
+                        new Inferno().setPriority(1)
                 )
         );
-        getLabels().add(CreatureLabel.CHAOTIC);
+
+        getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.NEUTRAL);
     }
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        final int damage = fireImmunityResistance.calculateDamage(this, amount, damageType);
-        if (damage != 0) {
-            super.takeDamage(damage, damageType);
+        int damage = fireImmunityResistance.calculateDamage(this, amount, damageType);
+        if (damage > 0) {
+            damage = magicalOnlyResistance.calculateDamage(this, damage, damageType);
+            if (damage > 0) {
+                super.takeDamage(damage, damageType);
+            }
         }
     }
 
     /**
-     * Fire Breath. Fills a double near-sized cube extending from dragon. DC 15 DEX or 6d10 damage.
+     * Inferno. All within near DC 15 DEX or 3d8 damage.
      */
 
-    private static class FireBreath extends BaseAction {
+    private static class Inferno extends BaseAction {
 
-        private FireBreath() {
-            super("Fire Breath");
+        public Inferno() {
+            super("Inferno");
         }
 
         @Override
@@ -84,16 +96,16 @@ public class FireDragon extends Monster {
         public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
             enemies.forEach(creature -> {
                 if (creature.isUnconscious()) {
-                    final int damage = new MultipleDice(D6, D6, D6, D6, D6, D6, D6, D6, D6, D6).roll();
+                    final int damage = new MultipleDice(D8, D8, D8).roll();
                     log.info("{} is unconscious and is burned by {} for {} damage!", creature.getName(), name, damage);
                     creature.takeDamage(damage, new DamageType().addFire().addMagical());
                 } else if (creature.isDead()) {
-                    // Ignore damage for dead cretures
+                    // Ignore damage for dead creatures
                 } else {
                     if (creature.getStats().dexteritySave(15)) {
                         log.info("{} makes a DEX save and takes no damage from Fire Breath!", creature.getName());
                     } else {
-                        final int damage = new MultipleDice(D6, D6, D6, D6, D6, D6, D6, D6, D6, D6).roll();
+                        final int damage = new MultipleDice(D8, D8, D8).roll();
                         log.info("{} is burned by {} for {} damage!", creature.getName(), name, damage);
                         creature.takeDamage(damage, new DamageType().addFire().addMagical());
                     }
@@ -101,4 +113,5 @@ public class FireDragon extends Monster {
             });
         }
     }
+
 }
