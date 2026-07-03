@@ -1,0 +1,25 @@
+party:
+  - name: Borlin
+    class: paladin
+    ac: 14
+    hp: 8
+    level: 1
+    stats: "10, 10, 10, 10, 10, 10"
+    actions:
+      - weapon: Two-Handed-Sword
+        priority: 1
+        magical: true
+        magic-bonus: 1
+  - name: Mal
+    class: witch
+    ac: 12
+    hp: 5
+    level: 1
+    stats: "10, 10, 10, 10, 10, 10"
+    actions:
+      - weapon: Longsword
+        priority: 1
+      - spell: Withermark
+        priority: 2
+      - spell: Undeath
+        priority: 10
