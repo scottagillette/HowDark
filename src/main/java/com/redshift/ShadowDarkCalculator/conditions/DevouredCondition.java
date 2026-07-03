@@ -19,6 +19,11 @@ public class DevouredCondition implements Condition {
     }
 
     @Override
+    public boolean canMove() {
+        return false;
+    }
+
+    @Override
     public void end() {
         // No specific behavior
     }

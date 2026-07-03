@@ -238,6 +238,9 @@ public class EncounterSimulator implements Encounter {
         // Flee if fail a DC 15 WIS check (highest WIS modifier)
 
         if (creature.willFlee()) {
+            // Creatures that can't move can't flee!
+            if (!creature.canMove()) return false;
+
             int wisdomModifier = -999;
 
             if (allies.size() == 1) {

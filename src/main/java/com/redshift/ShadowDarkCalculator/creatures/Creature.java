@@ -29,6 +29,12 @@ public interface Creature {
     boolean canAct();
 
     /**
+     * Returns true if the creature can move.
+     */
+
+    boolean canMove();
+
+    /**
      * Marks the creature as fled the fight and any other custom behavior.
      */
 

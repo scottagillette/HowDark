@@ -44,6 +44,11 @@ public class SpellFocusCondition implements Condition {
     }
 
     @Override
+    public boolean canMove() {
+        return true;
+    }
+
+    @Override
     public void end() {
         spellLostRunnable.run(); // Do whatever is done when it's lost...
     }

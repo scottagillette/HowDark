@@ -20,6 +20,10 @@ public class StupefiedCondition implements Condition {
         return false;
     }
 
+    @Override
+    public boolean canMove() {
+        return false;
+    }
 
     @Override
     public void end() {

@@ -31,6 +31,11 @@ public class FearCondition implements Condition {
     }
 
     @Override
+    public boolean canMove() {
+        return true;
+    }
+
+    @Override
     public void end() {
         // No specific behavior
         rounds = 0;

@@ -79,6 +79,15 @@ public abstract class BaseCreature implements Creature {
     }
 
     @Override
+    public boolean canMove() {
+        final List<Condition> cantActConditions = conditions.values().stream()
+                .filter(condition -> !condition.canMove())
+                .toList();
+
+        return cantActConditions.isEmpty() && !dead;
+    }
+
+    @Override
     public void flee() {
         fled = true;
         log.info("{} has failed a morale check and has fled the battle field!", name);

@@ -23,6 +23,12 @@ public interface Condition {
     boolean canAct();
 
     /**
+     * Returns true if the creature can move freely or not.
+     */
+
+    boolean canMove();
+
+    /**
      * Signifies the condition should end.
      */
 

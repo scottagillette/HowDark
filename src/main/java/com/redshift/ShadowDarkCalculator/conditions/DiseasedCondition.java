@@ -19,6 +19,11 @@ public class DiseasedCondition implements Condition {
     }
 
     @Override
+    public boolean canMove() {
+        return true;
+    }
+
+    @Override
     public void end() {
 
     }
