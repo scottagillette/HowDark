@@ -17,6 +17,12 @@ repositories {
 	mavenCentral()
 }
 
+// HowDark is the app entry point; MonsterGauntlet is a separate tool run via the
+// 'gauntlet' task, so pin the Spring Boot main class to avoid an ambiguous bootRun.
+springBoot {
+	mainClass = 'com.redshift.ShadowDarkCalculator.HowDark'
+}
+
 dependencies {
 
 	annotationProcessor 'org.projectlombok:lombok'
