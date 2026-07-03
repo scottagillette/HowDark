@@ -7,7 +7,7 @@ import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.resistance.SilveredOrMagicalOnlyResistance;
+import com.redshift.ShadowDarkCalculator.resistance.NonSilveredNonMagicalImmunity;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -31,7 +31,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 @Slf4j
 public class VampireSpawn extends UndeadMonster {
 
-    private final SilveredOrMagicalOnlyResistance silveredOrMagicalOnlyResistance = new SilveredOrMagicalOnlyResistance();
+    private final NonSilveredNonMagicalImmunity nonSilveredNonMagicalImmunity = new NonSilveredNonMagicalImmunity();
 
     public VampireSpawn(String name) {
         super(
@@ -52,7 +52,7 @@ public class VampireSpawn extends UndeadMonster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        final int damage = silveredOrMagicalOnlyResistance.calculateDamage(this, amount, damageType);
+        final int damage = nonSilveredNonMagicalImmunity.calculateDamage(this, amount, damageType);
         if (damage != 0) {
             super.takeDamage(amount, damageType);
         }

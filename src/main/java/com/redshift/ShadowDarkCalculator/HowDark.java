@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator;
 
 import com.redshift.ShadowDarkCalculator.creatures.monsters.elementals.LesserFireElemental;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.giants.StormGiant;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyBuilder;
@@ -31,7 +32,8 @@ public class HowDark {
 //                    new TheCrabCrushersBuilder().build(),
 //                    new DiableriePartyBuilder().build(),
                     new LostCitadelPartyBuilder().build(),
-                    List.of(new LesserFireElemental("Lesser Fire Elemental"))
+                    List.of(new StormGiant("Storm Giant"))
+                    //List.of(new LesserFireElemental("Lesser Fire Elemental"))
 //                    List.of(new Druid("Druid of the Moon"))
 //                    List.of(
 //                            new Cyclops("'Old One Eye' the Cyclops"),

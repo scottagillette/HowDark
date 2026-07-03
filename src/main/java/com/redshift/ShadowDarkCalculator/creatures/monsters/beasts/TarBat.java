@@ -6,7 +6,7 @@ import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.resistance.FireImmunityResistance;
+import com.redshift.ShadowDarkCalculator.resistance.FireImmunity;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
@@ -22,7 +22,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 @Slf4j
 public class TarBat extends Monster {
 
-    private final FireImmunityResistance fireImmunityResistance = new FireImmunityResistance();
+    private final FireImmunity fireImmunity = new FireImmunity();
 
     public TarBat(String name) {
         super(
@@ -38,7 +38,7 @@ public class TarBat extends Monster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        final int damage = fireImmunityResistance.calculateDamage(this, amount, damageType);
+        final int damage = fireImmunity.calculateDamage(this, amount, damageType);
         if (damage != 0) {
             super.takeDamage(damage, damageType);
         }

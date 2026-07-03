@@ -15,7 +15,7 @@ import com.redshift.ShadowDarkCalculator.creatures.monsters.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.resistance.MagicalOnlyResistance;
+import com.redshift.ShadowDarkCalculator.resistance.NonMagicalImmunity;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -42,7 +42,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 @Slf4j
 public class Lich extends UndeadMonster {
 
-    private final MagicalOnlyResistance magicalOnlyResistance = new MagicalOnlyResistance();
+    private final NonMagicalImmunity nonMagicalImmunity = new NonMagicalImmunity();
 
     public Lich(String name) {
         super(
@@ -71,7 +71,7 @@ public class Lich extends UndeadMonster {
     @Override
     public void takeDamage(int amount, DamageType damageType) {
         // Only magical damage!
-        final int damage = magicalOnlyResistance.calculateDamage(this, amount, damageType);
+        final int damage = nonMagicalImmunity.calculateDamage(this, amount, damageType);
         if (damage != 0) {
             super.takeDamage(damage, damageType);
         }

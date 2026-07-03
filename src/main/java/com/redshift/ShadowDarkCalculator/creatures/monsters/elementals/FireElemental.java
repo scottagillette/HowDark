@@ -12,8 +12,8 @@ import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.resistance.FireImmunityResistance;
-import com.redshift.ShadowDarkCalculator.resistance.MagicalOnlyResistance;
+import com.redshift.ShadowDarkCalculator.resistance.FireImmunity;
+import com.redshift.ShadowDarkCalculator.resistance.NonMagicalImmunity;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -32,8 +32,8 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 @Slf4j
 public class FireElemental extends Monster {
 
-    private final FireImmunityResistance fireImmunityResistance = new FireImmunityResistance();
-    private final MagicalOnlyResistance magicalOnlyResistance = new MagicalOnlyResistance();
+    private final FireImmunity fireImmunity = new FireImmunity();
+    private final NonMagicalImmunity nonMagicalImmunity = new NonMagicalImmunity();
 
     public FireElemental(String name) {
         super(
@@ -69,9 +69,9 @@ public class FireElemental extends Monster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        int damage = fireImmunityResistance.calculateDamage(this, amount, damageType);
+        int damage = fireImmunity.calculateDamage(this, amount, damageType);
         if (damage > 0) {
-            damage = magicalOnlyResistance.calculateDamage(this, damage, damageType);
+            damage = nonMagicalImmunity.calculateDamage(this, damage, damageType);
             if (damage > 0) {
                 super.takeDamage(damage, damageType);
             }

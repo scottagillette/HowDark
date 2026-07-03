@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 
 @Slf4j
-public class SilveredOrMagicalOnlyResistance implements Resistance {
+public class NonSilveredNonMagicalImmunity implements Resistance {
 
     @Override
     public int calculateDamage(Creature creature, int amount, DamageType damageType) {

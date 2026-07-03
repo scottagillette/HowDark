@@ -9,7 +9,7 @@ import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.resistance.ColdImmunityResistance;
+import com.redshift.ShadowDarkCalculator.resistance.ColdImmunity;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
@@ -27,7 +27,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 @Slf4j
 public class VoidSpider extends Monster {
 
-    private final ColdImmunityResistance coldImmunityResistance = new ColdImmunityResistance();
+    private final ColdImmunity coldImmunity = new ColdImmunity();
 
     public VoidSpider(String name) {
         super(
@@ -46,7 +46,7 @@ public class VoidSpider extends Monster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        final int damage = coldImmunityResistance.calculateDamage(this, amount, damageType);
+        final int damage = coldImmunity.calculateDamage(this, amount, damageType);
         if (damage != 0) {
             super.takeDamage(amount, damageType);
         }

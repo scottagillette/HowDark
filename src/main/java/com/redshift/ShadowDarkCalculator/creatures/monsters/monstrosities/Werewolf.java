@@ -7,7 +7,7 @@ import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.resistance.SilveredOrMagicalOnlyResistance;
+import com.redshift.ShadowDarkCalculator.resistance.NonSilveredNonMagicalImmunity;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
@@ -24,7 +24,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 @Slf4j
 public class Werewolf extends Monster {
 
-    private final SilveredOrMagicalOnlyResistance silveredOrMagicalOnlyResistance = new SilveredOrMagicalOnlyResistance();
+    private final NonSilveredNonMagicalImmunity nonSilveredNonMagicalImmunity = new NonSilveredNonMagicalImmunity();
 
     public Werewolf(String name) {
         super(
@@ -45,7 +45,7 @@ public class Werewolf extends Monster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        final int damage = silveredOrMagicalOnlyResistance.calculateDamage(this, amount, damageType);
+        final int damage = nonSilveredNonMagicalImmunity.calculateDamage(this, amount, damageType);
         if (damage != 0) {
             super.takeDamage(amount, damageType);
         }

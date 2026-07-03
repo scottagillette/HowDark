@@ -6,7 +6,7 @@ import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.creatures.*;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
-import com.redshift.ShadowDarkCalculator.resistance.MagicalOnlyResistance;
+import com.redshift.ShadowDarkCalculator.resistance.NonMagicalImmunity;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
@@ -25,7 +25,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 @Slf4j
 public class Mummy extends UndeadMonster {
 
-    private final MagicalOnlyResistance magicalOnlyResistance = new MagicalOnlyResistance();
+    private final NonMagicalImmunity nonMagicalImmunity = new NonMagicalImmunity();
 
     public Mummy(String name) {
         super(
@@ -54,7 +54,7 @@ public class Mummy extends UndeadMonster {
             log.info("{} takes DOUBLE damage from fire!", getName());
             super.takeDamage(amount + amount, damageType);
         } else {
-            final int damage = magicalOnlyResistance.calculateDamage(this, amount, damageType);
+            final int damage = nonMagicalImmunity.calculateDamage(this, amount, damageType);
             if (damage != 0) {
                 super.takeDamage(damage, damageType);
             }

@@ -12,7 +12,7 @@ import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
-import com.redshift.ShadowDarkCalculator.resistance.FireImmunityResistance;
+import com.redshift.ShadowDarkCalculator.resistance.FireImmunity;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -30,7 +30,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 @Slf4j
 public class FireDragon extends Monster {
 
-    private final FireImmunityResistance fireImmunityResistance = new FireImmunityResistance();
+    private final FireImmunity fireImmunity = new FireImmunity();
 
     public FireDragon(String name) {
         super(
@@ -54,7 +54,7 @@ public class FireDragon extends Monster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        final int damage = fireImmunityResistance.calculateDamage(this, amount, damageType);
+        final int damage = fireImmunity.calculateDamage(this, amount, damageType);
         if (damage != 0) {
             super.takeDamage(damage, damageType);
         }
@@ -82,18 +82,20 @@ public class FireDragon extends Monster {
 
         @Override
         public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
+            log.info("{} breaths out fire!", actor.getName());
+
             enemies.forEach(creature -> {
                 if (creature.isUnconscious()) {
-                    final int damage = new MultipleDice(D6, D6, D6, D6, D6, D6, D6, D6, D6, D6).roll();
+                    final int damage = new MultipleDice(D10, D10, D10, D10, D10, D10).roll();
                     log.info("{} is unconscious and is burned by {} for {} damage!", creature.getName(), name, damage);
                     creature.takeDamage(damage, new DamageType().addFire().addMagical());
                 } else if (creature.isDead()) {
                     // Ignore damage for dead cretures
                 } else {
                     if (creature.getStats().dexteritySave(15)) {
-                        log.info("{} makes a DEX save and takes no damage from Fire Breath!", creature.getName());
+                        log.info("{} makes a DEX save and takes no damage from {}!", creature.getName(), name);
                     } else {
-                        final int damage = new MultipleDice(D6, D6, D6, D6, D6, D6, D6, D6, D6, D6).roll();
+                        final int damage = new MultipleDice(D10, D10, D10, D10, D10, D10).roll();
                         log.info("{} is burned by {} for {} damage!", creature.getName(), name, damage);
                         creature.takeDamage(damage, new DamageType().addFire().addMagical());
                     }

@@ -4,7 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 
 /**
- * Implementations determine what damage is resisted or not.
+ * Implementations determine what damage is resisted partially, fully or not at all.
  */
 
 public interface Resistance {

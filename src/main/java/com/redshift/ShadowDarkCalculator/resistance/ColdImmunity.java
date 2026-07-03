@@ -5,16 +5,16 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Take no damage from fire!
+ * Take no damage from cold!
  */
 
 @Slf4j
-public class FireImmunityResistance implements Resistance {
+public class ColdImmunity implements Resistance {
 
     @Override
     public int calculateDamage(Creature creature, int amount, DamageType damageType) {
-        if (damageType.isFire()) {
-            log.info("{} seems to take no damage from fire!", creature.getName());
+        if (damageType.isCold()) {
+            log.info("{} seems to take no cold damage!", creature.getName());
             return 0;
         } else {
             return amount;
