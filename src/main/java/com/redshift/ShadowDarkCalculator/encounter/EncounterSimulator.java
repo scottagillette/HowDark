@@ -42,15 +42,34 @@ public class EncounterSimulator implements Encounter {
     }
 
     @Override
+    public void addFriendlyCreature(Creature actor, Creature newCreature) {
+        if (group1.contains(actor)) {
+            group1.add(newCreature);
+            alliesMap.put(newCreature, group1);
+            enemiesMap.put(newCreature, group2);
+        }
+        if (group2.contains(actor)) {
+            group2.add(newCreature);
+            alliesMap.put(newCreature, group2);
+            enemiesMap.put(newCreature, group1);
+        }
+
+        initiativeMap.put(nextNewCreatureInitiative, newCreature); // Creature will act next round!
+        nextNewCreatureInitiative = nextNewCreatureInitiative - 1; // Decrement the next new creature initiative value.
+    }
+
+    @Override
     public int getDelay() {
         return delaySeconds;
     }
 
-    /**
-     * Simulate an encounter between two groups of creatures.
-     */
+    @Override
+    public void setDelay(int delaySeconds) {
+        this.delaySeconds = delaySeconds;
+    }
 
-    public void simulateEncounter() {
+    @Override
+    public EncounterOutcome simulateEncounter() {
         // Put each creature in the map with their available enemies and another for allies.
         group1.forEach(creature -> enemiesMap.put(creature, group2));
         group2.forEach(creature -> enemiesMap.put(creature, group1));
@@ -102,53 +121,53 @@ public class EncounterSimulator implements Encounter {
         }
 
         calculateDead();
-        reportSummary();
-    }
+        logSummary();
 
-    @Override
-    public void addFriendlyCreature(Creature actor, Creature newCreature) {
-        if (group1.contains(actor)) {
-            group1.add(newCreature);
-            alliesMap.put(newCreature, group1);
-            enemiesMap.put(newCreature, group2);
-        }
-        if (group2.contains(actor)) {
-            group2.add(newCreature);
-            alliesMap.put(newCreature, group2);
-            enemiesMap.put(newCreature, group1);
-        }
-
-        initiativeMap.put(nextNewCreatureInitiative, newCreature); // Creature will act next round!
-        nextNewCreatureInitiative = nextNewCreatureInitiative - 1; // Decrement the next new creature initiative value.
-    }
-
-    @Override
-    public int setDelay(int delaySeconds) {
-        this.delaySeconds = delaySeconds;
-        return delaySeconds;
+        return reportOutcome();
     }
 
     private void calculateDead() {
+        // If no creatures can act; then any unconscious creatures end up dead.
+
         int group1Remaining = group1.stream()
                 .filter(Creature::canAct)
                 .toList()
                 .size();
+
+        if (group1Remaining == 0) {
+            group1.forEach(creature -> {
+                if (creature.isUnconscious()) {
+                    creature.setDead(true);
+                }
+            });
+        }
 
         int group2Remaining = group2.stream()
                 .filter(Creature::canAct)
                 .toList()
                 .size();
 
-        if (group1Remaining == 0) {
-            group1.forEach(creature -> creature.setDead(true));
-        }
-
         if (group2Remaining == 0) {
-            group2.forEach(creature -> creature.setDead(true));
+            group2.forEach(creature -> {
+                if (creature.isUnconscious()) {
+                    creature.setDead(true);
+                }
+            });
         }
     }
 
-    private void reportSummary() {
+    private EncounterOutcome reportOutcome() {
+        final EncounterOutcome outcome = new EncounterOutcome();
+
+        // TODO: Add other stats
+        
+        outcome.setGroup1Creatures(group1);
+        outcome.setGroup2Creatures(group2);
+
+        return outcome;
+    }
+
+    private void logSummary() {
         log.info("---------------------------------------------------------------");
 
         group1.forEach(creature -> {

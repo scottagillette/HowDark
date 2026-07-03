@@ -29,5 +29,11 @@ public interface Encounter {
      * Add a delay between creature actions so output can be read slowly or fast, etc.
      */
 
-    int setDelay(int delaySeconds);
+    void setDelay(int delaySeconds);
+
+    /**
+     * Simulate an encounter between two groups of creatures.
+     */
+
+    EncounterOutcome simulateEncounter();
 }
