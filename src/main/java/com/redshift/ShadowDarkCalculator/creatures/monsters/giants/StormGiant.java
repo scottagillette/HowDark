@@ -96,6 +96,7 @@ public class StormGiant extends Monster {
 
         @Override
         public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
+            uses--; // Decrement one use of lighting... only 3 total.
 
             final List<Creature> targets = getTargets(enemies);
 

@@ -1,6 +1,5 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.elementals.LesserFireElemental;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.giants.StormGiant;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 
