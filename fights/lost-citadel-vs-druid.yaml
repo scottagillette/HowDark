@@ -1,0 +1,18 @@
+simulations: 1000
+
+partyBuilder: lost-citadel
+
+monsters:
+  - type: druid
+    name: Druid 1
+
+# ---------------------------------------------------------------
+# [ Outcome - 1000 Simulated Fights ]
+# Players:  wins=710, winsWithDeath=103
+# Monsters: wins=290, winsWithDeath=39
+# [ Last Fight ]
+# Borlin Little Digger (PARTY): status=Alive, hitPoints=6/6
+# Malady Blackhand (PARTY): status=Alive, hitPoints=4/4
+# Alaric (PARTY): status=Alive, hitPoints=5/5
+# Brother Torvin (PARTY): status=Alive, hitPoints=8/8
+# Druid 1 (MONSTERS): status=Fled, hitPoints=1/28

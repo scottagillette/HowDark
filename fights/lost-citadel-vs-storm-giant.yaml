@@ -1,0 +1,28 @@
+# Mirrors the active fight in HowDark.main:
+#   party    = new LostCitadelPartyBuilder().build()
+#   monsters = List.of(new StormGiant("Storm Giant"))
+#   1000 simulations
+#
+# Uses the prebuilt "lost-citadel" party, so the characters carry their exact
+# hand-tuned stats, armor and loadout -- an exact reproduction of main, including
+# Pebble Weatherton being excluded (the builder comments out creatures.add(pebble)).
+
+simulations: 1000
+
+partyBuilder: lost-citadel
+
+monsters:
+  - type: storm-giant
+    name: Storm Giant
+
+
+# ---------------------------------------------------------------
+# [ Outcome - 1000 Simulated Fights ]
+# Players:  wins=34, winsWithDeath=16
+# Monsters: wins=966, winsWithDeath=0
+# [ Last Fight ]
+# Borlin Little Digger (PARTY): status=Dead, hitPoints=0/6
+# Malady Blackhand (PARTY): status=Dead, hitPoints=0/4
+# Alaric (PARTY): status=Dead, hitPoints=0/5
+# Brother Torvin (PARTY): status=Dead, hitPoints=0/8
+# Storm Giant (MONSTERS): status=Alive, hitPoints=31/41
