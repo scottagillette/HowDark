@@ -36,3 +36,10 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+tasks.register('gauntlet', JavaExec) {
+	group = 'application'
+	description = 'Run a party against one of every monster type and print a win/loss table.'
+	classpath = sourceSets.main.runtimeClasspath
+	mainClass = 'com.redshift.ShadowDarkCalculator.api.MonsterGauntlet'
+}
