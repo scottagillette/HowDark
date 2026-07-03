@@ -32,3 +32,18 @@ monsters:
     count: 4
   - type: goblin-shaman
     name: Zek the Shaman
+
+# ---------------------------------------------------------------
+# [ Outcome - 1000 Simulated Fights ]
+# Players:  wins=963, winsWithDeath=86
+# Monsters: wins=37, winsWithDeath=29
+# [ Last Fight ]
+# Borlin Little Digger (PARTY): status=Alive, hitPoints=6/6
+# Alaric (PARTY): status=Alive, hitPoints=3/5
+# Brother Torvin (PARTY): status=Alive, hitPoints=8/8
+# Tarin (PARTY): status=Alive, hitPoints=3/7
+# Goblin 1 (MONSTERS): status=Dead, hitPoints=0/6
+# Goblin 2 (MONSTERS): status=Fled, hitPoints=4/4
+# Goblin 3 (MONSTERS): status=Dead, hitPoints=0/9
+# Goblin 4 (MONSTERS): status=Fled, hitPoints=2/2
+# Zek the Shaman (MONSTERS): status=Fled, hitPoints=23/23
