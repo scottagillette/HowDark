@@ -40,6 +40,34 @@ class FactoryCoverageTest {
     }
 
     @Test
+    void everyAvailableWeaponConstructs() {
+        assertFalse(WeaponFactory.availableWeapons().isEmpty(), "expected available weapons");
+
+        for (String type : WeaponFactory.availableWeapons()) {
+            final WeaponConfig config = new WeaponConfig();
+            config.setType(type);
+
+            assertNotNull(assertDoesNotThrow(
+                    () -> WeaponFactory.create(config),
+                    () -> "weapon type failed to construct: " + type));
+        }
+    }
+
+    @Test
+    void everyAvailableSpellConstructs() {
+        assertFalse(SpellFactory.availableSpells().isEmpty(), "expected available spells");
+
+        for (String type : SpellFactory.availableSpells()) {
+            final SpellConfig config = new SpellConfig();
+            config.setType(type);
+
+            assertNotNull(assertDoesNotThrow(
+                    () -> SpellFactory.create(config),
+                    () -> "spell type failed to construct: " + type));
+        }
+    }
+
+    @Test
     void everyAvailableClassConstructsAtHigherLevel() {
         // Level scaling runs the hit-point loop; make sure no class breaks above level 1.
         for (String playerClass : PlayerFactory.availableClasses()) {
