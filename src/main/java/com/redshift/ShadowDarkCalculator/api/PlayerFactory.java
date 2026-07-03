@@ -1,6 +1,8 @@
 package com.redshift.ShadowDarkCalculator.api;
 
+import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
+import com.redshift.ShadowDarkCalculator.actions.misc.HealingPotion;
 import com.redshift.ShadowDarkCalculator.actions.spells.*;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
@@ -8,226 +10,218 @@ import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.players.*;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.function.Supplier;
 
 /**
- * Creates players by class name with a default loadout (stats, armor, weapons and spells),
- * so callers only need to pick a class, a name and a level.
+ * Creates players by class name. Each class has a default archetype (stats, armor, weapons
+ * and spells) so callers only need to pick a class, a name and a level; a PartyMemberConfig
+ * can override any part of the build (stats, armor class, hit points, luck token, and the
+ * exact weapons, spells and potions carried).
  *
  * Hit points scale with level using the class hit die average plus the CON modifier
- * (minimum 1 per level), matching how Shadowdark characters gain hit points.
+ * (minimum 1 per level), matching how Shadowdark characters gain hit points. When custom
+ * stats are supplied the derived hit points use the custom CON modifier; an explicit
+ * hitPoints value bypasses the derivation entirely.
  */
 
 public final class PlayerFactory {
 
-    private PlayerFactory() {
+    @FunctionalInterface
+    private interface PlayerConstructor {
+        Creature create(String name, int level, Stats stats, int armorClass, int hitPoints, Action action);
     }
 
-    public static Creature create(PartyMemberConfig config) {
-        return create(config.getPlayerClass(), config.getName(), config.getLevel());
+    /**
+     * The default build for a class plus the constructor that applies class labels and
+     * behaviors. Stats and actions are suppliers because both are mutated during combat.
+     * A non-null fixedLevel pins the class to that level (commoners are always level 0).
+     */
+    private record Archetype(
+            String displayName,
+            Integer fixedLevel,
+            Supplier<Stats> defaultStats,
+            int defaultArmorClass,
+            int baseHitPoints,
+            int averageHitDie,
+            Supplier<Action> defaultAction,
+            PlayerConstructor constructor) {
     }
 
-    public static Creature create(String playerClass, String name, int level) {
-        final String key = normalize(playerClass);
+    private static final Map<String, Archetype> REGISTRY = new LinkedHashMap<>();
 
-        return switch (key) {
-            case "fighter" -> fighter(name, level);
-            case "paladin" -> paladin(name, level);
-            case "priest" -> priest(name, level);
-            case "wizard" -> wizard(name, level);
-            case "thief" -> thief(name, level);
-            case "necromancer" -> necromancer(name, level);
-            case "bard" -> bard(name, level);
-            case "ranger" -> ranger(name, level);
-            case "warlock" -> warlock(name, level);
-            case "witch" -> witch(name, level);
-            case "knight-of-st-ydris" -> knightOfStYdris(name, level);
-            case "commoner" -> commoner(name);
-            default -> throw new IllegalArgumentException(
-                    "Unknown player class: '" + playerClass + "'. Available: " + availableClasses());
-        };
-    }
+    static {
+        register("fighter", new Archetype("Fighter", null,
+                () -> new Stats(16, 14, 12, 8, 11, 10), 15, 8, 5,
+                () -> WeaponBuilder.GREAT_AXE_2H.build(),
+                Fighter::new));
 
-    public static Set<String> availableClasses() {
-        return new TreeSet<>(Set.of(
-                "fighter", "paladin", "priest", "wizard", "thief", "necromancer",
-                "bard", "ranger", "warlock", "witch", "knight-of-st-ydris", "commoner"));
-    }
+        register("paladin", new Archetype("Paladin", null,
+                () -> new Stats(18, 13, 13, 8, 7, 9), 14, 6, 4,
+                () -> WeaponBuilder.BASTARD_SWORD_1H.build(),
+                Paladin::new));
 
-    private static Creature fighter(String name, int level) {
-        final Stats stats = new Stats(16, 14, 12, 8, 11, 10);
-        return new Fighter(
-                displayName(name, "Fighter"),
-                level,
-                stats,
-                15,
-                hitPoints(8, 5, stats, level),
-                WeaponBuilder.GREAT_AXE_2H.build()
-        );
-    }
-
-    private static Creature paladin(String name, int level) {
-        final Stats stats = new Stats(18, 13, 13, 8, 7, 9);
-        return new Paladin(
-                displayName(name, "Paladin"),
-                level,
-                stats,
-                14,
-                hitPoints(6, 4, stats, level),
-                WeaponBuilder.BASTARD_SWORD_1H.build()
-        );
-    }
-
-    private static Creature priest(String name, int level) {
-        final Stats stats = new Stats(16, 10, 12, 7, 18, 10);
-        return new Priest(
-                displayName(name, "Priest"),
-                level,
-                stats,
-                13,
-                hitPoints(8, 4, stats, level),
-                new PerformOneAction(
+        register("priest", new Archetype("Priest", null,
+                () -> new Stats(16, 10, 12, 7, 18, 10), 13, 8, 4,
+                () -> new PerformOneAction(
                         WeaponBuilder.LONGSWORD.build().setPriority(1),
                         new HolyWeapon().setPriority(5),
                         new CureWounds().setPriority(10),
-                        new TurnUndead().setPriority(10)
-                )
-        );
-    }
+                        new TurnUndead().setPriority(10)),
+                Priest::new));
 
-    private static Creature wizard(String name, int level) {
-        final Stats stats = new Stats(13, 13, 13, 16, 10, 11);
-        return new Wizard(
-                displayName(name, "Wizard"),
-                level,
-                stats,
-                11,
-                hitPoints(5, 3, stats, level),
-                new PerformOneAction(
+        register("wizard", new Archetype("Wizard", null,
+                () -> new Stats(13, 13, 13, 16, 10, 11), 11, 5, 3,
+                () -> new PerformOneAction(
                         WeaponBuilder.STAFF.build().setPriority(1),
                         new MagicMissile().setPriority(2),
                         new BurningHands().setPriority(5),
-                        new Sleep().setPriority(10)
-                )
-        );
-    }
+                        new Sleep().setPriority(10)),
+                Wizard::new));
 
-    private static Creature thief(String name, int level) {
-        final Stats stats = new Stats(9, 18, 10, 9, 10, 10);
-        return new Thief(
-                displayName(name, "Thief"),
-                level,
-                stats,
-                15,
-                hitPoints(4, 3, stats, level),
-                new PerformOneAction(
+        register("thief", new Archetype("Thief", null,
+                () -> new Stats(9, 18, 10, 9, 10, 10), 15, 4, 3,
+                () -> new PerformOneAction(
                         WeaponBuilder.SHORT_BOW.build(),
-                        WeaponBuilder.DAGGER_DEX.build()
-                )
-        );
-    }
+                        WeaponBuilder.DAGGER_DEX.build()),
+                Thief::new));
 
-    private static Creature necromancer(String name, int level) {
-        final Stats stats = new Stats(13, 10, 10, 13, 5, 15);
-        return new Necromancer(
-                displayName(name, "Necromancer"),
-                level,
-                stats,
-                12,
-                hitPoints(4, 3, stats, level),
-                new PerformOneAction(
+        register("necromancer", new Archetype("Necromancer", null,
+                () -> new Stats(13, 10, 10, 13, 5, 15), 12, 4, 3,
+                () -> new PerformOneAction(
                         WeaponBuilder.LONGSWORD.build().setPriority(2),
                         new Withermark().setPriority(1),
-                        new Undeath().setPriority(10)
-                )
-        );
-    }
+                        new Undeath().setPriority(10)),
+                Necromancer::new));
 
-    private static Creature bard(String name, int level) {
-        final Stats stats = new Stats(10, 14, 12, 10, 10, 16);
-        return new Bard(
-                displayName(name, "Bard"),
-                level,
-                stats,
-                13,
-                hitPoints(6, 4, stats, level),
-                new PerformOneAction(
+        register("bard", new Archetype("Bard", null,
+                () -> new Stats(10, 14, 12, 10, 10, 16), 13, 6, 4,
+                () -> new PerformOneAction(
                         WeaponBuilder.CROSSBOW.build(),
-                        WeaponBuilder.SHORT_SWORD.build()
-                )
-        );
-    }
+                        WeaponBuilder.SHORT_SWORD.build()),
+                Bard::new));
 
-    private static Creature ranger(String name, int level) {
-        final Stats stats = new Stats(12, 16, 14, 10, 11, 8);
-        return new Ranger(
-                displayName(name, "Ranger"),
-                level,
-                stats,
-                13,
-                hitPoints(8, 5, stats, level),
-                new PerformOneAction(
+        register("ranger", new Archetype("Ranger", null,
+                () -> new Stats(12, 16, 14, 10, 11, 8), 13, 8, 5,
+                () -> new PerformOneAction(
                         WeaponBuilder.LONGBOW.build(),
-                        WeaponBuilder.SHORT_SWORD.build()
-                )
-        );
-    }
+                        WeaponBuilder.SHORT_SWORD.build()),
+                Ranger::new));
 
-    private static Creature warlock(String name, int level) {
-        final Stats stats = new Stats(12, 14, 12, 10, 11, 16);
-        return new Warlock(
-                displayName(name, "Warlock"),
-                level,
-                stats,
-                13,
-                hitPoints(6, 4, stats, level),
-                new PerformOneAction(
+        register("warlock", new Archetype("Warlock", null,
+                () -> new Stats(12, 14, 12, 10, 11, 16), 13, 6, 4,
+                () -> new PerformOneAction(
                         WeaponBuilder.LONGBOW.build(),
-                        WeaponBuilder.SHORT_SWORD.build()
-                )
-        );
-    }
+                        WeaponBuilder.SHORT_SWORD.build()),
+                Warlock::new));
 
-    private static Creature witch(String name, int level) {
-        final Stats stats = new Stats(8, 12, 11, 10, 10, 16);
-        return new Witch(
-                displayName(name, "Witch"),
-                level,
-                stats,
-                11,
-                hitPoints(4, 3, stats, level),
-                new PerformOneAction(
+        register("witch", new Archetype("Witch", null,
+                () -> new Stats(8, 12, 11, 10, 10, 16), 11, 4, 3,
+                () -> new PerformOneAction(
                         WeaponBuilder.STAFF.build().setPriority(1),
                         new Eyebite().setPriority(3),
-                        new Hypnotize().setPriority(6)
-                )
-        );
+                        new Hypnotize().setPriority(6)),
+                Witch::new));
+
+        register("knight-of-st-ydris", new Archetype("Knight of St Ydris", null,
+                () -> new Stats(16, 12, 14, 8, 10, 13), 15, 7, 4,
+                () -> WeaponBuilder.BASTARD_SWORD_1H.build(),
+                KnightOfStYdris::new));
+
+        register("commoner", new Archetype("Commoner", 0,
+                () -> new Stats(10, 10, 10, 10, 10, 10), 10, 1, 0,
+                () -> WeaponBuilder.CLUB.build(),
+                (name, level, stats, armorClass, hitPoints, action) -> {
+                    final Creature commoner = new Player(name, level, stats, armorClass, hitPoints, action);
+                    commoner.getLabels().add(CreatureLabel.FRONT_LINE);
+                    return commoner;
+                }));
     }
 
-    private static Creature knightOfStYdris(String name, int level) {
-        final Stats stats = new Stats(16, 12, 14, 8, 10, 13);
-        return new KnightOfStYdris(
-                displayName(name, "Knight of St Ydris"),
+    private PlayerFactory() {
+    }
+
+    public static Creature create(String playerClass, String name, int level) {
+        final PartyMemberConfig config = new PartyMemberConfig();
+        config.setPlayerClass(playerClass);
+        config.setName(name);
+        config.setLevel(level);
+        return create(config);
+    }
+
+    public static Creature create(PartyMemberConfig config) {
+        final Archetype archetype = archetype(config.getPlayerClass());
+
+        final int level = archetype.fixedLevel() != null ? archetype.fixedLevel() : config.getLevel();
+
+        final Stats stats = config.getStats() != null
+                ? config.getStats().toStats()
+                : archetype.defaultStats().get();
+
+        final int armorClass = config.getArmorClass() != null
+                ? config.getArmorClass()
+                : archetype.defaultArmorClass();
+
+        final Action action = config.hasCustomLoadout()
+                ? buildLoadout(config)
+                : archetype.defaultAction().get();
+
+        final int hitPoints = config.getHitPoints() != null
+                ? config.getHitPoints()
+                : hitPoints(archetype.baseHitPoints(), archetype.averageHitDie(), stats, level);
+
+        final Creature player = archetype.constructor().create(
+                displayName(config.getName(), archetype.displayName()),
                 level,
                 stats,
-                15,
-                hitPoints(7, 4, stats, level),
-                WeaponBuilder.BASTARD_SWORD_1H.build()
-        );
+                armorClass,
+                hitPoints,
+                action);
+
+        if (config.isLuckToken()) {
+            player.giveLuckToken();
+        }
+
+        return player;
     }
 
-    private static Creature commoner(String name) {
-        final Creature commoner = new Player(
-                displayName(name, "Commoner"),
-                0,
-                new Stats(10, 10, 10, 10, 10, 10),
-                10,
-                1,
-                WeaponBuilder.CLUB.build()
-        );
-        commoner.getLabels().add(CreatureLabel.FRONT_LINE);
-        return commoner;
+    public static Set<String> availableClasses() {
+        return new TreeSet<>(REGISTRY.keySet());
+    }
+
+    private static Archetype archetype(String playerClass) {
+        final Archetype archetype = REGISTRY.get(normalize(playerClass));
+
+        if (archetype == null) {
+            throw new IllegalArgumentException(
+                    "Unknown player class: '" + playerClass + "'. Available: " + availableClasses());
+        }
+
+        return archetype;
+    }
+
+    private static Action buildLoadout(PartyMemberConfig config) {
+        final List<Action> actions = new ArrayList<>();
+
+        config.getWeapons().forEach(weapon -> actions.add(WeaponFactory.create(weapon)));
+        config.getSpells().forEach(spell -> actions.add(SpellFactory.create(spell)));
+
+        for (int i = 0; i < config.getHealingPotions(); i++) {
+            actions.add(new HealingPotion());
+        }
+
+        return actions.size() == 1
+                ? actions.getFirst()
+                : new PerformOneAction(actions.toArray(new Action[0]));
+    }
+
+    private static void register(String key, Archetype archetype) {
+        REGISTRY.put(key, archetype);
     }
 
     private static int hitPoints(int baseHitPoints, int averageHitDie, Stats stats, int level) {

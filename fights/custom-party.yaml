@@ -1,0 +1,114 @@
+# An exact YAML replica of the hand-tuned "lost-citadel" party (see
+# LostCitadelPartyBuilder), built member-by-member with the custom player config
+# instead of partyBuilder. Fights the same storm giant as
+# lost-citadel-vs-storm-giant.yaml, so the outcomes of the two files should match
+# within simulation noise -- a good sanity check for the custom party config.
+#
+# Custom member options (anything omitted falls back to the class default):
+#
+#   stats:           all six required when present; short forms str/dex/con/int/wis/cha work
+#   armorClass / ac: overrides the class default armor
+#   hitPoints / hp:  overrides derived hit points (otherwise hit die avg + CON mod per level)
+#   luckToken:       true grants one luck token re-roll
+#   healingPotions:  number of one-use healing potions carried
+#   weapons:         by type (kebab-case WeaponBuilder name, e.g. bastard-sword-1h, longbow);
+#                    options: magical, silvered, attackRollBonus, damageRollBonus, priority
+#   spells:          by type (e.g. cure-wounds, magic-missile, burning-hands, sleep,
+#                    holy-weapon, turn-undead, eyebite, hypnotize, withermark, undeath,
+#                    mage-armor, protection-from-evil, shield-of-faith);
+#                    options: spellCheckBonus, advantage, priority
+#
+# Listing weapons/spells/potions replaces the class default loadout entirely.
+# Priorities weight the chance an action is chosen each turn (heal 10, sword 1 means
+# roll an 11-sided die: 1 sword, 2-11 heal). Spells only fire when they have a target
+# (heals need someone hurt), so high-priority utility spells don't waste turns.
+
+simulations: 1000
+
+party:
+  - name: Borlin Little Digger
+    class: paladin
+    level: 1
+    stats: { str: 18, dex: 13, con: 13, int: 8, wis: 7, cha: 9 }
+    armorClass: 14
+    hitPoints: 6
+    weapons:
+      - type: bastard-sword-1h
+        magical: true
+
+# Pebble is not currently in party
+#  - name: Pebble Weatherton
+#    class: necromancer
+#    level: 1
+#    stats: { str: 13, dex: 10, con: 10, int: 13, wis: 5, cha: 15 }
+#    armorClass: 10
+#    hitPoints: 1
+#    weapons:
+#      - type: staff
+#        priority: 1
+#    spells:
+#      - type: eyebite
+#        priority: 3
+#      - type: hypnotize
+#        priority: 6
+
+  - name: Malady Blackhand
+    class: necromancer
+    level: 1
+    stats: { str: 13, dex: 10, con: 10, int: 13, wis: 5, cha: 15 }
+    armorClass: 12
+    hitPoints: 4
+    weapons:
+      - type: longsword
+        attackRollBonus: 1
+        priority: 2
+    spells:
+      - type: withermark
+        spellCheckBonus: 1
+        priority: 1
+      - type: undeath
+        spellCheckBonus: 1
+        priority: 10
+
+  - name: Alaric
+    class: wizard
+    level: 1
+    stats: { str: 13, dex: 13, con: 13, int: 16, wis: 10, cha: 11 }
+    armorClass: 11
+    hitPoints: 5
+    weapons:
+      - type: staff
+        priority: 1
+    spells:
+      - type: magic-missile
+        priority: 2
+      - type: burning-hands
+        advantage: true
+        priority: 5
+      - type: sleep
+        priority: 10
+
+  - name: Brother Torvin
+    class: priest
+    level: 1
+    stats: { str: 18, dex: 10, con: 10, int: 7, wis: 18, cha: 10 }
+    armorClass: 13
+    hitPoints: 8
+    weapons:
+      - type: longsword
+        priority: 1
+    spells:
+      - type: holy-weapon
+        priority: 5
+      - type: cure-wounds
+        priority: 10
+      - type: turn-undead
+        priority: 10
+
+monsters:
+  - type: storm-giant
+    name: Storm Giant
+
+# Baseline from lost-citadel-vs-storm-giant.yaml (prebuilt party, 1000 fights):
+#   Players:  wins=34, winsWithDeath=16
+#   Monsters: wins=966, winsWithDeath=0

@@ -11,6 +11,12 @@
 #      fighter, knight-of-st-ydris, necromancer, paladin, priest, ranger, thief,
 #      warlock, witch, wizard.
 #
+#      Any part of a member's build can be overridden: stats (all six, short forms
+#      str/dex/con/int/wis/cha accepted), armorClass (alias ac), hitPoints (alias hp),
+#      luckToken, healingPotions, and the exact weapons and spells carried. Listing
+#      weapons/spells/potions replaces the class default loadout entirely. See
+#      fights/custom-party.yaml for a fully customized party.
+#
 # Monsters are picked by type (e.g. goblin, storm-giant, bone-naga). Use
 # "count" for multiples; names are numbered automatically.
 
