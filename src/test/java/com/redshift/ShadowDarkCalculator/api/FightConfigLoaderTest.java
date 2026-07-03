@@ -50,6 +50,74 @@ class FightConfigLoaderTest {
     }
 
     @Test
+    void parsesCustomPlayerLoadout() {
+        final String yaml = """
+                simulations: 10
+                party:
+                  - name: Borlin
+                    class: paladin
+                    stats: { str: 18, dex: 13, con: 14, int: 8, wis: 7, cha: 9 }
+                    ac: 16
+                    hp: 20
+                    luckToken: true
+                    healingPotions: 2
+                    weapons:
+                      - type: bastard-sword-1h
+                        magical: true
+                        attackRollBonus: 1
+                    spells:
+                      - type: cure-wounds
+                        priority: 10
+                        spellCheckBonus: 1
+                        advantage: true
+                monsters:
+                  - type: goblin
+                """;
+
+        final PartyMemberConfig member = FightConfigLoader.parse(yaml).getParty().get(0);
+
+        // Short stat forms and the ac/hp aliases bind to the full field names.
+        assertEquals(18, member.getStats().getStrength());
+        assertEquals(9, member.getStats().getCharisma());
+        assertEquals(16, member.getArmorClass());
+        assertEquals(20, member.getHitPoints());
+
+        assertTrue(member.isLuckToken());
+        assertEquals(2, member.getHealingPotions());
+        assertTrue(member.hasCustomLoadout());
+
+        final WeaponConfig weapon = member.getWeapons().get(0);
+        assertEquals("bastard-sword-1h", weapon.getType());
+        assertTrue(weapon.isMagical());
+        assertEquals(1, weapon.getAttackRollBonus());
+
+        final SpellConfig spell = member.getSpells().get(0);
+        assertEquals("cure-wounds", spell.getType());
+        assertEquals(10, spell.getPriority());
+        assertEquals(1, spell.getSpellCheckBonus());
+        assertTrue(spell.isAdvantage());
+    }
+
+    @Test
+    void incompleteStatsBlockFailsValidation() {
+        // All six stats are required so a partial block can't silently mix in defaults.
+        final String yaml = """
+                simulations: 10
+                party:
+                  - class: fighter
+                    stats: { str: 18 }
+                monsters:
+                  - type: goblin
+                """;
+
+        final IllegalArgumentException exception =
+                assertThrows(IllegalArgumentException.class, () -> FightConfigLoader.parse(yaml));
+
+        assertTrue(exception.getMessage().contains("stats"),
+                () -> "expected a stats validation message, got: " + exception.getMessage());
+    }
+
+    @Test
     void emptyPartyFailsValidationThroughLoader() {
         final String yaml = """
                 simulations: 10

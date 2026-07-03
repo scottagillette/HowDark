@@ -1,0 +1,32 @@
+simulations: 1000
+
+partyBuilder: lost-citadel
+
+monsters:
+  - type: giant-rat
+    count: 2
+  - type: giant-centipede
+    count: 2
+  - type: bandit
+    count: 2
+  - type: goblin
+    count: 2
+
+    
+# ---------------------------------------------------------------
+# [ Outcome - 1000 Simulated Fights ]
+# Players:  wins=493, winsWithDeath=145
+# Monsters: wins=507, winsWithDeath=418
+# [ Last Fight ]
+# Borlin Little Digger (PARTY): status=Dead, hitPoints=0/6
+# Malady Blackhand (PARTY): status=Dead, hitPoints=0/4
+# Alaric (PARTY): status=Dead, hitPoints=0/5
+# Brother Torvin (PARTY): status=Dead, hitPoints=0/8
+# Giant Rat 1 (MONSTERS): status=Alive, hitPoints=3/3
+# Giant Rat 2 (MONSTERS): status=Alive, hitPoints=6/6
+# Giant Centipede 1 (MONSTERS): status=Alive, hitPoints=6/6
+# Giant Centipede 2 (MONSTERS): status=Alive, hitPoints=2/2
+# Bandit 1 (MONSTERS): status=Alive, hitPoints=6/6
+# Bandit 2 (MONSTERS): status=Alive, hitPoints=5/5
+# Goblin 1 (MONSTERS): status=Alive, hitPoints=6/6
+# Goblin 2 (MONSTERS): status=Alive, hitPoints=8/8
