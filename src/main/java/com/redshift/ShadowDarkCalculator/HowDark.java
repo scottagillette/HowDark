@@ -1,21 +1,34 @@
 package com.redshift.ShadowDarkCalculator;
 
+import com.redshift.ShadowDarkCalculator.api.FightConfig;
+import com.redshift.ShadowDarkCalculator.api.FightConfigLoader;
+import com.redshift.ShadowDarkCalculator.api.FightResult;
+import com.redshift.ShadowDarkCalculator.api.FightSimulator;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.giants.StormGiant;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyBuilder;
 import lombok.extern.slf4j.Slf4j;
 
+import java.nio.file.Path;
 import java.util.List;
 
 /**
  * Application to run X number of combat simulations between two groups of creatures.
+ *
+ * Pass a YAML file path as the first argument to configure the fight (see fight.yaml);
+ * with no arguments the hardcoded fight below is used.
  */
 
 @Slf4j
 public class HowDark {
 
     public static void main(String[] args) {
+        if (args.length > 0) {
+            runFromYaml(args[0]);
+            return;
+        }
+
         int group1Wins = 0;
         int group1WinsWithDeath = 0;
 
@@ -163,6 +176,40 @@ public class HowDark {
 
         log.info("Players:  wins={}, winsWithDeath={}", group1Wins, group1WinsWithDeath);
         log.info("Monsters: wins={}, winsWithDeath={}", group2Wins, group2WinsWithDeath);
+    }
+
+    /**
+     * Runs a fight described by a YAML config file and logs the aggregate outcome plus the
+     * final state of every creature in the last simulated fight.
+     *
+     * <p>To run from the command line, pass the path to a YAML file as the first argument:
+     * <pre>{@code
+     *   ./gradlew bootRun --args="fight.yaml"
+     *   ./gradlew bootRun --args="C:/path/to/my-fight.yaml"
+     * }</pre>
+     *
+     * @param path filesystem path to the YAML fight configuration.
+     */
+
+    private static void runFromYaml(String path) {
+        final FightConfig config = FightConfigLoader.load(Path.of(path));
+        final FightResult result = new FightSimulator().run(config);
+
+        log.info("[ Outcome - {} Simulated Fights ]", result.getSimulations());
+
+        log.info("Players:  wins={}, winsWithDeath={}", result.getPartyWins(), result.getPartyWinsWithDeath());
+        log.info("Monsters: wins={}, winsWithDeath={}", result.getMonsterWins(), result.getMonsterWinsWithDeath());
+
+        log.info("[ Last Fight ]");
+
+        result.getLastFightCreatures().forEach(creature -> log.info(
+                "{} ({}): status={}, hitPoints={}/{}",
+                creature.getName(),
+                creature.getGroup(),
+                creature.getStatus(),
+                creature.getCurrentHitPoints(),
+                creature.getMaxHitPoints()
+        ));
     }
 
 }
