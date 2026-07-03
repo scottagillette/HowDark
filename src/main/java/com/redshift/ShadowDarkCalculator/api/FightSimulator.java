@@ -52,6 +52,10 @@ public class FightSimulator {
     }
 
     private List<Creature> buildParty(FightConfig config) {
+        if (config.usesPrebuiltParty()) {
+            return PartyFactory.create(config.getPartyBuilder());
+        }
+
         final List<Creature> party = new ArrayList<>();
         config.getParty().forEach(member -> party.add(PlayerFactory.create(member)));
         return party;

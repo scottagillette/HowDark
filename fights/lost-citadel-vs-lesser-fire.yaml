@@ -1,0 +1,19 @@
+simulations: 1000
+
+partyBuilder: lost-citadel
+
+monsters:
+  - type: lesser-fire-elemental
+    name: FIRE MAN
+
+
+# ---------------------------------------------------------------
+# [ Outcome - 1000 Simulated Fights ]
+# Players:  wins=149, winsWithDeath=56
+# Monsters: wins=851, winsWithDeath=0
+# [ Last Fight ]
+# Borlin Little Digger (PARTY): status=Dead, hitPoints=0/6
+# Malady Blackhand (PARTY): status=Dead, hitPoints=0/4
+# Alaric (PARTY): status=Dead, hitPoints=0/5
+# Brother Torvin (PARTY): status=Dead, hitPoints=0/8
+# FIRE MAN (MONSTERS): status=Alive, hitPoints=20/31

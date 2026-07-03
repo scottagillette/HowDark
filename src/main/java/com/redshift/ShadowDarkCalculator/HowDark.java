@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Application to run X number of combat simulations between two groups of creatures.
  *
- * Pass a YAML file path as the first argument to configure the fight (see fight.yaml);
+ * Pass a YAML file path as the first argument to configure the fight (see fights/fight.yaml);
  * with no arguments the hardcoded fight below is used.
  */
 
@@ -184,7 +184,7 @@ public class HowDark {
      *
      * <p>To run from the command line, pass the path to a YAML file as the first argument:
      * <pre>{@code
-     *   ./gradlew bootRun --args="fight.yaml"
+     *   ./gradlew bootRun --args="fights/fight.yaml"
      *   ./gradlew bootRun --args="C:/path/to/my-fight.yaml"
      * }</pre>
      *

@@ -1,0 +1,21 @@
+simulations: 1000
+
+partyBuilder: lost-citadel
+
+monsters:
+  - type: cyclops
+    name: Cyclops 1
+  - type: cyclops
+    name: Cyclops 2
+
+# ---------------------------------------------------------------
+# [ Outcome - 1000 Simulated Fights ]
+# Players:  wins=47, winsWithDeath=12
+# Monsters: wins=953, winsWithDeath=2
+# [ Last Fight ]
+# Borlin Little Digger (PARTY): status=Dead, hitPoints=0/6
+# Malady Blackhand (PARTY): status=Dead, hitPoints=0/4
+# Alaric (PARTY): status=Dead, hitPoints=0/5
+# Brother Torvin (PARTY): status=Dead, hitPoints=0/8
+# Cyclops 1 (MONSTERS): status=Alive, hitPoints=19/28
+# Cyclops 2 (MONSTERS): status=Alive, hitPoints=27/29

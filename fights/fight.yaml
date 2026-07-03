@@ -1,0 +1,34 @@
+# Example fight configuration for How Dark?
+#
+# The party is chosen ONE of two ways (exactly one):
+#
+#   1. A prebuilt, hand-tuned party by name:
+#        partyBuilder: lost-citadel
+#      Available: lost-citadel, the-wolf-pack, the-crab-crushers, diablerie, funnel
+#
+#   2. Members listed individually by class (shown below); each class comes with a
+#      default loadout (stats, armor, weapons and spells). Classes: bard, commoner,
+#      fighter, knight-of-st-ydris, necromancer, paladin, priest, ranger, thief,
+#      warlock, witch, wizard.
+#
+# Monsters are picked by type (e.g. goblin, storm-giant, bone-naga). Use
+# "count" for multiples; names are numbered automatically.
+
+simulations: 1000
+
+party:
+  - name: Borlin Little Digger
+    class: paladin
+  - name: Alaric
+    class: wizard
+  - name: Brother Torvin
+    class: priest
+  - name: Tarin
+    class: thief
+    level: 2
+
+monsters:
+  - type: goblin
+    count: 4
+  - type: goblin-shaman
+    name: Zek the Shaman
