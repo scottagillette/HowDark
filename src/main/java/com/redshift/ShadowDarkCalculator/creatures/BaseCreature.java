@@ -81,7 +81,7 @@ public abstract class BaseCreature implements Creature {
     @Override
     public void flee() {
         fled = true;
-        log.info("{} has failed a moral check and has fled the battle field!", name);
+        log.info("{} has failed a morale check and has fled the battle field!", name);
         // No other custom behavior.
     }
 
