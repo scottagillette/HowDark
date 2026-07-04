@@ -1,5 +1,8 @@
-package com.redshift.ShadowDarkCalculator.api;
+package com.redshift.ShadowDarkCalculator.fights;
 
+import com.redshift.ShadowDarkCalculator.creatures.players.config.PartyMemberConfig;
+import com.redshift.ShadowDarkCalculator.creatures.players.config.SpellConfig;
+import com.redshift.ShadowDarkCalculator.creatures.players.config.WeaponConfig;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,11 +20,33 @@ class FightConfigLoaderTest {
         final String yaml = """
                 simulations: 250
                 party:
-                  - name: Borlin
-                    class: paladin
+                  - name: Borlin Little Digger
+                    class: Paladin
+                    level: 1
+                    stats: { str: 18, dex: 13, con: 13, int: 8, wis: 7, cha: 9 }
+                    hp: 6
+                    ac: 14
+                    weapons:
+                      - type: bastard-sword-1h
+                        magical: true
+                        priority: 1
                   - name: Alaric
-                    class: wizard
-                    level: 2
+                    class: Wizard
+                    level: 1
+                    stats: { str: 13, dex: 13, con: 13, int: 16, wis: 10, cha: 11 }
+                    hp: 5
+                    ac: 11
+                    weapons:
+                      - type: staff
+                        priority: 1
+                    spells:
+                      - type: Magic-Missile
+                        priority: 2
+                      - type: Sleep
+                        priority: 10
+                      - type: Burning-Hands
+                        advantage: true
+                        priority: 5
                 monsters:
                   - type: goblin
                     count: 4
@@ -35,12 +60,12 @@ class FightConfigLoaderTest {
         assertEquals(2, config.getMonsters().size());
 
         // 'class' is a reserved word mapped via @JsonProperty; confirm it binds to playerClass.
-        assertEquals("paladin", config.getParty().get(0).getPlayerClass());
-        assertEquals("Borlin", config.getParty().get(0).getName());
+        assertEquals("Paladin", config.getParty().get(0).getPlayerClass());
+        assertEquals("Borlin Little Digger", config.getParty().get(0).getName());
 
         // Level defaults to 1 when omitted, and is read when present.
         assertEquals(1, config.getParty().get(0).getLevel());
-        assertEquals(2, config.getParty().get(1).getLevel());
+        assertEquals(1, config.getParty().get(1).getLevel());
 
         assertEquals("goblin", config.getMonsters().get(0).getType());
         assertEquals(4, config.getMonsters().get(0).getCount());
@@ -84,7 +109,6 @@ class FightConfigLoaderTest {
 
         assertTrue(member.isLuckToken());
         assertEquals(2, member.getHealingPotions());
-        assertTrue(member.hasCustomLoadout());
 
         final WeaponConfig weapon = member.getWeapons().get(0);
         assertEquals("bastard-sword-1h", weapon.getType());

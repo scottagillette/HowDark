@@ -1,4 +1,4 @@
-package com.redshift.ShadowDarkCalculator.api;
+package com.redshift.ShadowDarkCalculator.creatures.players.config;
 
 import com.redshift.ShadowDarkCalculator.actions.spells.BurningHands;
 import com.redshift.ShadowDarkCalculator.actions.spells.CureWounds;
@@ -49,26 +49,21 @@ public final class SpellFactory {
     private SpellFactory() {
     }
 
-    public static Spell create(SpellConfig config) {
-        config.validate();
+    public static Spell create(SpellConfig spellConfig) {
+        spellConfig.validate();
 
-        final Supplier<Spell> supplier = REGISTRY.get(normalize(config.getType()));
+        final Supplier<Spell> supplier = REGISTRY.get(normalize(spellConfig.getType()));
 
         if (supplier == null) {
-            throw new IllegalArgumentException(
-                    "Unknown spell: '" + config.getType() + "'. Available: " + availableSpells());
+            throw new IllegalArgumentException("Unknown spell: '" + spellConfig.getType() + "'. Available: " + availableSpells());
         }
 
         final Spell spell = supplier.get();
 
-        if (config.isAdvantage()) {
-            spell.addAdvantage();
-        }
-        if (config.getSpellCheckBonus() != 0) {
-            spell.addSpellCheckBonus(config.getSpellCheckBonus());
-        }
+        if (spellConfig.isAdvantage()) spell.addAdvantage();
+        if (spellConfig.getSpellCheckBonus() != 0) spell.addSpellCheckBonus(spellConfig.getSpellCheckBonus());
 
-        spell.setPriority(config.getPriority());
+        spell.setPriority(spellConfig.getPriority());
 
         return spell;
     }

@@ -1,4 +1,4 @@
-package com.redshift.ShadowDarkCalculator.api;
+package com.redshift.ShadowDarkCalculator.creatures.monsters.config;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.*;
@@ -151,8 +151,7 @@ public final class MonsterFactory {
         final Function<String, Creature> constructor = REGISTRY.get(normalize(type));
 
         if (constructor == null) {
-            throw new IllegalArgumentException(
-                    "Unknown monster type: '" + type + "'. Available: " + availableTypes());
+            throw new IllegalArgumentException("Unknown monster type: '" + type + "'. Available: " + availableTypes());
         }
 
         return constructor.apply(name);

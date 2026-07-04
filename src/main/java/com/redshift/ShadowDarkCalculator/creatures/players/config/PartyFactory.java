@@ -1,4 +1,4 @@
-package com.redshift.ShadowDarkCalculator.api;
+package com.redshift.ShadowDarkCalculator.creatures.players.config;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
@@ -40,8 +40,7 @@ public final class PartyFactory {
         final Supplier<PartyBuilder> builder = REGISTRY.get(normalize(name));
 
         if (builder == null) {
-            throw new IllegalArgumentException(
-                    "Unknown party: '" + name + "'. Available: " + availableParties());
+            throw new IllegalArgumentException("Unknown party: '" + name + "'. Available: " + availableParties());
         }
 
         return builder.get().build();

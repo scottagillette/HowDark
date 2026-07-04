@@ -1,7 +1,12 @@
-package com.redshift.ShadowDarkCalculator.api;
+package com.redshift.ShadowDarkCalculator;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
+import com.redshift.ShadowDarkCalculator.fights.FightConfig;
+import com.redshift.ShadowDarkCalculator.fights.FightResult;
+import com.redshift.ShadowDarkCalculator.fights.FightSimulator;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.config.MonsterConfig;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.config.MonsterFactory;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;

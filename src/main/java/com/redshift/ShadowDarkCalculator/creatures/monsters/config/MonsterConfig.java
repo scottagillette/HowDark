@@ -1,4 +1,4 @@
-package com.redshift.ShadowDarkCalculator.api;
+package com.redshift.ShadowDarkCalculator.creatures.monsters.config;
 
 import lombok.Data;
 

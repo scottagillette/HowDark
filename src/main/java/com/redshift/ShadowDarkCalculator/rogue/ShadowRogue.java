@@ -1,12 +1,11 @@
 package com.redshift.ShadowDarkCalculator.rogue;
 
-import java.nio.file.Path;
 import java.util.Scanner;
 
-import com.redshift.ShadowDarkCalculator.api.FightConfig;
-import com.redshift.ShadowDarkCalculator.api.FightConfigLoader;
-import com.redshift.ShadowDarkCalculator.api.FightResult;
-import com.redshift.ShadowDarkCalculator.api.FightSimulator;
+import com.redshift.ShadowDarkCalculator.fights.FightConfig;
+import com.redshift.ShadowDarkCalculator.fights.FightConfigLoader;
+import com.redshift.ShadowDarkCalculator.fights.FightResult;
+import com.redshift.ShadowDarkCalculator.fights.FightSimulator;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,5 +1,7 @@
-package com.redshift.ShadowDarkCalculator.api;
+package com.redshift.ShadowDarkCalculator.fights;
 
+import com.redshift.ShadowDarkCalculator.creatures.monsters.config.MonsterConfig;
+import com.redshift.ShadowDarkCalculator.creatures.players.config.PartyMemberConfig;
 import lombok.Data;
 
 import java.util.ArrayList;

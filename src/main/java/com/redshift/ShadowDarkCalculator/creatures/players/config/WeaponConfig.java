@@ -1,4 +1,4 @@
-package com.redshift.ShadowDarkCalculator.api;
+package com.redshift.ShadowDarkCalculator.creatures.players.config;
 
 import lombok.Data;
 
@@ -24,10 +24,10 @@ public class WeaponConfig {
 
     public void validate() {
         if (type == null || type.isBlank()) {
-            throw new IllegalArgumentException("weapon entry is missing a type");
+            throw new IllegalArgumentException("Weapon entry is missing a type");
         }
         if (priority < 1) {
-            throw new IllegalArgumentException("weapon priority must be at least 1: " + priority);
+            throw new IllegalArgumentException("Weapon priority must be at least 1: " + priority);
         }
     }
 

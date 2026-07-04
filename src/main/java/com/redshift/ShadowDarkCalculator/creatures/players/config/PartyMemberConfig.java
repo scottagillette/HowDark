@@ -1,4 +1,4 @@
-package com.redshift.ShadowDarkCalculator.api;
+package com.redshift.ShadowDarkCalculator.creatures.players.config;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -41,34 +41,29 @@ public class PartyMemberConfig {
 
     private List<SpellConfig> spells = new ArrayList<>();
 
-    /**
-     * True when the member lists its own weapons, spells or potions; the custom loadout
-     * replaces the class default actions.
-     */
-    public boolean hasCustomLoadout() {
-        return (weapons != null && !weapons.isEmpty())
-                || (spells != null && !spells.isEmpty())
-                || healingPotions > 0;
-    }
-
     public void validate() {
         if (playerClass == null || playerClass.isBlank()) {
-            throw new IllegalArgumentException("party member is missing a class");
+            throw new IllegalArgumentException("Party member is missing a class");
         }
         if (level < 0) {
-            throw new IllegalArgumentException("party member level cannot be negative: " + level);
+            throw new IllegalArgumentException("Party member level cannot be negative: " + level);
         }
         if (armorClass != null && armorClass < 1) {
-            throw new IllegalArgumentException("party member armorClass must be at least 1: " + armorClass);
+            throw new IllegalArgumentException("Party member armorClass must be at least 1: " + armorClass);
         }
         if (hitPoints != null && hitPoints < 1) {
-            throw new IllegalArgumentException("party member hitPoints must be at least 1: " + hitPoints);
+            throw new IllegalArgumentException("Party member hitPoints must be at least 1: " + hitPoints);
         }
         if (healingPotions < 0) {
-            throw new IllegalArgumentException("party member healingPotions cannot be negative: " + healingPotions);
+            throw new IllegalArgumentException("Party member healingPotions cannot be negative: " + healingPotions);
         }
         if (stats != null) {
             stats.validate();
+        } else {
+            throw new IllegalArgumentException("Player stats must be specified.");
+        }
+        if (weapons == null && spells == null) {
+            throw new IllegalArgumentException("Player must define weapons and/or spells.");
         }
         if (weapons != null) {
             weapons.forEach(WeaponConfig::validate);

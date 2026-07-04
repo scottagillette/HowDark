@@ -1,4 +1,4 @@
-package com.redshift.ShadowDarkCalculator.api;
+package com.redshift.ShadowDarkCalculator.creatures.players.config;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
@@ -157,23 +157,15 @@ public final class PlayerFactory {
     public static Creature create(PartyMemberConfig config) {
         final Archetype archetype = archetype(config.getPlayerClass());
 
-        final int level = archetype.fixedLevel() != null ? archetype.fixedLevel() : config.getLevel();
+        final int level = config.getLevel();
 
-        final Stats stats = config.getStats() != null
-                ? config.getStats().toStats()
-                : archetype.defaultStats().get();
+        final Stats stats = config.getStats().toStats();
 
-        final int armorClass = config.getArmorClass() != null
-                ? config.getArmorClass()
-                : archetype.defaultArmorClass();
+        final int armorClass = config.getArmorClass();
 
-        final Action action = config.hasCustomLoadout()
-                ? buildLoadout(config)
-                : archetype.defaultAction().get();
+        final Action action = buildLoadout(config);
 
-        final int hitPoints = config.getHitPoints() != null
-                ? config.getHitPoints()
-                : hitPoints(archetype.baseHitPoints(), archetype.averageHitDie(), stats, level);
+        final int hitPoints = config.getHitPoints();
 
         final Creature player = archetype.constructor().create(
                 displayName(config.getName(), archetype.displayName()),
@@ -181,7 +173,8 @@ public final class PlayerFactory {
                 stats,
                 armorClass,
                 hitPoints,
-                action);
+                action
+        );
 
         if (config.isLuckToken()) {
             player.giveLuckToken();
@@ -198,8 +191,7 @@ public final class PlayerFactory {
         final Archetype archetype = REGISTRY.get(normalize(playerClass));
 
         if (archetype == null) {
-            throw new IllegalArgumentException(
-                    "Unknown player class: '" + playerClass + "'. Available: " + availableClasses());
+            throw new IllegalArgumentException("Unknown player class: '" + playerClass + "'. Available: " + availableClasses());
         }
 
         return archetype;

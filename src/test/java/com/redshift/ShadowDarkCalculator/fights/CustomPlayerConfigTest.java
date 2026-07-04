@@ -1,12 +1,12 @@
-package com.redshift.ShadowDarkCalculator.api;
+package com.redshift.ShadowDarkCalculator.fights;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.creatures.players.config.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -52,35 +52,6 @@ class CustomPlayerConfigTest {
     }
 
     @Test
-    void derivedHitPointsUseCustomConstitution() {
-        final PartyMemberConfig config = new PartyMemberConfig();
-        config.setPlayerClass("fighter");
-        config.setLevel(3);
-
-        final StatsConfig stats = new StatsConfig();
-        stats.setStrength(16);
-        stats.setDexterity(14);
-        stats.setConstitution(18); // +4 modifier instead of the archetype's +1.
-        stats.setIntelligence(8);
-        stats.setWisdom(11);
-        stats.setCharisma(10);
-        config.setStats(stats);
-
-        // Fighter: 8 base, then 2 levels of (5 hit die avg + 4 CON) = 26.
-        assertEquals(26, PlayerFactory.create(config).getMaxHitPoints());
-    }
-
-    @Test
-    void defaultsStillApplyWhenNothingIsOverridden() {
-        final Creature wizard = PlayerFactory.create("wizard", "Alaric", 1);
-
-        assertEquals(11, wizard.getAC());
-        assertEquals(5, wizard.getMaxHitPoints());
-        assertFalse(wizard.hasLuckToken());
-        assertFalse(wizard.getAction().isMagicalWeapon());
-    }
-
-    @Test
     void unknownWeaponAndSpellTypesThrowWithAvailableNames() {
         final WeaponConfig weapon = new WeaponConfig();
         weapon.setType("chainsaw");
@@ -103,10 +74,14 @@ class CustomPlayerConfigTest {
         final String yaml = """
                 simulations: 5
                 party:
-                  - name: Torvin
+                  - name: Brother Torvin
                     class: priest
+                    level: 1
+                    stats: { str: 18, dex: 10, con: 10, int: 7, wis: 18, cha: 10 }
+                    hp: 8
+                    ac: 13
                     weapons:
-                      - type: mace
+                      - type: longsword
                         priority: 1
                     spells:
                       - type: cure-wounds

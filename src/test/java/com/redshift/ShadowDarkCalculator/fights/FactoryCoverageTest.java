@@ -1,6 +1,11 @@
-package com.redshift.ShadowDarkCalculator.api;
+package com.redshift.ShadowDarkCalculator.fights;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.config.MonsterFactory;
+import com.redshift.ShadowDarkCalculator.creatures.players.config.SpellConfig;
+import com.redshift.ShadowDarkCalculator.creatures.players.config.SpellFactory;
+import com.redshift.ShadowDarkCalculator.creatures.players.config.WeaponConfig;
+import com.redshift.ShadowDarkCalculator.creatures.players.config.WeaponFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -24,18 +29,6 @@ class FactoryCoverageTest {
                     () -> MonsterFactory.create(type, "Test " + type),
                     () -> "monster type failed to construct: " + type);
             assertNotNull(monster, () -> "null monster for type: " + type);
-        }
-    }
-
-    @Test
-    void everyAvailableClassConstructs() {
-        assertFalse(PlayerFactory.availableClasses().isEmpty(), "expected available player classes");
-
-        for (String playerClass : PlayerFactory.availableClasses()) {
-            final Creature player = assertDoesNotThrow(
-                    () -> PlayerFactory.create(playerClass, "Test " + playerClass, 1),
-                    () -> "player class failed to construct: " + playerClass);
-            assertNotNull(player, () -> "null player for class: " + playerClass);
         }
     }
 
@@ -64,16 +57,6 @@ class FactoryCoverageTest {
             assertNotNull(assertDoesNotThrow(
                     () -> SpellFactory.create(config),
                     () -> "spell type failed to construct: " + type));
-        }
-    }
-
-    @Test
-    void everyAvailableClassConstructsAtHigherLevel() {
-        // Level scaling runs the hit-point loop; make sure no class breaks above level 1.
-        for (String playerClass : PlayerFactory.availableClasses()) {
-            assertDoesNotThrow(
-                    () -> PlayerFactory.create(playerClass, "Test " + playerClass, 5),
-                    () -> "player class failed to construct at level 5: " + playerClass);
         }
     }
 

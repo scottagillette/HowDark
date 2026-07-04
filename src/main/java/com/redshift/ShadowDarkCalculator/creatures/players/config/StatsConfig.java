@@ -1,4 +1,4 @@
-package com.redshift.ShadowDarkCalculator.api;
+package com.redshift.ShadowDarkCalculator.creatures.players.config;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
@@ -36,17 +36,17 @@ public class StatsConfig {
     }
 
     public void validate() {
-        requireStat("strength", strength);
-        requireStat("dexterity", dexterity);
-        requireStat("constitution", constitution);
-        requireStat("intelligence", intelligence);
-        requireStat("wisdom", wisdom);
-        requireStat("charisma", charisma);
+        validateStat("strength", strength);
+        validateStat("dexterity", dexterity);
+        validateStat("constitution", constitution);
+        validateStat("intelligence", intelligence);
+        validateStat("wisdom", wisdom);
+        validateStat("charisma", charisma);
     }
 
-    private void requireStat(String name, Integer value) {
+    private void validateStat(String name, Integer value) {
         if (value == null) {
-            throw new IllegalArgumentException("stats block is missing " + name + " (all six stats are required)");
+            throw new IllegalArgumentException("Stats block is missing " + name + " (all six stats are required)");
         }
         if (value < 1 || value > 30) {
             throw new IllegalArgumentException(name + " must be between 1 and 30: " + value);

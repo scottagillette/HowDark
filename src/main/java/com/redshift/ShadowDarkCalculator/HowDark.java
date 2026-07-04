@@ -1,13 +1,13 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.api.FightConfig;
-import com.redshift.ShadowDarkCalculator.api.FightConfigLoader;
-import com.redshift.ShadowDarkCalculator.api.FightResult;
-import com.redshift.ShadowDarkCalculator.api.FightSimulator;
+import com.redshift.ShadowDarkCalculator.fights.FightConfig;
+import com.redshift.ShadowDarkCalculator.fights.FightConfigLoader;
+import com.redshift.ShadowDarkCalculator.fights.FightResult;
+import com.redshift.ShadowDarkCalculator.fights.FightSimulator;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.giants.StormGiant;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 
-import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyBuilder;
+import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyYamlBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Path;
@@ -15,9 +15,8 @@ import java.util.List;
 
 /**
  * Application to run X number of combat simulations between two groups of creatures.
- *
- * Pass a YAML file path as the first argument to configure the fight (see fights/fight.yaml);
- * with no arguments the hardcoded fight below is used.
+ * Pass a YAML file path as the first argument to configure the fight
+ * (see fights/fight.yaml); with no arguments the hardcoded fight below is used.
  */
 
 @Slf4j
@@ -43,7 +42,8 @@ public class HowDark {
 //                    new TheWolfPackBuilder().build(),
 //                    new TheCrabCrushersBuilder().build(),
 //                    new DiableriePartyBuilder().build(),
-                    new LostCitadelPartyBuilder().build(),
+//                    new LostCitadelPartyBuilder().build(),
+                    new LostCitadelPartyYamlBuilder().build(),
                     List.of(new StormGiant("Storm Giant"))
                     //List.of(new LesserFireElemental("Lesser Fire Elemental"))
 //                    List.of(new Druid("Druid of the Moon"))
