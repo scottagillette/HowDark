@@ -124,12 +124,19 @@ class FightConfigLoaderTest {
 
     @Test
     void incompleteStatsBlockFailsValidation() {
-        // All six stats are required so a partial block can't silently mix in defaults.
+        // All six stats are required
         final String yaml = """
                 simulations: 10
                 party:
-                  - class: fighter
+                  - name: SomeName
+                    class: fighter
+                    level: 1
+                    hp: 5
+                    ac: 10
                     stats: { str: 18 }
+                    weapons:
+                      - type: staff
+                        priority: 1
                 monsters:
                   - type: goblin
                 """;

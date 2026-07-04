@@ -8,11 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A single party member selected by class. By default the loadout (stats, armor, weapons
- * and spells) comes from the default archetype for that class, but every part of the build
- * can be overridden: stats, armor class, hit points, a luck token, healing potions, and the
- * exact weapons and spells carried. When weapons, spells or potions are listed they replace
- * the class default loadout entirely.
+ * A single party member; all configuration required and validated.
  */
 
 @Data
@@ -42,32 +38,39 @@ public class PartyMemberConfig {
     private List<SpellConfig> spells = new ArrayList<>();
 
     public void validate() {
-        if (playerClass == null || playerClass.isBlank()) {
-            throw new IllegalArgumentException("Party member is missing a class");
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Party member is missing a name.");
         }
-        if (level < 0) {
+
+        if (playerClass == null || playerClass.isBlank()) {
+            throw new IllegalArgumentException("Party member is missing a class.");
+        }
+
+        if (level < 0 || level > 10) {
             throw new IllegalArgumentException("Party member level cannot be negative: " + level);
         }
-        if (armorClass != null && armorClass < 1) {
-            throw new IllegalArgumentException("Party member armorClass must be at least 1: " + armorClass);
+
+        if (armorClass == null || armorClass < 1 || armorClass > 20) {
+            throw new IllegalArgumentException("Party member armorClass must be at least 1 and less than 21: " + armorClass);
         }
-        if (hitPoints != null && hitPoints < 1) {
+
+        if (hitPoints == null || hitPoints < 1 || hitPoints > 100) {
             throw new IllegalArgumentException("Party member hitPoints must be at least 1: " + hitPoints);
         }
-        if (healingPotions < 0) {
-            throw new IllegalArgumentException("Party member healingPotions cannot be negative: " + healingPotions);
-        }
-        if (stats != null) {
-            stats.validate();
-        } else {
+
+        if (stats == null) {
             throw new IllegalArgumentException("Player stats must be specified.");
         }
+        stats.validate();
+
         if (weapons == null && spells == null) {
             throw new IllegalArgumentException("Player must define weapons and/or spells.");
         }
+
         if (weapons != null) {
             weapons.forEach(WeaponConfig::validate);
         }
+
         if (spells != null) {
             spells.forEach(SpellConfig::validate);
         }

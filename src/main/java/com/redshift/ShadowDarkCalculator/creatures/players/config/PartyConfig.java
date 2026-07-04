@@ -14,5 +14,9 @@ public class PartyConfig {
         if (party == null || party.isEmpty()) {
             throw new IllegalArgumentException("Party config is not defined.");
         }
+
+        for (PartyMemberConfig config : party) {
+            config.validate();
+        }
     }
 }
