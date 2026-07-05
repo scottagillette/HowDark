@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.4.5'
+	id 'org.springframework.boot' version '4.1.0'
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -9,7 +9,7 @@ version = '0.0.1-SNAPSHOT'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
+		languageVersion = JavaLanguageVersion.of(25)
 	}
 }
 
@@ -47,5 +47,5 @@ tasks.register('gauntlet', JavaExec) {
 	group = 'application'
 	description = 'Run a party against one of every monster type and print a win/loss table.'
 	classpath = sourceSets.main.runtimeClasspath
-	mainClass = 'com.redshift.ShadowDarkCalculator.api.MonsterGauntlet'
+	mainClass = 'com.redshift.ShadowDarkCalculator.MonsterGauntlet'
 }
