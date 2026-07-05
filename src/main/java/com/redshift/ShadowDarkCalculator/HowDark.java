@@ -8,6 +8,7 @@ import com.redshift.ShadowDarkCalculator.fights.FightSimulator;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyYamlBuilder;
+import com.redshift.ShadowDarkCalculator.party.RandomPartyBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Path;
@@ -43,7 +44,8 @@ public class HowDark {
 //                    new TheCrabCrushersBuilder().build(),
 //                    new DiableriePartyBuilder().build(),
 //                    new LostCitadelPartyBuilder().build(),
-                    new LostCitadelPartyYamlBuilder().build(),
+//                    new LostCitadelPartyYamlBuilder().build(),
+                    new RandomPartyBuilder().build(),
                     List.of(new Wyvern("Wyvern"))
 //                    List.of(new StormGiant("Storm Giant"))
                     //List.of(new LesserFireElemental("Lesser Fire Elemental"))
