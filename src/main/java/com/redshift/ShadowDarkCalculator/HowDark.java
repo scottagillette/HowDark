@@ -1,10 +1,10 @@
 package com.redshift.ShadowDarkCalculator;
 
+import com.redshift.ShadowDarkCalculator.creatures.monsters.dragons.Wyvern;
 import com.redshift.ShadowDarkCalculator.fights.FightConfig;
 import com.redshift.ShadowDarkCalculator.fights.FightConfigLoader;
 import com.redshift.ShadowDarkCalculator.fights.FightResult;
 import com.redshift.ShadowDarkCalculator.fights.FightSimulator;
-import com.redshift.ShadowDarkCalculator.creatures.monsters.giants.StormGiant;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 
 import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyYamlBuilder;
@@ -44,7 +44,8 @@ public class HowDark {
 //                    new DiableriePartyBuilder().build(),
 //                    new LostCitadelPartyBuilder().build(),
                     new LostCitadelPartyYamlBuilder().build(),
-                    List.of(new StormGiant("Storm Giant"))
+                    List.of(new Wyvern("Wyvern"))
+//                    List.of(new StormGiant("Storm Giant"))
                     //List.of(new LesserFireElemental("Lesser Fire Elemental"))
 //                    List.of(new Druid("Druid of the Moon"))
 //                    List.of(
