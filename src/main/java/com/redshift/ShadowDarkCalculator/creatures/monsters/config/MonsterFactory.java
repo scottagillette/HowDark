@@ -133,6 +133,9 @@ public final class MonsterFactory {
      */
 
     public static List<Creature> create(MonsterConfig config) {
+        if(config.getType().equals("random")) {
+            return List.of(createRandomMonster());
+        }
         final List<Creature> monsters = new ArrayList<>();
 
         final String baseName = (config.getName() == null || config.getName().isBlank())
@@ -163,6 +166,13 @@ public final class MonsterFactory {
 
     private static void register(String key, Function<String, Creature> constructor) {
         REGISTRY.put(key, constructor);
+    }
+
+    public static Creature createRandomMonster() {
+        final List<String> types = new ArrayList<>(REGISTRY.keySet());
+        final int randomIndex = (int) (Math.random() * types.size());
+        final String randomType = types.get(randomIndex);
+        return create(randomType, defaultDisplayName(randomType));
     }
 
     private static String normalize(String value) {

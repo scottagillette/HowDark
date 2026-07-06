@@ -1,0 +1,17 @@
+simulations: 1000
+
+partyBuilder: lost-citadel
+
+monsters:
+  - type: random
+
+# ---------------------------------------------------------------
+# [ Outcome - 1000 Simulated Fights ]
+# Players:  wins=796, winsWithDeath=59
+# Monsters: wins=204, winsWithDeath=0
+# [ Last Fight ]
+# Borlin Little Digger (PARTY): status=Alive, hitPoints=6/6
+# Malady Blackhand (PARTY): status=Unconscious, hitPoints=0/4
+# Alaric (PARTY): status=Alive, hitPoints=1/5
+# Brother Torvin (PARTY): status=Dead, hitPoints=0/8
+# Ogre (MONSTERS): status=Fled, hitPoints=15/35
