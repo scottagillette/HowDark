@@ -39,4 +39,11 @@ public class Warlock extends Player {
         getLabels().add(CreatureLabel.CASTER);
     }
 
+    @Override
+    public String toString() {
+        final String value = super.toString();
+        final String template = "%s, Warlock\n%s";
+        return String.format(template, getName(), value);
+    }
+
 }

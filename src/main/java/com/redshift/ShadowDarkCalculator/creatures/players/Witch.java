@@ -41,4 +41,10 @@ public class Witch extends Player {
         getLabels().add(CreatureLabel.BACKLINE);
     }
 
+    @Override
+    public String toString() {
+        final String value = super.toString();
+        final String template = "%s, Witch\n%s";
+        return String.format(template, getName(), value);
+    }
 }

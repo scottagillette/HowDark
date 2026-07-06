@@ -39,4 +39,10 @@ public class Ranger extends Player {
         getLabels().add(CreatureLabel.FRONT_LINE);
     }
 
+    @Override
+    public String toString() {
+        final String value = super.toString();
+        final String template = "%s, Ranger\n%s";
+        return String.format(template, getName(), value);
+    }
 }

@@ -43,4 +43,10 @@ public class Priest extends Player {
         getLabels().add(CreatureLabel.FRONT_LINE);
     }
 
+    @Override
+    public String toString() {
+        final String value = super.toString();
+        final String template = "%s, Priest\n%s";
+        return String.format(template, getName(), value);
+    }
 }

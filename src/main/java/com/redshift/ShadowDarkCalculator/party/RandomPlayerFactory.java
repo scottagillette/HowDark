@@ -1,25 +1,31 @@
 package com.redshift.ShadowDarkCalculator.party;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
-import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
-import com.redshift.ShadowDarkCalculator.creatures.players.Player;
+import com.redshift.ShadowDarkCalculator.creatures.players.*;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
+import com.redshift.ShadowDarkCalculator.party.loadout.Bonuses;
+import com.redshift.ShadowDarkCalculator.party.loadout.actions.ActionSelector;
+import com.redshift.ShadowDarkCalculator.party.loadout.ancestry.AncestrySelector;
+import com.redshift.ShadowDarkCalculator.party.loadout.classes.ClassSelector;
 import com.redshift.ShadowDarkCalculator.targets.single.FocusFireTargetSelector;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Random;
 
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 /**
  * A factory for creating random players.
  */
 
+@Slf4j
 public class RandomPlayerFactory {
 
     private static final Random RANDOM = new Random();
 
+    // Official Shadowdark random names!
     private static final List<String> NAMES = List.of(
             "Hera", "Sarenia", "Kog", "Myrtle", "Troga", "Hesta",
             "Torin", "Ravos", "Dibbs", "Robby", "Boraal", "Matteo",
@@ -45,28 +51,83 @@ public class RandomPlayerFactory {
 
 
     public Player create() {
-        // Generate random name.
-        final String name = NAMES.get(RANDOM.nextInt(NAMES.size()));
+        final Bonuses bonuses = new Bonuses();
 
-        // Level 1
+        // Step 0. Level 1
         final int level = 1;
-        // Race
 
-        // Gold
+        // Step 2. Generate random stats
+        final Stats initialStats = generateStats();
 
-        // Class
+        // Step 3. Select Class based on highest stat
+        final PlayerClass playerClass = selectPlayerClass(initialStats, bonuses);
 
-        // Equipment
+        // Step 4. Select Ancestry to compliment class.
+        final Ancestry playerAncestry = selectPlayerAncestry(playerClass, bonuses);
 
-        // Armor Class
-        final int armorClass = 10; // TODO
+        // Step 1. Generate random name.
+        final String name = NAMES.get(RANDOM.nextInt(NAMES.size())) + " the " + playerAncestry;
 
-        // Hit points after race...
-        final int hitPoints = 4; // TODO
 
-        final Action actions = WeaponBuilder.STAFF.build(); // TODO
+        // Step 5. Update any stats that have been updated based on ancestry or clas.
+        final Stats finalStats = new Stats(
+                initialStats.getStrength() + bonuses.getStrengthBonus(),
+                initialStats.getDexterity() + bonuses.getDexterityBonus(),
+                initialStats.getConstitution() + bonuses.getConstitutionBonus(),
+                initialStats.getWisdom() + bonuses.getWisdomBonus(),
+                initialStats.getIntelligence() + bonuses.getIntelligenceBonus(),
+                initialStats.getCharisma() + bonuses.getCharismaBonus()
+        );
 
-        Stats stats = new Stats(
+        // Step 6. Roll Hit points after Ancestry selected.
+        final int hitPoints = getHitPoints(playerClass, finalStats, bonuses);
+
+        // Step 7. Select Armor buildout based on class.
+        final int armorClass = selectPlayerArmor(playerClass, bonuses) + finalStats.getDexterityModifier(); // Final AC
+
+        // Step 8. Select player actions based on class
+        final Action actions = selectPlayerActions(playerClass, finalStats, bonuses);
+
+        // Step 9. Create the specific player class.
+        final Player player = createPlayer(playerClass, name, level, finalStats, armorClass, hitPoints, actions);
+        log.info(player.toString());
+        return player;
+    }
+
+    private Player createPlayer(PlayerClass playerClass, String name, int level, Stats stats, int armorClass, int hitPoints, Action actions) {
+        final Player player;
+
+        switch (playerClass) {
+            case BARD -> player = new Bard(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
+            case FIGHTER -> player = new Fighter(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
+            case PRIEST -> player = new Priest(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
+            case THIEF -> player = new Thief(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
+            case WIZARD -> player = new Wizard(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
+            default -> throw new IllegalArgumentException("Invalid player class: " + playerClass);
+        }
+
+        return player;
+    }
+
+    private int getHitPoints(PlayerClass playerClass, Stats stats, Bonuses bonuses) {
+        int hitPoints;
+
+        if (bonuses.isHitPointAdvantageRoll()) {
+            int roll1 = playerClass.getHitDice().roll();
+            int roll2 = playerClass.getHitDice().roll();
+            hitPoints = Math.max(roll1, roll2);
+        } else {
+            hitPoints = playerClass.getHitDice().roll();
+        }
+
+        // Min 1 hp after CON modifier and any bonuses.
+        hitPoints = Math.max(1, hitPoints + stats.getConstitutionModifier() + bonuses.getHitPointsBonus());
+
+        return hitPoints;
+    }
+
+    private Stats generateStats() {
+        final Stats stats = new Stats(
                 new MultipleDice(D6, D6, D6).roll(),
                 new MultipleDice(D6, D6, D6).roll(),
                 new MultipleDice(D6, D6, D6).roll(),
@@ -75,8 +136,60 @@ public class RandomPlayerFactory {
                 new MultipleDice(D6, D6, D6).roll()
         );
 
-        final Player player = new Player(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
+        if (stats.getStrength() >= 14) return stats;
+        if (stats.getDexterity() >= 14) return stats;
+        if (stats.getConstitution() >= 14) return stats;
+        if (stats.getWisdom() >= 14) return stats;
+        if (stats.getIntelligence() >= 14) return stats;
+        if (stats.getCharisma() >= 14) return stats;
 
-        return player;
+        return generateStats();
     }
+
+    private Action selectPlayerActions(PlayerClass playerClass, Stats stats, Bonuses bonuses) {
+        final ActionSelector actionSelector = new ActionSelector();
+        return actionSelector.selectActions(playerClass, stats, bonuses);
+    }
+
+    private Ancestry selectPlayerAncestry(PlayerClass playerClass, Bonuses bonuses) {
+        final AncestrySelector ancestrySelector = new AncestrySelector();
+        return ancestrySelector.selectAndApplyBonuses(playerClass, bonuses);
+    }
+
+    private int selectPlayerArmor(PlayerClass playerClass, Bonuses bonuses) {
+        int armorClass;
+
+        switch (playerClass) {
+            case BARD, FIGHTER, PRIEST: {
+                // Leather & Shield (13) OR leather (11); no shield can use two-handed weapons.
+                int randomRoll = D2.roll();
+                if (randomRoll == 1) {
+                    armorClass = 13; // Weapon and Shield!
+                } else {
+                    bonuses.addTwoHandsFree();
+                    armorClass = 11; // Two-handed weapon please!
+                }
+                break;
+            }
+            case THIEF: {
+                armorClass = 11; // Leather
+                break;
+            }
+            case WIZARD: {
+                armorClass = 10; // Robes!
+                break;
+            }
+            default: {
+                throw new IllegalArgumentException("Invalid player class: " + playerClass);
+            }
+        }
+
+        return armorClass;
+    }
+
+    private PlayerClass selectPlayerClass(Stats stats, Bonuses bonuses) {
+        final ClassSelector classSelector = new ClassSelector();
+        return classSelector.selectPlayerClass(stats, bonuses);
+    }
+
 }

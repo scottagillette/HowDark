@@ -39,4 +39,10 @@ public class Fighter extends Player {
         getLabels().add(CreatureLabel.FRONT_LINE);
     }
 
+    @Override
+    public String toString() {
+        final String value = super.toString();
+        final String template = "%s, Fighter\n%s";
+        return String.format(template, getName(), value);
+    }
 }

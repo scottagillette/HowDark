@@ -44,4 +44,20 @@ public class Player extends BaseCreature {
         setWillFlee(false); // Players do not flee!
     }
 
+    @Override
+    public String toString() {
+        String template = """
+                AC %d, HP %d
+                %s, AL N, LV %d
+                """;
+
+        /**
+         * AC 16, HP 39, ATK 2 tentacle
+         * (near) +5 (1d8 + curse) or 1 tail +5
+         * (3d6), MV near (swim), S +4, D -1,
+         * C +3, I +4, W +2, Ch +2, AL C, LV 8
+         */
+        return String.format(template, getAC(), getMaxHitPoints(), getStats().toString(), getLevel());
+    }
+
 }

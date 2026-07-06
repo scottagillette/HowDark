@@ -50,4 +50,10 @@ public class Necromancer extends Player {
         setDyingDice(D6);
     }
 
+    @Override
+    public String toString() {
+        final String value = super.toString();
+        final String template = "%s, Necromancer\n%s";
+        return String.format(template, getName(), value);
+    }
 }

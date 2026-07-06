@@ -35,7 +35,7 @@ public class HowDark {
         int group2Wins = 0;
         int group2WinsWithDeath = 0;
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1; i++) {
 
             log.info("[ Fight: {} ]", i + 1);
 
@@ -44,9 +44,9 @@ public class HowDark {
 //                    new TheCrabCrushersBuilder().build(),
 //                    new DiableriePartyBuilder().build(),
 //                    new LostCitadelPartyBuilder().build(),
-                    new LostCitadelPartyYamlBuilder().build(),
-//                    new RandomPartyBuilder().build(),
-                   RandomEncounter.createRandomEncounter(4, 4, 1) 
+//                    new LostCitadelPartyYamlBuilder().build(),
+                    new RandomPartyBuilder().build(),
+                    RandomEncounter.createRandomEncounter(4, 4, 1)
                     //List.of(new Wyvern("Wyvern"))
 //                    List.of(new StormGiant("Storm Giant"))
                     //List.of(new LesserFireElemental("Lesser Fire Elemental"))

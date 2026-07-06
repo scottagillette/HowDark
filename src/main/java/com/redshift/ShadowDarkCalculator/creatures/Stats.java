@@ -152,4 +152,17 @@ public class Stats {
     public int charismaRoll() {
         return D20.roll() + getModifier(currentCharisma);
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "S %d, D %d, C %d, I %d, W %d, Ch +%d",
+                strength,
+                constitution,
+                dexterity,
+                wisdom,
+                intelligence,
+                charisma
+        );
+    }
 }

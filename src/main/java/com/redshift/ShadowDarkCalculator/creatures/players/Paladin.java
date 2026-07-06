@@ -54,4 +54,11 @@ public class Paladin extends Player {
             ally.addCondition(new InspiredCondition(hpBonus));
         }
     }
+
+    @Override
+    public String toString() {
+        final String value = super.toString();
+        final String template = "%s, Paladin\n%s";
+        return String.format(template, getName(), value);
+    }
 }

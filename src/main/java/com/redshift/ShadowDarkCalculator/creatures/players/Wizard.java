@@ -41,4 +41,10 @@ public class Wizard extends Player {
         getLabels().add(CreatureLabel.BACKLINE);
     }
 
+    @Override
+    public String toString() {
+        final String value = super.toString();
+        final String template = "%s, Wizard\n%s";
+        return String.format(template, getName(), value);
+    }
 }

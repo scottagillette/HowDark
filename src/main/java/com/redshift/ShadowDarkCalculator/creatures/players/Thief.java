@@ -68,4 +68,11 @@ public class Thief extends Player {
         // you deal an extra weapon die of damage. Add additional weapon
         // dice of damage equal to half your level (round down).
     }
+
+    @Override
+    public String toString() {
+        final String value = super.toString();
+        final String template = "%s, Thief\n%s";
+        return String.format(template, getName(), value);
+    }
 }
