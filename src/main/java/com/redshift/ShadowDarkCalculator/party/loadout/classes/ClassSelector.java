@@ -3,6 +3,7 @@ package com.redshift.ShadowDarkCalculator.party.loadout.classes;
 import com.redshift.ShadowDarkCalculator.creatures.StatType;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.players.PlayerClass;
+import com.redshift.ShadowDarkCalculator.dice.SingleDie;
 import com.redshift.ShadowDarkCalculator.party.loadout.Bonuses;
 
 import java.util.HashMap;
@@ -18,6 +19,7 @@ public class ClassSelector {
     public ClassSelector() {
         classDecorators.put(PlayerClass.BARD, new BardTalentDecorator());
         classDecorators.put(PlayerClass.FIGHTER, new FighterTalentDecorator());
+        classDecorators.put(PlayerClass.PALADIN, new PaladinTalentDecorator());
         classDecorators.put(PlayerClass.PRIEST, new PriestTalentDecorator());
         classDecorators.put(PlayerClass.THIEF, new ThiefTalentDecorator());
         classDecorators.put(PlayerClass.WIZARD, new WizardTalentGenerator());
@@ -32,14 +34,35 @@ public class ClassSelector {
 
         final StatType statType = getHighestStatType(stats);
 
-        // TODO: Randomly select a class once others are added for given stat types.
         switch (statType) {
-            case StatType.STRENGTH -> selectedClass = PlayerClass.FIGHTER;
-            case StatType.DEXTERITY -> selectedClass = PlayerClass.THIEF;
-            case StatType.WISDOM -> selectedClass = PlayerClass.PRIEST;
-            case StatType.INTELLIGENCE -> selectedClass = PlayerClass.WIZARD;
-            case StatType.CHARISMA -> selectedClass = PlayerClass.BARD;
-            default -> selectedClass = PlayerClass.FIGHTER;
+            case StatType.STRENGTH: {
+                int result = SingleDie.D2.roll();
+                if (result == 1) {
+                    selectedClass = PlayerClass.FIGHTER;
+                } else {
+                    selectedClass = PlayerClass.PALADIN;
+                }
+                break;
+            }
+            case StatType.DEXTERITY: {
+                selectedClass = PlayerClass.THIEF;
+                break;
+            }
+            case StatType.WISDOM: {
+                selectedClass = PlayerClass.PRIEST;
+                break;
+            }
+            case StatType.INTELLIGENCE: {
+                selectedClass = PlayerClass.WIZARD;
+                break;
+            }
+            case StatType.CHARISMA: {
+                selectedClass = PlayerClass.BARD;
+                break;
+            }
+            default: {
+                throw new IllegalArgumentException("Invalid stat type");
+            }
         };
 
         classDecorators.get(selectedClass).decorate(stats, bonuses);

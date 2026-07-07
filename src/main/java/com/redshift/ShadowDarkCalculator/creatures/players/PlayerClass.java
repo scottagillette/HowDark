@@ -13,14 +13,14 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 public enum PlayerClass {
     BARD(D6, false),
     FIGHTER(D8, false),
-    //KNIGHT_OF_ST_YDRIS(D6),
-    //NECROMANCER(D6),
-    //PALADIN(D8),
+    //KNIGHT_OF_ST_YDRIS(D6, false),
+    //NECROMANCER(D6, true),
+    PALADIN(D8, false),
     PRIEST(D6, true),
-    //RANGER(D8),
+    //RANGER(D8, false),
     THIEF(D4, false),
-    //WARLOCK(D6),
-    //WITCH(D4),
+    //WARLOCK(D6, false),
+    //WITCH(D4, true),
     WIZARD(D4, true);
 
     private Dice hitDice;

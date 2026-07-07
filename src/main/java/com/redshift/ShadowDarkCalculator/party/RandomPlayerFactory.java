@@ -99,6 +99,7 @@ public class RandomPlayerFactory {
         switch (playerClass) {
             case BARD -> player = new Bard(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
             case FIGHTER -> player = new Fighter(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
+            case PALADIN -> player = new Paladin(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
             case PRIEST -> player = new Priest(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
             case THIEF -> player = new Thief(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
             case WIZARD -> player = new Wizard(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
@@ -159,7 +160,7 @@ public class RandomPlayerFactory {
         int armorClass;
 
         switch (playerClass) {
-            case BARD, FIGHTER, PRIEST: {
+            case BARD, FIGHTER, PALADIN, PRIEST: {
                 // Leather & Shield (13) OR leather (11); no shield can use two-handed weapons.
                 int randomRoll = D2.roll();
                 if (randomRoll == 1) {

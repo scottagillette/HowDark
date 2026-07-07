@@ -33,7 +33,7 @@ public class AncestrySelector {
         final List<Ancestry> possibleAncestries;
 
         switch (playerClass) {
-            case PlayerClass.BARD: {
+            case BARD: {
                 // No Kobolds (Bards already have luck tokens and are not spell casters)
                 possibleAncestries = List.of(
                         Ancestry.DWARF,
@@ -46,7 +46,7 @@ public class AncestrySelector {
                 );
                 break;
             }
-            case PlayerClass.FIGHTER: {
+            case FIGHTER, PALADIN: {
                 // No Elf or Kobold (not ranged or spell caster)
                 possibleAncestries = List.of(
                         Ancestry.DWARF,
@@ -58,7 +58,7 @@ public class AncestrySelector {
                 );
                 break;
             }
-            case PlayerClass.PRIEST: {
+            case PRIEST: {
                 // All ancestries make sense for Priest
                 possibleAncestries = List.of(
                         Ancestry.DWARF,
@@ -72,7 +72,7 @@ public class AncestrySelector {
                 );
                 break;
             }
-            case PlayerClass.THIEF: {
+            case THIEF: {
                 // No Kobolds for Thief
                 possibleAncestries = List.of(
                         Ancestry.DWARF,
@@ -85,7 +85,7 @@ public class AncestrySelector {
                 );
                 break;
             }
-            case PlayerClass.WIZARD: {
+            case WIZARD: {
                 // No Half-Orc for Wizards
                 possibleAncestries = List.of(
                         Ancestry.DWARF,
