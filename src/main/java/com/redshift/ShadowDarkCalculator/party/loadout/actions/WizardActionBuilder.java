@@ -64,7 +64,7 @@ public class WizardActionBuilder implements ActionBuilder {
 
     private List<Action> buildSpellList() {
         // TODO: Alarm, Hold Portal, Light, Charm Person, Detect Magic, Feather Fall, Floating Disk
-        // Burning Hands, Mage Armor, Magic Missle, Protection from Evil, Sleep
+        // Burning Hands, Mage Armor, Magic Missile, Protection from Evil, Sleep
 
         final List<Action> spells = new ArrayList<>();
 
