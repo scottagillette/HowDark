@@ -156,10 +156,10 @@ public class Stats {
     @Override
     public String toString() {
         return String.format(
-                "S %d, D %d, C %d, I %d, W %d, Ch +%d",
+                "S %d, D %d, C %d, I %d, W %d, Ch %d",
                 strength,
-                constitution,
                 dexterity,
+                constitution,
                 wisdom,
                 intelligence,
                 charisma

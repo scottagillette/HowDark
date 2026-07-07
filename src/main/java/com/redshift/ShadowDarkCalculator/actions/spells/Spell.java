@@ -199,4 +199,8 @@ public abstract class Spell extends BaseAction implements Action {
 
     public abstract void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll);
 
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

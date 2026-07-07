@@ -53,7 +53,7 @@ public class RandomPlayerFactory {
     public Player create() {
         final Bonuses bonuses = new Bonuses();
 
-        // Step 0. Level 1
+        // Step 1. Level 1
         final int level = 1;
 
         // Step 2. Generate random stats
@@ -65,11 +65,10 @@ public class RandomPlayerFactory {
         // Step 4. Select Ancestry to compliment class.
         final Ancestry playerAncestry = selectPlayerAncestry(playerClass, bonuses);
 
-        // Step 1. Generate random name.
-        final String name = NAMES.get(RANDOM.nextInt(NAMES.size())) + " the " + playerAncestry;
+        // Step 5. Generate random name.
+        final String name = NAMES.get(RANDOM.nextInt(NAMES.size())) + " the " + playerAncestry.getDisplayName();
 
-
-        // Step 5. Update any stats that have been updated based on ancestry or clas.
+        // Step 6. Update any stats that have been updated based on ancestry or clas.
         final Stats finalStats = new Stats(
                 initialStats.getStrength() + bonuses.getStrengthBonus(),
                 initialStats.getDexterity() + bonuses.getDexterityBonus(),
@@ -79,16 +78,17 @@ public class RandomPlayerFactory {
                 initialStats.getCharisma() + bonuses.getCharismaBonus()
         );
 
-        // Step 6. Roll Hit points after Ancestry selected.
+        // Step 7. Roll Hit points after Ancestry selected.
         final int hitPoints = getHitPoints(playerClass, finalStats, bonuses);
 
-        // Step 7. Select Armor buildout based on class.
+        // Step 8. Select Armor buildout based on class.
+        log.info("Dex Mod: " + finalStats.getDexterityModifier());
         final int armorClass = selectPlayerArmor(playerClass, bonuses) + finalStats.getDexterityModifier(); // Final AC
 
-        // Step 8. Select player actions based on class
+        // Step 9. Select player actions based on class
         final Action actions = selectPlayerActions(playerClass, finalStats, bonuses);
 
-        // Step 9. Create the specific player class.
+        // Step 10. Create the specific player class.
         final Player player = createPlayer(playerClass, name, level, finalStats, armorClass, hitPoints, actions);
         log.info(player.toString());
         return player;
@@ -173,10 +173,12 @@ public class RandomPlayerFactory {
             }
             case THIEF: {
                 armorClass = 11; // Leather
+                bonuses.addTwoHandsFree();
                 break;
             }
             case WIZARD: {
                 armorClass = 10; // Robes!
+                bonuses.addTwoHandsFree();
                 break;
             }
             default: {

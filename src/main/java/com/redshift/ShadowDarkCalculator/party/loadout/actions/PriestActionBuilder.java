@@ -80,8 +80,8 @@ public class PriestActionBuilder implements ActionBuilder {
 
         for (int i = 1; i <= drawCount; i++) {
             final Spell spell = (Spell)spellActions.get(deckOfCards.draw() - 1);
-            log.info("Spell: " + spell.getName());
             spell.addSpellCheckBonus(bonuses.getSpellCheckBonus());
+
             if (advantageCount > 0) {
                 spell.addAdvantage();
                 advantageCount--;

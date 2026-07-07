@@ -128,6 +128,17 @@ public class Weapon extends BaseAction implements Action {
         return !destroyed; // Sometimes weapons can be broken, melted, destroyed, etc.
     }
 
+    private void checkWeaponBreaks(Creature actor, Creature target, boolean magical) {
+        if (target.hasCondition(CosticToWeaponsCondition.class.getName()) && !magical) {
+            int roll = D6.roll();
+
+            if (roll == 1) {
+                log.info("{} has their weapon break!", actor.getName());
+                destroyed = true;
+            }
+        }
+    }
+
     /**
      * Returns the attack roll; using the luck token if can and needed.
      */
@@ -245,14 +256,8 @@ public class Weapon extends BaseAction implements Action {
         }
     }
 
-    private void checkWeaponBreaks(Creature actor, Creature target, boolean magical) {
-        if (target.hasCondition(CosticToWeaponsCondition.class.getName()) && !magical) {
-            int roll = D6.roll();
-
-            if (roll == 1) {
-                log.info("{} has their weapon break!", actor.getName());
-                destroyed = true;
-            }
-        }
+    @Override
+    public String toString() {
+        return getName();
     }
 }

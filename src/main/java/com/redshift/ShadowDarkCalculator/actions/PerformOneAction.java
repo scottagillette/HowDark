@@ -70,4 +70,16 @@ public final class PerformOneAction extends BaseAction implements Action {
         }
     }
 
+    @Override
+    public String toString() {
+        StringBuilder output = new StringBuilder("Perform One [\n" );
+
+        for (Action action : actions) {
+            output.append("  ->").append(action.getName());
+        }
+
+        output.append("]");
+
+        return output.toString();
+    }
 }
