@@ -55,6 +55,7 @@ public final class MonsterFactory {
         // Dragons
         register("fire-dragon", FireDragon::new);
         register("swamp-dragon", SwampDragon::new);
+        register("wyvern", Wyvern::new);
 
         // Elementals
         register("fire-elemental", FireElemental::new);
