@@ -69,12 +69,12 @@ public class RandomPlayerFactory {
 
         // Step 6. Update any stats that have been updated based on ancestry or clas.
         final Stats finalStats = new Stats(
-                initialStats.getStrength() + bonuses.getStrengthBonus(),
-                initialStats.getDexterity() + bonuses.getDexterityBonus(),
-                initialStats.getConstitution() + bonuses.getConstitutionBonus(),
-                initialStats.getIntelligence() + bonuses.getIntelligenceBonus(),
-                initialStats.getWisdom() + bonuses.getWisdomBonus(),
-                initialStats.getCharisma() + bonuses.getCharismaBonus()
+                Math.min(18, initialStats.getStrength() + bonuses.getStrengthBonus()),
+                Math.min(18, initialStats.getDexterity() + bonuses.getDexterityBonus()),
+                Math.min(18, initialStats.getConstitution() + bonuses.getConstitutionBonus()),
+                Math.min(18, initialStats.getIntelligence() + bonuses.getIntelligenceBonus()),
+                Math.min(18, initialStats.getWisdom() + bonuses.getWisdomBonus()),
+                Math.min(18, initialStats.getCharisma() + bonuses.getCharismaBonus())
         );
 
         // Step 7. Roll Hit points after Ancestry selected.
