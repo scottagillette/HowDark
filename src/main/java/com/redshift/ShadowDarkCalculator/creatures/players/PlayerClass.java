@@ -17,7 +17,7 @@ public enum PlayerClass {
     NECROMANCER(D6, true),
     PALADIN(D8, false),
     PRIEST(D6, true),
-    //RANGER(D8, false),
+    RANGER(D8, false),
     THIEF(D4, false),
     //WARLOCK(D6, false),
     //WITCH(D4, true),

@@ -22,6 +22,7 @@ public class ClassSelector {
         classDecorators.put(PlayerClass.NECROMANCER, new NecromancerTalentDecorator());
         classDecorators.put(PlayerClass.PALADIN, new PaladinTalentDecorator());
         classDecorators.put(PlayerClass.PRIEST, new PriestTalentDecorator());
+        classDecorators.put(PlayerClass.RANGER, new RangerTalentDecorator());
         classDecorators.put(PlayerClass.THIEF, new ThiefTalentDecorator());
         classDecorators.put(PlayerClass.WIZARD, new WizardTalentGenerator());
     }
@@ -36,28 +37,40 @@ public class ClassSelector {
         final StatType statType = getHighestStatType(stats);
 
         switch (statType) {
-            case StatType.STRENGTH: {
-                int result = SingleDie.D2.roll();
+            case STRENGTH: {
+                int result = SingleDie.D3.roll();
                 if (result == 1) {
                     selectedClass = PlayerClass.FIGHTER;
-                } else {
+                } else if (result ==2) {
                     selectedClass = PlayerClass.PALADIN;
+                } else {
+                    selectedClass = PlayerClass.RANGER;
                 }
                 break;
             }
-            case StatType.DEXTERITY: {
-                selectedClass = PlayerClass.THIEF;
+            case DEXTERITY: {
+                int result = SingleDie.D2.roll();
+                if (result == 1) {
+                    selectedClass = PlayerClass.THIEF;
+                } else {
+                    selectedClass = PlayerClass.RANGER;
+                }
                 break;
             }
-            case StatType.WISDOM: {
+            case WISDOM: {
                 selectedClass = PlayerClass.PRIEST;
                 break;
             }
-            case StatType.INTELLIGENCE: {
-                selectedClass = PlayerClass.WIZARD;
+            case INTELLIGENCE: {
+                int result = SingleDie.D2.roll();
+                if (result == 1) {
+                    selectedClass = PlayerClass.WIZARD;
+                } else {
+                    selectedClass = PlayerClass.RANGER;
+                }
                 break;
             }
-            case StatType.CHARISMA: {
+            case CHARISMA: {
                 int result = SingleDie.D2.roll();
                 if (result == 1) {
                     selectedClass = PlayerClass.BARD;

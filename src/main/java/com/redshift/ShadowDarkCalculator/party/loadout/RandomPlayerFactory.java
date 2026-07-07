@@ -72,8 +72,8 @@ public class RandomPlayerFactory {
                 initialStats.getStrength() + bonuses.getStrengthBonus(),
                 initialStats.getDexterity() + bonuses.getDexterityBonus(),
                 initialStats.getConstitution() + bonuses.getConstitutionBonus(),
-                initialStats.getWisdom() + bonuses.getWisdomBonus(),
                 initialStats.getIntelligence() + bonuses.getIntelligenceBonus(),
+                initialStats.getWisdom() + bonuses.getWisdomBonus(),
                 initialStats.getCharisma() + bonuses.getCharismaBonus()
         );
 
@@ -101,6 +101,7 @@ public class RandomPlayerFactory {
             case NECROMANCER -> player = new Necromancer(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
             case PALADIN -> player = new Paladin(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
             case PRIEST -> player = new Priest(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
+            case RANGER -> player = new Ranger(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
             case THIEF -> player = new Thief(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
             case WIZARD -> player = new Wizard(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
             default -> throw new IllegalArgumentException("Invalid player class: " + playerClass);
@@ -171,7 +172,7 @@ public class RandomPlayerFactory {
                 }
                 break;
             }
-            case THIEF, NECROMANCER: {
+            case RANGER, THIEF, NECROMANCER: {
                 armorClass = 11; // Leather
                 bonuses.addTwoHandsFree();
                 break;

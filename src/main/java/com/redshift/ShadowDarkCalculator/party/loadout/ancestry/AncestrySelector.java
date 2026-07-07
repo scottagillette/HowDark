@@ -72,8 +72,8 @@ public class AncestrySelector {
                 );
                 break;
             }
-            case THIEF: {
-                // No Kobolds for Thief
+            case RANGER, THIEF: {
+                // No Kobolds for Ranger or Thief
                 possibleAncestries = List.of(
                         Ancestry.DWARF,
                         Ancestry.ELF,

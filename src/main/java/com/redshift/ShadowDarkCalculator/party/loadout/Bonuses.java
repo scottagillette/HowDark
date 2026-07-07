@@ -5,6 +5,8 @@ import lombok.Getter;
 @Getter
 public class Bonuses {
 
+    private boolean damageDiceD12;
+
     private boolean twoHandsFree = false;
     private boolean luckToken = false;
 
@@ -32,6 +34,10 @@ public class Bonuses {
 
     private boolean advantageOnTalentRoll = false;
     private int talentRolls = 1;
+
+    public void addDamageDiceD12() {
+        this.damageDiceD12 = true;
+    }
 
     public void addTwoHandsFree() {
         this.twoHandsFree = true;

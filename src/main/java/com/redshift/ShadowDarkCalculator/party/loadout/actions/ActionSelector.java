@@ -22,6 +22,7 @@ public class ActionSelector {
         actionBuilders.put(PlayerClass.NECROMANCER, new NecromancerActionBuilder());
         actionBuilders.put(PlayerClass.PALADIN, new PaladinActionBuilder());
         actionBuilders.put(PlayerClass.PRIEST, new PriestActionBuilder());
+        actionBuilders.put(PlayerClass.RANGER, new RangerActionBuilder());
         actionBuilders.put(PlayerClass.THIEF, new ThiefActionBuilder());
         actionBuilders.put(PlayerClass.WIZARD, new WizardActionBuilder());
     }
