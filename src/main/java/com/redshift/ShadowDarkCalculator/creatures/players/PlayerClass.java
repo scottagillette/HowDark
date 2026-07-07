@@ -14,7 +14,7 @@ public enum PlayerClass {
     BARD(D6, false),
     FIGHTER(D8, false),
     //KNIGHT_OF_ST_YDRIS(D6, false),
-    //NECROMANCER(D6, true),
+    NECROMANCER(D6, true),
     PALADIN(D8, false),
     PRIEST(D6, true),
     //RANGER(D8, false),

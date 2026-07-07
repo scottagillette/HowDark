@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.party;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.party.loadout.RandomPlayerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,15 +10,15 @@ import java.util.List;
  * Builds a random party comprised of randomly generated players.
  */
 
-public class RandomPartyBuilder implements PartyBuilder {
+public class RandomLevel1PartyBuilder implements PartyBuilder {
 
     private final int playerCount;
 
-    public RandomPartyBuilder() {
+    public RandomLevel1PartyBuilder() {
         this.playerCount = 4;
     }
 
-    public RandomPartyBuilder(int playerCount) {
+    public RandomLevel1PartyBuilder(int playerCount) {
         this.playerCount = playerCount;
     }
 

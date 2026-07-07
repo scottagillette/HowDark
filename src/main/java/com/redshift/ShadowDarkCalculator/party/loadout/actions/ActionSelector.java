@@ -19,6 +19,7 @@ public class ActionSelector {
     public ActionSelector() {
         actionBuilders.put(PlayerClass.BARD, new BardActionBuilder());
         actionBuilders.put(PlayerClass.FIGHTER, new FighterActionBuilder());
+        actionBuilders.put(PlayerClass.NECROMANCER, new NecromancerActionBuilder());
         actionBuilders.put(PlayerClass.PALADIN, new PaladinActionBuilder());
         actionBuilders.put(PlayerClass.PRIEST, new PriestActionBuilder());
         actionBuilders.put(PlayerClass.THIEF, new ThiefActionBuilder());

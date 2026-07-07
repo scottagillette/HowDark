@@ -58,8 +58,8 @@ public class AncestrySelector {
                 );
                 break;
             }
-            case PRIEST: {
-                // All ancestries make sense for Priest
+            case PRIEST, NECROMANCER: {
+                // All ancestries make sense
                 possibleAncestries = List.of(
                         Ancestry.DWARF,
                         Ancestry.ELF,

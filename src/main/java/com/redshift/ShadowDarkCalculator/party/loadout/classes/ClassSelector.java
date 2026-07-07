@@ -19,6 +19,7 @@ public class ClassSelector {
     public ClassSelector() {
         classDecorators.put(PlayerClass.BARD, new BardTalentDecorator());
         classDecorators.put(PlayerClass.FIGHTER, new FighterTalentDecorator());
+        classDecorators.put(PlayerClass.NECROMANCER, new NecromancerTalentDecorator());
         classDecorators.put(PlayerClass.PALADIN, new PaladinTalentDecorator());
         classDecorators.put(PlayerClass.PRIEST, new PriestTalentDecorator());
         classDecorators.put(PlayerClass.THIEF, new ThiefTalentDecorator());
@@ -57,7 +58,12 @@ public class ClassSelector {
                 break;
             }
             case StatType.CHARISMA: {
-                selectedClass = PlayerClass.BARD;
+                int result = SingleDie.D2.roll();
+                if (result == 1) {
+                    selectedClass = PlayerClass.BARD;
+                } else {
+                    selectedClass = PlayerClass.NECROMANCER;
+                }
                 break;
             }
             default: {

@@ -1,10 +1,9 @@
-package com.redshift.ShadowDarkCalculator.party;
+package com.redshift.ShadowDarkCalculator.party.loadout;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.players.*;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
-import com.redshift.ShadowDarkCalculator.party.loadout.Bonuses;
 import com.redshift.ShadowDarkCalculator.party.loadout.actions.ActionSelector;
 import com.redshift.ShadowDarkCalculator.party.loadout.ancestry.AncestrySelector;
 import com.redshift.ShadowDarkCalculator.party.loadout.classes.ClassSelector;
@@ -99,6 +98,7 @@ public class RandomPlayerFactory {
         switch (playerClass) {
             case BARD -> player = new Bard(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
             case FIGHTER -> player = new Fighter(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
+            case NECROMANCER -> player = new Necromancer(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
             case PALADIN -> player = new Paladin(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
             case PRIEST -> player = new Priest(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
             case THIEF -> player = new Thief(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
@@ -171,7 +171,7 @@ public class RandomPlayerFactory {
                 }
                 break;
             }
-            case THIEF: {
+            case THIEF, NECROMANCER: {
                 armorClass = 11; // Leather
                 bonuses.addTwoHandsFree();
                 break;

@@ -7,9 +7,7 @@ import com.redshift.ShadowDarkCalculator.fights.FightConfigLoader;
 import com.redshift.ShadowDarkCalculator.fights.FightResult;
 import com.redshift.ShadowDarkCalculator.fights.FightSimulator;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
-import com.redshift.ShadowDarkCalculator.encounter.RandomEncounter;
-import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyYamlBuilder;
-import com.redshift.ShadowDarkCalculator.party.RandomPartyBuilder;
+import com.redshift.ShadowDarkCalculator.party.RandomLevel1PartyBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Path;
@@ -46,7 +44,7 @@ public class HowDark {
 //                    new DiableriePartyBuilder().build(),
 //                    new LostCitadelPartyBuilder().build(),
 //                    new LostCitadelPartyYamlBuilder().build(),
-                    new RandomPartyBuilder().build(),
+                    new RandomLevel1PartyBuilder().build(),
 
 //                    RandomEncounter.createRandomEncounter(4, 4, 1)
 //                    List.of(new Wyvern("Wyvern"))
