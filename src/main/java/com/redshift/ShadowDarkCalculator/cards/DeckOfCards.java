@@ -34,9 +34,12 @@ public class DeckOfCards {
      */
 
     public void shuffle() {
+        cards.clear();
+
         for (int i=0; i < size; i++) {
             cards.add(i + 1);
         }
+
         Collections.shuffle(cards);
     }
 
