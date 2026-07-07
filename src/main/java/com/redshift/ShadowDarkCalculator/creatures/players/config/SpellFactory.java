@@ -1,19 +1,6 @@
 package com.redshift.ShadowDarkCalculator.creatures.players.config;
 
-import com.redshift.ShadowDarkCalculator.actions.spells.BurningHands;
-import com.redshift.ShadowDarkCalculator.actions.spells.CureWounds;
-import com.redshift.ShadowDarkCalculator.actions.spells.Eyebite;
-import com.redshift.ShadowDarkCalculator.actions.spells.HolyWeapon;
-import com.redshift.ShadowDarkCalculator.actions.spells.Hypnotize;
-import com.redshift.ShadowDarkCalculator.actions.spells.MageArmor;
-import com.redshift.ShadowDarkCalculator.actions.spells.MagicMissile;
-import com.redshift.ShadowDarkCalculator.actions.spells.ProtectionFromEvil;
-import com.redshift.ShadowDarkCalculator.actions.spells.ShieldOfFaith;
-import com.redshift.ShadowDarkCalculator.actions.spells.Sleep;
-import com.redshift.ShadowDarkCalculator.actions.spells.Spell;
-import com.redshift.ShadowDarkCalculator.actions.spells.TurnUndead;
-import com.redshift.ShadowDarkCalculator.actions.spells.Undeath;
-import com.redshift.ShadowDarkCalculator.actions.spells.Withermark;
+import com.redshift.ShadowDarkCalculator.actions.spells.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -34,6 +21,7 @@ public final class SpellFactory {
         register("burning-hands", BurningHands::new);
         register("cure-wounds", CureWounds::new);
         register("eyebite", Eyebite::new);
+        register("fascinate", Fascinate::new);
         register("holy-weapon", HolyWeapon::new);
         register("hypnotize", Hypnotize::new);
         register("mage-armor", MageArmor::new);
