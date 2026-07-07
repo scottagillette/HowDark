@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Specific action builder for the Wizard class.
+ * Specific action builder for the Necromancer class.
  */
 
 @Slf4j
