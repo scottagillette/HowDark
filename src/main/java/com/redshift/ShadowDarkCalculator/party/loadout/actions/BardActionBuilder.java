@@ -3,6 +3,7 @@ package com.redshift.ShadowDarkCalculator.party.loadout.actions;
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.Fascinate;
+import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.party.loadout.Bonuses;
@@ -19,22 +20,23 @@ public class BardActionBuilder implements ActionBuilder {
         // TODO: Randomize the buildout?
         // Crossbow, dagger, mace, shortbow, shortsword, spear, staff
 
-        final Action action;
+        final Weapon action;
 
         if (stats.getStrength() >= stats.getDexterity()) {
             // STR build.
-            if (bonuses.isTwoHandsFree()) {
-                // No big time two hand'ers to use...
-                action = WeaponBuilder.SPEAR_STR.build();
-            } else {
-                action = WeaponBuilder.SPEAR_STR.build();
-            }
+            action = WeaponBuilder.SPEAR_STR.build()
+                    .addAttackRollBonus(bonuses.getMeleeAttackBonus())
+                    .addDamageRollBonus(bonuses.getMeleeDamageBonus());
         } else {
             // DEX build.
             if (bonuses.isTwoHandsFree()) {
-                action = WeaponBuilder.CROSSBOW.build();
+                action = WeaponBuilder.CROSSBOW.build()
+                        .addAttackRollBonus(bonuses.getRangedAttackBonus())
+                        .addDamageRollBonus(bonuses.getRangedDamageBonus());
             } else {
-                action = WeaponBuilder.DAGGER_DEX.build();
+                action = WeaponBuilder.DAGGER_DEX.build()
+                        .addAttackRollBonus(bonuses.getMeleeAttackBonus())
+                        .addDamageRollBonus(bonuses.getMeleeDamageBonus());
             }
         }
 

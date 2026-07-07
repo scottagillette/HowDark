@@ -27,7 +27,6 @@ public class WizardActionBuilder implements ActionBuilder {
         if (stats.getStrength() >= stats.getDexterity()) {
             // STR Build
             actions.add(WeaponBuilder.STAFF.build()
-                    .addCrushing()
                     .addAttackRollBonus(bonuses.getMeleeAttackBonus())
                     .addDamageRollBonus(bonuses.getMeleeDamageBonus())
                     .setPriority(1)
@@ -35,7 +34,6 @@ public class WizardActionBuilder implements ActionBuilder {
         } else {
             // DEX Build
             actions.add(WeaponBuilder.DAGGER_DEX.build()
-                    .addPiercing()
                     .addAttackRollBonus(bonuses.getRangedAttackBonus())
                     .addDamageRollBonus(bonuses.getRangedDamageBonus())
                     .setPriority(1)
@@ -65,8 +63,8 @@ public class WizardActionBuilder implements ActionBuilder {
     }
 
     private List<Action> buildSpellList() {
-        // Alarm, Burning Hands, Charm Person, Detect Magic, Feather Fall, Floating Disk
-        // Hold Portal, Light, Mage Armor, Magic Missle, Protection from Evil, Sleep
+        // TODO: Alarm, Hold Portal, Light, Charm Person, Detect Magic, Feather Fall, Floating Disk
+        // Burning Hands, Mage Armor, Magic Missle, Protection from Evil, Sleep
 
         final List<Action> spells = new ArrayList<>();
 

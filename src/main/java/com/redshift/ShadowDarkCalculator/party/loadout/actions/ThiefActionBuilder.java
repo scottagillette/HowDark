@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.party.loadout.actions;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
+import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.party.loadout.Bonuses;
@@ -18,12 +19,16 @@ public class ThiefActionBuilder implements ActionBuilder {
         // TODO: Randomize from all weapons they can use?
         // Club, crossbow, dagger, shortbow, shortsword
 
-        final Action action;
+        final Weapon action;
 
         if (bonuses.isTwoHandsFree()) {
-            action = WeaponBuilder.CROSSBOW.build();
+            action = WeaponBuilder.CROSSBOW.build()
+                    .addAttackRollBonus(bonuses.getRangedAttackBonus())
+                    .addDamageRollBonus(bonuses.getRangedDamageBonus());
         } else {
-            action = WeaponBuilder.DAGGER_DEX.build();
+            action = WeaponBuilder.DAGGER_DEX.build()
+                    .addAttackRollBonus(bonuses.getMeleeAttackBonus())
+                    .addDamageRollBonus(bonuses.getMeleeDamageBonus());
         }
 
         return action;

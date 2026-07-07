@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.party.loadout.actions;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
+import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.party.loadout.Bonuses;
@@ -15,15 +16,20 @@ public class PaladinActionBuilder implements ActionBuilder {
     public Action build(Stats stats, Bonuses bonuses) {
         // Bastard sword, dagger, greatsword, javelin, lance, longsword, shortsword
 
-        final Action action;
+        final Weapon action;
 
         if (bonuses.isTwoHandsFree()) {
             // Paladin...Named Blade +0 Magic Blade
-            action = WeaponBuilder.GREAT_SWORD.build().addMagical();
+            action = WeaponBuilder.GREAT_SWORD.build();
         } else {
             // Paladin...Named Blade +0 Magic Blade
             action = WeaponBuilder.LONGSWORD.build().addMagical();
         }
+
+        action
+                .addMagical()
+                .addAttackRollBonus(bonuses.getMeleeAttackBonus())
+                .addDamageRollBonus(bonuses.getMeleeDamageBonus());
 
         return action;
     }

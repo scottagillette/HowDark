@@ -3,6 +3,7 @@ package com.redshift.ShadowDarkCalculator.party.loadout.actions;
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.*;
+import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.cards.DeckOfCards;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
@@ -25,53 +26,46 @@ public class PriestActionBuilder implements ActionBuilder {
 
         final List<Action> actions = new ArrayList<>();
 
+        final Weapon weaponAction;
+
         // TODO: Randomize from all the weapons they can use?
         // Club, crossbow, dagger, mace, longsword, staff, warhammer
 
         if (stats.getStrength() >= stats.getDexterity()) {
             // STR Build
             if (bonuses.isTwoHandsFree()) {
-                actions.add(WeaponBuilder.WAR_HAMMER.build()
-                        .addCrushing()
-                        .addAttackRollBonus(bonuses.getMeleeAttackBonus())
-                        .addDamageRollBonus(bonuses.getMeleeDamageBonus())
-                        .setPriority(1)
-                );
+                weaponAction = WeaponBuilder.WAR_HAMMER.build();
             } else {
-                actions.add(WeaponBuilder.LONGSWORD.build()
-                        .addSlashing()
-                        .addAttackRollBonus(bonuses.getMeleeAttackBonus())
-                        .addDamageRollBonus(bonuses.getMeleeDamageBonus())
-                        .setPriority(1)
-                );
+                weaponAction = WeaponBuilder.LONGSWORD.build();
             }
+            weaponAction
+                    .addAttackRollBonus(bonuses.getMeleeAttackBonus())
+                    .addDamageRollBonus(bonuses.getMeleeDamageBonus());
+
         } else {
             // DEX Build
             if (bonuses.isTwoHandsFree()) {
-                actions.add(WeaponBuilder.CROSSBOW.build()
-                        .addPiercing()
+                weaponAction = WeaponBuilder.CROSSBOW.build()
                         .addAttackRollBonus(bonuses.getRangedAttackBonus())
-                        .addDamageRollBonus(bonuses.getRangedDamageBonus())
-                        .setPriority(1)
-                );
+                        .addDamageRollBonus(bonuses.getRangedDamageBonus());
             } else {
                 // No good melee DEX options for Priests
-                actions.add(WeaponBuilder.LONGSWORD.build()
-                        .addSlashing()
+                weaponAction = WeaponBuilder.LONGSWORD.build()
                         .addAttackRollBonus(bonuses.getMeleeAttackBonus())
-                        .addDamageRollBonus(bonuses.getMeleeDamageBonus())
-                        .setPriority(1)
-                );
+                        .addDamageRollBonus(bonuses.getMeleeDamageBonus());
             }
         }
+        // Add the weapon; priority 1.
+        ((Action) weaponAction).setPriority(1);
+        actions.add(weaponAction);
 
+        // Always have turn undead. TODO: Add advantage to this one randomly?
         actions.add(new TurnUndead()
                 .addSpellCheckBonus(bonuses.getSpellCheckBonus())
                 .setPriority(10)
         );
 
         // Select spells
-
         final List<Action> spellActions = buildSpellList();
         final DeckOfCards deckOfCards = new DeckOfCards(spellActions.size());
 
