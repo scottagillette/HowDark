@@ -270,9 +270,10 @@ public abstract class BaseCreature implements Creature {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        // Damage awakens any creature sleeping or dazed!
+        // Damage removes certain conditions
         conditions.remove(SleepingCondition.class.getName());
         conditions.remove(StupefiedCondition.class.getName());
+        conditions.remove(FascinatedCondition.class.getName());
 
         // Check spell focus on damage or death
         final SpellFocusCondition spellFocusCondition = (SpellFocusCondition)conditions.get(SpellFocusCondition.class.getName());

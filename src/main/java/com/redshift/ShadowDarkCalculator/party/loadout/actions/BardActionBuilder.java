@@ -1,6 +1,8 @@
 package com.redshift.ShadowDarkCalculator.party.loadout.actions;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
+import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
+import com.redshift.ShadowDarkCalculator.actions.spells.Fascinate;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.party.loadout.Bonuses;
@@ -36,7 +38,12 @@ public class BardActionBuilder implements ActionBuilder {
             }
         }
 
-        return action;
+        action.setPriority(1);
+
+        // Add the Bard Fascinate ability!
+        final Action fascinate = new Fascinate().setPriority(2);
+
+        return new PerformOneAction(action, fascinate);
     }
 
 }
