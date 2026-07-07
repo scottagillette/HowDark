@@ -82,7 +82,6 @@ public class RandomPlayerFactory {
         final int hitPoints = getHitPoints(playerClass, finalStats, bonuses);
 
         // Step 8. Select Armor buildout based on class.
-        log.info("Dex Mod: " + finalStats.getDexterityModifier());
         final int armorClass = selectPlayerArmor(playerClass, bonuses) + finalStats.getDexterityModifier(); // Final AC
 
         // Step 9. Select player actions based on class
