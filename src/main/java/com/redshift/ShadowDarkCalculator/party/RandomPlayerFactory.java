@@ -89,7 +89,7 @@ public class RandomPlayerFactory {
 
         // Step 10. Create the specific player class.
         final Player player = createPlayer(playerClass, name, level, finalStats, armorClass, hitPoints, actions);
-        log.info(player.toString());
+        log.info(player.toString() + "\n");
         return player;
     }
 

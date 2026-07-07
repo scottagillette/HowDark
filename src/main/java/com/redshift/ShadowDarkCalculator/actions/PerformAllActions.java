@@ -59,10 +59,10 @@ public final class PerformAllActions extends BaseAction implements Action {
 
     @Override
     public String toString() {
-        StringBuilder output = new StringBuilder("Perform All [" );
+        StringBuilder output = new StringBuilder("Perform All [ " );
 
         for (Action action : actions) {
-            output.append("-").append(action.getName());
+            output.append("-").append(action.getName()).append(" ");
         }
 
         output.append("]");
