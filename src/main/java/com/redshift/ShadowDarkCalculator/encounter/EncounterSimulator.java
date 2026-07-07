@@ -262,7 +262,7 @@ public class EncounterSimulator implements Encounter {
                     }
                 }
 
-                if (deadOrFledCount >= (allies.size() / 2)) {
+                if (deadOrFledCount >= ((double) allies.size() / 2)) {
                     return (roll + wisdomModifier < 15);
                 } else {
                     return false;
