@@ -71,24 +71,35 @@ public class ClassSelector {
     }
 
     private StatType getHighestStatType(Stats stats) {
-        StatType highestStatType = StatType.STRENGTH;
-        int highestStat = stats.getStrength();
+        StatType highestStatType = null;
+        int highestStat = 0;
+
+        if (stats.getStrength() > highestStat) {
+            highestStatType = StatType.STRENGTH;
+            highestStat = stats.getStrength();
+        }
 
         if (stats.getDexterity() > highestStat) {
             highestStatType = StatType.DEXTERITY;
+            highestStat = stats.getDexterity();
         }
 
         // Ignore CON since it's not specific to class types.
 
         if (stats.getWisdom() > highestStat) {
             highestStatType = StatType.WISDOM;
+            highestStat = stats.getWisdom();
         }
         if (stats.getIntelligence() > highestStat) {
             highestStatType = StatType.INTELLIGENCE;
+            highestStat = stats.getIntelligence();
         }
         if (stats.getCharisma() > highestStat) {
             highestStatType = StatType.CHARISMA;
+            highestStat = stats.getCharisma();
         }
+
+        if (highestStatType == null) throw new IllegalStateException("Stat type not found!");
 
         return highestStatType;
     }
