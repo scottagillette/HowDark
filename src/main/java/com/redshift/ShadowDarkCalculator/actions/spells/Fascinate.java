@@ -101,7 +101,7 @@ public class Fascinate extends MultipleTargetSpell {
             for (Creature creature : creatures) {
                 if (creature.hasCondition(FascinatedCondition.class.getName())) {
                     log.info("{} is no longer fascinated and transfixed!", creature.getName());
-                    creature.removeCondition(ProtectionFromEvilCondition.class.getName());
+                    creature.removeCondition(FascinatedCondition.class.getName());
                 }
             }
         }
