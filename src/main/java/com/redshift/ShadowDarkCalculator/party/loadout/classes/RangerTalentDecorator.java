@@ -67,8 +67,9 @@ public class RangerTalentDecorator implements TalentDecorator {
             }
         } else if (rollOutcome >= 10 && rollOutcome <= 11) {
             // 10-11 You gain ADV on Herbalism checks for a remedy you choose
-            // TODO: Implement herbalism
+            bonuses.addSpellAdvantage(); // See action builder for Curative
         } else {
+            // 2 You deal d12 damage with one weapon type you choose
             bonuses.addDamageDiceD12();
         }
     }
