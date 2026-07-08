@@ -39,36 +39,36 @@ public class ClassSelector {
 
         switch (statType) {
             case STRENGTH: {
-                switch (SingleDie.D3.roll()) {
-                    case 1 -> selectedClass = PlayerClass.FIGHTER;
-                    case 2 -> selectedClass = PlayerClass.PALADIN;
-                    case 3 -> selectedClass = PlayerClass.RANGER;
+                switch (SingleDie.D8.roll()) {
+                    case 1, 2, 3, 4, 5 -> selectedClass = PlayerClass.FIGHTER; // 62.5% of a stat
+                    case 6, 7 -> selectedClass = PlayerClass.PALADIN; // 25% of a stat
+                    case 8 -> selectedClass = PlayerClass.RANGER; // 62.5% across 3 stats
                 }
                 break;
             }
             case DEXTERITY: {
-                switch (SingleDie.D2.roll()) {
-                    case 1 -> selectedClass = PlayerClass.RANGER;
-                    case 2 -> selectedClass = PlayerClass.THIEF;
+                switch (SingleDie.D4.roll()) {
+                    case 1 -> selectedClass = PlayerClass.RANGER; // 62.5% across 3 stats
+                    case 2, 3, 4 -> selectedClass = PlayerClass.THIEF; // 75%% of a stat
                 }
                 break;
             }
             case WISDOM: {
-                selectedClass = PlayerClass.PRIEST;
+                selectedClass = PlayerClass.PRIEST; // 100% of a stat
                 break;
             }
             case INTELLIGENCE: {
-                switch (SingleDie.D2.roll()) {
-                    case 1 -> selectedClass = PlayerClass.RANGER;
-                    case 2 -> selectedClass = PlayerClass.WIZARD;
+                switch (SingleDie.D4.roll()) {
+                    case 1 -> selectedClass = PlayerClass.RANGER; // 62.5% across 3 stats
+                    case 2, 3, 4 -> selectedClass = PlayerClass.WIZARD; // 75% of a stat
                 }
                 break;
             }
             case CHARISMA: {
                 switch (SingleDie.D3.roll()) {
-                    case 1 -> selectedClass = PlayerClass.BARD;
-                    case 2 -> selectedClass = PlayerClass.NECROMANCER;
-                    case 3 -> selectedClass = PlayerClass.WITCH;
+                    case 1 -> selectedClass = PlayerClass.BARD; // 33% of a stat
+                    case 2 -> selectedClass = PlayerClass.NECROMANCER; // 33% of a stat
+                    case 3 -> selectedClass = PlayerClass.WITCH; // 33% of a stat
                 }
                 break;
             }
