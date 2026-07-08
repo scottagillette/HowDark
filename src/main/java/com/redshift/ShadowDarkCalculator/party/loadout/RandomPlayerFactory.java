@@ -48,7 +48,6 @@ public class RandomPlayerFactory {
             "Orgo", "Varond", "Kreeb", "Wendry", "Ziraak", "Nabilo"
     );
 
-
     public Player create() {
         final Bonuses bonuses = new Bonuses();
 
@@ -59,10 +58,12 @@ public class RandomPlayerFactory {
         final Stats initialStats = generateStats();
 
         // Step 3. Select Class based on highest stat
-        final PlayerClass playerClass = selectPlayerClass(initialStats, bonuses);
+        final ClassSelector classSelector = new ClassSelector();
+        final PlayerClass playerClass = classSelector.selectPlayerClass(initialStats, bonuses);
 
         // Step 4. Select Ancestry to compliment class.
-        final Ancestry playerAncestry = selectPlayerAncestry(playerClass, bonuses);
+        final AncestrySelector ancestrySelector = new AncestrySelector();
+        final Ancestry playerAncestry =  ancestrySelector.selectAndApplyBonuses(playerClass, bonuses);
 
         // Step 5. Generate random name.
         final String name = NAMES.get(RANDOM.nextInt(NAMES.size())) + " the " + playerAncestry.getDisplayName();
@@ -78,13 +79,14 @@ public class RandomPlayerFactory {
         );
 
         // Step 7. Roll Hit points after Ancestry selected.
-        final int hitPoints = getHitPoints(playerClass, finalStats, bonuses);
+        final int hitPoints = generateHitPoints(playerClass, finalStats, bonuses);
 
         // Step 8. Select Armor buildout based on class.
         final int armorClass = selectPlayerArmor(playerClass, bonuses) + finalStats.getDexterityModifier(); // Final AC
 
         // Step 9. Select player actions based on class
-        final Action actions = selectPlayerActions(playerClass, finalStats, bonuses);
+        final ActionSelector actionSelector = new ActionSelector();
+        final Action actions =  actionSelector.selectActions(playerClass, finalStats, bonuses);
 
         // Step 10. Create the specific player class.
         final Player player = createPlayer(playerClass, name, level, finalStats, armorClass, hitPoints, actions);
@@ -103,6 +105,7 @@ public class RandomPlayerFactory {
             case PRIEST -> player = new Priest(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
             case RANGER -> player = new Ranger(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
             case THIEF -> player = new Thief(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
+            case WITCH -> player = new Witch(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
             case WIZARD -> player = new Wizard(name, level, stats, armorClass, hitPoints, actions, new FocusFireTargetSelector());
             default -> throw new IllegalArgumentException("Invalid player class: " + playerClass);
         }
@@ -110,7 +113,7 @@ public class RandomPlayerFactory {
         return player;
     }
 
-    private int getHitPoints(PlayerClass playerClass, Stats stats, Bonuses bonuses) {
+    private int generateHitPoints(PlayerClass playerClass, Stats stats, Bonuses bonuses) {
         int hitPoints;
 
         if (bonuses.isHitPointAdvantageRoll()) {
@@ -147,16 +150,6 @@ public class RandomPlayerFactory {
         return generateStats();
     }
 
-    private Action selectPlayerActions(PlayerClass playerClass, Stats stats, Bonuses bonuses) {
-        final ActionSelector actionSelector = new ActionSelector();
-        return actionSelector.selectActions(playerClass, stats, bonuses);
-    }
-
-    private Ancestry selectPlayerAncestry(PlayerClass playerClass, Bonuses bonuses) {
-        final AncestrySelector ancestrySelector = new AncestrySelector();
-        return ancestrySelector.selectAndApplyBonuses(playerClass, bonuses);
-    }
-
     private int selectPlayerArmor(PlayerClass playerClass, Bonuses bonuses) {
         int armorClass;
 
@@ -172,7 +165,7 @@ public class RandomPlayerFactory {
                 }
                 break;
             }
-            case RANGER, THIEF, NECROMANCER: {
+            case RANGER, THIEF, NECROMANCER, WITCH: {
                 armorClass = 11; // Leather
                 bonuses.addTwoHandsFree();
                 break;
@@ -188,11 +181,6 @@ public class RandomPlayerFactory {
         }
 
         return armorClass;
-    }
-
-    private PlayerClass selectPlayerClass(Stats stats, Bonuses bonuses) {
-        final ClassSelector classSelector = new ClassSelector();
-        return classSelector.selectPlayerClass(stats, bonuses);
     }
 
 }

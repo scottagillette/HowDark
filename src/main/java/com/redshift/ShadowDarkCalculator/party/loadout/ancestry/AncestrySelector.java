@@ -85,8 +85,8 @@ public class AncestrySelector {
                 );
                 break;
             }
-            case WIZARD: {
-                // No Half-Orc for Wizards
+            case WITCH, WIZARD: {
+                // No Half-Orc for Witch or Wizards
                 possibleAncestries = List.of(
                         Ancestry.DWARF,
                         Ancestry.ELF,

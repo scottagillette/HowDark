@@ -24,6 +24,7 @@ public class ClassSelector {
         classDecorators.put(PlayerClass.PRIEST, new PriestTalentDecorator());
         classDecorators.put(PlayerClass.RANGER, new RangerTalentDecorator());
         classDecorators.put(PlayerClass.THIEF, new ThiefTalentDecorator());
+        classDecorators.put(PlayerClass.WITCH, new WitchTalentGenerator());
         classDecorators.put(PlayerClass.WIZARD, new WizardTalentGenerator());
     }
 
@@ -32,28 +33,23 @@ public class ClassSelector {
      */
 
     public PlayerClass selectPlayerClass(Stats stats, Bonuses bonuses) {
-        final PlayerClass selectedClass;
+        PlayerClass selectedClass = PlayerClass.FIGHTER;
 
         final StatType statType = getHighestStatType(stats);
 
         switch (statType) {
             case STRENGTH: {
-                int result = SingleDie.D3.roll();
-                if (result == 1) {
-                    selectedClass = PlayerClass.FIGHTER;
-                } else if (result ==2) {
-                    selectedClass = PlayerClass.PALADIN;
-                } else {
-                    selectedClass = PlayerClass.RANGER;
+                switch (SingleDie.D3.roll()) {
+                    case 1 -> selectedClass = PlayerClass.FIGHTER;
+                    case 2 -> selectedClass = PlayerClass.PALADIN;
+                    case 3 -> selectedClass = PlayerClass.RANGER;
                 }
                 break;
             }
             case DEXTERITY: {
-                int result = SingleDie.D2.roll();
-                if (result == 1) {
-                    selectedClass = PlayerClass.THIEF;
-                } else {
-                    selectedClass = PlayerClass.RANGER;
+                switch (SingleDie.D2.roll()) {
+                    case 1 -> selectedClass = PlayerClass.RANGER;
+                    case 2 -> selectedClass = PlayerClass.THIEF;
                 }
                 break;
             }
@@ -62,25 +58,22 @@ public class ClassSelector {
                 break;
             }
             case INTELLIGENCE: {
-                int result = SingleDie.D2.roll();
-                if (result == 1) {
-                    selectedClass = PlayerClass.WIZARD;
-                } else {
-                    selectedClass = PlayerClass.RANGER;
+                switch (SingleDie.D2.roll()) {
+                    case 1 -> selectedClass = PlayerClass.RANGER;
+                    case 2 -> selectedClass = PlayerClass.WIZARD;
                 }
                 break;
             }
             case CHARISMA: {
-                int result = SingleDie.D2.roll();
-                if (result == 1) {
-                    selectedClass = PlayerClass.BARD;
-                } else {
-                    selectedClass = PlayerClass.NECROMANCER;
+                switch (SingleDie.D3.roll()) {
+                    case 1 -> selectedClass = PlayerClass.BARD;
+                    case 2 -> selectedClass = PlayerClass.NECROMANCER;
+                    case 3 -> selectedClass = PlayerClass.WITCH;
                 }
                 break;
             }
             default: {
-                throw new IllegalArgumentException("Invalid stat type");
+                throw new IllegalArgumentException("Invalid stat type: " + statType);
             }
         };
 

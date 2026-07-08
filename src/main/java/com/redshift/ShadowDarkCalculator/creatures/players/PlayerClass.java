@@ -20,7 +20,7 @@ public enum PlayerClass {
     RANGER(D8, false),
     THIEF(D4, false),
     //WARLOCK(D6, false),
-    //WITCH(D4, true),
+    WITCH(D4, true),
     WIZARD(D4, true);
 
     private Dice hitDice;

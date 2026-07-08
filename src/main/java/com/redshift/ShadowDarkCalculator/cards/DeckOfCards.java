@@ -25,7 +25,7 @@ public class DeckOfCards {
      */
 
     public int draw() {
-        if (cards.isEmpty()) throw new IllegalStateException("Deck of cards is empty!");
+        if (cards.isEmpty()) throw new IllegalStateException("Deck of " + size + " cards is empty!");
         return cards.removeFirst();
     }
 
