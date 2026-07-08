@@ -45,7 +45,9 @@ public class RandomLevel1PartyBuilder implements PartyBuilder {
             players.add(factory.create());
         }
 
-        RandomAccess.reset(); // Make sure to reset the random number generator after each generation
+        // Make sure to reset the random number generator after each generation
+        // or each combat will be identical too!
+        RandomAccess.reset();
 
         return players;
     }

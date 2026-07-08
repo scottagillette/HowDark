@@ -42,9 +42,8 @@ public class Witch extends Player {
     }
 
     @Override
-    public String toString() {
-        final String value = super.toString();
-        final String template = "%s, Witch\n%s";
-        return String.format(template, getName(), value);
+    public String getClassName() {
+        return PlayerClass.WITCH.getClassName();
     }
+
 }

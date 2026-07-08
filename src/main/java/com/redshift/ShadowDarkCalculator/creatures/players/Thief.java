@@ -47,6 +47,11 @@ public class Thief extends Player {
     }
 
     @Override
+    public String getClassName() {
+        return PlayerClass.THIEF.getClassName();
+    }
+
+    @Override
     public void takePreCombatTurn(List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         // Thieves can attempt to hide before combat.
         final int dexRoll = getStats().dexterityRoll();
@@ -69,10 +74,4 @@ public class Thief extends Player {
         // dice of damage equal to half your level (round down).
     }
 
-    @Override
-    public String toString() {
-        final String value = super.toString();
-        final String template = "%s, Thief\n%s";
-        return String.format(template, getName(), value);
-    }
 }

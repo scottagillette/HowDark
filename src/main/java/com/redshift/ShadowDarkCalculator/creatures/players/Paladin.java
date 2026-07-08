@@ -44,6 +44,12 @@ public class Paladin extends Player {
         getLabels().add(CreatureLabel.FRONT_LINE);
     }
 
+
+    @Override
+    public String getClassName() {
+        return PlayerClass.PALADIN.getClassName();
+    }
+
     @Override
     public void takePreCombatTurn(List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         // Inspiring Presence. Allies within near of you rise from dying on a
@@ -55,10 +61,4 @@ public class Paladin extends Player {
         }
     }
 
-    @Override
-    public String toString() {
-        final String value = super.toString();
-        final String template = "%s, Paladin\n%s";
-        return String.format(template, getName(), value);
-    }
 }

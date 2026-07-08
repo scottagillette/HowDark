@@ -11,23 +11,25 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 @Getter
 public enum PlayerClass {
-    BARD(D6, false),
-    FIGHTER(D8, false),
-    //KNIGHT_OF_ST_YDRIS(D6, false),
-    NECROMANCER(D6, true),
-    PALADIN(D8, false),
-    PRIEST(D6, true),
-    RANGER(D8, false),
-    THIEF(D4, false),
-    //WARLOCK(D6, false),
-    WITCH(D4, true),
-    WIZARD(D4, true);
+    BARD(D6, false, "Bard"),
+    FIGHTER(D8, false, "Fighter"),
+    KNIGHT_OF_ST_YDRIS(D6, false, "Knight of St. Ydris"),
+    NECROMANCER(D6, true, "Necromancer"),
+    PALADIN(D8, false, "Paladin"),
+    PRIEST(D6, true, "Priest"),
+    RANGER(D8, false, "Ranger"),
+    THIEF(D4, false, "Thief"),
+    WARLOCK(D6, false, "Warlock"),
+    WITCH(D4, true, "Witch"),
+    WIZARD(D4, true, "Wizard");
 
-    private Dice hitDice;
-    private boolean caster;
+    private final Dice hitDice;
+    private final boolean caster;
+    private final String className;
 
-    private PlayerClass(Dice hitDice, boolean caster) {
+    private PlayerClass(Dice hitDice, boolean caster, String className) {
         this.hitDice = hitDice;
         this.caster = caster;
+        this.className = className;
     }
 }

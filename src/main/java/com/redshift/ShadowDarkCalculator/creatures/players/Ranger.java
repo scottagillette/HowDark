@@ -44,14 +44,13 @@ public class Ranger extends Player {
     }
 
     @Override
+    public String getClassName() {
+        return PlayerClass.RANGER.getClassName();
+    }
+
+    @Override
     public void takePreCombatTurn(List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         // TODO: Random chance to have a remidy?
     }
 
-    @Override
-    public String toString() {
-        final String value = super.toString();
-        final String template = "%s, Ranger\n%s";
-        return String.format(template, getName(), value);
-    }
 }

@@ -44,16 +44,27 @@ public class Player extends BaseCreature {
         setWillFlee(false); // Players do not flee!
     }
 
+    public String getClassName() {
+        throw new IllegalStateException("Class name not defined!");
+    }
+
     @Override
     public String toString() {
-        String template = "AC %d, HP %d\n%s, AL N, LV %d\n%s";
+        // Sample Shadowdark output
 
-        /**
-         * AC 16, HP 39, ATK 2 tentacle (near) +5 (1d8 + curse) or 1 tail +5 (3d6), MV near (swim)
-         * S +4, D -1, C +3, I +4, W +2, Ch +2, AL C, LV 8
-         */
+        // AC 16, HP 39, ATK 2 tentacle (near) +5 (1d8 + curse) or 1 tail +5 (3d6), MV near (swim)
+        // S +4, D -1, C +3, I +4, W +2, Ch +2, AL C, LV 8
 
-        return String.format(template, getAC(), getMaxHitPoints(), getStats(), getLevel(), getAction());
+        return String.format(
+                "%s - %s\nAC %s, HP %s\n%s, AL N, LV %s\n%s",
+                getName(),
+                getClassName(),
+                getAC(),
+                getMaxHitPoints(),
+                getStats(),
+                getLevel(),
+                getAction()
+        );
     }
 
 }

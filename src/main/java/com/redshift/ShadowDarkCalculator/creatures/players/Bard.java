@@ -43,6 +43,11 @@ public class Bard extends Player {
     }
 
     @Override
+    public String getClassName() {
+        return PlayerClass.BARD.getClassName();
+    }
+
+    @Override
     public void takePreCombatTurn(List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         // Inspire. Each day, you can grant a number of luck tokens equal to
         // your Charisma modifier (min. 1).
@@ -56,10 +61,4 @@ public class Bard extends Player {
         }
     }
 
-    @Override
-    public String toString() {
-        final String value = super.toString();
-        final String template = "%s, Bard\n%s";
-        return String.format(template, getName(), value);
-    }
 }

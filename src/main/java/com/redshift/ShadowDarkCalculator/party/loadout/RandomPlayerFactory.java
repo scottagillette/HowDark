@@ -66,7 +66,8 @@ public class RandomPlayerFactory {
         // Step 5. Generate random name.
         final String name = NAMES.get(RandomAccess.RANDOM.nextInt(NAMES.size())) + " the " + playerAncestry.getDisplayName();
 
-        // Step 6. Update any stats that have been updated based on ancestry or clas.
+        // Step 6. Update any stats that have been updated based on ancestry or class.
+        //         All stats must be capped at 18 (magic items can raise it higher)
         final Stats finalStats = new Stats(
                 Math.min(18, initialStats.getStrength() + bonuses.getStrengthBonus()),
                 Math.min(18, initialStats.getDexterity() + bonuses.getDexterityBonus()),
@@ -82,7 +83,7 @@ public class RandomPlayerFactory {
         // Step 8. Select Armor buildout based on class.
         final int armorClass = selectPlayerArmor(playerClass, bonuses) + finalStats.getDexterityModifier(); // Final AC
 
-        // Step 9. Select player actions based on class
+        // Step 9. Select player actions based on class, final stats, etc.
         final ActionSelector actionSelector = new ActionSelector();
         final Action actions =  actionSelector.selectActions(playerClass, finalStats, bonuses);
 
