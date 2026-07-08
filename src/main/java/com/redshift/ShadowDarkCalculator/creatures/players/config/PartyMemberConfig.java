@@ -31,7 +31,7 @@ public class PartyMemberConfig {
 
     private boolean luckToken = false;
 
-    private int healingPotions = 0;
+    private List<ItemConfig> items = new ArrayList<>();
 
     private List<WeaponConfig> weapons = new ArrayList<>();
 
@@ -65,6 +65,10 @@ public class PartyMemberConfig {
 
         if (weapons == null && spells == null) {
             throw new IllegalArgumentException("Player must define weapons and/or spells.");
+        }
+
+        if (items != null) {
+            items.forEach(ItemConfig::validate);
         }
 
         if (weapons != null) {

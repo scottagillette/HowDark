@@ -2,7 +2,6 @@ package com.redshift.ShadowDarkCalculator.creatures.players.config;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
-import com.redshift.ShadowDarkCalculator.actions.misc.HealingPotion;
 import com.redshift.ShadowDarkCalculator.actions.spells.*;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
@@ -200,16 +199,13 @@ public final class PlayerFactory {
     private static Action buildLoadout(PartyMemberConfig config) {
         final List<Action> actions = new ArrayList<>();
 
+        config.getItems().forEach(item -> actions.add(ItemFactory.create(item)));
         config.getWeapons().forEach(weapon -> actions.add(WeaponFactory.create(weapon)));
         config.getSpells().forEach(spell -> actions.add(SpellFactory.create(spell)));
 
-        for (int i = 0; i < config.getHealingPotions(); i++) {
-            actions.add(new HealingPotion());
-        }
-
-        return actions.size() == 1
-                ? actions.getFirst()
-                : new PerformOneAction(actions.toArray(new Action[0]));
+        return actions.size() == 1 ?
+                actions.getFirst() :
+                new PerformOneAction(actions.toArray(new Action[0]));
     }
 
     private static void register(String key, Archetype archetype) {

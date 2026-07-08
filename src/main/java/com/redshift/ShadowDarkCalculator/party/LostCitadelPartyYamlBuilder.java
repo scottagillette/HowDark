@@ -33,6 +33,9 @@ public class LostCitadelPartyYamlBuilder implements PartyBuilder {
                     stats: { str: 13, dex: 10, con: 10, int: 13, wis: 5, cha: 15 }
                     hp: 4
                     ac: 12
+                    items:
+                      - type: Healing-Potion
+                        priority: 5
                     weapons:
                       - type: Longsword
                         priority: 1
