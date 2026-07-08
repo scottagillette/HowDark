@@ -2,7 +2,7 @@ package com.redshift.ShadowDarkCalculator.party;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RandomAccess;
-import com.redshift.ShadowDarkCalculator.party.loadout.RandomPlayerFactory;
+import com.redshift.ShadowDarkCalculator.party.generator.RandomPlayerFactory;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
