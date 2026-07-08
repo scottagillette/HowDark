@@ -219,7 +219,7 @@ public class ArchMage extends Monster {
             actor.addCondition(new SpellFocusCondition(
                     14,
                     RollModifier.CHARISMA,
-                    spellCheckAdvantage,
+                    spellCheckWithAdvantage,
                     spellCheckBonus,
                     new RemoveStupefiedCondition(target)
             ));
@@ -234,7 +234,7 @@ public class ArchMage extends Monster {
             actor.addCondition(new SpellFocusCondition(
                     14,
                     RollModifier.CHARISMA,
-                    spellCheckAdvantage,
+                    spellCheckWithAdvantage,
                     spellCheckBonus,
                     new RemoveStupefiedCondition(target)
             ));

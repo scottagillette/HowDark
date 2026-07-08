@@ -66,7 +66,7 @@ public class LostCitadelPartyBuilder implements PartyBuilder {
                         WeaponBuilder.STAFF.build().setPriority(1),
                         new MagicMissile().setPriority(2),
                         new Sleep().setPriority(10),
-                        new BurningHands().addAdvantage().setPriority(5)
+                        new BurningHands().addSpellCheckWithAdvantage().setPriority(5)
                 )
         );
         creatures.add(alaric);

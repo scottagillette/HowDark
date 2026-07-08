@@ -53,8 +53,8 @@ public class TheCrabCrushersBuilder implements PartyBuilder {
                 new PerformOneAction(
                         WeaponBuilder.STAFF.build().setPriority(1),
                         new Sleep().addSpellCheckBonus(1).setPriority(3),
-                        new MagicMissile().addSpellCheckBonus(1).addAdvantage().setPriority(2),
-                        new BurningHands().addSpellCheckBonus(1).addAdvantage().setPriority(4)
+                        new MagicMissile().addSpellCheckBonus(1).addSpellCheckWithAdvantage().setPriority(2),
+                        new BurningHands().addSpellCheckBonus(1).addSpellCheckWithAdvantage().setPriority(4)
                 )
         );
         creatures.add(alderon);

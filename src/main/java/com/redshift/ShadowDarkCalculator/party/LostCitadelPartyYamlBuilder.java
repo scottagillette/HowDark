@@ -1,12 +1,15 @@
 package com.redshift.ShadowDarkCalculator.party;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.creatures.players.Player;
 import com.redshift.ShadowDarkCalculator.creatures.players.PlayerConfig;
 import com.redshift.ShadowDarkCalculator.creatures.players.PlayerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class LostCitadelPartyYamlBuilder implements PartyBuilder {
 
     @Override
@@ -78,7 +81,9 @@ public class LostCitadelPartyYamlBuilder implements PartyBuilder {
         final List<Creature> players = new ArrayList<>();
 
         for (PlayerConfig config : PartyConfigLoader.parse(partyYaml).getParty()) {
-            players.add(PlayerFactory.create(config));
+            final Player player = (Player) PlayerFactory.create(config);
+            players.add(player);
+            //log.info(player.toString() + "\n");
         }
 
         return players;

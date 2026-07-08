@@ -11,6 +11,7 @@ import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -21,6 +22,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
  * An action that attempts to cast a spell.
  */
 
+@Getter
 @Slf4j
 public abstract class Spell extends BaseAction implements Action {
 
@@ -28,7 +30,7 @@ public abstract class Spell extends BaseAction implements Action {
     protected final RollModifier rollModifier;
     protected boolean lost = false; // True if the spell failed to cast and is lost until a rest occurs.
     protected int spellCheckBonus = 0; // A bonus to the spell check roll... zero by default.
-    protected boolean spellCheckAdvantage = false; // Some talents or spells get advantage on the spell check.
+    protected boolean spellCheckWithAdvantage = false; // Some talents or spells get advantage on the spell check.
 
     protected Spell(String name, int difficultyClass, RollModifier rollModifier) {
         super(name);
@@ -36,8 +38,8 @@ public abstract class Spell extends BaseAction implements Action {
         this.rollModifier = rollModifier;
     }
 
-    public Spell addAdvantage() {
-        spellCheckAdvantage = true;
+    public Spell addSpellCheckWithAdvantage() {
+        spellCheckWithAdvantage = true;
         return this;
     }
 
@@ -56,7 +58,7 @@ public abstract class Spell extends BaseAction implements Action {
         boolean advantage = actor.hasCondition(AdvantageCondition.class.getName());
         actor.removeCondition(AdvantageCondition.class.getName());
 
-        return advantage || spellCheckAdvantage;
+        return advantage || spellCheckWithAdvantage;
     }
 
     private boolean checkDisadvantage(Creature actor, List<Creature> targets) {

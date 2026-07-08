@@ -10,6 +10,7 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
 import com.redshift.ShadowDarkCalculator.dice.RollOutcome;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -20,6 +21,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
  * An action that attempts to attack with a melee or ranged weapon.
  */
 
+@Getter
 @Slf4j
 public class Weapon extends BaseAction implements Action {
 

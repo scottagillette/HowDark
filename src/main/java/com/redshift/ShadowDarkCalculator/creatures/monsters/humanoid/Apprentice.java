@@ -93,7 +93,7 @@ public class Apprentice extends Monster {
                 actor.addCondition(new SpellFocusCondition(
                         11,
                         RollModifier.INTELLIGENCE,
-                        spellCheckAdvantage,
+                        spellCheckWithAdvantage,
                         spellCheckBonus,
                         new RemoveStupefiedCondition(target)
                 ));
@@ -112,7 +112,7 @@ public class Apprentice extends Monster {
                 actor.addCondition(new SpellFocusCondition(
                         11,
                         RollModifier.INTELLIGENCE,
-                        spellCheckAdvantage,
+                        spellCheckWithAdvantage,
                         spellCheckBonus,
                         new RemoveStupefiedCondition(target)
                 ));

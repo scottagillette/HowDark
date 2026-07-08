@@ -52,8 +52,8 @@ public class WizardActionBuilder implements ActionBuilder {
             final Spell spell = (Spell)spellActions.get(deckOfCards.draw() - 1);
             spell.addSpellCheckBonus(bonuses.getSpellCheckBonus());
 
-            if (advantageCount > 0) {
-                spell.addAdvantage();
+            if (advantageCount > 0 && !spell.isSpellCheckWithAdvantage()) {
+                spell.addSpellCheckWithAdvantage();
                 advantageCount--;
             }
             actions.add(spell);

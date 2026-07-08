@@ -138,7 +138,7 @@ public class Mage extends Monster {
             actor.addCondition(new SpellFocusCondition(
                     13,
                     RollModifier.INTELLIGENCE,
-                    spellCheckAdvantage,
+                    spellCheckWithAdvantage,
                     spellCheckBonus,
                     new RemoveParalyzedCondition(target)
             ));
@@ -152,7 +152,7 @@ public class Mage extends Monster {
             actor.addCondition(new SpellFocusCondition(
                     13,
                     RollModifier.INTELLIGENCE,
-                    spellCheckAdvantage,
+                    spellCheckWithAdvantage,
                     spellCheckBonus,
                     new RemoveParalyzedCondition(target)
             ));

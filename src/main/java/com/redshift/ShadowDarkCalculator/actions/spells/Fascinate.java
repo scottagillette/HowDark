@@ -1,7 +1,6 @@
 package com.redshift.ShadowDarkCalculator.actions.spells;
 
 import com.redshift.ShadowDarkCalculator.conditions.FascinatedCondition;
-import com.redshift.ShadowDarkCalculator.conditions.ProtectionFromEvilCondition;
 import com.redshift.ShadowDarkCalculator.conditions.SpellFocusCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
@@ -57,7 +56,7 @@ public class Fascinate extends MultipleTargetSpell {
         actor.addCondition(new SpellFocusCondition(
                 12,
                 RollModifier.CHARISMA,
-                spellCheckAdvantage,
+                spellCheckWithAdvantage,
                 spellCheckBonus,
                 new RemoveFascinatedCondition(targets)
         ));
@@ -78,7 +77,7 @@ public class Fascinate extends MultipleTargetSpell {
         actor.addCondition(new SpellFocusCondition(
                 12,
                 RollModifier.CHARISMA,
-                spellCheckAdvantage,
+                spellCheckWithAdvantage,
                 spellCheckBonus,
                 new RemoveFascinatedCondition(targets)
         ));

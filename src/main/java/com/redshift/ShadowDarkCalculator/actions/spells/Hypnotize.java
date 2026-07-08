@@ -52,7 +52,7 @@ public class Hypnotize extends Spell {
             actor.addCondition(new SpellFocusCondition(
                     11,
                     RollModifier.CHARISMA,
-                    spellCheckAdvantage,
+                    spellCheckWithAdvantage,
                     spellCheckBonus,
                     new RemoveStupefiedCondition(target)
             ));
@@ -71,7 +71,7 @@ public class Hypnotize extends Spell {
             actor.addCondition(new SpellFocusCondition(
                     11,
                     RollModifier.CHARISMA,
-                    spellCheckAdvantage,
+                    spellCheckWithAdvantage,
                     spellCheckBonus,
                     new RemoveStupefiedCondition(target)
             ));

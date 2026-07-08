@@ -53,7 +53,7 @@ public class ProtectionFromEvil extends Spell {
         actor.addCondition(new SpellFocusCondition(
                 11,
                 RollModifier.WISDOM,
-                spellCheckAdvantage,
+                spellCheckWithAdvantage,
                 spellCheckBonus,
                 new RemoveProtectionFromEvilCondition(target)
         ));
@@ -67,7 +67,7 @@ public class ProtectionFromEvil extends Spell {
         actor.addCondition(new SpellFocusCondition(
                 11,
                 RollModifier.WISDOM,
-                spellCheckAdvantage,
+                spellCheckWithAdvantage,
                 spellCheckBonus,
                 new RemoveProtectionFromEvilCondition(target)
         ));

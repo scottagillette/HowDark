@@ -49,7 +49,7 @@ public final class SpellFactory {
 
         final Spell spell = supplier.get();
 
-        if (spellConfig.isAdvantage()) spell.addAdvantage();
+        if (spellConfig.isAdvantage()) spell.addSpellCheckWithAdvantage();
         if (spellConfig.getSpellCheckBonus() != 0) spell.addSpellCheckBonus(spellConfig.getSpellCheckBonus());
 
         spell.setPriority(spellConfig.getPriority());
