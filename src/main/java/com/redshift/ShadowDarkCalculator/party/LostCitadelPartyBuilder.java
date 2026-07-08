@@ -27,7 +27,7 @@ public class LostCitadelPartyBuilder implements PartyBuilder {
         );
         creatures.add(borlin);
 
-        final Creature pebble = new Necromancer(
+        final Creature pebble = new Witch(
                 "Pebble Weatherton",
                 1,
                 new Stats(13, 10, 10, 13, 5, 15),
