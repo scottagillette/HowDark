@@ -21,9 +21,7 @@ public class Witch extends Player {
             Action action) {
 
         super(name, level, stats, armorClass, hitPoints, action, new FocusFireTargetSelector());
-        getLabels().add(CreatureLabel.WITCH);
-        getLabels().add(CreatureLabel.CASTER);
-        getLabels().add(CreatureLabel.BACKLINE);
+        addLabels();
     }
 
     public Witch(
@@ -36,6 +34,10 @@ public class Witch extends Player {
             SingleTargetSelector singleTargetSelector) {
 
         super(name, level, stats, armorClass, hitPoints, action, singleTargetSelector);
+        addLabels();
+    }
+
+    private void addLabels() {
         getLabels().add(CreatureLabel.WITCH);
         getLabels().add(CreatureLabel.CASTER);
         getLabels().add(CreatureLabel.BACKLINE);

@@ -21,10 +21,7 @@ public class Priest extends Player {
             Action action) {
 
         super(name, level, stats, armorClass, hitPoints, action, new FocusFireTargetSelector());
-        getLabels().add(CreatureLabel.PRIEST);
-        getLabels().add(CreatureLabel.CASTER);
-        getLabels().add(CreatureLabel.HEALER);
-        getLabels().add(CreatureLabel.FRONT_LINE);
+        addLabels();
     }
 
     public Priest(
@@ -37,10 +34,14 @@ public class Priest extends Player {
             SingleTargetSelector singleTargetSelector) {
 
         super(name, level, stats, armorClass, hitPoints, action, singleTargetSelector);
-        getLabels().add(CreatureLabel.PRIEST);
+        addLabels();
+    }
+
+    private void addLabels() {
         getLabels().add(CreatureLabel.CASTER);
-        getLabels().add(CreatureLabel.HEALER);
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.HEALER);
+        getLabels().add(CreatureLabel.PRIEST);
     }
 
     @Override

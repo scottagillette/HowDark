@@ -21,8 +21,7 @@ public class Fighter extends Player {
             Action action) {
 
         super(name, level, stats, armorClass, hitPoints, action, new FocusFireTargetSelector());
-        getLabels().add(CreatureLabel.FIGHTER);
-        getLabels().add(CreatureLabel.FRONT_LINE);
+        addLabels();
     }
 
     public Fighter(
@@ -35,6 +34,10 @@ public class Fighter extends Player {
             SingleTargetSelector singleTargetSelector) {
 
         super(name, level, stats, armorClass, hitPoints, action, singleTargetSelector);
+        addLabels();
+    }
+
+    private void addLabels() {
         getLabels().add(CreatureLabel.FIGHTER);
         getLabels().add(CreatureLabel.FRONT_LINE);
     }

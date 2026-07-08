@@ -25,8 +25,7 @@ public class Ranger extends Player {
             Action action) {
 
         super(name, level, stats, armorClass, hitPoints, action, new FocusFireTargetSelector());
-        getLabels().add(CreatureLabel.RANGER);
-        getLabels().add(CreatureLabel.FRONT_LINE);
+        addLabels();
     }
 
     public Ranger(
@@ -39,13 +38,12 @@ public class Ranger extends Player {
             SingleTargetSelector singleTargetSelector) {
 
         super(name, level, stats, armorClass, hitPoints, action, singleTargetSelector);
-        getLabels().add(CreatureLabel.RANGER);
-        getLabels().add(CreatureLabel.FRONT_LINE);
+        addLabels();
     }
 
-    @Override
-    public String getClassName() {
-        return PlayerClass.RANGER.getClassName();
+    private void addLabels() {
+        getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.RANGER);
     }
 
     @Override

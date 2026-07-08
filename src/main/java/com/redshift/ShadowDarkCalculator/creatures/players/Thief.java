@@ -30,7 +30,7 @@ public class Thief extends Player {
             Action action) {
 
         super(name, level, stats, armorClass, hitPoints, action, new FocusFireTargetSelector());
-        getLabels().add(CreatureLabel.THIEF);
+        addLabels();
     }
 
     public Thief(
@@ -43,6 +43,11 @@ public class Thief extends Player {
             SingleTargetSelector singleTargetSelector) {
 
         super(name, level, stats, armorClass, hitPoints, action, singleTargetSelector);
+        addLabels();
+    }
+
+    private void addLabels() {
+        getLabels().add(CreatureLabel.FRONT_LINE);
         getLabels().add(CreatureLabel.THIEF);
     }
 

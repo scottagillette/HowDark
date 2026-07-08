@@ -26,8 +26,7 @@ public class Paladin extends Player {
             Action action) {
 
         super(name, level, stats, armorClass, hitPoints, action, new FocusFireTargetSelector());
-        getLabels().add(CreatureLabel.PALADIN);
-        getLabels().add(CreatureLabel.FRONT_LINE);
+        addLabels();
     }
 
     public Paladin(
@@ -40,10 +39,13 @@ public class Paladin extends Player {
             SingleTargetSelector singleTargetSelector) {
 
         super(name, level, stats, armorClass, hitPoints, action, singleTargetSelector);
-        getLabels().add(CreatureLabel.PALADIN);
-        getLabels().add(CreatureLabel.FRONT_LINE);
+        addLabels();
     }
 
+    private void addLabels() {
+        getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.PALADIN);
+    }
 
     @Override
     public String getClassName() {

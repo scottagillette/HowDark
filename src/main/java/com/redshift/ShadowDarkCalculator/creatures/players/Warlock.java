@@ -21,8 +21,7 @@ public class Warlock extends Player {
             Action action) {
 
         super(name, level, stats, armorClass, hitPoints, action, new FocusFireTargetSelector());
-        getLabels().add(CreatureLabel.WARLOCK);
-        getLabels().add(CreatureLabel.CASTER);
+        addLabels();
     }
 
     public Warlock(
@@ -35,8 +34,13 @@ public class Warlock extends Player {
             SingleTargetSelector singleTargetSelector) {
 
         super(name, level, stats, armorClass, hitPoints, action, singleTargetSelector);
-        getLabels().add(CreatureLabel.WARLOCK);
+        addLabels();
+    }
+
+    private void addLabels() {
         getLabels().add(CreatureLabel.CASTER);
+        getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.WARLOCK);
     }
 
     @Override

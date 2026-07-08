@@ -23,10 +23,7 @@ public class Necromancer extends Player {
             Action action) {
 
         super(name, level, stats, armorClass, hitPoints, action, new FocusFireTargetSelector());
-
-        getLabels().add(CreatureLabel.NECROMANCER);
-        getLabels().add(CreatureLabel.CASTER);
-        getLabels().add(CreatureLabel.BACKLINE);
+        addLabels();
 
         // River of Death ...and you roll a d6 for your death timer instead of a d4.
         setDyingDice(D6);
@@ -42,12 +39,16 @@ public class Necromancer extends Player {
             SingleTargetSelector singleTargetSelector) {
 
         super(name, level, stats, armorClass, hitPoints, action, singleTargetSelector);
-        getLabels().add(CreatureLabel.NECROMANCER);
-        getLabels().add(CreatureLabel.CASTER);
-        getLabels().add(CreatureLabel.BACKLINE);
+        addLabels();
 
         // River of Death ...and you roll a d6 for your death timer instead of a d4.
         setDyingDice(D6);
+    }
+
+    private void addLabels() {
+        getLabels().add(CreatureLabel.BACKLINE);
+        getLabels().add(CreatureLabel.CASTER);
+        getLabels().add(CreatureLabel.NECROMANCER);
     }
 
     @Override

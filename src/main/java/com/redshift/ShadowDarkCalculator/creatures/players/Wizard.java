@@ -21,9 +21,7 @@ public class Wizard extends Player {
             Action action) {
 
         super(name, level, stats, armorClass, hitPoints, action, new FocusFireTargetSelector());
-        getLabels().add(CreatureLabel.WIZARD);
-        getLabels().add(CreatureLabel.CASTER);
-        getLabels().add(CreatureLabel.BACKLINE);
+        addLabels();
     }
 
     public Wizard(
@@ -36,6 +34,10 @@ public class Wizard extends Player {
             SingleTargetSelector singleTargetSelector) {
 
         super(name, level, stats, armorClass, hitPoints, action, singleTargetSelector);
+        addLabels();
+    }
+
+    private void addLabels() {
         getLabels().add(CreatureLabel.WIZARD);
         getLabels().add(CreatureLabel.CASTER);
         getLabels().add(CreatureLabel.BACKLINE);

@@ -21,9 +21,7 @@ public class KnightOfStYdris  extends Player {
             Action action) {
 
         super(name, level, stats, armorClass, hitPoints, action, new FocusFireTargetSelector());
-        getLabels().add(CreatureLabel.KNIGHT_OF_ST_YDRIS);
-        getLabels().add(CreatureLabel.CASTER);
-        getLabels().add(CreatureLabel.FRONT_LINE);
+        addLabels();
     }
 
     public KnightOfStYdris(
@@ -36,9 +34,13 @@ public class KnightOfStYdris  extends Player {
             SingleTargetSelector singleTargetSelector) {
 
         super(name, level, stats, armorClass, hitPoints, action, singleTargetSelector);
-        getLabels().add(CreatureLabel.KNIGHT_OF_ST_YDRIS);
+        addLabels();
+    }
+
+    private void addLabels() {
         getLabels().add(CreatureLabel.CASTER);
         getLabels().add(CreatureLabel.FRONT_LINE);
+        getLabels().add(CreatureLabel.KNIGHT_OF_ST_YDRIS);
     }
 
     @Override

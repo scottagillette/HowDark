@@ -26,7 +26,7 @@ public class Bard extends Player {
             Action action) {
 
         super(name, level, stats, armorClass, hitPoints, action, new FocusFireTargetSelector());
-        getLabels().add(CreatureLabel.BARD);
+        addLabels();
     }
 
     public Bard(
@@ -39,7 +39,12 @@ public class Bard extends Player {
             SingleTargetSelector singleTargetSelector) {
 
         super(name, level, stats, armorClass, hitPoints, action, singleTargetSelector);
+        addLabels();
+    }
+
+    private void addLabels() {
         getLabels().add(CreatureLabel.BARD);
+        getLabels().add(CreatureLabel.FRONT_LINE);
     }
 
     @Override
