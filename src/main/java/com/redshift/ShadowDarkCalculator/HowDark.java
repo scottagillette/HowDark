@@ -8,6 +8,7 @@ import com.redshift.ShadowDarkCalculator.fights.FightResult;
 import com.redshift.ShadowDarkCalculator.fights.FightSimulator;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyYamlBuilder;
+import com.redshift.ShadowDarkCalculator.party.RandomLevel1PartyBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Path;
