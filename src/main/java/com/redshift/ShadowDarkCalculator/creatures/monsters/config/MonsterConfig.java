@@ -17,10 +17,10 @@ public class MonsterConfig {
 
     public void validate() {
         if (type == null || type.isBlank()) {
-            throw new IllegalArgumentException("monster entry is missing a type");
+            throw new IllegalArgumentException("Monster entry is missing a type");
         }
         if (count < 1) {
-            throw new IllegalArgumentException("monster count must be at least 1: " + count);
+            throw new IllegalArgumentException("Monster count must be at least 1: " + count);
         }
     }
 

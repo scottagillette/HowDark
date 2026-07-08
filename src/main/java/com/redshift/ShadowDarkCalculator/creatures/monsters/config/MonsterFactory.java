@@ -127,6 +127,15 @@ public final class MonsterFactory {
     }
 
     private MonsterFactory() {
+        // No construction.
+    }
+
+    /**
+     * Returns a set of available monster types.
+     */
+
+    public static Set<String> availableTypes() {
+        return new TreeSet<>(REGISTRY.keySet());
     }
 
     /**
@@ -134,18 +143,19 @@ public final class MonsterFactory {
      */
 
     public static List<Creature> create(MonsterConfig config) {
-        if(config.getType().equals("random")) {
-            return List.of(createRandomMonster());
-        }
-        final List<Creature> monsters = new ArrayList<>();
+        List<Creature> monsters = new ArrayList<>();
 
-        final String baseName = (config.getName() == null || config.getName().isBlank())
-                ? defaultDisplayName(config.getType())
-                : config.getName();
+        if (config.getType().equals("random")) {
+            monsters = List.of(createRandomMonster());
+        } else {
+            final String baseName = (config.getName() == null || config.getName().isBlank())
+                    ? defaultDisplayName(config.getType())
+                    : config.getName();
 
-        for (int i = 1; i <= config.getCount(); i++) {
-            final String name = config.getCount() > 1 ? baseName + " " + i : baseName;
-            monsters.add(create(config.getType(), name));
+            for (int i = 1; i <= config.getCount(); i++) {
+                final String name = config.getCount() > 1 ? baseName + " " + i : baseName;
+                monsters.add(create(config.getType(), name));
+            }
         }
 
         return monsters;
@@ -161,23 +171,11 @@ public final class MonsterFactory {
         return constructor.apply(name);
     }
 
-    public static Set<String> availableTypes() {
-        return new TreeSet<>(REGISTRY.keySet());
-    }
-
-    private static void register(String key, Function<String, Creature> constructor) {
-        REGISTRY.put(key, constructor);
-    }
-
     public static Creature createRandomMonster() {
         final List<String> types = new ArrayList<>(REGISTRY.keySet());
         final int randomIndex = (int) (Math.random() * types.size());
         final String randomType = types.get(randomIndex);
         return create(randomType, defaultDisplayName(randomType));
-    }
-
-    private static String normalize(String value) {
-        return value.trim().toLowerCase().replaceAll("[\\s_]+", "-");
     }
 
     private static String defaultDisplayName(String type) {
@@ -192,6 +190,14 @@ public final class MonsterFactory {
         }
 
         return builder.toString();
+    }
+
+    private static String normalize(String value) {
+        return value.trim().toLowerCase().replaceAll("[\\s_]+", "-");
+    }
+
+    private static void register(String key, Function<String, Creature> constructor) {
+        REGISTRY.put(key, constructor);
     }
 
 }
