@@ -10,7 +10,7 @@
 #   armorClass / ac: overrides the class default armor
 #   hitPoints / hp:  overrides derived hit points (otherwise hit die avg + CON mod per level)
 #   luckToken:       true grants one luck token re-roll
-#   healingPotions:  number of one-use healing potions carried
+#   items:           Items carried (i.e. healing-poition, curative, etc.)
 #   weapons:         by type (kebab-case WeaponBuilder name, e.g. bastard-sword-1h, longbow);
 #                    options: magical, silvered, attackRollBonus, damageRollBonus, priority
 #   spells:          by type (e.g. cure-wounds, magic-missile, burning-hands, sleep,

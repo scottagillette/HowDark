@@ -85,7 +85,6 @@ class FightConfigLoaderTest {
                     ac: 16
                     hp: 20
                     luckToken: true
-                    healingPotions: 2
                     weapons:
                       - type: bastard-sword-1h
                         magical: true
@@ -108,7 +107,6 @@ class FightConfigLoaderTest {
         assertEquals(20, member.getHitPoints());
 
         assertTrue(member.isLuckToken());
-        assertEquals(2, member.getHealingPotions());
 
         final WeaponConfig weapon = member.getWeapons().get(0);
         assertEquals("bastard-sword-1h", weapon.getType());

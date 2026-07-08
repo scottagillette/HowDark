@@ -80,13 +80,15 @@ class CustomPlayerConfigTest {
                     stats: { str: 18, dex: 10, con: 10, int: 7, wis: 18, cha: 10 }
                     hp: 8
                     ac: 13
+                    items:
+                      - type: healing-potion
+                        priority: 3
                     weapons:
                       - type: longsword
                         priority: 1
                     spells:
                       - type: cure-wounds
                         priority: 10
-                    healingPotions: 1
                 monsters:
                   - type: goblin
                     count: 2

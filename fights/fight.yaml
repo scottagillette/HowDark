@@ -6,16 +6,11 @@
 #        partyBuilder: lost-citadel
 #      Available: lost-citadel, the-wolf-pack, the-crab-crushers, diablerie, funnel
 #
-#   2. Members listed individually by class (shown below); each class comes with a
-#      default loadout (stats, armor, weapons and spells). Classes: bard, commoner,
-#      fighter, knight-of-st-ydris, necromancer, paladin, priest, ranger, thief,
-#      warlock, witch, wizard.
+#   2. Members listed individually by class (shown below)
 #
-#      Any part of a member's build can be overridden: stats (all six, short forms
+#      All part of a member's build should be specified: stats (all six, short forms
 #      str/dex/con/int/wis/cha accepted), armorClass (alias ac), hitPoints (alias hp),
-#      luckToken, healingPotions, and the exact weapons and spells carried. Listing
-#      weapons/spells/potions replaces the class default loadout entirely. See
-#      fights/custom-party.yaml for a fully customized party.
+#      luckToken, and the exact items, weapons and spells carried.
 #
 # Monsters are picked by type (e.g. goblin, storm-giant, bone-naga). Use
 # "count" for multiples; names are numbered automatically.
