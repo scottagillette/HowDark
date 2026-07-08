@@ -44,8 +44,8 @@ public class HowDark {
 //                    new TheCrabCrushersBuilder().build(),
 //                    new DiableriePartyBuilder().build(),
 //                    new LostCitadelPartyBuilder().build(),
-                    new LostCitadelPartyYamlBuilder().build(),
-//                    new RandomLevel1PartyBuilder().build(),
+//                    new LostCitadelPartyYamlBuilder().build(),
+                    new RandomLevel1PartyBuilder(4, 1011388672796500L).build(),
 
 //                    RandomEncounter.createRandomEncounter(4, 4, 1)
 //                    List.of(new Wyvern("Wyvern"))

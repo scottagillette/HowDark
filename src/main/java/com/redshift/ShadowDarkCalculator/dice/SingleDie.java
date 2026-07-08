@@ -18,8 +18,6 @@ public class SingleDie implements Dice {
     public static final SingleDie D12 = new SingleDie(12);
     public static final SingleDie D20 = new SingleDie(20);
 
-    private static final Random random = new Random();
-
     private final int sides;
 
     public SingleDie(int sides) {
@@ -29,7 +27,7 @@ public class SingleDie implements Dice {
     @Override
     public int roll() {
         if (sides == 0) return 0;
-        return random.nextInt(sides) + 1;
+        return RandomAccess.RANDOM.nextInt(sides) + 1;
     }
 
 }

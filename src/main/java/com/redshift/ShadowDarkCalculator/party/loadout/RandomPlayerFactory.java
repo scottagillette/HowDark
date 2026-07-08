@@ -4,6 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.players.*;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
+import com.redshift.ShadowDarkCalculator.dice.RandomAccess;
 import com.redshift.ShadowDarkCalculator.party.loadout.actions.ActionSelector;
 import com.redshift.ShadowDarkCalculator.party.loadout.ancestry.AncestrySelector;
 import com.redshift.ShadowDarkCalculator.party.loadout.classes.ClassSelector;
@@ -11,7 +12,6 @@ import com.redshift.ShadowDarkCalculator.targets.single.FocusFireTargetSelector;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-import java.util.Random;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
@@ -21,8 +21,6 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 @Slf4j
 public class RandomPlayerFactory {
-
-    private static final Random RANDOM = new Random();
 
     // Official Shadowdark random names!
     private static final List<String> NAMES = List.of(
@@ -66,7 +64,7 @@ public class RandomPlayerFactory {
         final Ancestry playerAncestry =  ancestrySelector.selectAndApplyBonuses(playerClass, bonuses);
 
         // Step 5. Generate random name.
-        final String name = NAMES.get(RANDOM.nextInt(NAMES.size())) + " the " + playerAncestry.getDisplayName();
+        final String name = NAMES.get(RandomAccess.RANDOM.nextInt(NAMES.size())) + " the " + playerAncestry.getDisplayName();
 
         // Step 6. Update any stats that have been updated based on ancestry or clas.
         final Stats finalStats = new Stats(
