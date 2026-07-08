@@ -93,7 +93,7 @@ public class PriestActionBuilder implements ActionBuilder {
 
         spells.add(new CureWounds().setPriority(10));
         spells.add(new HolyWeapon().setPriority(5));
-        //spells.add(new Light().setPriority(1)); // TODO: Who selects light!
+        spells.add(new Light().setPriority(1)); // Always 'lost' so it just takes up space.
         spells.add(new ProtectionFromEvil().setPriority(5));
         spells.add(new ShieldOfFaith().setPriority(5));
 

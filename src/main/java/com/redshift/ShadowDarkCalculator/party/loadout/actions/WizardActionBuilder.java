@@ -69,6 +69,7 @@ public class WizardActionBuilder implements ActionBuilder {
         final List<Action> spells = new ArrayList<>();
 
         spells.add(new BurningHands().setPriority(10));
+        spells.add(new Light().setPriority(1)); // Always 'lost' so it just takes up space.
         spells.add(new MageArmor().setPriority(5));
         spells.add(new MagicMissile().setPriority(3));
         spells.add(new ProtectionFromEvil().setPriority(5));

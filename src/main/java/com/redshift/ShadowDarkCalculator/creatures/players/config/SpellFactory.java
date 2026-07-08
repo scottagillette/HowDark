@@ -24,6 +24,7 @@ public final class SpellFactory {
         register("fascinate", Fascinate::new);
         register("holy-weapon", HolyWeapon::new);
         register("hypnotize", Hypnotize::new);
+        register("light", Light::new);
         register("mage-armor", MageArmor::new);
         register("magic-missile", MagicMissile::new);
         register("protection-from-evil", ProtectionFromEvil::new);
