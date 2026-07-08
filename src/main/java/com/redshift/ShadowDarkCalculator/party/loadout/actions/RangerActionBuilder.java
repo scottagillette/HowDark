@@ -2,7 +2,7 @@ package com.redshift.ShadowDarkCalculator.party.loadout.actions;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
-import com.redshift.ShadowDarkCalculator.actions.misc.Curative;
+import com.redshift.ShadowDarkCalculator.actions.items.Curative;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
@@ -10,7 +10,6 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.party.loadout.Bonuses;
 
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D12;
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 
 /**
  * Specific action builder for the Ranger class.

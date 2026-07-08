@@ -1,8 +1,8 @@
 package com.redshift.ShadowDarkCalculator.fights;
 
-import com.redshift.ShadowDarkCalculator.creatures.players.config.PartyMemberConfig;
-import com.redshift.ShadowDarkCalculator.creatures.players.config.SpellConfig;
-import com.redshift.ShadowDarkCalculator.creatures.players.config.WeaponConfig;
+import com.redshift.ShadowDarkCalculator.creatures.players.PlayerConfig;
+import com.redshift.ShadowDarkCalculator.actions.spells.SpellConfig;
+import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponConfig;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -98,7 +98,7 @@ class FightConfigLoaderTest {
                   - type: goblin
                 """;
 
-        final PartyMemberConfig member = FightConfigLoader.parse(yaml).getParty().get(0);
+        final PlayerConfig member = FightConfigLoader.parse(yaml).getParty().get(0);
 
         // Short stat forms and the ac/hp aliases bind to the full field names.
         assertEquals(18, member.getStats().getStrength());

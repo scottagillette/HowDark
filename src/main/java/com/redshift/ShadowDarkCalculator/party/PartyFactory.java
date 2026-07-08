@@ -1,12 +1,6 @@
-package com.redshift.ShadowDarkCalculator.creatures.players.config;
+package com.redshift.ShadowDarkCalculator.party;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.party.DiableriePartyBuilder;
-import com.redshift.ShadowDarkCalculator.party.FunnelPartyBuilder;
-import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyBuilder;
-import com.redshift.ShadowDarkCalculator.party.PartyBuilder;
-import com.redshift.ShadowDarkCalculator.party.TheCrabCrushersBuilder;
-import com.redshift.ShadowDarkCalculator.party.TheWolfPackBuilder;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -36,6 +30,10 @@ public final class PartyFactory {
     private PartyFactory() {
     }
 
+    public static Set<String> availableParties() {
+        return new TreeSet<>(REGISTRY.keySet());
+    }
+
     public static List<Creature> create(String name) {
         final Supplier<PartyBuilder> builder = REGISTRY.get(normalize(name));
 
@@ -46,16 +44,12 @@ public final class PartyFactory {
         return builder.get().build();
     }
 
-    public static Set<String> availableParties() {
-        return new TreeSet<>(REGISTRY.keySet());
+    private static String normalize(String value) {
+        return value.trim().toLowerCase().replaceAll("[\\s_]+", "-");
     }
 
     private static void register(String key, Supplier<PartyBuilder> builder) {
         REGISTRY.put(key, builder);
-    }
-
-    private static String normalize(String value) {
-        return value.trim().toLowerCase().replaceAll("[\\s_]+", "-");
     }
 
 }

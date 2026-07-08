@@ -1,7 +1,4 @@
-package com.redshift.ShadowDarkCalculator.creatures.players.config;
-
-import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
-import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
+package com.redshift.ShadowDarkCalculator.actions.weapons;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.redshift.ShadowDarkCalculator.creatures.players.config;
+package com.redshift.ShadowDarkCalculator.actions.items;
 
 import lombok.Data;
 

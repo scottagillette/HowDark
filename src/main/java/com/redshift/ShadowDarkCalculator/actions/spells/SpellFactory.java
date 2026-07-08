@@ -1,6 +1,4 @@
-package com.redshift.ShadowDarkCalculator.creatures.players.config;
-
-import com.redshift.ShadowDarkCalculator.actions.spells.*;
+package com.redshift.ShadowDarkCalculator.actions.spells;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.redshift.ShadowDarkCalculator.actions.misc;
+package com.redshift.ShadowDarkCalculator.actions.items;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.BaseAction;
@@ -12,22 +12,16 @@ import java.util.List;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
 
 /**
- * Ranger: DC 15 INT Curative. Equivalent to a Potion of Healing/
+ * An action to heal someone for D6 hps on a turn.
  */
 
 @Slf4j
-public class Curative extends BaseAction implements Action {
+public class HealingPotion extends BaseAction implements Action {
 
     private boolean used = false;
-    private boolean advantage = false;
 
-    public Curative() {
-        super("Curative");
-    }
-
-    public Action addAdvantage() {
-        this.advantage = true;
-        return this;
+    public HealingPotion() {
+        super("Healing Potion");
     }
 
     @Override
@@ -45,24 +39,17 @@ public class Curative extends BaseAction implements Action {
     public void perform(Creature actor, List<Creature> enemies, List<Creature> allies, Encounter encounter) {
         final Creature healingTarget = new HealTargetSelector().get(allies);
 
-        int roll = actor.getStats().intelligenceRoll();
-        if (advantage) {
-            roll = Math.max(roll, actor.getStats().intelligenceRoll());
-        }
+        int damageHealed = D6.roll();
+        healingTarget.healDamage(damageHealed);
 
-        if (roll >= 15) {
-            int damageHealed = D6.roll();
-            healingTarget.healDamage(damageHealed);
-            log.info(
-                    "{} heals {} with a curative for {} hit points.",
-                    actor.getName(),
-                    healingTarget.getName(),
-                    damageHealed
-            );
-        } else {
-            log.info("{} attempts to create a curative but fails!", actor.getName());
-            used = true;
-        }
+        used = true;
+
+        log.info(
+                "{} heals {} with a healing potion for {} hit points.",
+                actor.getName(),
+                healingTarget.getName(),
+                damageHealed
+        );
     }
 
 }

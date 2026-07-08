@@ -1,10 +1,12 @@
-package com.redshift.ShadowDarkCalculator.creatures.players.config;
+package com.redshift.ShadowDarkCalculator.creatures.players;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
 import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
+import com.redshift.ShadowDarkCalculator.actions.items.ItemFactory;
+import com.redshift.ShadowDarkCalculator.actions.spells.SpellFactory;
+import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponFactory;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
-import com.redshift.ShadowDarkCalculator.creatures.players.*;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -48,14 +50,14 @@ public final class PlayerFactory {
     }
 
     public static Creature create(String playerClass, String name, int level) {
-        final PartyMemberConfig config = new PartyMemberConfig();
+        final PlayerConfig config = new PlayerConfig();
         config.setPlayerClass(playerClass);
         config.setName(name);
         config.setLevel(level);
         return create(config);
     }
 
-    public static Creature create(PartyMemberConfig config) {
+    public static Creature create(PlayerConfig config) {
         final Archetype archetype = archetype(config.getPlayerClass());
 
         final int level = config.getLevel();
@@ -98,7 +100,7 @@ public final class PlayerFactory {
         return archetype;
     }
 
-    private static Action buildActions(PartyMemberConfig config) {
+    private static Action buildActions(PlayerConfig config) {
         final List<Action> actions = new ArrayList<>();
 
         config.getItems().forEach(item -> actions.add(ItemFactory.create(item)));

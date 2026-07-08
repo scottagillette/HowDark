@@ -3,8 +3,8 @@ package com.redshift.ShadowDarkCalculator.fights;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.config.MonsterFactory;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
-import com.redshift.ShadowDarkCalculator.creatures.players.config.PartyFactory;
-import com.redshift.ShadowDarkCalculator.creatures.players.config.PlayerFactory;
+import com.redshift.ShadowDarkCalculator.party.PartyFactory;
+import com.redshift.ShadowDarkCalculator.creatures.players.PlayerFactory;
 
 import java.util.ArrayList;
 import java.util.List;

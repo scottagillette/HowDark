@@ -1,7 +1,6 @@
-package com.redshift.ShadowDarkCalculator.creatures.players.config;
+package com.redshift.ShadowDarkCalculator.creatures;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import lombok.Data;
 
 /**

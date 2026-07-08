@@ -1,9 +1,8 @@
 package com.redshift.ShadowDarkCalculator.party;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.players.config.PartyConfigLoader;
-import com.redshift.ShadowDarkCalculator.creatures.players.config.PartyMemberConfig;
-import com.redshift.ShadowDarkCalculator.creatures.players.config.PlayerFactory;
+import com.redshift.ShadowDarkCalculator.creatures.players.PlayerConfig;
+import com.redshift.ShadowDarkCalculator.creatures.players.PlayerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +11,7 @@ public class LostCitadelPartyYamlBuilder implements PartyBuilder {
 
     @Override
     public List<Creature> build() {
-
-        final List<Creature> players = new ArrayList<>();
-
-        String partyYaml = """
+        final String partyYaml = """
                 party:
                   - name: Borlin Little Digger
                     class: Paladin
@@ -79,7 +75,9 @@ public class LostCitadelPartyYamlBuilder implements PartyBuilder {
                         priority: 10
                 """;
 
-        for (PartyMemberConfig config : PartyConfigLoader.parse(partyYaml).getParty()) {
+        final List<Creature> players = new ArrayList<>();
+
+        for (PlayerConfig config : PartyConfigLoader.parse(partyYaml).getParty()) {
             players.add(PlayerFactory.create(config));
         }
 

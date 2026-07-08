@@ -1,7 +1,13 @@
 package com.redshift.ShadowDarkCalculator.fights;
 
+import com.redshift.ShadowDarkCalculator.actions.spells.SpellConfig;
+import com.redshift.ShadowDarkCalculator.actions.spells.SpellFactory;
+import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponConfig;
+import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponFactory;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.players.config.*;
+import com.redshift.ShadowDarkCalculator.creatures.StatsConfig;
+import com.redshift.ShadowDarkCalculator.creatures.players.PlayerConfig;
+import com.redshift.ShadowDarkCalculator.creatures.players.PlayerFactory;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -19,7 +25,7 @@ class CustomPlayerConfigTest {
 
     @Test
     void overridesAreAppliedToTheCreature() {
-        final PartyMemberConfig config = new PartyMemberConfig();
+        final PlayerConfig config = new PlayerConfig();
         config.setName("Borlin");
         config.setPlayerClass("paladin");
         config.setArmorClass(16);

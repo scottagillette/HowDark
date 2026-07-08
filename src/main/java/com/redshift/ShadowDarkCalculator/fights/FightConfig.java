@@ -1,7 +1,7 @@
 package com.redshift.ShadowDarkCalculator.fights;
 
 import com.redshift.ShadowDarkCalculator.creatures.monsters.config.MonsterConfig;
-import com.redshift.ShadowDarkCalculator.creatures.players.config.PartyMemberConfig;
+import com.redshift.ShadowDarkCalculator.creatures.players.PlayerConfig;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class FightConfig {
 
     private String partyBuilder;
 
-    private List<PartyMemberConfig> party = new ArrayList<>();
+    private List<PlayerConfig> party = new ArrayList<>();
 
     private List<MonsterConfig> monsters = new ArrayList<>();
 
@@ -49,7 +49,7 @@ public class FightConfig {
         }
 
         if (hasList) {
-            party.forEach(PartyMemberConfig::validate);
+            party.forEach(PlayerConfig::validate);
         }
         monsters.forEach(MonsterConfig::validate);
     }

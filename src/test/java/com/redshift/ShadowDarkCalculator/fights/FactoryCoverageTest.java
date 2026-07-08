@@ -2,10 +2,10 @@ package com.redshift.ShadowDarkCalculator.fights;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.config.MonsterFactory;
-import com.redshift.ShadowDarkCalculator.creatures.players.config.SpellConfig;
-import com.redshift.ShadowDarkCalculator.creatures.players.config.SpellFactory;
-import com.redshift.ShadowDarkCalculator.creatures.players.config.WeaponConfig;
-import com.redshift.ShadowDarkCalculator.creatures.players.config.WeaponFactory;
+import com.redshift.ShadowDarkCalculator.actions.spells.SpellConfig;
+import com.redshift.ShadowDarkCalculator.actions.spells.SpellFactory;
+import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponConfig;
+import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;

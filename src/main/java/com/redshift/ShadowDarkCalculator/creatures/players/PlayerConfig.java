@@ -1,7 +1,11 @@
-package com.redshift.ShadowDarkCalculator.creatures.players.config;
+package com.redshift.ShadowDarkCalculator.creatures.players;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.redshift.ShadowDarkCalculator.actions.items.ItemConfig;
+import com.redshift.ShadowDarkCalculator.actions.spells.SpellConfig;
+import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponConfig;
+import com.redshift.ShadowDarkCalculator.creatures.StatsConfig;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -12,7 +16,7 @@ import java.util.List;
  */
 
 @Data
-public class PartyMemberConfig {
+public class PlayerConfig {
 
     private String name;
 

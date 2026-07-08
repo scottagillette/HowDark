@@ -1,8 +1,6 @@
-package com.redshift.ShadowDarkCalculator.creatures.players.config;
+package com.redshift.ShadowDarkCalculator.actions.items;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
-import com.redshift.ShadowDarkCalculator.actions.misc.Curative;
-import com.redshift.ShadowDarkCalculator.actions.misc.HealingPotion;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
