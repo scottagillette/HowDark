@@ -9,8 +9,8 @@ import java.util.TreeSet;
 import java.util.function.Supplier;
 
 /**
- * Creates spells by type name (e.g. "cure-wounds") from a SpellConfig, applying the spell
- * check bonus, advantage and the action priority.
+ * Creates spells by type name (e.g. "cure-wounds") from a SpellConfig, applying
+ * the spell check bonus, advantage and the action priority.
  */
 
 public final class SpellFactory {
@@ -31,6 +31,8 @@ public final class SpellFactory {
         register("sleep", Sleep::new);
         register("turn-undead", TurnUndead::new);
         register("undeath", Undeath::new);
+        register("willowman", Willowman::new);
+        register("witchlight", Witchlight::new);
         register("withermark", Withermark::new);
     }
 
