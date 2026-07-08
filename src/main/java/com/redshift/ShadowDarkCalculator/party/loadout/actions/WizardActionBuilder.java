@@ -43,13 +43,13 @@ public class WizardActionBuilder implements ActionBuilder {
         // Select spells
 
         final List<Action> spellActions = buildSpellList();
-        final DeckOfCards deckOfCards = new DeckOfCards(spellActions.size() - 1);
+        final DeckOfCards deckOfCards = new DeckOfCards(spellActions.size());
 
         int drawCount = 3 + bonuses.getExtraSpellChoice();
         int advantageCount = bonuses.getSpellAdvantages();
 
         for (int i = 1; i <= drawCount; i++) {
-            final Spell spell = (Spell)spellActions.get(deckOfCards.draw());
+            final Spell spell = (Spell)spellActions.get(deckOfCards.draw() - 1);
             spell.addSpellCheckBonus(bonuses.getSpellCheckBonus());
 
             if (advantageCount > 0) {
