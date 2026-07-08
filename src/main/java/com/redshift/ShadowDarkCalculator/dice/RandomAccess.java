@@ -8,6 +8,9 @@ import java.util.Random;
 
 public class RandomAccess {
 
-    public static final Random RANDOM = new Random();
+    public static Random RANDOM = new Random();
 
+    public static void reset() {
+        RANDOM = new Random();
+    }
 }

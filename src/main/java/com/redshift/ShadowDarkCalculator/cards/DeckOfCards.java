@@ -1,5 +1,7 @@
 package com.redshift.ShadowDarkCalculator.cards;
 
+import com.redshift.ShadowDarkCalculator.dice.RandomAccess;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,7 +42,7 @@ public class DeckOfCards {
             cards.add(i + 1);
         }
 
-        Collections.shuffle(cards);
+        Collections.shuffle(cards, RandomAccess.RANDOM);
     }
 
 }
