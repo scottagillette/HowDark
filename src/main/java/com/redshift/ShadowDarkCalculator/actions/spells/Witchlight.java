@@ -19,7 +19,7 @@ import java.util.List;
 public class Witchlight extends Spell {
 
     public Witchlight() {
-        super("Witchlight", 12, RollModifier.CHARISMA);
+        super("Witchlight", 11, RollModifier.CHARISMA);
         lost = true; // This spell just takes up space.
     }
 
