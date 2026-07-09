@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.NORMAL;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
@@ -123,11 +124,11 @@ public class GoblinShaman extends Monster {
 
         private void performEffect(Creature target) {
             if (!target.isDead()) {
-                if (!target.getStats().constitutionSave(12)) {
+                if (target.getStats().constitutionSave(NORMAL.getDc())) {
+                    log.info("{} SAVES and is NOT disadvantaged!", target.getName());
+                } else {
                     log.info("{} is disadvantaged on their next attack/check!", target.getName());
                     target.addCondition(new DisadvantagedCondition());
-                } else {
-                    log.info("{} SAVES and is NOT disadvantaged!", target.getName());
                 }
             }
         }

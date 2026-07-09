@@ -9,6 +9,7 @@ import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.NORMAL;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
@@ -48,8 +49,7 @@ public class GiantSpider extends Monster {
 
             if (attackHits) {
                 if (!target.isUnconscious() && !target.hasCondition(ParalyzedCondition.class.getName())) {
-                    final boolean constitutionSave = target.getStats().constitutionSave(12);
-                    if (constitutionSave) {
+                    if (target.getStats().constitutionSave(NORMAL.getDc())) {
                         log.info("{} resists the effects of poison.", target.getName());
                     } else {
                         log.info("{} is poisoned and is paralyzed!", target.getName());

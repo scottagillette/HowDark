@@ -9,6 +9,7 @@ import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.NORMAL;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
@@ -48,7 +49,7 @@ public class GiantRat extends Monster {
 
             // Can not apply diseased condition if they already have it.
             if (attackHits && !target.hasCondition(DiseasedCondition.class.getName())) {
-                if (target.getStats().constitutionSave(12)) {
+                if (target.getStats().constitutionSave(NORMAL.getDc())) {
                     log.info("{} resists the disease.", target.getName());
                 } else {
                     int constitutionRemaining = target.getStats().constitutionDrain(D4);

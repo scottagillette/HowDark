@@ -8,6 +8,7 @@ import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.NORMAL;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 /**
@@ -49,12 +50,12 @@ public class CaveCreeper extends Monster {
 
             if (targetHits) {
                 if (!target.isUnconscious() && !target.hasCondition(ParalyzedCondition.class.getName())) {
-                    if (!target.getStats().constitutionSave(12)) {
+                    if (target.getStats().constitutionSave(NORMAL.getDc())) {
+                        log.info("{} SAVES and is NOT paralyzed!", target.getName());
+                    } else {
                         int rounds = D4.roll();
                         log.info("{} is paralyzed for {} rounds!", target.getName(), rounds);
                         target.addCondition(new ParalyzedCondition(rounds));
-                    } else {
-                        log.info("{} SAVES and is NOT paralyzed!", target.getName());
                     }
                 }
             }

@@ -4,6 +4,7 @@ import com.redshift.ShadowDarkCalculator.actions.DamageType;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.NORMAL;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 
 /**
@@ -42,7 +43,7 @@ public class PoisonWebCondition implements Condition {
                 !creature.hasCondition(ParalyzedCondition.class.getName());
 
         if (canCheck) {
-            saves = creature.getStats().dexteritySave(12);
+            saves = creature.getStats().dexteritySave(NORMAL.getDc());
             if (saves) {
                 log.info("{} escapes the poison web!", creature.getName());
             }

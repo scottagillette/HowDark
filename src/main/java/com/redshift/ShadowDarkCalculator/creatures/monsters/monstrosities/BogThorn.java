@@ -7,10 +7,10 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
-import com.redshift.ShadowDarkCalculator.creatures.monsters.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.NORMAL;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 /**
@@ -51,12 +51,12 @@ public class BogThorn extends Monster {
 
             if (attackHits) {
                 if (!target.isUnconscious() && !target.hasCondition(ParalyzedCondition.class.getName())) {
-                    if (!target.getStats().constitutionSave(12)) {
+                    if (target.getStats().constitutionSave(NORMAL.getDc())) {
+                        log.info("{} SAVES and is NOT paralyzed!", target.getName());
+                    } else {
                         int rounds = D4.roll();
                         log.info("{} is paralyzed for {} rounds!", target.getName(), rounds);
                         target.addCondition(new ParalyzedCondition(rounds));
-                    } else {
-                        log.info("{} SAVES and is NOT paralyzed!", target.getName());
                     }
                 }
             }

@@ -12,6 +12,7 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.resistance.ColdImmunity;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.NORMAL;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
@@ -67,8 +68,7 @@ public class VoidSpider extends Monster {
             if (attackHits) {
                 if (target.getCurrentHitPoints() != 0) {
                     if (!target.hasCondition(VoidSpiderPoisonedCondition.class.getName())) {
-                        final boolean constitutionSave = target.getStats().constitutionSave(12);
-                        if (constitutionSave) {
+                        if (target.getStats().constitutionSave(NORMAL.getDc())) {
                             log.info("{} resists the effects of poison.", target.getName());
                         } else {
                             log.info("{} is poisoned and staggers a bit.", target.getName());

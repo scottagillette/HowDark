@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.NORMAL;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 /**
@@ -62,12 +63,12 @@ public class Ghast extends UndeadMonster {
 
             if (attackHits) {
                 if (!target.isUnconscious() && !target.hasCondition(ParalyzedCondition.class.getName())) {
-                    if (!target.getStats().constitutionSave(12)) {
+                    if (target.getStats().constitutionSave(NORMAL.getDc())) {
+                        log.info("{} SAVES and is NOT paralyzed!", target.getName());
+                    } else {
                         int rounds = D4.roll();
                         log.info("{} is paralyzed for {} rounds!", target.getName(), rounds);
                         target.addCondition(new ParalyzedCondition(rounds));
-                    } else {
-                        log.info("{} SAVES and is NOT paralyzed!", target.getName());
                     }
                 }
             }
@@ -101,7 +102,7 @@ public class Ghast extends UndeadMonster {
             final List<Creature> targets =new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size());
 
             targets.forEach(target -> {
-                final boolean saved = target.getStats().constitutionSave(12);
+                final boolean saved = target.getStats().constitutionSave(NORMAL.getDc());
 
                 if (saved) {
                     log.info("{} SAVES against the {} Carrion Stench!", target.getName(), actor.getName());

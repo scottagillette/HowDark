@@ -11,6 +11,7 @@ import com.redshift.ShadowDarkCalculator.resistance.PiercingResistance;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.HARD;
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.NORMAL;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 /**
@@ -71,7 +72,9 @@ public class GelatinousCube extends Monster {
                     // Don't engulf if already!
                     if (!actor.hasCondition(EngulfedInAcidCondition.class.getName())) {
                         // Engulf.. STR DC 12 check
-                        if (!target.getStats().strengthSave(12)) {
+                        if (target.getStats().strengthSave(NORMAL.getDc())) {
+                            log.info("{} avoids being engulfed by the Gelatinous Cube!", target.getName());
+                        } else {
                             log.info("{} fails a STR save and is engulfed by the Gelatinous Cube!", target.getName());
                             target.addCondition(new EngulfedInAcidCondition(D8));
                         }

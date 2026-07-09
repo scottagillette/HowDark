@@ -5,6 +5,8 @@ import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.NORMAL;
+
 /**
  * Engulfed in acid and taking damage. IF they can act they can try to break free.
  */
@@ -42,7 +44,7 @@ public class EngulfedInAcidCondition implements Condition {
         // Creature must be able to act to attempt an escape!
         if (creature.canAct()) {
             // DC 12 STR to end...
-            boolean saves = creature.getStats().strengthSave(12);
+            boolean saves = creature.getStats().strengthSave(NORMAL.getDc());
             if (saves) {
                 log.info("{} is no longer engulfed and can act!", creature.getName());
             }
