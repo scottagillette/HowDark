@@ -45,8 +45,8 @@ public class HowDark {
 //                    new DiableriePartyBuilder().build(),
 //                    new LostCitadelPartyBuilder().build(),
 //                    new LostCitadelPartyYamlBuilder().build(),
-                    new RandomLevel1PartyBuilder().build(),
-//                    RandomEncounter.createRandomEncounter(4, 4, 1)
+//                    new RandomLevel1PartyBuilder().build(),
+                    new RandomLevel1PartyBuilder(4, 2623945301396844032L).build(),
 //                    List.of(new Wyvern("Wyvern"))
 //                    List.of(new StormGiant("Storm Giant"))
 //                    List.of(new LesserFireElemental("Lesser Fire Elemental"))

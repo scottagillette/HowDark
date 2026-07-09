@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Builds a random party comprised of randomly generated players.
@@ -16,25 +17,24 @@ import java.util.List;
 public class RandomLevel1PartyBuilder implements PartyBuilder {
 
     private final int playerCount;
-    private final long seed = System.nanoTime();
+    private long seed = new Random().nextLong();
 
     public RandomLevel1PartyBuilder() {
         this.playerCount = 4;
-        RandomAccess.RANDOM.setSeed(seed);
     }
 
     public RandomLevel1PartyBuilder(int playerCount) {
         this.playerCount = playerCount;
-        RandomAccess.RANDOM.setSeed(seed);
     }
 
     public RandomLevel1PartyBuilder(int playerCount, long seed) {
         this.playerCount = playerCount;
-        RandomAccess.RANDOM.setSeed(seed);
+        this.seed = seed;
     }
 
     @Override
     public List<Creature> build() {
+        RandomAccess.RANDOM.setSeed(seed);
         log.info("Generating Party: seed={}L \n", seed);
 
         final RandomPlayerFactory factory = new RandomPlayerFactory();
