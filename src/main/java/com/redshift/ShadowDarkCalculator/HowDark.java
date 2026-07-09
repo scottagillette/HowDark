@@ -1,5 +1,7 @@
 package com.redshift.ShadowDarkCalculator;
 
+import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.DireWolf;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.Wolf;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.Worg;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.goblinoid.Goblin;
 import com.redshift.ShadowDarkCalculator.fights.FightConfig;
@@ -44,9 +46,14 @@ public class HowDark {
 //                    new TheCrabCrushersBuilder().build(),
 //                    new DiableriePartyBuilder().build(),
 //                    new LostCitadelPartyBuilder().build(),
-//                    new LostCitadelPartyYamlBuilder().build(),
-                    new RandomLevel1PartyBuilder().build(),
+                    new LostCitadelPartyYamlBuilder().build(),
+//                    new RandomLevel1PartyBuilder().build(),
 //                    new RandomLevel1PartyBuilder(4, 8066571980744823443L).build(),
+                    List.of(
+                            new DireWolf("Dire Wolf"),
+                            new Wolf("Wolf 1"),
+                            new Wolf("Wolf 2")
+                    )
 //                    List.of(new Wyvern("Wyvern"))
 //                    List.of(new StormGiant("Storm Giant"))
 //                    List.of(new LesserFireElemental("Lesser Fire Elemental"))
@@ -56,10 +63,10 @@ public class HowDark {
 //                            new Cyclops("'Bone Crusher' the Cyclops")
 //                    )
 //                    List.of(new Bulette("Bulette"))
-                    List.of(
-                            new Worg("Worg 1"), new Goblin("Goblin 1"),
-                            new Worg("Worg 2"), new Goblin("Goblin 2")
-                    )
+//                    List.of(
+//                            new Worg("Worg 1"), new Goblin("Goblin 1"),
+//                            new Worg("Worg 2"), new Goblin("Goblin 2")
+//                    )
 //                    List.of(
 //                            new GiantCentipede("Giant Centipede"),
 //                            new GiantCentipede("Giant Centipede"),
