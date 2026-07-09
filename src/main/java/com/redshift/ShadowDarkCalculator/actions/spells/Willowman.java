@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.HARD;
+
 /**
  * Tier 1, witch
  * Duration: Instant
@@ -46,11 +48,11 @@ public class Willowman extends Spell {
     public void performCriticalSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
         final Creature target = targets.getFirst(); // Always uses single target.
         if (target.getLevel() <= 4) { // Double one numeric value!
-            if (target.getStats().wisdomSave(15)) {
+            if (target.getStats().wisdomSave(HARD.getDc())) {
+                log.info("{} casts {} but {} succeds on a morale check.", actor.getName(), name, target.getName());
+            } else {
                 log.info("{} critically succeeds on the spell {} and {} fails a morale check!", actor.getName(), name, target.getName());
                 target.flee();
-            } else {
-                log.info("{} casts {} but {} succeds on a morale check.", actor.getName(), name, target.getName());
             }
         } else {
             log.info("{} casts {} but doesn't affect the creature.", actor.getName(), name);
@@ -62,11 +64,11 @@ public class Willowman extends Spell {
     public void performSpell(Creature actor, List<Creature> targets, Encounter encounter, int spellCheckRoll) {
         final Creature target = targets.getFirst(); // Always uses single target.
         if (target.getLevel() <= 2) {
-            if (target.getStats().wisdomSave(15)) {
+            if (target.getStats().wisdomSave(HARD.getDc())) {
+                log.info("{} casts {} but {} succeds on a morale check.", actor.getName(), name, target.getName());
+            } else {
                 log.info("{} succeeds on the spell {} and {} fails a morale check!", actor.getName(), name, target.getName());
                 target.flee();
-            } else {
-                log.info("{} casts {} but {} succeds on a morale check.", actor.getName(), name, target.getName());
             }
         } else {
             log.info("{} casts {} but doesn't affect the creature.", actor.getName(), name);

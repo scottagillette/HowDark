@@ -1,6 +1,4 @@
-package com.redshift.ShadowDarkCalculator.cards;
-
-import com.redshift.ShadowDarkCalculator.dice.RandomAccess;
+package com.redshift.ShadowDarkCalculator.dice;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.HARD;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
 
 /**
@@ -50,7 +51,7 @@ public class Curative extends BaseAction implements Action {
             roll = Math.max(roll, actor.getStats().intelligenceRoll());
         }
 
-        if (roll >= 15) {
+        if (roll >= HARD.getDc()) {
             int damageHealed = D6.roll();
             healingTarget.healDamage(damageHealed);
             log.info(

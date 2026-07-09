@@ -6,7 +6,7 @@ import com.redshift.ShadowDarkCalculator.conditions.ExtraDamageDiceCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
-import com.redshift.ShadowDarkCalculator.dice.DifficultyLevel;
+import com.redshift.ShadowDarkCalculator.dice.DifficultyClass;
 import com.redshift.ShadowDarkCalculator.encounter.Encounter;
 import com.redshift.ShadowDarkCalculator.targets.single.FocusFireTargetSelector;
 import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
@@ -61,7 +61,7 @@ public class Thief extends Player {
         // Thieves can attempt to hide before combat.
         final int dexRoll = getStats().dexterityRoll();
 
-        if (dexRoll >= DifficultyLevel.NORMAL.getDifficultyClass()) {
+        if (dexRoll >= DifficultyClass.NORMAL.getDc()) {
             log.info("{} has successfully hidden from their enemies in the shadows!", getName());
             addCondition(new AdvantageCondition()); // Advantage when attacking once!
             addCondition(new ExtraDamageDiceCondition(1 + getLevel() / 2));

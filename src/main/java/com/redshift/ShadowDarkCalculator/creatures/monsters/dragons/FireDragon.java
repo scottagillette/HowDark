@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.HARD;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 /**
@@ -92,7 +93,7 @@ public class FireDragon extends Monster {
                 } else if (creature.isDead()) {
                     // Ignore damage for dead cretures
                 } else {
-                    if (creature.getStats().dexteritySave(15)) {
+                    if (creature.getStats().dexteritySave(HARD.getDc())) {
                         log.info("{} makes a DEX save and takes no damage from {}!", creature.getName(), name);
                     } else {
                         final int damage = new MultipleDice(D10, D10, D10, D10, D10, D10).roll();

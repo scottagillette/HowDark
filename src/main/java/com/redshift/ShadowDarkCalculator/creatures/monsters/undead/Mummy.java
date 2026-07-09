@@ -9,6 +9,7 @@ import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import com.redshift.ShadowDarkCalculator.resistance.NonMagicalImmunity;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.HARD;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 /**
@@ -73,7 +74,7 @@ public class Mummy extends UndeadMonster {
             final boolean attackHits = super.performSingleTargetAttack(actor, target);
 
             if (attackHits & target.getCurrentHitPoints() != 0) {
-                if (target.getStats().constitutionSave(15)) {
+                if (target.getStats().constitutionSave(HARD.getDc())) {
                     log.info("{} SAVES and is NOT drained of health.", target.getName());
                 } else {
                     // HP 0

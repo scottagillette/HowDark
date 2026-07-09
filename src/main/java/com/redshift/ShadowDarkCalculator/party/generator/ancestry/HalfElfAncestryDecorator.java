@@ -13,6 +13,6 @@ public class HalfElfAncestryDecorator implements AncestryDecorator {
 
     @Override
     public void decorate(PlayerClass playerClass, Bonuses bonuses) {
-        // TODO: See advantage on talent rolls.
+        bonuses.addAdvantageOnTalentRoll();
     }
 }

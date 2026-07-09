@@ -24,8 +24,8 @@ public class ClassSelector {
         classDecorators.put(PlayerClass.PRIEST, new PriestTalentDecorator());
         classDecorators.put(PlayerClass.RANGER, new RangerTalentDecorator());
         classDecorators.put(PlayerClass.THIEF, new ThiefTalentDecorator());
-        classDecorators.put(PlayerClass.WITCH, new WitchTalentGenerator());
-        classDecorators.put(PlayerClass.WIZARD, new WizardTalentGenerator());
+        classDecorators.put(PlayerClass.WITCH, new WitchTalentDecorator());
+        classDecorators.put(PlayerClass.WIZARD, new WizardTalentDecorator());
     }
 
     /**

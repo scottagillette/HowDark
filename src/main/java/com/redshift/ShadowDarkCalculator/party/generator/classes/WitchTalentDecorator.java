@@ -11,7 +11,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
  * A decorator that updates any bonuses from talent rolls for the Wizard class.
  */
 
-public class WitchTalentGenerator implements TalentDecorator {
+public class WitchTalentDecorator implements TalentDecorator {
 
     @Override
     public void decorate(Stats stats, Bonuses bonuses) {

@@ -11,6 +11,7 @@ import com.redshift.ShadowDarkCalculator.creatures.monsters.Monster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.HARD;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 /**
@@ -37,7 +38,7 @@ public class Medusa extends Monster {
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
         getLabels().add(CreatureLabel.CHAOTIC);
-        addCondition(new SpellResilience(15)); // Hostile spells targeting the medusa are DC 15 to cast.
+        addCondition(new SpellResilience(HARD.getDc())); // Hostile spells targeting the medusa are DC 15 to cast.
         addCondition(new DisadvantageToAttackCondition()); // Averting their eyes when attacking!
     }
 
@@ -58,7 +59,7 @@ public class Medusa extends Monster {
             final boolean targetHits = super.performSingleTargetAttack(actor, target);
 
             if (targetHits && !target.isUnconscious()) { // Don't poison unconscious targets
-                if (!target.getStats().constitutionSave(15)) {
+                if (!target.getStats().constitutionSave(HARD.getDc())) {
                     log.info("{} is poisoned and falls to the ground.", target.getName());
                     target.takeDamage(target.getCurrentHitPoints(), new DamageType().addPoison());
                 } else {

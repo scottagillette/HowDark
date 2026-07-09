@@ -10,6 +10,7 @@ import com.redshift.ShadowDarkCalculator.conditions.ParalyzedCondition;
 import com.redshift.ShadowDarkCalculator.resistance.PiercingResistance;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.HARD;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 /**
@@ -61,7 +62,7 @@ public class GelatinousCube extends Monster {
 
             if (attackHits) {
                 // Toxin
-                if (target.getStats().constitutionSave(15)) {
+                if (target.getStats().constitutionSave(HARD.getDc())) {
                     // If already paralyzed don't say they are not, even it saved.
                     if (!actor.hasCondition(ParalyzedCondition.class.getName())) {
                         log.info("{} SAVES and is NOT paralyzed!", target.getName());

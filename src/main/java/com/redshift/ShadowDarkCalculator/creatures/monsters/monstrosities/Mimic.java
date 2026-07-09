@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.HARD;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
 /**
@@ -68,13 +69,13 @@ public class Mimic extends Monster {
 
                     if (attackHit) {
                         // Check for stuck DC15 STR check
-                        final boolean saved = !target.isUnconscious() && target.getStats().strengthSave(15);
+                        final boolean saved = !target.isUnconscious() && target.getStats().strengthSave(HARD.getDc());
 
                         if (saved) {
                             log.info("{} isn't stuck by sticky Mimic tongue", target.getName());
                         } else {
                             log.info("{} IS STUCK by sticky Mimic tongue!", target.getName());
-                            final StuckToCondition stuckToCondition = new StuckToCondition(15);
+                            final StuckToCondition stuckToCondition = new StuckToCondition(HARD.getDc());
                             mimic.setCurrentStuckTarget(target); // A new stuck target!
                             mimic.setCurrentStuckCondition(stuckToCondition);
                             target.addCondition(stuckToCondition);

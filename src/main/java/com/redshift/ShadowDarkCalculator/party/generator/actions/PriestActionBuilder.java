@@ -5,7 +5,7 @@ import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.spells.*;
 import com.redshift.ShadowDarkCalculator.actions.weapons.Weapon;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
-import com.redshift.ShadowDarkCalculator.cards.DeckOfCards;
+import com.redshift.ShadowDarkCalculator.dice.DeckOfCards;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.party.generator.Bonuses;
 import lombok.extern.slf4j.Slf4j;

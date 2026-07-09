@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.HARD;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D10;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
@@ -108,7 +109,7 @@ public class FireElemental extends Monster {
                 } else if (creature.isDead()) {
                     // Ignore damage for dead creatures
                 } else {
-                    if (creature.getStats().dexteritySave(15)) {
+                    if (creature.getStats().dexteritySave(HARD.getDc())) {
                         log.info("{} makes a DEX save and takes no damage from Fire Breath!", creature.getName());
                     } else {
                         final int damage = new MultipleDice(D8, D8, D8).roll();

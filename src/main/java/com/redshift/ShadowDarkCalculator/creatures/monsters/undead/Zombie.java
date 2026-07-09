@@ -8,6 +8,7 @@ import com.redshift.ShadowDarkCalculator.creatures.monsters.UndeadMonster;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.HARD;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 /**
@@ -45,7 +46,7 @@ public class Zombie extends UndeadMonster {
 
         // If it is now dead from a non-magical source and has not already returned...
         if (isDead() && !damageType.isMagical() && !returned) {
-            if (this.getStats().constitutionSave(15)) {
+            if (this.getStats().constitutionSave(HARD.getDc())) {
                 log.info("{} seems to be killed ... but slowly stands back up!", getName());
                 setDead(false);
                 healDamage(1);

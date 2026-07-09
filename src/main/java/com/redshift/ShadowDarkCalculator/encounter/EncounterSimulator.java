@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.HARD;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
 
 /**
@@ -263,7 +264,7 @@ public class EncounterSimulator implements Encounter {
                 }
 
                 if (deadOrFledCount >= ((double) allies.size() / 2)) {
-                    return (roll + wisdomModifier < 15);
+                    return (roll + wisdomModifier < HARD.getDc());
                 } else {
                     return false;
                 }

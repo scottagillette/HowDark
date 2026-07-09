@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.HARD;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 /**
@@ -82,7 +83,7 @@ public class TheWillowMan extends Monster {
             final List<Creature> targets = new AliveAwakeNotUndeadTargetSelector().getTargets(enemies, enemies.size());
 
             final Creature target = targets.getFirst();
-            if (target.getStats().charismaSave(15)) {
+            if (target.getStats().charismaSave(HARD.getDc())) {
                 log.info("{} resists the Terrify effect from {}.", target.getName(), actor.getName());
             } else {
                 log.info("{} is terrified and is paralyzed by {}.", target.getName(), actor.getName());
@@ -120,7 +121,7 @@ public class TheWillowMan extends Monster {
             log.info("{} invokes Waking Fear to all living creatures!", actor.getName());
 
             targets.forEach(enemy -> {
-                if (enemy.getStats().charismaSave(15)) {
+                if (enemy.getStats().charismaSave(HARD.getDc())) {
                     log.info("{} resists the fear.", enemy.getName());
                 } else {
                     log.info("{} runs in fear from {}", enemy.getName(), actor.getName());

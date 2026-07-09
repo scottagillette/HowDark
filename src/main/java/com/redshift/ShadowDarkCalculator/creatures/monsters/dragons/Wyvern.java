@@ -11,6 +11,7 @@ import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import com.redshift.ShadowDarkCalculator.dice.RollModifier;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.HARD;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D10;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
@@ -62,12 +63,12 @@ public class Wyvern extends Monster {
             final boolean attackHits = super.performSingleTargetAttack(actor, target);
 
             if (attackHits && !target.isUnconscious() && !target.isDead()) {
-                if (!target.getStats().constitutionSave(15)) {
+                if (target.getStats().constitutionSave(HARD.getDc())) {
+                    log.info("{} SAVES and is NOT poisoned!", target.getName());
+                } else {
                     int damage = new MultipleDice(D10, D10).roll();
                     log.info("{} is poisoned for {} damage!", target.getName(), damage);
                     target.takeDamage(damage, new DamageType().addPoison());
-                } else {
-                    log.info("{} SAVES and is NOT poisoned!", target.getName());
                 }
             }
 

@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+import static com.redshift.ShadowDarkCalculator.dice.DifficultyClass.HARD;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 /**
@@ -94,7 +95,7 @@ public class Lich extends UndeadMonster {
 
             if (attackHits & target.getCurrentHitPoints() != 0) {
                 if (!target.isUnconscious() && !target.hasCondition(ParalyzedCondition.class.getName())) {
-                    if (target.getStats().constitutionSave(15)) {
+                    if (target.getStats().constitutionSave(HARD.getDc())) {
                         log.info("{} SAVES and is NOT paralyzed.", target.getName());
                     } else {
                         final int rounds = D4.roll();

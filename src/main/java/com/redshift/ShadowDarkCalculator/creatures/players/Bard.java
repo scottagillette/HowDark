@@ -1,7 +1,7 @@
 package com.redshift.ShadowDarkCalculator.creatures.players;
 
 import com.redshift.ShadowDarkCalculator.actions.Action;
-import com.redshift.ShadowDarkCalculator.cards.DeckOfCards;
+import com.redshift.ShadowDarkCalculator.dice.DeckOfCards;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.CreatureLabel;
 import com.redshift.ShadowDarkCalculator.creatures.Stats;
