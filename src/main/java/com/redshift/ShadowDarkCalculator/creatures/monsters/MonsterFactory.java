@@ -95,6 +95,7 @@ public final class MonsterFactory {
         register("assassin", Assassin::new);
         register("bandit", Bandit::new);
         register("bittermold", Bittermold::new);
+        register("beserker", Beserker::new);
         register("cultist", Cultist::new);
         register("druid", Druid::new);
         register("knight", Knight::new);
