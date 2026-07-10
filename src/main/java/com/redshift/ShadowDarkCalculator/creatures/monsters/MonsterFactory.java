@@ -94,6 +94,7 @@ public final class MonsterFactory {
         register("arch-mage", ArchMage::new);
         register("assassin", Assassin::new);
         register("bandit", Bandit::new);
+        register("beastman", Beastman::new);
         register("bittermold", Bittermold::new);
         register("beserker", Beserker::new);
         register("cultist", Cultist::new);
@@ -103,7 +104,6 @@ public final class MonsterFactory {
         register("reaver", Reaver::new);
         register("thief", Thief::new);
         register("thug", Thug::new);
-
 
         // Monstrosities
         register("ankheg", Ankheg::new);
