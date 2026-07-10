@@ -29,6 +29,7 @@ public class Crocodile extends Monster {
                     new Weapon("Bite", D8, RollModifier.STRENGTH).addPiercing()
                 )
         );
+        getLabels().add(CreatureLabel.FRONT_LINE);
         getLabels().add(CreatureLabel.NEUTRAL);
     }
 

@@ -40,6 +40,7 @@ public final class MonsterFactory {
         register("brown-bear", BrownBear::new);
         register("crocodile", Crocodile::new);
         register("dire-wolf", DireWolf::new);
+        register("giant-bat", GiantBat::new);
         register("giant-centipede", GiantCentipede::new);
         register("giant-leech", GiantLeech::new);
         register("giant-rat", GiantRat::new);
