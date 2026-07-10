@@ -1,8 +1,7 @@
-package com.redshift.ShadowDarkCalculator.creatures.monsters.goblinoid;
+package com.redshift.ShadowDarkCalculator.creatures.monsters.humanoid;
 
 import com.redshift.ShadowDarkCalculator.actions.BaseAction;
 import com.redshift.ShadowDarkCalculator.actions.PerformAllActions;
-import com.redshift.ShadowDarkCalculator.actions.PerformOneAction;
 import com.redshift.ShadowDarkCalculator.actions.weapons.WeaponBuilder;
 import com.redshift.ShadowDarkCalculator.conditions.RageCondition;
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
@@ -17,22 +16,22 @@ import java.util.List;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
 /**
- * A tusked, tall humanoid with gray skin and pointed ears.
- * AC 15 (chainmail + shield), HP 4, ATK 1 great axe +2 (1d8), MV near
- * S +2, D +0, C +0, I -1, W +0, Ch -1, AL C, LV 1
- * Rage. 1/day, +1d4 damage TODO: and immune to morale checks (3 rounds).
+ * Howling, battleraging warriors.
+ * AC 12 (leather), HP 10, ATK 1 greataxe +2 (1d10) or 1 spear (close/near) +2 (1d6), MV near
+ * S +2, D +1, C +1, I +0, W +1, Ch +0, AL N, LV 2
+ * Rage. 1/day, immune to morale checks, +1d4 damage (3 rounds).
  */
 
 @Slf4j
-public class Orc extends Monster {
+public class Beserker extends Monster {
 
-    public Orc(String name) {
+    public Beserker(String name) {
         super(
                 name,
-                1,
-                new Stats(14, 10, 10, 8,10, 8),
-                15,
-                D8.roll(),
+                2,
+                new Stats(14, 12, 12, 10,12, 10),
+                12,
+                D8.roll() + D8.roll() + 1,
                 new PerformAllActions(
                         new Rage(),
                         WeaponBuilder.GREAT_AXE_1H.build()
@@ -40,7 +39,7 @@ public class Orc extends Monster {
         );
         getLabels().add(CreatureLabel.FRONT_LINE);
         getLabels().add(CreatureLabel.HUMANOID);
-        getLabels().add(CreatureLabel.CHAOTIC);
+        getLabels().add(CreatureLabel.NEUTRAL);
     }
 
     /**

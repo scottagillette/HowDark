@@ -356,7 +356,7 @@ public abstract class BaseCreature implements Creature {
 
     @Override
     public boolean willFlee() {
-        return willFlee;
+        return !hasCondition(RageCondition.class.getName()) && willFlee;
     }
 
 }
