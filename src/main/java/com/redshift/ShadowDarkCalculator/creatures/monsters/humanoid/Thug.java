@@ -29,4 +29,5 @@ public class Thug extends Monster {
         getLabels().add(CreatureLabel.HUMANOID);
         getLabels().add(CreatureLabel.CHAOTIC);
     }
+
 }

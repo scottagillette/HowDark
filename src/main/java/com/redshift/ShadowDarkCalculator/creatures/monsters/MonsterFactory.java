@@ -94,6 +94,7 @@ public final class MonsterFactory {
         register("knight", Knight::new);
         register("mage", Mage::new);
         register("reaver", Reaver::new);
+        register("thief", Thief::new);
         register("thug", Thug::new);
 
 
