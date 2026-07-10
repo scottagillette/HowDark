@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.monstrosities.Wererat;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.humanoid.Thug;
 import com.redshift.ShadowDarkCalculator.fights.FightConfig;
 import com.redshift.ShadowDarkCalculator.fights.FightConfigLoader;
 import com.redshift.ShadowDarkCalculator.fights.FightResult;
@@ -45,7 +45,9 @@ public class HowDark {
                     new LostCitadelPartyYamlBuilder().build(),
 //                    new RandomLevel1PartyBuilder().build(),
 //                    new RandomLevel1PartyBuilder(4, 8066571980744823443L).build(),
-                    List.of(new Wererat("Wererat 1"), new Wererat("Wererat 2"))
+
+                    List.of(new Thug("Thug 1"), new Thug("Thug 2"), new Thug("Thug 3"), new Thug("Thug 4"))
+//                    List.of(new Wererat("Wererat 1"), new Wererat("Wererat 2"))
 //                    List.of(
 //                            new DireWolf("Dire Wolf"),
 //                            new Wolf("Wolf 1"),
