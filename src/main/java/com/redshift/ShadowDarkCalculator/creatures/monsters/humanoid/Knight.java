@@ -34,4 +34,5 @@ public class Knight extends Monster {
         getLabels().add(CreatureLabel.HUMANOID);
         getLabels().add(CreatureLabel.LAWFUL);
     }
+
 }

@@ -1,6 +1,7 @@
 package com.redshift.ShadowDarkCalculator.creatures.monsters;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.animated.AnimatedArmor;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.*;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.demons.*;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.dragons.*;
@@ -32,6 +33,9 @@ public final class MonsterFactory {
     private static final Map<String, Function<String, Creature>> REGISTRY = new LinkedHashMap<>();
 
     static {
+        // Animated
+        register("animated-armor", AnimatedArmor::new);
+
         // Beasts
         register("brown-bear", BrownBear::new);
         register("crocodile", Crocodile::new);
