@@ -63,6 +63,7 @@ public final class MonsterFactory {
         register("wyvern", Wyvern::new);
 
         // Elementals
+        register("azer", Azer::new);
         register("fire-elemental", FireElemental::new);
         register("lesser-fire-elemental", LesserFireElemental::new);
 
