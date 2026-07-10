@@ -1,4 +1,4 @@
-package com.redshift.ShadowDarkCalculator.creatures.monsters.config;
+package com.redshift.ShadowDarkCalculator.creatures.monsters;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
 import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.*;
@@ -94,6 +94,8 @@ public final class MonsterFactory {
         register("knight", Knight::new);
         register("mage", Mage::new);
         register("reaver", Reaver::new);
+        register("thug", Thug::new);
+
 
         // Monstrosities
         register("ankheg", Ankheg::new);

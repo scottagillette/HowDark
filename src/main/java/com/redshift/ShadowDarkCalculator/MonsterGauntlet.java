@@ -5,8 +5,8 @@ import ch.qos.logback.classic.Logger;
 import com.redshift.ShadowDarkCalculator.fights.FightConfig;
 import com.redshift.ShadowDarkCalculator.fights.FightResult;
 import com.redshift.ShadowDarkCalculator.fights.FightSimulator;
-import com.redshift.ShadowDarkCalculator.creatures.monsters.config.MonsterConfig;
-import com.redshift.ShadowDarkCalculator.creatures.monsters.config.MonsterFactory;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.MonsterConfig;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.MonsterFactory;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;

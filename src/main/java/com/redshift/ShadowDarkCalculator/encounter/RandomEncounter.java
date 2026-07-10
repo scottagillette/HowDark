@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.redshift.ShadowDarkCalculator.creatures.Creature;
-import com.redshift.ShadowDarkCalculator.creatures.monsters.config.MonsterFactory;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.MonsterFactory;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator.fights;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.config.MonsterConfig;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.MonsterConfig;
 import com.redshift.ShadowDarkCalculator.creatures.players.PlayerConfig;
 import lombok.Data;
 
