@@ -27,8 +27,6 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 @Slf4j
 public class GelatinousCube extends Monster {
 
-    private final PiercingResistance piercingResistance = new PiercingResistance();
-
     public GelatinousCube(String name) {
         super(
                 name,
@@ -45,7 +43,7 @@ public class GelatinousCube extends Monster {
     @Override
     public void takeDamage(int amount, DamageType damageType) {
         super.takeDamage(
-                piercingResistance.calculateDamage(this, amount, damageType),
+                new PiercingResistance().calculateDamage(this, amount, damageType),
                 damageType
         );
     }

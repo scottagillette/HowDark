@@ -28,8 +28,6 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 @Slf4j
 public class VoidSpider extends Monster {
 
-    private final ColdImmunity coldImmunity = new ColdImmunity();
-
     public VoidSpider(String name) {
         super(
                 name,
@@ -47,7 +45,7 @@ public class VoidSpider extends Monster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        final int damage = coldImmunity.calculateDamage(this, amount, damageType);
+        final int damage = new ColdImmunity().calculateDamage(this, amount, damageType);
         if (damage != 0) {
             super.takeDamage(amount, damageType);
         }

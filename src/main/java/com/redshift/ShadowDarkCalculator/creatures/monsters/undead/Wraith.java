@@ -23,8 +23,6 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 @Slf4j
 public class Wraith extends UndeadMonster {
 
-    private final NonSilveredNonMagicalImmunity nonSilveredNonMagicalImmunity = new NonSilveredNonMagicalImmunity();
-
     public Wraith(String name) {
         super(
                 name,
@@ -44,7 +42,7 @@ public class Wraith extends UndeadMonster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        final int damage = nonSilveredNonMagicalImmunity.calculateDamage(this, amount, damageType);
+        final int damage = new NonSilveredNonMagicalImmunity().calculateDamage(this, amount, damageType);
         if (damage != 0) {
             super.takeDamage(amount, damageType);
         }

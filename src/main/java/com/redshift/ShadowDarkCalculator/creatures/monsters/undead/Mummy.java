@@ -26,8 +26,6 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 @Slf4j
 public class Mummy extends UndeadMonster {
 
-    private final NonMagicalImmunity nonMagicalImmunity = new NonMagicalImmunity();
-
     public Mummy(String name) {
         super(
                 name,
@@ -55,7 +53,7 @@ public class Mummy extends UndeadMonster {
             log.info("{} takes DOUBLE damage from fire!", getName());
             super.takeDamage(amount + amount, damageType);
         } else {
-            final int damage = nonMagicalImmunity.calculateDamage(this, amount, damageType);
+            final int damage = new NonMagicalImmunity().calculateDamage(this, amount, damageType);
             if (damage != 0) {
                 super.takeDamage(damage, damageType);
             }

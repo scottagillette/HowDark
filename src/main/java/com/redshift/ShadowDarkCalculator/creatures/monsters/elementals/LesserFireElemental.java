@@ -32,9 +32,6 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 @Slf4j
 public class LesserFireElemental extends Monster {
 
-    private final FireImmunity fireImmunity = new FireImmunity();
-    private final NonMagicalImmunity nonMagicalImmunity = new NonMagicalImmunity();
-
     public LesserFireElemental(String name) {
         super(
                 name,
@@ -64,9 +61,9 @@ public class LesserFireElemental extends Monster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        int damage = fireImmunity.calculateDamage(this, amount, damageType);
+        int damage = new FireImmunity().calculateDamage(this, amount, damageType);
         if (damage > 0) {
-            damage = nonMagicalImmunity.calculateDamage(this, damage, damageType);
+            damage = new NonMagicalImmunity().calculateDamage(this, damage, damageType);
             if (damage > 0) {
                 super.takeDamage(damage, damageType);
             }

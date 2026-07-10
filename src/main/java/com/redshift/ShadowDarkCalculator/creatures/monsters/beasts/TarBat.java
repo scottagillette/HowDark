@@ -22,8 +22,6 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 @Slf4j
 public class TarBat extends Monster {
 
-    private final FireImmunity fireImmunity = new FireImmunity();
-
     public TarBat(String name) {
         super(
                 name,
@@ -38,7 +36,7 @@ public class TarBat extends Monster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        final int damage = fireImmunity.calculateDamage(this, amount, damageType);
+        final int damage = new FireImmunity().calculateDamage(this, amount, damageType);
         if (damage != 0) {
             super.takeDamage(damage, damageType);
         }

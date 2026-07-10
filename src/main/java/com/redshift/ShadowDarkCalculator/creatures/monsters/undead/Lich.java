@@ -43,8 +43,6 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 @Slf4j
 public class Lich extends UndeadMonster {
 
-    private final NonMagicalImmunity nonMagicalImmunity = new NonMagicalImmunity();
-
     public Lich(String name) {
         super(
                 name,
@@ -72,7 +70,7 @@ public class Lich extends UndeadMonster {
     @Override
     public void takeDamage(int amount, DamageType damageType) {
         // Only magical damage!
-        final int damage = nonMagicalImmunity.calculateDamage(this, amount, damageType);
+        final int damage = new NonMagicalImmunity().calculateDamage(this, amount, damageType);
         if (damage != 0) {
             super.takeDamage(damage, damageType);
         }

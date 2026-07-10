@@ -22,8 +22,6 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
 public class Wererat extends Monster {
 
-    private final NonSilveredNonMagicalImmunity nonSilveredNonMagicalImmunity = new NonSilveredNonMagicalImmunity();
-
     public Wererat(String name) {
         super(
                 name,
@@ -43,7 +41,7 @@ public class Wererat extends Monster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        final int damage = nonSilveredNonMagicalImmunity.calculateDamage(this, amount, damageType);
+        final int damage = new NonSilveredNonMagicalImmunity().calculateDamage(this, amount, damageType);
         if (damage != 0) {
             super.takeDamage(amount, damageType);
         }

@@ -35,8 +35,6 @@ import static java.lang.Math.min;
 @Slf4j
 public class StormGiant extends Monster {
 
-    private final LightningImmunity LightningImmunity = new LightningImmunity();
-
     public StormGiant(String name) {
         super(
                 name,
@@ -61,7 +59,7 @@ public class StormGiant extends Monster {
 
     @Override
     public void takeDamage(int amount, DamageType damageType) {
-        final int damage = LightningImmunity.calculateDamage(this, amount, damageType);
+        final int damage = new LightningImmunity().calculateDamage(this, amount, damageType);
         if (damage != 0) {
             super.takeDamage(damage, damageType);
         }
