@@ -106,6 +106,7 @@ public final class MonsterFactory {
         register("mimic", Mimic::new);
         register("minotaur", Minotaur::new);
         register("owl-bear", OwlBear::new);
+        register("wererat", Wererat::new);
         register("werewolf", Werewolf::new);
 
         // Oozes

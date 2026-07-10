@@ -1,16 +1,12 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.DireWolf;
-import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.Wolf;
-import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.Worg;
-import com.redshift.ShadowDarkCalculator.creatures.monsters.goblinoid.Goblin;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.monstrosities.Wererat;
 import com.redshift.ShadowDarkCalculator.fights.FightConfig;
 import com.redshift.ShadowDarkCalculator.fights.FightConfigLoader;
 import com.redshift.ShadowDarkCalculator.fights.FightResult;
 import com.redshift.ShadowDarkCalculator.fights.FightSimulator;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
 import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyYamlBuilder;
-import com.redshift.ShadowDarkCalculator.party.RandomLevel1PartyBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Path;
@@ -49,11 +45,12 @@ public class HowDark {
                     new LostCitadelPartyYamlBuilder().build(),
 //                    new RandomLevel1PartyBuilder().build(),
 //                    new RandomLevel1PartyBuilder(4, 8066571980744823443L).build(),
-                    List.of(
-                            new DireWolf("Dire Wolf"),
-                            new Wolf("Wolf 1"),
-                            new Wolf("Wolf 2")
-                    )
+                    List.of(new Wererat("Wererat 1"), new Wererat("Wererat 2"))
+//                    List.of(
+//                            new DireWolf("Dire Wolf"),
+//                            new Wolf("Wolf 1"),
+//                            new Wolf("Wolf 2")
+//                    )
 //                    List.of(new Wyvern("Wyvern"))
 //                    List.of(new StormGiant("Storm Giant"))
 //                    List.of(new LesserFireElemental("Lesser Fire Elemental"))
