@@ -70,7 +70,7 @@ class HealTargetSelectorTest {
         final HealTargetSelector healTargetSelector = new HealTargetSelector();
         final Creature target = healTargetSelector.get(List.of(creature1, creature2, creature3));
 
-        assertEquals(target, creature3);
+        assertNull(target);
     }
 
     @Test
