@@ -111,6 +111,7 @@ public final class MonsterFactory {
         register("bog-thorn", BogThorn::new);
         register("bulette", Bulette::new);
         register("cave-creeper", CaveCreeper::new);
+        register("chuul", Chuul::new);
         register("ettercap", Ettercap::new);
         register("manticore", Manticore::new);
         register("medusa", Medusa::new);
