@@ -8,7 +8,7 @@ import com.redshift.ShadowDarkCalculator.targets.SingleTargetSelector;
 import java.util.List;
 
 /**
- * Returns a single target for a healing; prioritizing unconscious targets first; then simply wounded.
+ * Returns a single target for a healing; unconscious targets only.
  */
 
 public class HealTargetSelector implements SingleTargetSelector {
@@ -24,18 +24,7 @@ public class HealTargetSelector implements SingleTargetSelector {
                 .toList();
 
         if (unconsciousNotDead.isEmpty()) {
-            final List<Creature> woundedAndNotDead = targetOptions.stream()
-                    .filter(Creature::isWounded)
-                    .filter(creature -> !creature.isDead())
-                    .filter(creature -> !creature.hasFled())
-                    // Don't bother healing someone with diseased condition!
-                    .filter(creature -> !creature.hasCondition(DiseasedCondition.class.getName()))
-                    .toList();
-
-            if (woundedAndNotDead.isEmpty()) return null;
-
-            int selectionIndex = new SingleDie(woundedAndNotDead.size()).roll();
-            return woundedAndNotDead.get(selectionIndex - 1); // Randomly choose a wounded creature
+             return null; // Don't bother healing wounded... wait until unconscious!
         } else {
             int selectionIndex = new SingleDie(unconsciousNotDead.size()).roll();
             return unconsciousNotDead.get(selectionIndex - 1); // Randomly choose an unconscious creature
