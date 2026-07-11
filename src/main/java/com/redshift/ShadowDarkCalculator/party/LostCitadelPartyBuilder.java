@@ -49,9 +49,9 @@ public class LostCitadelPartyBuilder implements PartyBuilder {
                 12,
                 4,
                 new PerformOneAction(
-                        WeaponBuilder.LONGSWORD.build().addAttackRollBonus(1).setPriority(2),
-                        new Withermark().addSpellCheckBonus(1).setPriority(1),
-                        new Undeath().addSpellCheckBonus(1).setPriority(10)
+                        WeaponBuilder.LONGSWORD.build().addAttackRollBonus(1).setPriority(1),
+                        new Withermark().addSpellCheckBonus(1).setPriority(10),
+                        new Undeath().addSpellCheckBonus(1).setPriority(100)
                 )
         );
         creatures.add(mal);
