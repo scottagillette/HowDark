@@ -62,8 +62,9 @@ public abstract class BaseCreature implements Creature {
 
     @Override
     public void addCondition(Condition condition) {
-        // Adding the same condition will replace the prior one... so check prior to adding and default to not add
-        // if that makes sense... for example the undead that paralyze don't add it if the target already has it.
+        // Adding the same condition will replace the prior one... so check prior to
+        // adding and default to not add if that makes sense... for example the undead
+        // that paralyze don't add it if the target already has it.
         if (!dead || condition.appliesToDeadCreatures()) {
             conditions.put(condition.getClass().getName(), condition);
         }
@@ -75,7 +76,7 @@ public abstract class BaseCreature implements Creature {
                 .filter(condition -> !condition.canAct())
                 .toList();
 
-        return cantActConditions.isEmpty() && !dead;
+        return cantActConditions.isEmpty() && !fled && !dead;
     }
 
     @Override
@@ -84,7 +85,7 @@ public abstract class BaseCreature implements Creature {
                 .filter(condition -> !condition.canMove())
                 .toList();
 
-        return cantActConditions.isEmpty() && !dead;
+        return cantActConditions.isEmpty() && !fled && !dead;
     }
 
     @Override
@@ -199,7 +200,7 @@ public abstract class BaseCreature implements Creature {
     @Override
     public void healDamage(int amount) {
         // No sense in healing the dead!
-        if (!dead) {
+        if (!fled && !dead) {
             if (this.hasCondition(DiseasedCondition.class.getName())) {
                 log.info("{} is diseased and cannot be healed.", this.getName());
             } else {
