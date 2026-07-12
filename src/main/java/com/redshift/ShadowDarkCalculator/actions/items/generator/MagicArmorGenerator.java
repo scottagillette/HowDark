@@ -1,12 +1,12 @@
 package com.redshift.ShadowDarkCalculator.actions.items.generator;
 
+import com.redshift.ShadowDarkCalculator.dice.DeckOfCards;
 import com.redshift.ShadowDarkCalculator.dice.MultipleDice;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D12;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
 
 /**
@@ -27,6 +27,48 @@ public class MagicArmorGenerator implements MagicItemGenerator {
             final Properties properties = Properties.generate();
             final MagicArmorGenerator generator = new MagicArmorGenerator();
             generator.generate(properties);
+        }
+    }
+
+    public static void addArmorBenefits(List<String> benefits, int number) {
+        final DeckOfCards cards = new DeckOfCards(12);
+
+        for (int i = 0; i < number; i++) {
+            switch (cards.draw()) {
+                case 1 -> benefits.add("Once per day, deflect a ranged attack that would hit you.");
+                case 2 -> benefits.add("Checks to stabilize you are easy (DC 9).");
+                case 3 -> benefits.add("You cannot be knocked over while you are conscious.");
+                case 4 -> benefits.add("Undetected creatures do not have advantage to attack you.");
+                case 5 -> benefits.add("You know Diabolic and are immune to fire, lava, and magma.");
+                case 6 -> benefits.add("You are immune to the curses of one item you choose.");
+                case 7 -> benefits.add("Once per day, gain advantage on all attacks for 3 rounds.");
+                case 8 -> benefits.add("You have a +4 bonus to your death timers.");
+                case 9 -> benefits.add("Gain immunity to a poison after suffering its effects once.");
+                case 10 -> benefits.add("You know Celestial and can fly for 3 rounds once per day.");
+                case 11 -> benefits.add("Treat critical hits against you as normal hits.");
+                case 12 -> benefits.add("Ignore any damage dealt to you of 3 points or below.");
+            }
+        }
+    }
+
+    public static void addArmorCurses(List<String> curses, int number) {
+        final DeckOfCards cards = new DeckOfCards(12);
+
+        for (int i = 0; i < number; i++) {
+            switch (cards.draw()) {
+                case 1 -> curses.add("You take 2d10 damage if you remove this armor.");
+                case 2 -> curses.add("Your party cannot add CHA bonuses to reaction checks.");
+                case 3 -> curses.add("Mounts fear you and will not allow you to ride them.");
+                case 4 -> curses.add("DC 15 WIS first round of combat or attack nearest creature.");
+                case 5 -> curses.add("You take double damage from blunt/bludgeoning weapons.");
+                case 6 -> curses.add("Armor uses 5 gear slots and is extremely loud and clunky.");
+                case 7 -> curses.add("Ranged attacks against you have advantage.");
+                case 8 -> curses.add("Treat a natural 1 attack roll against you as a critical hit.");
+                case 9 -> curses.add("Beneficial spells that target you are hard to cast (DC 15).");
+                case 10 -> curses.add("You have disadvantage on Dexterity checks.");
+                case 11 -> curses.add("There's a secret 1-in-6 chance each NPC ally will betray you.");
+                case 12 -> curses.add("You take double damage from silvered weapons.");
+            }
         }
     }
 
@@ -57,39 +99,9 @@ public class MagicArmorGenerator implements MagicItemGenerator {
             case 12 -> bonus = 3;
         }
 
-        for (int i = 0; i < properties.getBenefits(); i++) {
-            switch (D12.roll()) {
-                case 1 -> benefits.add("Once per day, deflect a ranged attack that would hit you.");
-                case 2 -> benefits.add("Checks to stabilize you are easy (DC 9).");
-                case 3 -> benefits.add("You cannot be knocked over while you are conscious.");
-                case 4 -> benefits.add("Undetected creatures do not have advantage to attack you.");
-                case 5 -> benefits.add("You know Diabolic and are immune to fire, lava, and magma.");
-                case 6 -> benefits.add("You are immune to the curses of one item you choose.");
-                case 7 -> benefits.add("Once per day, gain advantage on all attacks for 3 rounds.");
-                case 8 -> benefits.add("You have a +4 bonus to your death timers.");
-                case 9 -> benefits.add("Gain immunity to a poison after suffering its effects once.");
-                case 10 -> benefits.add("You know Celestial and can fly for 3 rounds once per day.");
-                case 11 -> benefits.add("Treat critical hits against you as normal hits.");
-                case 12 -> benefits.add("Ignore any damage dealt to you of 3 points or below.");
-            }
-        }
+        addArmorBenefits(benefits, properties.getBenefits());
 
-        for (int i = 0; i < properties.getCurses(); i++) {
-            switch (D12.roll()) {
-                case 1 -> curses.add("You take 2d10 damage if you remove this armor.");
-                case 2 -> curses.add("Your party cannot add CHA bonuses to reaction checks.");
-                case 3 -> curses.add("Mounts fear you and will not allow you to ride them.");
-                case 4 -> curses.add("DC 15 WIS first round of combat or attack nearest creature.");
-                case 5 -> curses.add("You take double damage from blunt/bludgeoning weapons.");
-                case 6 -> curses.add("Armor uses 5 gear slots and is extremely loud and clunky.");
-                case 7 -> curses.add("Ranged attacks against you have advantage.");
-                case 8 -> curses.add("Treat a natural 1 attack roll against you as a critical hit.");
-                case 9 -> curses.add("Beneficial spells that target you are hard to cast (DC 15).");
-                case 10 -> curses.add("You have disadvantage on Dexterity checks.");
-                case 11 -> curses.add("There's a secret 1-in-6 chance each NPC ally will betray you.");
-                case 12 -> curses.add("You take double damage from silvered weapons.");
-            }
-        }
+        addArmorCurses(curses, properties.getCurses());
 
         log.info(this.toString());
     }
