@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D20;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
 
 /**
@@ -19,6 +20,7 @@ public class MagicArmorGenerator implements MagicItemGenerator {
     private String type;
     private boolean mithral;
     private int bonus;
+    private String feature;
     private final List<String> benefits = new ArrayList<>();
     private final List<String> curses = new ArrayList<>();
 
@@ -72,9 +74,38 @@ public class MagicArmorGenerator implements MagicItemGenerator {
         }
     }
 
+    private static String selectFeature() {
+        String feature = "";
+
+        switch (D20.roll()) {
+            case 1 -> feature = "Demonic horned face";
+            case 2 -> feature = "Oak leaf motif";
+            case 3 -> feature = "Studded with shark teeth";
+            case 4 -> feature = "Dragon scales";
+            case 5 -> feature = "Bone or metal spikes";
+            case 6 -> feature = "Faint arcane runes";
+            case 7 -> feature = "Turtle shell plating";
+            case 8 -> feature = "Made of scorpion chitin";
+            case 9 -> feature = "Gilded metal/gold thread";
+            case 10 -> feature = "Scorched, smells burned";
+            case 11 -> feature = "Pearl-white fish scales";
+            case 12 -> feature = "Oozes blood";
+            case 13 -> feature = "Festooned with fungi";
+            case 14 -> feature = "Distant sound of ocean";
+            case 15 -> feature = "Set with crystals";
+            case 16 -> feature = "Draped in holy symbols";
+            case 17 -> feature = "Exudes tree sap";
+            case 18 -> feature = "Blurry, indistinct edges";
+            case 19 -> feature = "Large golden cat eye";
+            case 20 -> feature = "Covered in frost";
+        }
+
+        return feature;
+    }
+
     @Override
     public void generate(Properties properties) {
-        // TODO: Armor Feature
+        feature = selectFeature();
 
         switch (new MultipleDice(D6, D6).roll()) {
             case 2, 3, 4, 5 -> type = "Leather";
@@ -114,8 +145,10 @@ public class MagicArmorGenerator implements MagicItemGenerator {
         if (mithral) builder.append(" Mithral");
         builder.append(" ").append(type).append("\n");
 
+        builder.append("Feature: ").append(feature).append("\n");
+
         for (String benefit : benefits) {
-            builder.append("Befit: ").append(benefit).append("\n");
+            builder.append("Benefit: ").append(benefit).append("\n");
         }
         for (String curse : curses) {
             builder.append("Curse: ").append(curse).append("\n");

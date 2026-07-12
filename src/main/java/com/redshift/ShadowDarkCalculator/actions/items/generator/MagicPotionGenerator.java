@@ -6,8 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D12;
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 /**
  * Generate random magic potion.
@@ -16,6 +15,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D4;
 @Slf4j
 public class MagicPotionGenerator implements MagicItemGenerator {
 
+    private String feature;
     private final List<String> benefits = new ArrayList<>();
     private final List<String> curses = new ArrayList<>();
 
@@ -81,9 +81,52 @@ public class MagicPotionGenerator implements MagicItemGenerator {
         }
     }
 
+    private static String selectFeature() {
+        String feature1 = "";
+
+        switch (D8.roll()) {
+            case 1 -> feature1 = "Spicy";
+            case 2 -> feature1 = "Clear as water";
+            case 3 -> feature1 = "Deep blue";
+            case 4 -> feature1 = "Citrus smell";
+            case 5 -> feature1 = "Sulfurous";
+            case 6 -> feature1 = "Fizzy";
+            case 7 -> feature1 = "Chilly";
+            case 8 -> feature1 = "Blood red";
+        }
+
+        String feature2 = "";
+
+        switch (D8.roll()) {
+            case 1 -> feature2 = "Pickled spider inside";
+            case 2 -> feature2 = "Green fumes";
+            case 3 -> feature2 = "Tiny stars and moon";
+            case 4 -> feature2 = "Gold flakes in liquid";
+            case 5 -> feature2 = "Swirling vortex";
+            case 6 -> feature2 = "Quiet whistling";
+            case 7 -> feature2 = "Rattles and shakes";
+            case 8 -> feature2 = "Eyeball inside";
+        }
+
+        String feature3 = "";
+
+        switch (D8.roll()) {
+            case 1 -> feature3 = "Bubbling";
+            case 2 -> feature3 = "Purple streaks";
+            case 3 -> feature3 = "Flames on surface";
+            case 4 -> feature3 = "Floral smell";
+            case 5 -> feature3 = "Skull on bottle";
+            case 6 -> feature3 = "Warm";
+            case 7 -> feature3 = "Large molar inside";
+            case 8 -> feature3 = "Pink starbursts";
+        }
+
+        return feature1 + ", " + feature2 + ", " + feature3;
+    }
+
     @Override
     public void generate(Properties properties) {
-        // TODO: Potion Feature
+        feature = selectFeature();
 
         addPotionBenefits(benefits, properties.getBenefits());
 
@@ -97,9 +140,10 @@ public class MagicPotionGenerator implements MagicItemGenerator {
         final StringBuilder builder = new StringBuilder();
 
         builder.append("Magic Potion\n");
+        builder.append("Feature: ").append(feature).append("\n");
 
         for (String benefit : benefits) {
-            builder.append("Befit: ").append(benefit).append("\n");
+            builder.append("Benefit: ").append(benefit).append("\n");
         }
         for (String curse : curses) {
             builder.append("Curse: ").append(curse).append("\n");

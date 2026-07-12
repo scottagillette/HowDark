@@ -18,6 +18,7 @@ public class MagicWeaponGenerator implements MagicItemGenerator {
 
     private String type;
     private int bonus;
+    private String feature;
     private final List<String> benefits = new ArrayList<>();
     private final List<String> curses = new ArrayList<>();
 
@@ -79,9 +80,38 @@ public class MagicWeaponGenerator implements MagicItemGenerator {
         }
     }
 
+    private static String selectFeature() {
+        String feature = "";
+
+        switch (D20.roll()) {
+            case 1 -> feature = "Trails sparkles";
+            case 2 -> feature = "Starmetal";
+            case 3 -> feature = "Rusted and chipped";
+            case 4 -> feature = "Gem in pommel/handle";
+            case 5 -> feature = "Drips green ichor";
+            case 6 -> feature = "Moon motif and silvered";
+            case 7 -> feature = "Galaxies swirl on surface";
+            case 8 -> feature = "Ironwood";
+            case 9 -> feature = "Rune-scribed";
+            case 10 -> feature = "Faint, ghostly aura";
+            case 11 -> feature = "Inlaid with gold";
+            case 12 -> feature = "Trails incense";
+            case 13 -> feature = "Studded with gemstones";
+            case 14 -> feature = "Sparks dance on surface";
+            case 15 -> feature = "Shaped like an animal";
+            case 16 -> feature = "Carved from granite";
+            case 17 -> feature = "Dragonbone hardware";
+            case 18 -> feature = "Whispers in a language";
+            case 19 -> feature = "Drips ocean water";
+            case 20 -> feature = "Turns blood to rose petals";
+        }
+
+        return feature;
+    }
+
     @Override
     public void generate(Properties properties) {
-        // TODO: Weapon feature
+        feature = selectFeature();
 
         switch (D20.roll()) {
             case 1 -> type = "Arrows";
@@ -121,9 +151,10 @@ public class MagicWeaponGenerator implements MagicItemGenerator {
         final StringBuilder builder = new StringBuilder();
 
         builder.append("Magic +").append(bonus).append(" ").append(type).append("\n");
+        builder.append("Feature: ").append(feature).append("\n");
 
         for (String benefit : benefits) {
-            builder.append("Befit: ").append(benefit).append("\n");
+            builder.append("Benefit: ").append(benefit).append("\n");
         }
         for (String curse : curses) {
             builder.append("Curse: ").append(curse).append("\n");

@@ -16,6 +16,7 @@ import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 public class MagicTrinketGenerator implements MagicItemGenerator {
 
     private String type;
+    private String feature;
     private final List<String> benefits = new ArrayList<>();
     private final List<String> curses = new ArrayList<>();
 
@@ -78,9 +79,38 @@ public class MagicTrinketGenerator implements MagicItemGenerator {
         }
     }
 
+    private static String selectFeature() {
+        String feature = "";
+
+        switch (D20.roll()) {
+            case 1 -> feature = "Shaped like a raven";
+            case 2 -> feature = "Iridescent";
+            case 3 -> feature = "Cruel spikes and spines";
+            case 4 -> feature = "Made from a big frog";
+            case 5 -> feature = "Gem-studded";
+            case 6 -> feature = "Gold thread/hardware";
+            case 7 -> feature = "Made of basilisk hide";
+            case 8 -> feature = "Possessed by a spirit";
+            case 9 -> feature = "Made of shaped smoke";
+            case 10 -> feature = "Covered in small thorns";
+            case 11 -> feature = "Made with rare feathers";
+            case 12 -> feature = "Has tiny wings";
+            case 13 -> feature = "Slowly changes colors";
+            case 14 -> feature = "Shaped like a bat";
+            case 15 -> feature = "Tarnished silver hardware";
+            case 16 -> feature = "Made of spidersilk";
+            case 17 -> feature = "Hums quiet, sweet tones";
+            case 18 -> feature = "Jolt of pain at first touch";
+            case 19 -> feature = "Throbs like a heart";
+            case 20 -> feature = "Trails faint mist";
+        }
+
+        return feature;
+    }
+
     @Override
     public void generate(Properties properties) {
-        // TODO: Trinket Feature
+        feature = selectFeature();
 
         switch (D20.roll()) {
             case 1 -> type = "Brooch";
@@ -117,9 +147,10 @@ public class MagicTrinketGenerator implements MagicItemGenerator {
         final StringBuilder builder = new StringBuilder();
 
         builder.append("Magic ").append(type).append("\n");
+        builder.append("Feature: ").append(feature).append("\n");
 
         for (String benefit : benefits) {
-            builder.append("Befit: ").append(benefit).append("\n");
+            builder.append("Benefit: ").append(benefit).append("\n");
         }
         for (String curse : curses) {
             builder.append("Curse: ").append(curse).append("\n");

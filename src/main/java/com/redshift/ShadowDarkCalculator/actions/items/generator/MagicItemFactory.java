@@ -10,7 +10,6 @@ public class MagicItemFactory {
 
     public static void main(String[] args) {
         for (int i = 0; i < 1; i++) {
-            final Properties properties = Properties.generate();
             final MagicItemFactory factory = new MagicItemFactory();
             factory.create();
         }

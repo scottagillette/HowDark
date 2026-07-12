@@ -6,8 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D12;
-import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.*;
 
 /**
  * Generate random magic scroll.
@@ -18,6 +17,7 @@ public class MagicScrollGenerator implements MagicItemGenerator {
 
     private int tier;
     private String spellName;
+    private String feature;
     private final List<String> benefits = new ArrayList<>();
     private final List<String> curses = new ArrayList<>();
 
@@ -27,6 +27,23 @@ public class MagicScrollGenerator implements MagicItemGenerator {
             final MagicScrollGenerator generator = new MagicScrollGenerator();
             generator.generate(properties);
         }
+    }
+
+    private static String selectFeature() {
+        String feature = "";
+
+        switch (D8.roll()) {
+            case 1 -> feature = "Branded on leather";
+            case 2 -> feature = "Etched on copper leaf";
+            case 3 -> feature = "Faded papyrus";
+            case 4 -> feature = "Stained parchment roll";
+            case 5 -> feature = "Carved into bone";
+            case 6 -> feature = "Chiseled on stone slate";
+            case 7 -> feature = "Etched into glass";
+            case 8 -> feature = "Tattooed on dragon skin";
+        }
+
+        return feature;
     }
 
     public static String selectTier1Spell() {
@@ -121,7 +138,7 @@ public class MagicScrollGenerator implements MagicItemGenerator {
 
     @Override
     public void generate(Properties properties) {
-        // TODO: Features
+        feature = selectFeature();
 
         switch (new MultipleDice(D6, D6).roll()) {
             case 2, 3, 4, 5:
@@ -172,9 +189,10 @@ public class MagicScrollGenerator implements MagicItemGenerator {
         final StringBuilder builder = new StringBuilder();
 
         builder.append("Magic Scroll ").append(spellName).append(" [").append(tier).append("]").append("\n");
+        builder.append("Feature: ").append(feature).append("\n");
 
         for (String benefit : benefits) {
-            builder.append("Befit: ").append(benefit).append("\n");
+            builder.append("Benefit: ").append(benefit).append("\n");
         }
         for (String curse : curses) {
             builder.append("Curse: ").append(curse).append("\n");

@@ -8,6 +8,7 @@ import java.util.List;
 
 import static com.redshift.ShadowDarkCalculator.actions.items.generator.MagicScrollGenerator.*;
 import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D6;
+import static com.redshift.ShadowDarkCalculator.dice.SingleDie.D8;
 
 /**
  * Generate random magic wand.
@@ -18,6 +19,7 @@ public class MagicWandGenerator implements MagicItemGenerator {
 
     private int tier;
     private String spellName;
+    private String feature;
     private final List<String> benefits = new ArrayList<>();
     private final List<String> curses = new ArrayList<>();
 
@@ -29,9 +31,25 @@ public class MagicWandGenerator implements MagicItemGenerator {
         }
     }
 
+    private static String selectFeature() {
+        String feature = "";
+
+        switch (D8.roll()) {
+            case 1 -> feature = "Carved from bone";
+            case 2 -> feature = "Blinking eye in handle";
+            case 3 -> feature = "Sleek starmetal";
+            case 4 -> feature = "Polished wood";
+            case 5 -> feature = "Obsidian with ivory tips";
+            case 6 -> feature = "Electrical sparks";
+            case 7 -> feature = "Jagged crystal";
+            case 8 -> feature = "Made of tiny skulls";
+        }
+
+        return feature;
+    }
     @Override
     public void generate(Properties properties) {
-        // TODO: Features
+        feature = selectFeature();
 
         switch (new MultipleDice(D6, D6).roll()) {
             case 2, 3, 4, 5:
@@ -82,9 +100,10 @@ public class MagicWandGenerator implements MagicItemGenerator {
         final StringBuilder builder = new StringBuilder();
 
         builder.append("Magic Wand ").append(spellName).append(" [").append(tier).append("]").append("\n");
+        builder.append("Feature: ").append(feature).append("\n");
 
         for (String benefit : benefits) {
-            builder.append("Befit: ").append(benefit).append("\n");
+            builder.append("Benefit: ").append(benefit).append("\n");
         }
         for (String curse : curses) {
             builder.append("Curse: ").append(curse).append("\n");
