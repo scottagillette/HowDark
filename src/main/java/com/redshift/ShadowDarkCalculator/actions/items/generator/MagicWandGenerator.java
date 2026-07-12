@@ -47,6 +47,7 @@ public class MagicWandGenerator implements MagicItemGenerator {
 
         return feature;
     }
+
     @Override
     public void generate(Properties properties) {
         feature = selectFeature();

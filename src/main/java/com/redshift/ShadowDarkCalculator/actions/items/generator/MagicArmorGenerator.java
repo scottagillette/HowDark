@@ -58,12 +58,12 @@ public class MagicArmorGenerator implements MagicItemGenerator {
 
         for (int i = 0; i < number; i++) {
             switch (cards.draw()) {
-                case 1 -> curses.add("You take 2d10 damage if you remove this armor.");
+                case 1 -> curses.add("You take 2d10 damage if you remove this item.");
                 case 2 -> curses.add("Your party cannot add CHA bonuses to reaction checks.");
                 case 3 -> curses.add("Mounts fear you and will not allow you to ride them.");
                 case 4 -> curses.add("DC 15 WIS first round of combat or attack nearest creature.");
                 case 5 -> curses.add("You take double damage from blunt/bludgeoning weapons.");
-                case 6 -> curses.add("Armor uses 5 gear slots and is extremely loud and clunky.");
+                case 6 -> curses.add("Item uses 5 gear slots and is extremely loud and clunky.");
                 case 7 -> curses.add("Ranged attacks against you have advantage.");
                 case 8 -> curses.add("Treat a natural 1 attack roll against you as a critical hit.");
                 case 9 -> curses.add("Beneficial spells that target you are hard to cast (DC 15).");

@@ -30,6 +30,15 @@ public class MagicPotionGenerator implements MagicItemGenerator {
     public static void addPotionBenefits(List<String> benefits, int number) {
         final DeckOfCards cards = new DeckOfCards(12);
 
+        String immuneToDamage = "";
+
+        switch (D4.roll()) {
+            case 1 -> immuneToDamage = "Immune 5 rounds to fire.";
+            case 2 -> immuneToDamage = "Immune 5 rounds to cold.";
+            case 3 -> immuneToDamage = "Immune 5 rounds to lightning.";
+            case 4 -> immuneToDamage = "Immune 5 rounds to poison.";
+        }
+
         String healingPotion = "";
 
         switch (D4.roll()) {
@@ -41,7 +50,7 @@ public class MagicPotionGenerator implements MagicItemGenerator {
 
         for (int i = 0; i < number; i++) {
             switch (cards.draw()) {
-                case 1 -> benefits.add("Immune 5 rounds, 1d4: 1. fire, 2. cold, 3. electricity, 4. poison.");
+                case 1 -> benefits.add(immuneToDamage);
                 case 2 -> benefits.add(healingPotion);
                 case 3 -> benefits.add("Read the minds of all creatures within near for 1 hour.");
                 case 4 -> benefits.add("Fly a near distance for 5 rounds.");

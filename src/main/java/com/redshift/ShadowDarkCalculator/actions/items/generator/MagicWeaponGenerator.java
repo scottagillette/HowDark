@@ -62,19 +62,28 @@ public class MagicWeaponGenerator implements MagicItemGenerator {
     public static void addWeaponCurses(List<String> curses, int number) {
         final DeckOfCards cards = new DeckOfCards(12);
 
+        String cantSee = "";
+
+        switch (D4.roll()) {
+            case 1 -> cantSee = "You can't see undead.";
+            case 2 -> cantSee = "You can't see demons.";
+            case 3 -> cantSee = "You can't see snakes.";
+            case 4 -> cantSee = "You can't see spiders.";
+        }
+
         for (int i = 0; i < number; i++) {
             switch (cards.draw()) {
-                case 1 -> curses.add("You can't see 1d4: 1. undead, 2. demons, 3. snakes, 4. spiders.");
+                case 1 -> curses.add(cantSee);
                 case 2 -> curses.add("You are compelled to swallow all gemstones at first sight.");
-                case 3 -> curses.add("Burn a straw doll daily or weapon temporarily loses magic.");
+                case 3 -> curses.add("Burn a straw doll daily or item temporarily loses magic.");
                 case 4 -> curses.add("Any light source you hold immediately extinguishes.");
                 case 5 -> curses.add("You must loudly praise a god whenever you see its symbol.");
                 case 6 -> curses.add("Venomous creatures always target you with attacks.");
                 case 7 -> curses.add("You turn into a rat every day at midnight for one hour.");
                 case 8 -> curses.add("Your checks to swim are always extreme (DC 18).");
                 case 9 -> curses.add("You are burned by the touch of gold.");
-                case 10 -> curses.add("Bathe weapon in blood daily or it temporarily loses its magic.");
-                case 11 -> curses.add("You cannot wear armor while wielding this weapon.");
+                case 10 -> curses.add("Bathe item in blood daily or it temporarily loses its magic.");
+                case 11 -> curses.add("You cannot wear armor while wielding this item.");
                 case 12 -> curses.add("Weapon can possess you by winning contested CHA (+2).");
             }
         }
