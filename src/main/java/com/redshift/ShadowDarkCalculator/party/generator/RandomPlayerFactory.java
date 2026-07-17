@@ -61,7 +61,7 @@ public class RandomPlayerFactory {
 
         // Step 4. Select Ancestry to compliment class.
         final AncestrySelector ancestrySelector = new AncestrySelector();
-        final Ancestry playerAncestry =  ancestrySelector.selectAndApplyBonuses(playerClass, bonuses);
+        final Ancestry playerAncestry =  ancestrySelector.select(playerClass, initialStats, bonuses);
 
         // Step 5. Generate random name.
         final String name = NAMES.get(RandomAccess.RANDOM.nextInt(NAMES.size())) + " the " + playerAncestry.getDisplayName();

@@ -22,7 +22,7 @@ public class BardActionBuilder implements ActionBuilder {
 
         final Weapon action;
 
-        if (stats.getStrength() >= stats.getDexterity()) {
+        if (stats.getStrength() > stats.getDexterity()) {
             // STR build.
             action = WeaponBuilder.SPEAR_STR.build()
                     .addAttackRollBonus(bonuses.getMeleeAttackBonus())

@@ -1,12 +1,13 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.monstrosities.Chuul;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.Worg;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.goblinoid.Goblin;
 import com.redshift.ShadowDarkCalculator.fights.FightConfig;
 import com.redshift.ShadowDarkCalculator.fights.FightConfigLoader;
 import com.redshift.ShadowDarkCalculator.fights.FightResult;
 import com.redshift.ShadowDarkCalculator.fights.FightSimulator;
 import com.redshift.ShadowDarkCalculator.encounter.EncounterSimulator;
-import com.redshift.ShadowDarkCalculator.party.LostCitadelPartyYamlBuilder;
+import com.redshift.ShadowDarkCalculator.party.RandomLevel1PartyBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Path;
@@ -42,11 +43,11 @@ public class HowDark {
 //                    new TheCrabCrushersBuilder().build(),
 //                    new DiableriePartyBuilder().build(),
 //                    new LostCitadelPartyBuilder().build(),
-                    new LostCitadelPartyYamlBuilder().build(),
-//                    new RandomLevel1PartyBuilder().build(),
+//                    new LostCitadelPartyYamlBuilder().build(),
+                    new RandomLevel1PartyBuilder().build(),
 //                    new RandomLevel1PartyBuilder(4, 8066571980744823443L).build(),
 
-                    List.of(new Chuul("Chuul"))
+//                    List.of(new Chuul("Chuul"))
 //                    List.of(new Azer("Azer 1"), new Azer("Azer 2"))
 //                    List.of(new AnimatedArmor("Animated Plate Armor"), new AnimatedArmor("Animated Chain Armor"))
 //                    List.of(new Thief("Thief 1"), new Thief("Thief 2"), new Thief("Thief 3"))
@@ -66,10 +67,10 @@ public class HowDark {
 //                            new Cyclops("'Bone Crusher' the Cyclops")
 //                    )
 //                    List.of(new Bulette("Bulette"))
-//                    List.of(
-//                            new Worg("Worg 1"), new Goblin("Goblin 1"),
-//                            new Worg("Worg 2"), new Goblin("Goblin 2")
-//                    )
+                    List.of(
+                            new Worg("Worg 1"), new Goblin("Goblin 1"),
+                            new Worg("Worg 2"), new Goblin("Goblin 2")
+                    )
 //                    List.of(
 //                            new GiantCentipede("Giant Centipede"),
 //                            new GiantCentipede("Giant Centipede"),

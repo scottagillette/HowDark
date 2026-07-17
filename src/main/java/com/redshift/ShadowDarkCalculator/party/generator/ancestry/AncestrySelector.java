@@ -1,5 +1,6 @@
 package com.redshift.ShadowDarkCalculator.party.generator.ancestry;
 
+import com.redshift.ShadowDarkCalculator.creatures.Stats;
 import com.redshift.ShadowDarkCalculator.creatures.players.Ancestry;
 import com.redshift.ShadowDarkCalculator.creatures.players.PlayerClass;
 import com.redshift.ShadowDarkCalculator.dice.Dice;
@@ -29,32 +30,55 @@ public class AncestrySelector {
      * Given a specified class, select an ancestry and apply any bonuses.
      */
 
-    public Ancestry selectAndApplyBonuses(PlayerClass playerClass, Bonuses bonuses) {
+    public Ancestry select(PlayerClass playerClass, Stats stats, Bonuses bonuses) {
         final List<Ancestry> possibleAncestries;
+
+        // Dwarf - ADV on hp rolls.
+        // Elf - +1 to range or spell rolls
+        // Goblin - No surprise
+        // Half-Elf - TODO: Roll 2 on talent roll, choose one
+        // Half-Orc - +1 to melee and damage rolls.
+        // Halfling - Once per day turn invisible for 3 rounds
+        // Human - 2 Talent rolls
+        // Kobold - Luck token each session or +1 spell casting
 
         switch (playerClass) {
             case BARD: {
-                // No Kobolds (Bards already have luck tokens and are not spell casters)
-                possibleAncestries = List.of(
-                        Ancestry.DWARF,
-                        Ancestry.ELF,
-                        Ancestry.GOBLIN,
-                        Ancestry.HALF_ELF,
-                        Ancestry.HALF_ORC,
-                        Ancestry.HALFLING,
-                        Ancestry.HUMAN
-                );
+                if (stats.getStrength() > stats.getDexterity()) {
+                    possibleAncestries = List.of(
+                            Ancestry.DWARF,
+                            // Ancestry.ELF, // No range or spell rolls
+                            Ancestry.GOBLIN,
+                            Ancestry.HALF_ELF,
+                            Ancestry.HALF_ORC,
+                            Ancestry.HALFLING,
+                            Ancestry.HUMAN
+                            //Ancestry.KOBOLD // No Kobolds (Bards already have luck tokens and are not spell casters)
+                    );
+                } else {
+                    possibleAncestries = List.of(
+                            Ancestry.DWARF,
+                            Ancestry.ELF,
+                            Ancestry.GOBLIN,
+                            Ancestry.HALF_ELF,
+                            //Ancestry.HALF_ORC, // Prefer ranged and not melee?
+                            Ancestry.HALFLING,
+                            Ancestry.HUMAN
+                            //Ancestry.KOBOLD // No Kobolds (Bards already have luck tokens and are not spell casters)
+                    );
+                }
                 break;
             }
             case FIGHTER, PALADIN: {
-                // No Elf or Kobold (not ranged or spell caster)
                 possibleAncestries = List.of(
                         Ancestry.DWARF,
+                        // Ancestry.ELF, // No range or spell rolls
                         Ancestry.GOBLIN,
                         Ancestry.HALF_ELF,
                         Ancestry.HALF_ORC,
                         Ancestry.HALFLING,
                         Ancestry.HUMAN
+                        //Ancestry.KOBOLD // No Kobolds (Bards already have luck tokens and are not spell casters)
                 );
                 break;
             }
@@ -73,7 +97,6 @@ public class AncestrySelector {
                 break;
             }
             case RANGER, THIEF: {
-                // No Kobolds for Ranger or Thief
                 possibleAncestries = List.of(
                         Ancestry.DWARF,
                         Ancestry.ELF,
@@ -82,6 +105,7 @@ public class AncestrySelector {
                         Ancestry.HALF_ORC,
                         Ancestry.HALFLING,
                         Ancestry.HUMAN
+                        //Ancestry.KOBOLD // No Kobolds
                 );
                 break;
             }
@@ -110,4 +134,5 @@ public class AncestrySelector {
 
         return selectedAncestry;
     }
+
 }
