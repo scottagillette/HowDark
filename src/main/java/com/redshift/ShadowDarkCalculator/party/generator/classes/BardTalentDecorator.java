@@ -26,6 +26,7 @@ public class BardTalentDecorator implements TalentDecorator {
          */
 
         // TODO: Figure out ADV on talent rolls.
+        // TODO: Make a magic wand sometimes?
 
         // First talent roll
         rollAndApplyTalent(stats, bonuses);

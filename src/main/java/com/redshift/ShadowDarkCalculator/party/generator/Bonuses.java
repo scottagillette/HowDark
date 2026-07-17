@@ -8,6 +8,7 @@ public class Bonuses {
     private boolean damageDiceD12;
 
     private boolean twoHandsFree = false;
+
     private boolean luckToken = false;
 
     private int strengthBonus;
@@ -33,7 +34,14 @@ public class Bonuses {
     private int extraSpellChoice;
 
     private boolean advantageOnTalentRoll = false;
+
     private int talentRolls = 1;
+
+    private boolean magicWand = false;
+
+    public void addMagicWand() {
+        this.magicWand = true;
+    }
 
     public void addDamageDiceD12() {
         this.damageDiceD12 = true;
