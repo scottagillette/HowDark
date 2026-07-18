@@ -34,10 +34,7 @@ public class FighterTalentDecorator implements TalentDecorator {
 
         // TODO: Figure out ADV on talent rolls.
 
-        // First talent roll
-        rollAndApplyTalent(stats, bonuses);
-
-        if (bonuses.getTalentRolls() == 2) {
+        for (int i = 0; i < bonuses.getTalentRolls(); i++) {
             rollAndApplyTalent(stats, bonuses);
         }
     }
@@ -46,7 +43,9 @@ public class FighterTalentDecorator implements TalentDecorator {
         final Dice dice = new MultipleDice(D6, D6);
         int rollOutcome = dice.roll();
 
-        if (rollOutcome >= 3 && rollOutcome <= 6) {
+        if (rollOutcome == 2) {
+            // 2 Gain Weapon Mastery with one additional weapon type
+        } else if (rollOutcome >= 3 && rollOutcome <= 6) {
             // 3-6 +1 to melee and ranged attacks
             bonuses.addMeleeAttackBonus();
             bonuses.addRangedAttackBomus();
@@ -63,8 +62,6 @@ public class FighterTalentDecorator implements TalentDecorator {
         } else if (rollOutcome >= 10 && rollOutcome <= 11) {
             // 10-11 Choose one kind of armor. You get +1 AC from that armor
             bonuses.addArmorClassBonus();
-        } else {
-            // 2 Gain Weapon Mastery with one additional weapon type
         }
     }
 

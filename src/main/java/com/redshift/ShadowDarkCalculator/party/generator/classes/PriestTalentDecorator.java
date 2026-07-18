@@ -27,13 +27,9 @@ public class PriestTalentDecorator implements TalentDecorator {
 
         // TODO: Figure out ADV on talent rolls.
 
-        // First talent roll
-        rollAndApplyTalent(stats, bonuses);
-
-        if (bonuses.getTalentRolls() == 2) {
+        for (int i = 0; i < bonuses.getTalentRolls(); i++) {
             rollAndApplyTalent(stats, bonuses);
         }
-
     }
 
     private void rollAndApplyTalent(Stats stats, Bonuses bonuses) {
@@ -53,9 +49,8 @@ public class PriestTalentDecorator implements TalentDecorator {
         } else if (rollOutcome >= 7 && rollOutcome <= 9) {
             // 7-9 +1 to priest spellcasting checks
             bonuses.addSpellCastingBonus();
-        } else if (rollOutcome >= 10 && rollOutcome <= 12) {
+        } else if (rollOutcome >= 10 && rollOutcome <= 11) {
             // 10-11 +2 to Strength or Wisdom stat
-            // 12 Choose a talent or +2 points to distribute
             if (stats.getWisdom() >= 18) {
                 bonuses.addStrengthBonus();
                 bonuses.addStrengthBonus();
@@ -63,6 +58,9 @@ public class PriestTalentDecorator implements TalentDecorator {
                 bonuses.addWisdomBonus();
                 bonuses.addWisdomBonus();
             }
+        } else if (rollOutcome == 12) {
+            // 12 Choose a talent or +2 points to distribute
+            bonuses.addSpellAdvantage(); // Seems really good.
         }
     }
 

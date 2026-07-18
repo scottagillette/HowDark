@@ -29,10 +29,7 @@ public class RangerTalentDecorator implements TalentDecorator {
 
         // TODO: Figure out ADV on talent rolls.
 
-        // First talent roll
-        rollAndApplyTalent(stats, bonuses);
-
-        if (bonuses.getTalentRolls() == 2) {
+        for (int i = 0; i < bonuses.getTalentRolls(); i++) {
             rollAndApplyTalent(stats, bonuses);
         }
     }
@@ -41,18 +38,18 @@ public class RangerTalentDecorator implements TalentDecorator {
         final Dice dice = new MultipleDice(D6, D6);
         int rollOutcome = dice.roll();
 
-        if (rollOutcome >= 3 && rollOutcome <= 6) {
+        if (rollOutcome == 2) {
+            // 2 You deal d12 damage with one weapon type you choose
+            bonuses.addDamageDiceD12();
+        } else if (rollOutcome >= 3 && rollOutcome <= 6) {
             // 3-6 +1 to melee or ranged attacks and damage
             if (stats.getStrength() > stats.getDexterity()) {
                 bonuses.addMeleeAttackBonus();
             } else {
                 bonuses.addRangedAttackBomus();
             }
-
-        } else if ((rollOutcome >= 7 && rollOutcome <= 9) || rollOutcome == 12) {
+        } else if (rollOutcome >= 7 && rollOutcome <= 9) {
             // 7-9 +2 to Strength, Dexterity, or Intelligence stat
-            // 12 Choose a talent or +2 points to distribute to stats
-
             if (stats.getStrength() > stats.getDexterity()) {
                 if (stats.getStrength() > stats.getIntelligence()) {
                     bonuses.addIntelligenceBonus();
@@ -68,9 +65,9 @@ public class RangerTalentDecorator implements TalentDecorator {
         } else if (rollOutcome >= 10 && rollOutcome <= 11) {
             // 10-11 You gain ADV on Herbalism checks for a remedy you choose
             bonuses.addSpellAdvantage(); // See action builder for Curative
-        } else {
-            // 2 You deal d12 damage with one weapon type you choose
-            bonuses.addDamageDiceD12();
+        } else if (rollOutcome == 12) {
+            // 12 Choose a talent or +2 points to distribute to stats
+            bonuses.addDamageDiceD12(); // Seems the best!
         }
     }
 

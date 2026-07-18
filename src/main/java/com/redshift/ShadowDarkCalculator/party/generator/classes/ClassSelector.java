@@ -108,7 +108,6 @@ public class ClassSelector {
         }
         if (stats.getCharisma() > highestStat) {
             highestStatType = StatType.CHARISMA;
-            highestStat = stats.getCharisma();
         }
 
         if (highestStatType == null) throw new IllegalStateException("Stat type not found!");

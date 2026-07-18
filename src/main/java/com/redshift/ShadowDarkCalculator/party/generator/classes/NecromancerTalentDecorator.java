@@ -29,19 +29,20 @@ public class NecromancerTalentDecorator implements TalentDecorator {
         // TODO: Figure out ADV on talent rolls.
 
         // First talent roll
-        rollAndApplyTalent(stats, bonuses);
-
-        if (bonuses.getTalentRolls() == 2) {
+        for (int i = 0; i < bonuses.getTalentRolls(); i++) {
             rollAndApplyTalent(stats, bonuses);
         }
-
     }
 
     private void rollAndApplyTalent(Stats stats, Bonuses bonuses) {
         final Dice dice = new MultipleDice(D6, D6);
         int rollOutcome = dice.roll();
 
-        if (rollOutcome >= 3 && rollOutcome <= 7) {
+        if (rollOutcome == 2) {
+            // 2 The next time you die, you may return to life with full HP
+            // TODO: Implement this feature.
+            rollAndApplyTalent(stats, bonuses); // Re-roll for now.
+        } else if (rollOutcome >= 3 && rollOutcome <= 7) {
             // 3-7 +1 to your spellcasting checks or +1 to melee attacks
             int result = SingleDie.D2.roll();
             if (result == 1) {
@@ -49,9 +50,8 @@ public class NecromancerTalentDecorator implements TalentDecorator {
             } else {
                 bonuses.addMeleeAttackBonus();
             }
-        } else if ((rollOutcome >= 8 && rollOutcome <= 9) || rollOutcome == 12) {
+        } else if (rollOutcome >= 8 && rollOutcome <= 9) {
             // 8-9 +2 to Strength, Constitution, or Charisma stat
-            // 12 Choose a talent or +2 points to distribute to stats
             if (stats.getCharisma() > stats.getStrength()) {
                 bonuses.addStrengthBonus();
                 bonuses.addStrengthBonus();
@@ -62,9 +62,9 @@ public class NecromancerTalentDecorator implements TalentDecorator {
         } else if (rollOutcome >= 10 && rollOutcome <= 11) {
             // 10-11 Gain advantage on casting one spell you know
             bonuses.addSpellAdvantage();
-        } else {
-            // 2 The next time you die, you may return to life with full HP
-            // TODO: Implement this feature.
+        } else if (rollOutcome == 12) {
+            // 12 Choose a talent or +2 points to distribute to stats
+            bonuses.addSpellAdvantage(); // Seems really good!
         }
     }
 }

@@ -28,13 +28,9 @@ public class BardTalentDecorator implements TalentDecorator {
         // TODO: Figure out ADV on talent rolls.
         // TODO: Make a magic wand sometimes?
 
-        // First talent roll
-        rollAndApplyTalent(stats, bonuses);
-
-        if (bonuses.getTalentRolls() == 2) {
+        for (int i = 0; i < bonuses.getTalentRolls(); i++) {
             rollAndApplyTalent(stats, bonuses);
         }
-
     }
 
     private void rollAndApplyTalent(Stats stats, Bonuses bonuses) {

@@ -27,10 +27,7 @@ public class PaladinTalentDecorator implements TalentDecorator {
 
         // TODO: Figure out ADV on talent rolls.
 
-        // First talent roll
-        rollAndApplyTalent(stats, bonuses);
-
-        if (bonuses.getTalentRolls() == 2) {
+        for (int i = 0; i < bonuses.getTalentRolls(); i++) {
             rollAndApplyTalent(stats, bonuses);
         }
     }
@@ -39,13 +36,15 @@ public class PaladinTalentDecorator implements TalentDecorator {
         final Dice dice = new MultipleDice(D6, D6);
         int rollOutcome = dice.roll();
 
-        if (rollOutcome >= 3 && rollOutcome <= 6) {
+        if (rollOutcome == 2) {
+            // TODO: 2 Your Named Blade gains a random magic weapon benefit
+            rollAndApplyTalent(stats, bonuses); // Re-roll for now.
+        } else if (rollOutcome >= 3 && rollOutcome <= 6) {
             // 3-6 Gain +1 to attacks and damage with your Named Blade
             bonuses.addMeleeAttackBonus();
             bonuses.addMeleeDamageBonus();
-        } else if ((rollOutcome >= 7 && rollOutcome <= 9) || rollOutcome == 12) {
+        } else if (rollOutcome >= 7 && rollOutcome <= 9) {
             // 7-9 +2 to Strength, Constitution, or Charisma stat
-            // 12 Choose a talent or +2 points to distribute to stats
             if (stats.getStrength() >= 18) {
                 bonuses.addDexterityBonus();
                 bonuses.addDexterityBonus();
@@ -55,8 +54,11 @@ public class PaladinTalentDecorator implements TalentDecorator {
             }
         } else if (rollOutcome >= 10 && rollOutcome <= 11) {
             // TODO: 10-11 Increase your Inspiring Presence dying roll range by 1
-        } else {
-            // TODO: 2 Your Named Blade gains a random magic weapon benefit
+            rollAndApplyTalent(stats, bonuses); // Re-roll for now.
+        } else if (rollOutcome == 12) {
+            // 12 Choose a talent or +2 points to distribute to stats
+            bonuses.addMeleeAttackBonus(); // Choose one of the better talents.
+            bonuses.addMeleeDamageBonus();
         }
     }
 

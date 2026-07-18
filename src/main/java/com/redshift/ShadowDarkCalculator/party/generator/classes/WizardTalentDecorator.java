@@ -25,13 +25,9 @@ public class WizardTalentDecorator implements TalentDecorator {
 
         // TODO: Figure out ADV on talent rolls.
 
-        // First talent roll
-        rollAndApplyTalent(stats, bonuses);
-
-        if (bonuses.getTalentRolls() == 2) {
+        for (int i = 0; i < bonuses.getTalentRolls(); i++) {
             rollAndApplyTalent(stats, bonuses);
         }
-
     }
 
     private void rollAndApplyTalent(Stats stats, Bonuses bonuses) {
@@ -40,7 +36,7 @@ public class WizardTalentDecorator implements TalentDecorator {
 
         if (rollOutcome == 2) {
             // TODO: 2 Make 1 random magic item of a type you choose (pg. 282)
-
+            rollAndApplyTalent(stats, bonuses); // For now just re-roll.
         } else if (rollOutcome >= 3 && rollOutcome <= 7) {
             // 3-7 +2 to Intelligence stat or +1 to wizard spellcasting checks
             bonuses.addIntelligenceBonus();

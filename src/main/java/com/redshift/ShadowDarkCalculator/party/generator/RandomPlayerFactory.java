@@ -179,6 +179,9 @@ public class RandomPlayerFactory {
             }
         }
 
+        // Some talents add to armor class (See Fighter for example).
+        armorClass = armorClass + bonuses.getArmorClassBonus();
+
         return armorClass;
     }
 
