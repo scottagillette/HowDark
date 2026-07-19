@@ -1,6 +1,6 @@
 package com.redshift.ShadowDarkCalculator;
 
-import com.redshift.ShadowDarkCalculator.creatures.monsters.beasts.GiantFrog;
+import com.redshift.ShadowDarkCalculator.creatures.monsters.monstrosities.Gargoyle;
 import com.redshift.ShadowDarkCalculator.fights.FightConfig;
 import com.redshift.ShadowDarkCalculator.fights.FightConfigLoader;
 import com.redshift.ShadowDarkCalculator.fights.FightResult;
@@ -46,7 +46,8 @@ public class HowDark {
 //                    new RandomLevel1PartyBuilder().build(),
 //                    new RandomLevel1PartyBuilder(4, 8066571980744823443L).build(),
 
-                    List.of(new GiantFrog("Giant Frog 1"), new GiantFrog("Giant Frog 2"), new GiantFrog("Giant Frog 3"))
+                    List.of(new Gargoyle("Gargoyle"))
+//                    List.of(new GiantFrog("Giant Frog 1"), new GiantFrog("Giant Frog 2"), new GiantFrog("Giant Frog 3"))
 //                    List.of(new Chuul("Chuul"))
 //                    List.of(new Azer("Azer 1"), new Azer("Azer 2"))
 //                    List.of(new AnimatedArmor("Animated Plate Armor"), new AnimatedArmor("Animated Chain Armor"))
